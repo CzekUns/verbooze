@@ -1,0 +1,581 @@
+<!doctype html>
+<html lang="it"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<link rel="icon" href="data:,"><meta name="theme-color" content="#172521"><meta name="description" content="GTA Melito 0.7: esplora la Melito reale in un arcade dall’alto con palazzi storici, tetti originali, personaggi pixel art e negozi geolocalizzati.">
+<title>GTA Melito · Uns Arcade</title>
+<style>
+:root{color-scheme:dark;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;background:#101916;color:#f6ebce}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;overflow-x:hidden}button,a{font:inherit;-webkit-tap-highlight-color:transparent}
+button{cursor:pointer}a{color:#eec97d}button:focus-visible,a:focus-visible{outline:3px solid #ffc66a;outline-offset:2px}
+.app{width:min(100%,1500px);margin:auto;padding:12px 16px 18px}
+.header{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:10px}
+.header h1{font-size:clamp(18px,3vw,29px);font-weight:1000;letter-spacing:.06em;margin:0;color:#f8ce6f;text-shadow:2px 2px #55372c}
+.header small{display:block;color:#b5bda8;font-size:10px;letter-spacing:.15em;margin-top:4px}
+.back{padding:8px 10px;border:1px solid #778674;background:#24362f;color:#e9ebd6;text-decoration:none;font-size:11px}
+.hud{background:#23352c;border:2px solid #70816a;border-bottom:0;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:9px 12px;font-size:12px}
+.hud b{color:#f5ce6f}#place{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:45%}
+.stage{position:relative;height:clamp(390px,70vh,750px);background:#23332b;overflow:hidden;border:3px solid #899071;box-shadow:0 12px 32px #0007}
+#world{width:100%;height:100%;display:block;touch-action:none;image-rendering:pixelated}
+#radar{position:absolute;top:12px;right:12px;width:168px;height:142px;background:#0d1e1ad9;border:2px solid #b6b18a;image-rendering:auto;pointer-events:none}
+.coins{position:absolute;top:12px;left:12px;background:#14221fbd;padding:9px 11px;border:1px solid #8b9470;color:#f5cc83;font-size:11px;pointer-events:none;max-width:calc(100% - 200px)}
+#street{display:block;color:#f6efce;margin-top:5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.loading{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;text-align:center;
+ /* Il render del gioco è il fallback; loading-screens.mjs sceglie il file della sessione. */
+ background:#111419 url('./assets/ui/loading-1280x720.png') center/cover no-repeat;background-image:var(--loading-desktop,url('./assets/ui/loading-1280x720.png'));image-rendering:pixelated;padding:24px 24px 5vh;gap:12px;z-index:9}
+.loading[hidden]{display:none}
+.loading[data-screen]:not([data-screen="render"]){image-rendering:auto}
+.loading::before{content:"";position:absolute;inset:0;background:linear-gradient(to bottom,transparent 48%,#0b111950 68%,#090e17e8 100%);pointer-events:none}
+.loading>*{position:relative;z-index:1}
+.loading .loading-scene-title{font-size:12px;line-height:1.2;color:#f7e6bd;text-transform:uppercase;letter-spacing:.08em;font-weight:bold}
+.loading h2{font-size:clamp(20px,4vw,38px);color:#f5ce6f;margin:0;text-shadow:0 2px 0 #000,0 0 14px #000,0 0 4px #000c}
+.loading p{max-width:550px;line-height:1.7;color:#e4e8dc;font-size:13px;margin:0;text-shadow:0 1px 0 #000,0 0 8px #000,0 0 3px #000c}
+.loading-bar{width:min(420px,72%);height:10px;border:2px solid #fff0b4;background:#1a1d22e6;box-shadow:2px 3px #000c;overflow:hidden;flex:none}
+.loading-bar::before{content:"";display:block;width:var(--loading-progress,0%);height:100%;background:#ff1685;transition:width .12s linear}
+.loading-progress{display:flex;align-items:center;gap:10px;width:min(96%,1100px);flex:none;color:#fff;font:italic 700 clamp(10px,1.7vw,18px) system-ui,sans-serif}
+.loading-progress .loading-bar{width:auto;flex:1;border:1px solid #fff;border-radius:10px;box-shadow:none;height:clamp(8px,1.4vh,14px);background:#1a1a1a}
+.loading[data-screen="gam"]{background-color:#000;background-size:contain;background-position:center;background-origin:content-box;padding:0 0 40px;gap:0}
+.loading[data-screen="gam"]::before{background:none}
+.loading[data-screen="gam"] .loading-progress{position:absolute;bottom:10px;left:2%;width:96%}
+.loading[data-screen="gam"]:not([data-error="true"]) h2,.loading[data-screen="gam"]:not([data-error="true"]) p{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+.loading[data-screen="gam"][data-error="true"]::before{background:#000a}
+.loading[data-screen="gam"][data-error="true"] .loading-progress,.loading[data-preview="true"] .loading-progress{display:none}
+.loading[data-screen="gam"] #retry,.loading[data-screen="gam"] #loading-preview-close{margin-bottom:8px}
+@media(prefers-reduced-motion:reduce){.loading-bar::before{transition:none}}
+@media(max-width:680px),(max-height:480px){
+ .loading{background-image:url('./assets/ui/loading-844x390.png');background-image:var(--loading-mobile,url('./assets/ui/loading-844x390.png'));gap:4px;padding:8px 10px 3vh}
+ .loading .loading-scene-title{font-size:10px;letter-spacing:.03em}
+ .loading h2{font-size:18px}.loading p{font-size:11px;line-height:1.2;max-width:min(550px,86vw)}
+ .loading-bar{height:8px;width:min(320px,60%)}}
+.loading button,.control-action{background:#ecd081;color:#25332b;font-weight:1000;border:2px solid #fff0b4;padding:12px 20px;box-shadow:2px 3px #6e613c}
+.controls{display:flex;align-items:center;justify-content:space-between;gap:15px;padding-top:12px;flex-wrap:wrap}
+.dpad{display:grid;grid-template-columns:repeat(3,56px);grid-template-rows:repeat(2,52px);gap:5px}
+.dpad button{background:#354b3e;color:#fff2d3;border:2px solid #8e9d79;font-size:24px;font-weight:bold;touch-action:none}
+.dpad button[data-dir="up"]{grid-column:2;grid-row:1}
+.dpad button[data-dir="left"]{grid-column:1;grid-row:2}
+.dpad button[data-dir="down"]{grid-column:2;grid-row:2}
+.dpad button[data-dir="right"]{grid-column:3;grid-row:2}
+.dpad button:active,.dpad button.pressed{background:#e5bd66;color:#1b3029}
+.buttons{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.buttons button{min-height:48px;touch-action:none}
+.buttons button.pressed{background:#f5cc74;color:#1a2922}
+#brake{background:#5c3f38;color:#fff4d4;border:2px solid #bd8c79;font-weight:900}
+#sprint{background:#345452;color:#fff4d4;border:2px solid #67908d;font-weight:900}
+#brake,#sprint,#pass{padding:10px 11px;min-width:67px}
+.mini{padding:11px 12px;background:#263b35;border:1px solid #81937b;color:#f2e0b9;font-weight:bold}
+.instructions{color:#adbbaa;font-size:11px;line-height:1.6;margin:12px 0 0}
+.credits{display:flex;flex-wrap:wrap;gap:8px 22px;justify-content:space-between;color:#a4b5a6;font-size:10px;margin-top:12px;border-top:1px solid #526353;padding-top:10px}
+.credits a{color:#e4c683}
+@media(max-width:680px){
+html,body{touch-action:none;overscroll-behavior:none}
+.app{padding:5px 5px 12px}.header{padding:4px 6px}.header h1{font-size:20px}
+.stage{height:min(64dvh,650px);min-height:360px}
+#radar{width:104px;height:94px;top:6px;right:6px}.coins{top:6px;left:6px;max-width:calc(100% - 123px);font-size:9px;padding:6px}
+.hud{font-size:10px;padding:7px;gap:5px}
+.dpad{grid-template-columns:repeat(3,47px);grid-template-rows:repeat(2,49px);gap:3px}
+.controls{gap:4px;padding:8px 3px 0}.buttons{gap:5px}.buttons button{min-height:40px}
+.control-action{padding:9px 10px}.mini{padding:9px 8px}#brake,#sprint{padding:9px 7px;min-width:57px;font-size:10px}.instructions{font-size:10px;margin:8px 4px}
+}
+
+[hidden]{display:none!important}
+.missions{position:absolute;left:10px;bottom:10px;width:min(335px,calc(100% - 20px));background:#101d1bde;color:#fff1d3;
+ border:2px solid #c2ab72;box-shadow:5px 5px #09140fa6;padding:12px 13px;z-index:2;pointer-events:auto;backdrop-filter:blur(4px)}
+.m-head{display:flex;align-items:center;justify-content:space-between;gap:10px;color:#ead091;font-size:11px;font-weight:bold}
+.m-label{color:#a6b99f;font-size:9px;letter-spacing:.14em}
+.missions h2{margin:6px 0 3px;font-size:15px;line-height:1.1;color:#f5cb79}
+.missions p{margin:6px 0;color:#c7d4bc;font-size:10px;line-height:1.45}
+.m-destination{font-size:11px;font-weight:900;color:#fff5cc;margin:7px 0 4px;line-height:1.45}
+.m-status{display:flex;gap:12px;justify-content:space-between;align-items:center;font-size:10px;color:#f8d787}
+.m-hint{min-height:0;color:#ffa78a;font-size:10px;font-weight:bold}
+.m-actions{display:flex;gap:5px;margin-top:9px;align-items:center}
+.m-actions button{border:1px solid #c7b687;min-height:35px;background:#e0bc75;color:#182b22;font-size:10px;font-weight:900;flex:1;padding:4px}
+.m-actions button:last-child{flex:0 0 30%;background:#243a31;color:#ecd8b0;border-color:#678674;font-size:9px}
+.m-actions button:disabled{opacity:.65;cursor:default}
+.waypoint{position:absolute;top:70px;left:50%;transform:translateX(-50%);background:#1b302bdb;
+ border:1px solid #e7c585;color:#ffe4a7;font-size:11px;font-weight:1000;padding:6px 10px;max-width:55%;
+ overflow:hidden;text-overflow:ellipsis;white-space:nowrap;text-align:center;z-index:1;pointer-events:none}
+.dialog{position:absolute;z-index:5;left:50%;top:50%;transform:translate(-50%,-50%);
+ width:min(430px,calc(100% - 20px));background:#122821f5;border:4px double #f4d797;box-shadow:0 8px 45px #000c;
+ padding:15px 18px;color:#f6e9cb}
+.dialog .name{font-size:11px;color:#f4a972;font-weight:bold;letter-spacing:.1em}
+.dialog h2{font-size:20px;color:#ffde9b;margin:8px 0 12px}
+.dialog p{white-space:pre-line;font-size:13px;line-height:1.6;min-height:45px;color:#f6f2e5}
+.dialog button{display:block;margin:16px 0 0 auto;background:#f2d28a;color:#152a21;padding:9px 23px;border:2px solid #ffe7b2;font-weight:900}
+/* Q06: negozio, stesso riquadro dei dialoghi. */
+.shop .shop-balance{min-height:0;margin:0 0 8px;font-weight:900;color:#ffe4a7;letter-spacing:.06em}
+.shop .shop-offers button{display:flex;justify-content:space-between;gap:12px;width:100%;margin:6px 0 0;padding:9px 12px;text-align:left;background:#1d3a30;color:#f6e9cb;border:2px solid #6f8f74;font-weight:900}
+.shop .shop-offers button.poor{opacity:.62;border-style:dashed}
+.shop .shop-offers button:focus-visible,.shop .shop-offers button:hover{border-color:#f4d797}
+.shop .shop-feedback{min-height:20px;margin:8px 0 0;font-size:12px;color:#c9e7c1}
+.shop .shop-feedback.err{color:#ffb39a}
+.rider-panel{max-height:calc(100% - 24px);overflow:auto}
+.rider-panel h3{margin:10px 0 2px;font-size:12px;color:#ffd640;letter-spacing:.06em}
+.rider-panel p{margin:3px 0;font-size:12px;min-height:0}
+.rider-panel .rider-status{color:#ffb39a;font-weight:900}.rider-panel .rider-status.ok{color:#c9e7c1}
+.rider-panel .rider-offer,.rider-panel .rider-refresh,.rider-panel .rider-cancel{display:block;width:100%;margin:6px 0 0;padding:8px 10px;text-align:left;background:#1d3a30;color:#f6e9cb;border:2px solid #6f8f74;font-weight:900;font-size:11px}
+.rider-panel .rider-offer.poor{opacity:.62;border-style:dashed}.rider-panel .rider-cancel{border-color:#c46a52}
+.rider-panel .rider-offer:hover,.rider-panel .rider-offer:focus-visible{border-color:#ffd640}
+.rider-panel .rider-review{font-size:11px;color:#f1e3bd}.rider-panel .rider-note{font-size:10px;color:#a9b8a2}.rider-panel .rider-feedback{color:#c9e7c1}
+.rider-hud{position:absolute;left:50%;top:44px;transform:translateX(-50%);max-width:min(92vw,520px);padding:5px 10px;background:#141c18e6;border:2px solid #ffd640;color:#ffe9a0;font:900 12px monospace;pointer-events:none;z-index:6;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rider-hud.late{border-color:#e0664d;color:#ffc2ad}
+.shop .shop-note{min-height:0;margin:6px 0 0;font-size:10px;color:#a9b8a2}
+.garage .shop-offers{max-height:52vh;overflow-y:auto}
+.garage .shop-offers .shop-note{margin-top:10px;font-weight:900;color:#f4d797}
+.fullmap{position:absolute;inset:0;z-index:7;background:#0e1d19ed;padding:14px;
+ display:flex;align-items:center;justify-content:center;flex-direction:column;gap:7px}
+.fullmap h2{color:#f5d68e;font-size:16px;letter-spacing:.1em;margin:0}
+.fullmap p{font-size:10px;color:#c4d0bc;margin:0;text-align:center}
+.fullmap canvas{max-width:100%;max-height:calc(100% - 92px);width:auto;height:auto;border:2px solid #738b70;background:#15251e}
+.fullmap button{padding:7px 18px;background:#edcf85;color:#14251c;border:1px solid #fff0ba;font-weight:bold}
+@media(max-width:680px){
+ .missions{left:6px;bottom:5px;padding:8px 10px;width:min(295px,calc(100% - 12px))}
+ .missions h2{font-size:12px;margin:4px 0 2px}
+ .missions p{font-size:9px;margin:3px 0}
+ .m-head,.m-destination,.m-status{font-size:9px}
+ .m-destination{margin:4px 0}
+ .m-actions{margin-top:5px}
+ .m-actions button{min-height:30px}
+ .waypoint{top:45px;font-size:9px;max-width:76%;padding:5px 7px}
+ .dialog h2{font-size:16px}.dialog p{font-size:12px}
+}
+
+/* Mobile touch controls must NEVER select their own labels. Focus-visible retained. */
+.controls, .controls *, .stage, .stage *, .hud, .hud *,
+button, button *, #mission-panel-toggle, .waypoint, .loading {
+ user-select:none;-webkit-user-select:none;-ms-user-select:none;
+ -webkit-touch-callout:none;-webkit-tap-highlight-color:transparent;
+}
+.dpad button, #accelerator, #brake, #reverse, #sprint, #pass, #steering-wheel, #mission-panel-toggle {touch-action:none}
+button {cursor:pointer;appearance:none;-webkit-appearance:none}
+button:focus-visible{outline:3px solid #f5d78a;outline-offset:2px}
+#mission-panel-toggle{position:absolute;bottom:12px;right:12px;z-index:3;
+ background:#18312be9;border:2px solid #f0d18e;color:#ffe3a2;
+ box-shadow:3px 3px #17241cb0;padding:10px 13px;font-size:11px;font-weight:900;letter-spacing:.07em}
+#mission-panel-toggle[aria-expanded="true"]{background:#eacb8b;color:#1d3428}
+.stage{background:#6e796a}
+.stage canvas{image-rendering:pixelated}
+#world{touch-action:none}
+.stage.interior #radar,.stage.interior .coins,.stage.interior #mission-panel-toggle,
+.stage.interior #mission-panel,.stage.interior #waypoint{display:none!important}
+@media(max-width:680px){
+ #mission-panel-toggle{bottom:7px;right:7px;padding:8px 9px;font-size:10px}
+ .missions{width:min(295px,calc(100% - 80px));max-height:70%;overflow-y:auto}
+}
+.road-width-bar{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;
+ padding:7px 12px;background:#283b37;border:1px solid #9b9c80;border-top:0;font-size:11px;line-height:1.3}
+.road-width-bar strong{color:#ffe2ad;margin-right:7px}
+#road-width-current{display:inline-block;background:#f0c878;color:#243629;border:1px solid #e7dda6;
+ padding:5px 9px;font-weight:900;letter-spacing:.03em}
+.road-width-bar small{color:#c6c8b6;margin-left:4px;font-size:10px}
+#road-width-compare{background:#18342f;color:#fce5ad;border:1px solid #f0cd80;padding:8px 11px;
+ font-size:11px;font-weight:900;min-height:34px}
+#road-width-compare[aria-pressed="true"]{background:#855548;color:#fff0d3;border-color:#dd977d}
+@media(max-width:680px){.road-width-bar{padding:6px 8px;gap:5px;font-size:9px}
+ #road-width-compare{font-size:10px;padding:7px 8px}
+ .road-width-bar small{font-size:9px}}
+#camera-mode{color:#ffe0a0;font-weight:900}
+#zoom-auto{background:#1e4745;border:1px solid #82b1a2;color:#e0f4da;font-size:11px;font-weight:900}
+@media(max-width:680px){#camera-mode{display:inline-block;max-width:190px;white-space:nowrap}}
+
+:root{
+ color-scheme:dark;
+ --ink:#14201c;--panel:#1b2a25;--panel-raised:#263931;--line:#71816e;
+ --gold:#efcb79;--cream:#f5ecd3;--muted:#aebaaa;--rust:#9e6554;--teal:#5e8a82;
+ background:#101714;color:var(--cream)
+}
+body{background:radial-gradient(ellipse at 50% -18%,#304337 0,#17231e 48%,#101714 100%)}
+.app{padding-top:16px}
+.header{padding:3px 2px 7px}
+.header h1{color:#f3ce78;text-shadow:2px 2px 0 #543a2e,4px 4px 0 #0a1511;letter-spacing:.09em}
+.header small{color:#b5c0ae}
+.hud{
+ background:linear-gradient(180deg,#2a3c32,#1d2c26);border-color:#819077;
+ box-shadow:inset 0 1px #d5d3a02a,0 3px 0 #0d1713;font-size:11px
+}
+.hud span{padding:2px 0}
+.hud b{color:#f0cd7e}
+.road-width-bar{
+ background:#17251f;border-color:#596c5c;color:#d8d5bb;
+ box-shadow:inset 0 1px #ffffff0b
+}
+.road-width-bar strong{color:#c2cbb7}
+#road-width-current{box-shadow:0 2px #917746;background:#dfc27b;color:#1c2a23}
+.stage{
+ border:3px solid #8d9270;outline:1px solid #35473a;outline-offset:2px;
+ box-shadow:0 14px 34px #0009,inset 0 0 0 1px #f3df9a50
+}
+#world{image-rendering:pixelated}
+#radar{border-color:#d1bd85;box-shadow:0 3px 10px #0009,inset 0 0 0 1px #f6e8bf45}
+.coins{background:#13211edc;border-color:#9b9d78;box-shadow:2px 3px #0c1714b0}
+.controls{padding-top:15px}
+.dpad button,.mini,.control-action,#brake,#sprint,.back,#road-width-compare{
+ box-shadow:0 3px 0 #090f0d8c;transition:filter .12s ease,transform .12s ease,box-shadow .12s ease
+}
+.dpad button:hover,.mini:hover,.control-action:hover,#brake:hover,#sprint:hover,.back:hover,#road-width-compare:hover{filter:brightness(1.13)}
+.dpad button:active,.mini:active,.control-action:active,#brake:active,#sprint:active{
+ transform:translateY(2px);box-shadow:0 1px 0 #090f0d8c
+}
+.control-action{background:linear-gradient(180deg,#f1d98f,#e5c36e);border-color:#fff0b6;color:#263329}
+ .control-action.idle{opacity:.5;filter:saturate(.45)} /* Q15: nothing in reach */
+#brake{background:linear-gradient(180deg,#704b41,#573b35);border-color:#c08b76}
+#sprint{background:linear-gradient(180deg,#3e6861,#31514e);border-color:#81aaa0}
+.mini{background:linear-gradient(180deg,#30483f,#22372f);border-color:#82927a}
+.instructions{color:#bac4b5}
+.credits{border-color:#435849}
+.missions,.dialog,.fullmap{
+ background:linear-gradient(160deg,#1a2a25f5,#101b18f5);border-color:#d0b772;
+ box-shadow:5px 6px #09140fb8,0 0 0 1px #f0dda222
+}
+.missions h2,.fullmap h2,.dialog h2{color:#f2d18a}
+.m-actions button,#dialog-close,#map-close{
+ background:linear-gradient(180deg,#e9d18d,#d8b967);color:#263329;
+ border:1px solid #fff0ba;box-shadow:0 2px #8b7143;font-weight:900
+}
+.waypoint{background:#14251fe8;border-color:#f1d48b;color:#ffe7a8;box-shadow:2px 3px #09130f}
+@media(max-width:680px){
+ .app{padding-top:5px}
+ .stage{outline-offset:1px}
+ .controls{padding-top:10px}
+ .hud{box-shadow:inset 0 1px #d5d3a02a}
+}
+
+/* Immersive mobile driving: left physical steering wheel; right-hand column BRAKE, ACCELERATOR, REVERSE from the top (BF06). */
+.rotate-screen,.touch-stick,.pause-toggle,.pause-menu{display:none}
+.touch-actions{display:flex;align-items:center;gap:8px}
+.pedals{display:none;flex-direction:column;align-items:center;gap:6px}
+.controls.driving .pedals{display:flex}
+.controls.driving #sprint{display:none!important}
+#accelerator{background:linear-gradient(160deg,#3d7a55,#21523a);border:2px solid #9be2a8;color:#f1ffe8;font-weight:1000}
+#brake{background:linear-gradient(160deg,#963f39,#642b2a);border:2px solid #e4a39b;color:#fff1e9;font-weight:1000}
+#reverse{background:linear-gradient(160deg,#75623a,#4c432d);border:2px solid #e3d09f;color:#ffedc2;font-weight:1000}
+.steering-wheel{display:none;position:absolute;z-index:5;left:max(20px,env(safe-area-inset-left));bottom:max(18px,env(safe-area-inset-bottom));width:clamp(118px,24vw,162px);height:clamp(118px,24vw,162px);border-radius:50%;touch-action:none;cursor:grab;align-items:center;justify-content:center;background:#101b18aa;box-shadow:0 5px 18px #0009;user-select:none;-webkit-user-select:none}
+.steering-wheel:active{cursor:grabbing}
+.stage.driving .touch-stick{display:none!important}
+.stage.driving .steering-wheel{display:flex}
+.steering-face{width:100%;height:100%;pointer-events:none;transform-origin:50% 50%;will-change:transform;filter:drop-shadow(0 3px 3px #000b)}
+.steering-face svg{width:100%;height:100%;display:block}
+.steering-wheel::after{content:'STERZO';position:absolute;bottom:-11px;left:50%;transform:translateX(-50%);font-size:9px;font-weight:900;letter-spacing:.13em;color:#f6dea1;text-shadow:1px 1px #112219;pointer-events:none}
+.pause-menu{display:block;position:fixed;inset:0;z-index:8;overflow:auto;background:#09120edb;backdrop-filter:blur(5px);padding:38px 18px}
+.pause-menu[hidden]{display:none}
+.pause-card{width:min(620px,100%);margin:auto;padding:16px;background:linear-gradient(150deg,#25372c,#121e18);border:2px solid #d0b772;box-shadow:5px 6px #050b08;color:#f6ebce}
+/* BF10: audio in pausa — SUONI generale e due volumi separati, stessa grafica dei pulsanti della pausa. */
+.pause-audio{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:10px 0}
+.pause-audio button{background:#30483f;border:1px solid #82927a;color:#f2e0b9;padding:9px 11px;font-size:11px;font-weight:bold;min-height:38px;min-width:38px}
+.pause-volume{display:flex;align-items:center;gap:6px;background:#101b17;border:1px solid #536951;padding:3px 4px 3px 9px}
+.pause-volume-name{font-size:10px;font-weight:bold;letter-spacing:.04em;color:#d5dbc7}
+.pause-volume output{min-width:38px;text-align:center;font-size:11px;font-weight:bold;color:#f2d18a}
+/* BF11: on a PC the page is ONLY the game board, full window; title, status bar, road-width tool,
+ * instructions and credits live in the PAUSE menu (Esc, P or the small Ⅱ button). Phones keep BF06. */
+.pc-prompt,.map-attribution{display:none}
+/* BF13: attribuzione della foto aerea, visibile su PC e telefono solo mentre la sovramappa è accesa. */
+.satellite-attribution{position:absolute;z-index:4;left:50%;top:6px;transform:translateX(-50%);margin:0;max-width:calc(100% - 120px);
+ background:#101b17d9;border:1px solid #c9b47a;color:#f1e3bd;font-size:9px;letter-spacing:.03em;padding:3px 8px;text-align:center;pointer-events:none}
+.satellite-attribution[hidden]{display:none}
+.pause-head{display:flex;align-items:center;justify-content:space-between;gap:10px}.pause-head h2{font-size:18px;margin:0;color:#f2d18a}
+.pause-close{background:#dfc27b;color:#1c2a23;border:1px solid #fff0ba;font-weight:bold;padding:8px 12px}
+.pause-info{font-size:11px;line-height:1.7;color:#c6d0bf;margin:10px 0}
+.pause-shortcuts{display:flex;flex-wrap:wrap;gap:8px}.pause-shortcuts button{background:#30483f;border:1px solid #82927a;color:#f2e0b9;padding:9px 11px;font-size:11px;font-weight:bold;min-height:38px}
+.pause-details{font-size:10px;line-height:1.7;color:#d5dbc7;background:#101b17;border:1px solid #536951;padding:9px;margin:10px 0}
+.pause-section{margin:12px 0 0;padding:10px 0 0;border-top:1px solid #4d6150}
+.pause-section h3{margin:0 0 8px;font-size:10px;letter-spacing:.16em;color:#aebaaa}
+/* BF15: NOVITÀ · DA APPROVARE — elementi grafici provvisori da giudicare, con VAI A VEDERE. */
+.novita-list{display:grid;gap:8px;max-height:46vh;overflow:auto;margin-top:8px;padding-right:2px}
+.novita-item{background:#101b17;border:1px solid #536951;padding:8px 9px}
+.novita-name{font-size:12px;font-weight:bold;color:#f2e0b9}
+.novita-meta{font-size:9px;letter-spacing:.08em;color:#e6c46f;margin:2px 0 4px}
+.novita-what{font-size:10px;line-height:1.6;color:#c6d0bf}
+.novita-actions{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.novita-actions button{background:#30483f;border:1px solid #82927a;color:#f2e0b9;padding:6px 9px;font-size:10px;font-weight:bold;min-height:32px}
+.novita-actions button[aria-pressed=true]{background:#dfc27b;color:#1c2a23;border-color:#fff0ba}
+.novita-actions button:disabled{opacity:.45}
+.novita-off{opacity:.55}
+#novita-export{width:100%;box-sizing:border-box;font:10px/1.5 monospace;background:#0c1512;color:#d5dbc7;border:1px solid #536951;margin:6px 0 0;padding:6px}
+#novita-export[hidden],#novita-back[hidden]{display:none}
+@media(min-width:761px) and (pointer:fine),(min-width:761px) and (pointer:none){
+ html,body{height:100%;overflow:hidden}
+ body{background:#101714}
+ .app{width:100%;max-width:none;height:100vh;height:100dvh;margin:0;padding:0}
+ .stage{height:100vh;height:100dvh;min-height:0;border:0;outline:0;box-shadow:none}
+ .controls{display:block;height:0;margin:0;padding:0;overflow:visible}
+ .controls>*{display:none!important}
+ .pause-toggle{display:flex;position:absolute;z-index:4;top:12px;left:12px;width:36px;height:36px;align-items:center;justify-content:center;
+  border:1px solid #d8c48c;background:#17261eeb;color:#ffdf99;border-radius:50%;font-size:15px;box-shadow:0 3px 8px #0009;opacity:.88}
+ .pause-toggle:hover{opacity:1;filter:brightness(1.12)}
+ .coins{left:58px;max-width:calc(100% - 250px)}
+ .pc-prompt{display:block;position:absolute;z-index:3;left:50%;bottom:26px;transform:translateX(-50%);pointer-events:none;
+  background:#14251fe8;border:1px solid #f1d48b;color:#ffe7a8;font-size:11px;font-weight:1000;letter-spacing:.06em;padding:6px 12px;box-shadow:2px 3px #09130f;white-space:nowrap}
+ .pc-prompt[hidden]{display:none}
+ .map-attribution{display:block;position:absolute;z-index:2;left:50%;bottom:5px;transform:translateX(-50%);margin:0;
+  font-size:9px;color:#d8dccbcc;text-shadow:1px 1px #0b1411;white-space:nowrap}
+ .map-attribution a{color:#eed592cc}
+ .pause-menu{padding:28px 18px}
+ .pause-card{width:min(820px,100%)}
+ .pause-card .header{margin:0 0 8px;padding:0}.pause-card .header h1{font-size:22px}
+ .pause-card .hud{border:1px solid #596c5c;justify-content:flex-start;gap:6px 18px}
+ .pause-card #place{max-width:none}
+ .pause-card .road-width-bar{border:1px solid #596c5c}
+ .pause-card .instructions{margin:0}
+ .pause-card .credits{margin-top:8px}
+ #pause-details,#pause-road-compare{display:none}
+}
+@media(max-width:760px),(pointer:coarse) and (orientation:landscape){
+ html,body{width:100%;height:100%;min-height:100%;overflow:hidden;overscroll-behavior:none}
+ .app{width:100%;height:100dvh;max-width:none;margin:0;padding:0}
+ .header,.hud,.road-width-bar,.instructions,.credits{display:none!important}
+ .pause-section:not(.pause-play){display:none!important}.pause-section{margin:0;padding:0;border:0}.pause-section h3{display:none}
+ .pause-section.pause-novita{display:block!important;margin:10px 0 0;padding:8px 0 0;border-top:1px solid #4d6150}.pause-section.pause-novita h3{display:block}.novita-list{max-height:52vh}
+ .controls{display:block!important;position:static;height:0;padding:0}
+ .controls .buttons,.controls .dpad{display:none!important}
+ .coins{display:none!important}
+ #mission-panel-toggle{display:none!important}
+ #mission-panel-toggle[aria-expanded=true]{display:block!important;top:max(12px,env(safe-area-inset-top));bottom:auto;right:58px;padding:7px 9px;font-size:9px}
+ .stage{height:100dvh;min-height:0;border:0;outline:0;box-shadow:none}
+ #radar{top:max(10px,env(safe-area-inset-top));right:max(10px,env(safe-area-inset-right));width:clamp(92px,19vw,142px);height:clamp(72px,16vw,110px)}
+ .coins{top:max(10px,env(safe-area-inset-top));left:max(58px,calc(env(safe-area-inset-left) + 52px));max-width:32vw;font-size:9px;padding:6px 8px}
+ .touch-stick,.touch-actions,.pause-toggle{display:flex;position:absolute;z-index:4;touch-action:none}
+ .touch-stick{left:max(20px,env(safe-area-inset-left));bottom:max(18px,env(safe-area-inset-bottom));width:clamp(104px,24vw,150px);height:clamp(104px,24vw,150px);border:2px solid #e5d19b8c;border-radius:50%;background:#15241c68;align-items:center;justify-content:center;box-shadow:0 4px 14px #0008}
+ .touch-stick:before{content:"";position:absolute;width:34%;height:34%;border:1px solid #e7d29a44;border-radius:50%}
+ .stick-knob{width:42%;height:42%;border:2px solid #ffe9ae;background:linear-gradient(145deg,#829273,#34483b);border-radius:50%;box-shadow:0 4px 0 #101913b8,0 0 15px #0008;pointer-events:none;transform:translate(0,0)}
+ .touch-actions{position:fixed;right:max(14px,env(safe-area-inset-right));bottom:max(14px,env(safe-area-inset-bottom));align-items:flex-end;gap:clamp(6px,1.5vw,12px)}
+ .touch-actions button{border-radius:50%;width:clamp(56px,13vw,76px);height:clamp(56px,13vw,76px);font-size:9px;line-height:1.15;font-weight:1000;padding:3px;touch-action:none}
+.touch-actions .pedals button{width:clamp(56px,12vw,72px);height:clamp(50px,11vw,64px);font-size:9px;box-shadow:0 4px 0 #101d17,0 7px 12px #0009}
+.touch-actions .pedals #accelerator{border-color:#b6eac1;background:linear-gradient(160deg,#3b8a57,#174c35)}
+.touch-actions .pedals #brake{border-color:#f5b4a0;background:linear-gradient(160deg,#b64e43,#762d2b)}
+.touch-actions .pedals #reverse{border-color:#f1d99f;background:linear-gradient(160deg,#8a733f,#574322)}
+.pedals button.pressed{filter:brightness(1.2);transform:translateY(3px);box-shadow:0 1px 0 #09130f!important}
+ #action{border:2px solid #fff0b4;background:#202825e8;color:#e9d9b8;box-shadow:0 5px 0 #76603b,0 8px 16px #0009}
+ #sprint{border:2px solid #a0c4ac;background:#202825e8;color:#e9d9b8;box-shadow:0 5px 0 #17271f,0 8px 16px #0009}
+ .touch-actions button.pressed{transform:translateY(4px);box-shadow:0 1px #111}
+ .pause-toggle{top:max(12px,env(safe-area-inset-top));left:max(12px,env(safe-area-inset-left));width:38px;height:38px;align-items:center;justify-content:center;border:1px solid #d8c48c;background:#17261eeb;color:#ffdf99;border-radius:50%;font-size:17px;box-shadow:0 3px 8px #0009}
+ .rotate-screen{display:flex;position:fixed;inset:0;z-index:20;background:#101916f5;color:#f6ebce;align-items:center;justify-content:center;text-align:center;padding:28px}
+ .rotate-screen[hidden]{display:none}
+ .rotate-card{max-width:320px}.rotate-icon{font-size:56px;display:block;color:#f2ce7c;animation:turn-phone 1.8s ease-in-out infinite}
+ .rotate-card h2{color:#f3d084;font-size:19px}.rotate-card p{font-size:12px;line-height:1.6;color:#d6dccd}
+ @keyframes turn-phone{0%,20%{transform:rotate(0)}65%,100%{transform:rotate(90deg)}}
+ .pause-menu{display:block;position:absolute;z-index:8;inset:0;background:#09120edb;backdrop-filter:blur(5px);overflow:auto;padding:max(56px,env(safe-area-inset-top)) 18px max(18px,env(safe-area-inset-bottom))}
+ .pause-menu[hidden]{display:none}
+ .pause-card{width:min(620px,100%);margin:auto;padding:16px;background:linear-gradient(150deg,#25372c,#121e18);border:2px solid #d0b772;box-shadow:5px 6px #050b08;color:#f6ebce}
+ .pause-head{display:flex;align-items:center;justify-content:space-between}.pause-head h2{font-size:18px;margin:0;color:#f2d18a}
+ .pause-close{background:#dfc27b;color:#1c2a23;border:1px solid #fff0ba;font-weight:bold;padding:8px 12px}
+ .pause-info{font-size:11px;line-height:1.7;color:#c6d0bf;margin:10px 0}
+ .pause-shortcuts{display:flex;flex-wrap:wrap;gap:8px}.pause-shortcuts button{background:#30483f;border:1px solid #82927a;color:#f2e0b9;padding:9px 11px;font-size:11px;font-weight:bold}
+ .pause-details{font-size:10px;line-height:1.7;color:#d5dbc7;background:#101b17;border:1px solid #536951;padding:9px;margin:10px 0}
+ .pause-shortcuts button{min-height:38px}
+ .pause-menu .missions{position:relative;left:auto;bottom:auto;width:100%;max-width:none;margin-top:10px}
+ .waypoint{top:16px;max-width:40%;right:160px;left:auto;transform:none}
+}
+@media(max-width:760px) and (orientation:landscape),(pointer:coarse) and (orientation:landscape){.rotate-screen{display:none}}
+
+/* Experimental third-party live radio: compact, no overlay above the driving pedals. */
+.car-radio{position:absolute;z-index:4;top:9px;left:50%;transform:translateX(-50%);
+ display:flex;align-items:center;gap:4px;padding:5px 7px;max-width:44%;min-width:240px;
+ border:2px solid #d5bd79;background:#10211def;color:#f5eac7;box-shadow:0 4px 12px #0008}
+.car-radio button,.car-radio a{flex:0 0 auto;min-width:31px;height:31px;padding:4px 6px;
+ display:flex;align-items:center;justify-content:center;border:1px solid #b7ab7a;background:#294237;
+ color:#ffe1a0;text-decoration:none;font-size:11px;font-weight:900;touch-action:manipulation}
+.car-radio button:active{background:#d9be7d;color:#14251e}
+.car-radio #radio-toggle{background:#dbbd76;color:#1e2b22}
+.radio-info{min-width:0;flex:1;text-align:center;line-height:1.25}
+.radio-info strong{display:block;font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.radio-info small{display:block;margin-top:2px;font-size:9px;color:#bdc8b8;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+@media(max-width:760px),(pointer:coarse) and (orientation:landscape){
+ .car-radio{top:max(10px,env(safe-area-inset-top));max-width:none;width:min(315px,49vw);min-width:230px;
+  padding:4px;gap:3px}
+ .car-radio button,.car-radio a{height:28px;min-width:27px;padding:2px;font-size:10px}
+ .radio-info strong{font-size:10px}.radio-info small{font-size:8px}
+}
+/* Q28: slot machine arcade di prova sopra la plancia, pixel art ingrandita senza sfocature. */
+.slot-panel{position:fixed;inset:0;z-index:40;display:flex;align-items:center;justify-content:center;background:#0b0807d9}
+.slot-panel[hidden]{display:none}
+.slot-card{background:#2a1612;border:2px solid #e9b949;box-shadow:0 0 0 4px #1b1410;padding:10px;max-width:min(96vw,640px);max-height:96vh;overflow:auto;text-align:center;color:#f4e6c4}
+#slot-canvas{width:min(92vw,576px,calc((96vh - 150px)*1.5));aspect-ratio:3/2;image-rendering:pixelated;image-rendering:crisp-edges;display:block;margin:0 auto}
+.slot-controls{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin:8px 0}
+.slot-controls button{background:#4a221b;border:1px solid #e9b949;color:#f4e6c4;font-weight:bold;font-size:12px;min-height:44px;min-width:64px;padding:8px 12px}
+.slot-controls .slot-spin{background:#c8322a;font-size:15px;min-width:110px}
+.slot-controls button:disabled{opacity:.45}
+.slot-rules,.slot-note{font-size:10px;margin:4px 0;color:#d8c9a8}.slot-note{color:#9fb59a}
+/* Q29: video poker, stesso cabinato della slot; tasti TIENI per il touch. */
+#poker-canvas{width:min(92vw,576px,calc((96vh - 200px)*1.5));aspect-ratio:3/2;image-rendering:pixelated;image-rendering:crisp-edges;display:block;margin:0 auto;cursor:pointer}
+/* Q31: goriziana, stesso pannello; il tavolo si tocca e si trascina per mirare (niente scroll della pagina). */
+#goriziana-canvas{width:min(92vw,576px,calc((96vh - 230px)*1.5));aspect-ratio:3/2;image-rendering:pixelated;image-rendering:crisp-edges;display:block;margin:0 auto;touch-action:none;cursor:crosshair}
+.poker-holds{margin:6px 0 0}.poker-holds button{min-width:58px;font-size:11px}.poker-holds button[aria-pressed="true"]{background:#9b6b1d;color:#1b1410}
+/* Q30: biliardo, tavolo grande a sinistra e comandi in colonna a destra (anche sul telefono in orizzontale). */
+.slot-card.pool-card{display:flex;align-items:flex-start;gap:10px;max-width:98vw;text-align:left}
+#pool-canvas{height:min(calc(96vh - 24px),calc((98vw - 270px)*.607),540px);width:auto;aspect-ratio:224/136;flex:none;image-rendering:pixelated;image-rendering:crisp-edges;display:block;touch-action:none;cursor:crosshair}
+.pool-side{width:220px;max-height:calc(96vh - 24px);overflow:auto;display:flex;flex-direction:column;gap:6px}
+.pool-title{margin:0;font-size:13px;color:#e9b949;letter-spacing:.06em}.pool-score{margin:0;font-weight:bold;font-size:14px}.pool-msg{margin:0;min-height:30px;font-size:12px;color:#f2d24b}
+.pool-power{height:10px;border:1px solid #e9b949;background:#1b1410}.pool-power span{display:block;height:100%;width:0;background:linear-gradient(90deg,#3f7a3a,#e9b949,#c8322a)}
+.pool-controls{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin:0}.pool-controls button{min-width:0;padding:6px 6px}.pool-controls .slot-spin{grid-column:1/-1;font-size:14px}
+.pool-record{margin:0;font-size:10px;color:#d8c9a8}.pool-side .slot-rules,.pool-side .slot-note{margin:0}
+@media (max-height:500px){.pool-title,.pool-score{display:none}.pool-side .slot-rules,.pool-side .slot-note,.pool-record{font-size:9.5px;line-height:1.25}}
+@media (max-width:640px){.slot-card.pool-card{flex-direction:column;align-items:center}#pool-canvas{width:min(94vw,560px);height:auto}.pool-side{width:auto;max-height:none}}
+
+/* Q33: punteggio sopra la città e due soli comandi aggiuntivi durante la partita. */
+.football-hud{position:absolute;z-index:5;top:8px;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:9px;padding:6px 12px;background:#101e18e8;border:2px solid #d1b979;color:#f8efdb;font-weight:900;font-size:13px;white-space:nowrap;box-shadow:2px 3px #06110ca0}
+.football-hud[hidden],.football-touch[hidden],.football-banner[hidden]{display:none!important}
+.football-hud strong{color:#ffe4a2;font-size:17px}.football-hud .red{color:#f47a6e}.football-hud .blue{color:#88b4ff}
+#football-exit{min-height:36px;margin-left:8px;padding:3px 9px;background:#25382e;color:#ffe8ad;border:1px solid #d1b979;font-weight:900}
+.football-banner{position:absolute;z-index:5;top:20%;left:50%;transform:translateX(-50%);padding:7px 13px;background:#101e18df;color:#ffe14a;border:2px solid #ffe14a;font-size:18px;font-weight:900;white-space:nowrap;pointer-events:none}
+.football-touch{display:none}
+.controls.football #action,.controls.football #sprint{visibility:hidden}
+@media(max-width:900px),(pointer:coarse){
+ .football-touch:not([hidden]){display:flex;position:absolute;z-index:5;right:14px;bottom:26px;gap:10px;align-items:flex-end}
+ .football-touch button{width:68px;height:68px;border-radius:50%;border:2px solid #fff0b4;color:white;font-weight:900;box-shadow:0 3px 8px #0009;touch-action:manipulation}
+ #football-shoot{background:#a43129}#football-pass{background:#275c9b}
+ .football-hud{top:4px;font-size:10px;gap:4px;padding:3px 5px}.football-hud strong{font-size:13px}#football-exit{min-height:32px;margin-left:2px;padding:2px 5px;font-size:9px}
+ .football-banner{top:17%;font-size:14px}
+}
+/* Lotto 15: dialoghi con volto — barra di testo in basso + riquadro del personaggio (PROVVISORIO, da approvare da Simone).
+ * Su PC larga quanto la plancia (meno il bottone MISSIONI); sul telefono in orizzontale sta al centro in basso,
+ * fra la levetta/volante a sinistra e i pulsanti touch a destra, senza coprirli. Il volto è un'illustrazione: image-rendering:auto. */
+.dialogue{position:absolute;z-index:6;left:50%;bottom:18px;transform:translateX(-50%);width:min(960px,calc(100% - 32px));
+ display:flex;align-items:stretch;gap:12px;padding:10px 12px;background:linear-gradient(160deg,#101d19ee,#0b1512f2);
+ border:2px solid #e2c98a;box-shadow:0 0 0 1px #f0dda233,5px 6px #09140fb8,0 8px 30px #000a;color:#f6ebce;cursor:pointer;
+ user-select:none;-webkit-user-select:none;touch-action:manipulation}
+.dialogue[hidden]{display:none}
+.dialogue-portrait{flex:none;width:96px;height:96px;border:2px solid #f0d79a;background:#1b2a25;box-shadow:2px 3px #09140fb8;overflow:hidden}
+.dialogue-portrait img{width:100%;height:100%;object-fit:cover;display:block;image-rendering:auto}
+.dialogue-portrait img[hidden]{display:none}
+.dialogue-body{flex:1;min-width:0;display:flex;flex-direction:column;gap:4px}
+.dialogue-name{font-size:11px;font-weight:1000;letter-spacing:.14em;color:#f4a972;text-transform:uppercase}
+.dialogue-text{flex:1;margin:0;font-size:14px;line-height:1.5;color:#f8f2e2;min-height:3em;white-space:pre-line;text-shadow:1px 1px #000}
+.dialogue-side{flex:none;display:flex;flex-direction:column;align-items:flex-end;justify-content:space-between;gap:6px}
+.dialogue-counter{font-size:9px;letter-spacing:.12em;color:#aebaaa}
+.dialogue-next{background:linear-gradient(180deg,#e9d18d,#d8b967);color:#263329;border:1px solid #fff0ba;box-shadow:0 2px #8b7143;font-weight:900;font-size:11px;padding:9px 14px;min-height:40px;min-width:92px;letter-spacing:.06em}
+.dialogue-next:active{transform:translateY(1px);box-shadow:0 1px #8b7143}
+.stage.dialogue-open .pc-prompt{display:none!important}
+@media(min-width:761px) and (pointer:fine),(min-width:761px) and (pointer:none){.dialogue{width:min(960px,calc(100% - 290px));bottom:22px}}
+@media(max-width:760px),(pointer:coarse) and (orientation:landscape){
+ .dialogue{left:max(184px,calc(env(safe-area-inset-left) + 184px));right:max(192px,calc(env(safe-area-inset-right) + 192px));width:auto;transform:none;bottom:max(14px,env(safe-area-inset-bottom));gap:8px;padding:7px 8px}
+ .dialogue-portrait{width:72px;height:72px}
+ .dialogue-name{font-size:9px}.dialogue-text{font-size:11px;line-height:1.35;min-height:2.7em}
+ .dialogue-next{min-height:34px;min-width:72px;font-size:9px;padding:6px 8px}.dialogue-counter{font-size:8px}
+}
+</style>
+</head><body><main class="app">
+<div class="stage" id="stage">
+ <canvas id="world" aria-label="Mappa giocabile di Melito, muoviti con frecce o WASD" tabindex="0"></canvas>
+ <canvas id="radar" width="168" height="142" aria-label="Minimappa di Melito"></canvas>
+ <div class="coins">MELITO · LIBERA ESPLORAZIONE <span id="street">RETE STRADALE REALE</span></div>
+ <aside class="car-radio" id="car-radio" hidden aria-label="Radio auto, ascolto in diretta di prova">
+  <button id="radio-prev" type="button" aria-label="Radio precedente">◀</button>
+  <button id="radio-toggle" type="button" aria-label="Accendi o spegni radio" aria-pressed="false">▶</button>
+  <div class="radio-info"><strong id="radio-name">RADIO MARTE</strong><small id="radio-status" aria-live="polite">RADIO SPENTA</small></div>
+  <button id="radio-next" type="button" aria-label="Radio successiva">▶▶</button>
+  <a id="radio-official" href="https://www.radiomarte.it/" target="_blank" rel="noopener noreferrer" aria-label="Ascolta sul sito della radio" title="Apri il sito ufficiale della radio">↗</a>
+ </aside>
+ <button class="pause-toggle" id="pause-toggle" type="button" aria-expanded="false" aria-label="Pausa e altre informazioni" title="Pausa · Esc o P">Ⅱ</button>
+ <div id="football-hud" class="football-hud" hidden aria-live="polite"><span class="red">ROSSI</span><strong id="football-score">0 – 0</strong><span class="blue">BLU</span><span id="football-clock">0'</span><button id="football-exit" type="button">ESCI</button></div>
+ <div id="football-banner" class="football-banner" hidden aria-live="polite"></div>
+ <div id="football-touch" class="football-touch" hidden><button id="football-pass" type="button">PASSA</button><button id="football-shoot" type="button">TIRO</button></div>
+ <div class="pc-prompt" id="pc-prompt" hidden aria-live="polite"></div>
+ <p class="map-attribution"><a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noreferrer">© OpenStreetMap</a> · ISTAT · menu PAUSA: Esc / P</p>
+ <p class="satellite-attribution" id="satellite-attribution" hidden>Immagini: Esri, Maxar, Earthstar Geographics e la comunità GIS — Esri World Imagery</p>
+ <div class="touch-stick" id="touch-stick" role="application" aria-label="Levetta analogica: muovi il personaggio a piedi"><div class="stick-knob" id="stick-knob"></div></div>
+ <div class="steering-wheel" id="steering-wheel" role="application" tabindex="0" aria-label="Sterzo: trascina il volante in senso orario o antiorario per girare">
+  <div class="steering-face" id="steering-face" aria-hidden="true">
+   <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="60" cy="60" r="53" fill="#1e2928" stroke="#111a19" stroke-width="8"/>
+    <circle cx="60" cy="60" r="49" fill="#34433d" stroke="#c8c1a8" stroke-width="3"/>
+    <circle cx="60" cy="60" r="41" fill="#20312d" stroke="#101c1c" stroke-width="6"/>
+    <path d="M60 60L18 41M60 60L102 41M60 60L60 103" stroke="#18211f" stroke-width="14" stroke-linecap="round"/>
+    <path d="M60 60L18 41M60 60L102 41M60 60L60 103" stroke="#99a59a" stroke-width="6" stroke-linecap="round"/>
+    <circle cx="60" cy="60" r="16" fill="#151f1e" stroke="#e5d3a3" stroke-width="3"/>
+    <circle cx="60" cy="60" r="11" fill="#354b42"/>
+    <text x="60" y="64" text-anchor="middle" font-size="9" font-family="monospace" font-weight="900" fill="#f7e1a9">UNS</text>
+    <path d="M54 8H66" stroke="#d65b4d" stroke-width="5" stroke-linecap="round"/>
+   </svg>
+  </div>
+ </div>
+
+ <div class="waypoint" id="waypoint" hidden aria-live="off"></div>
+ <div class="rider-hud" id="rider-hud" hidden aria-live="off"></div>
+ <div class="drive-banner" id="drive-banner" hidden aria-live="polite"></div>
+ <button id="mission-panel-toggle" type="button" aria-controls="mission-panel" aria-expanded="false">🎯 MISSIONI</button>
+ <aside class="missions" id="mission-panel" hidden aria-label="Missioni di GTA Melito">
+  <div class="m-head"><span class="m-label">STORIA · <span id="mission-progress">1/4</span></span><span>💶 <span id="mission-money">€ 0</span> · ★ <span id="mission-respect">0</span></span></div>
+  <h2 id="mission-name">LA PRIMA MISSIONE</h2><p id="mission-desc">Nuove missioni per le strade di Melito</p>
+  <div class="m-destination" id="mission-destination">CARICO GLI OBIETTIVI…</div>
+  <div class="m-status"><span id="mission-time">NESSUN LIMITE</span><span id="mission-distance">—</span></div>
+  <div id="mission-hint" class="m-hint" aria-live="polite"></div>
+  <div class="m-actions"><button id="mission-interact" aria-label="Interagisci con l'obiettivo">F · INTERAGISCI</button><button id="mission-reset">RICOMINCIA ↻</button></div>
+ </aside>
+ <section class="dialog shop" id="shop-panel" hidden role="dialog" aria-labelledby="shop-name">
+  <div class="name" id="shop-kind">NEGOZIO</div><h2 id="shop-name">NEGOZIO</h2>
+  <p class="shop-balance" id="shop-balance">SALDO: € 0</p>
+  <div class="shop-offers" id="shop-offers"></div>
+  <p class="shop-feedback" id="shop-feedback" aria-live="polite"></p>
+  <p class="shop-note" id="shop-note"></p>
+  <button id="shop-close" aria-label="Esci dal negozio">ESCI ✕</button>
+ </section>
+ <section class="dialog shop rider-panel" id="rider-panel" hidden role="dialog" aria-labelledby="rider-title">
+  <div class="name">APP · LAVORO DI FINZIONE</div><h2 id="rider-title">🛵 RIDER MELITO</h2>
+  <div id="rider-body"></div>
+  <button id="rider-close" aria-label="Chiudi l'app Rider">CHIUDI ✕ (J)</button>
+ </section>
+ <section class="dialog shop garage" id="garage-panel" hidden role="dialog" aria-labelledby="garage-name">
+  <div class="name" id="garage-kind">GARAGE</div><h2 id="garage-name">GARAGE</h2>
+  <p class="shop-balance" id="garage-balance">SALDO: € 0</p>
+  <div class="shop-offers" id="garage-list"></div>
+  <p class="shop-feedback" id="garage-feedback" aria-live="polite"></p>
+  <p class="shop-note" id="garage-note"></p>
+  <button id="garage-close" aria-label="Esci dal garage">ESCI ✕</button>
+ </section>
+ <section class="dialog" id="dialog" hidden role="dialog" aria-labelledby="dialog-head" aria-live="polite">
+  <div class="name" id="dialog-speaker">NICO</div><h2 id="dialog-head">NUOVO MESSAGGIO</h2><p id="dialog-text"></p>
+  <button id="dialog-close" aria-label="Chiudi messaggio">CONTINUA →</button>
+ </section>
+ <!-- Lotto 15: dialoghi con volto (PROVVISORIO, da approvare): barra in basso + riquadro del personaggio, gestita da dialogue.mjs. -->
+ <section class="dialogue" id="dialogue" hidden role="dialog" aria-labelledby="dialogue-name" aria-live="polite">
+  <div class="dialogue-portrait"><img id="dialogue-portrait" alt="" hidden decoding="async"></div>
+  <div class="dialogue-body"><div class="dialogue-name" id="dialogue-name"></div><p class="dialogue-text" id="dialogue-text"></p></div>
+  <div class="dialogue-side"><span class="dialogue-counter" id="dialogue-counter"></span><button class="dialogue-next" id="dialogue-next" type="button" aria-label="Battuta successiva">AVANTI ›</button></div>
+ </section>
+ <section class="fullmap" id="fullmap" hidden role="dialog" aria-label="Mappa di Melito">
+  <h2>MAPPA REALE · MELITO</h2><p>Strade: OpenStreetMap · ◉ obiettivo · ● posizione attuale</p>
+  <canvas id="bigmap" width="640" height="580" aria-label="Mappa completa della città con obiettivi"></canvas>
+  <button id="map-close">CHIUDI MAPPA · M</button>
+ </section>
+ <section class="loading" id="loading" data-screen="gam" style="--loading-desktop:url('./assets/ui/gam-loading.webp');--loading-mobile:url('./assets/ui/gam-loading.webp')"><p class="loading-scene-title" id="loading-scene-title"></p><h2 id="loading-title">CARICO MELITO…</h2><p id="loading-text">Preparo strade ed edifici reali da OpenStreetMap.</p><div class="loading-progress"><span>Caricamento…</span><div class="loading-bar" id="loading-bar" role="progressbar" aria-label="Caricamento del gioco" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"></div><span id="loading-percent" aria-hidden="true">0%</span></div><button id="retry" hidden>RIPROVA ↻</button><button id="loading-preview-close" hidden>TORNA AL GIOCO</button></section>
+ <div class="pause-menu" id="pause-menu" hidden><div class="pause-card"><div class="pause-head"><h2>PAUSA · MELITO</h2><button id="pause-close" class="pause-close">RIPRENDI</button></div>
+ <p class="pause-info">Stato · zoom · mappa · missioni · controlli secondari</p>
+ <!-- BF11: on PC the page shows only the game board; everything that used to sit around it lives here, in sections. -->
+ <section class="pause-section pause-status" aria-labelledby="pause-h-status"><h3 id="pause-h-status">STATO · INFO</h3>
+ <header class="header"><div><h1>GTA: MELITO <span aria-hidden="true">★</span></h1><small>UNS ARCADE / MELITO DI NAPOLI / VERSIONE 0.7.0</small></div><a class="back" href="../../index.html">← SALA GIOCHI</a></header>
+ <div class="hud"><span>ORA NPC: <b id="npc-clock" aria-live="off">07:30 · MATTINA</b></span><span id="place">CARICAMENTO MAPPA…</span><span>MEZZO: <b id="vehicle">A PIEDI</b></span><span>CAMERA: <b id="camera-mode">PIEDI · 5.0×</b></span><span>STRADE: <b id="road-count">—</b></span><span>OSM: <b id="building-count">—</b></span><span>EDIFICI PLACEHOLDER: <b id="inferred-count">—</b></span><span>INCROCI: <b id="junction-count">—</b></span></div>
+ </section>
+ <section class="pause-section pause-commands" aria-labelledby="pause-h-commands"><h3 id="pause-h-commands">COMANDI</h3>
+ <p class="instructions">PC: WASD/frecce a piedi; in auto A/D sterzo, W acceleratore, S retromarcia, SPAZIO freno a mano · E sali/scendi · SHIFT corri · R cambia radio, SHIFT+R precedente, T accendi/spegni. ESC o P: pausa con stato, comandi, mappa, strumenti e crediti. Telefono: a piedi levetta e CORRI, alla guida volante vero a sinistra e, a destra in colonna dall’alto, FRENO, ACCELERA e RETRO; START apre pausa, missioni e impostazioni. In macchina la radio di prova permette di scegliere sei emittenti in diretta; l’audio richiede una connessione e può richiedere un tocco iniziale. Telecamera automatica: massimo zoom a piedi; su veicoli arretra progressivamente con la velocità. ＋/－ personalizzano, AUTO ripristina. Missioni nel pannello dedicato; F per interagire, M per la mappa. Traffico che svolta sulle vere strade, marciapiedi, attraversamenti, tetti tridimensionali e dettagli urbani immaginari in stile pixel art. Strade, incroci e sagome dei palazzi si basano su OpenStreetMap.</p>
+ </section>
+ <section class="pause-section pause-play" aria-labelledby="pause-h-play"><h3 id="pause-h-play">MAPPA · ZOOM · SUONI</h3>
+ <div class="pause-shortcuts"><button id="pause-missions">MISSIONI</button><button id="pause-rider" title="App Rider · tasto J">🛵 RIDER</button><button id="pause-map">MAPPA COMPLETA</button><button id="pause-zoom-auto">ZOOM AUTO</button><button id="pause-zoom-in">＋ ZOOM</button><button id="pause-zoom-out">－ ZOOM</button><button id="pause-reset">TORNA ALL’INIZIO</button><button id="pause-road-compare">CONFRONTA STRADE</button></div><div class="pause-audio" role="group" aria-label="Audio"><button id="pause-sound" aria-label="Attiva o disattiva tutti i suoni (effetti e radio)" aria-pressed="true">SUONI: ON</button><div class="pause-volume" role="group" aria-label="Volume effetti e ambiente"><span class="pause-volume-name">EFFETTI / AMBIENTE</span><button id="pause-volume-down" aria-label="Abbassa il volume di effetti e ambiente">−</button><output id="pause-fx-level" aria-live="polite">70%</output><button id="pause-volume-up" aria-label="Alza il volume di effetti e ambiente">＋</button></div><div class="pause-volume" role="group" aria-label="Volume radio e musica"><span class="pause-volume-name">RADIO / MUSICA</span><button id="pause-radio-down" aria-label="Abbassa il volume della radio">−</button><output id="pause-radio-level" aria-live="polite">52%</output><button id="pause-radio-up" aria-label="Alza il volume della radio">＋</button></div></div>
+ </section>
+ <div class="pause-details" id="pause-details">Carico i dati del gioco…</div>
+ <p class="pause-info">Su PC restano disponibili tastiera e tasti WASD/frecce; missioni e mappa completa sono qui.</p><p class="pause-info" id="signal-note">SEMAFORI DI GIOCO, NON RILEVATI: sono posizionati sugli incroci principali per giocare, non sono i semafori reali di Melito.</p><p class="pause-info" id="market-note">MERCATO DEL VENERDÌ · RIONE 219: il luogo è reale, giorno e orari non sono verificati; banchi, merci e venditori sono di fantasia (segnaposto).</p>
+ <section class="pause-section pause-novita" aria-labelledby="pause-h-novita"><h3 id="pause-h-novita">NOVITÀ · DA APPROVARE</h3>
+ <p class="pause-info">Elementi grafici e visivi PROVVISORI aggiunti da Claude (account ilconsulentelogistico-hue): la grafica definitiva la decide il committente. VAI A VEDERE ti porta a piedi davanti a un esempio vero; MI PIACE / DA RIFARE restano solo in questo browser e COPIA GIUDIZI li prepara come testo. <b id="novita-count"></b></p>
+ <div class="pause-shortcuts"><button id="novita-back" type="button" hidden>TORNA DOVE ERI</button><button id="novita-copy" type="button">COPIA GIUDIZI</button></div>
+ <textarea id="novita-export" readonly hidden rows="7" aria-label="Giudizi da copiare"></textarea>
+ <div class="novita-list" id="novita-list" role="list" aria-label="Novità da approvare"></div>
+ </section>
+ <section class="pause-section pause-tools" aria-labelledby="pause-h-tools"><h3 id="pause-h-tools">STRUMENTI · CONFRONTO STRADE</h3>
+ <div class="road-width-bar" aria-label="Confronto larghezza delle strade">
+  <div><strong>STRADA RESIDENZIALE</strong> <span id="road-width-current">ADESSO · 15,4</span> <small>unità grafiche</small></div>
+  <button id="road-width-compare" type="button" aria-pressed="false">CONFRONTA CON PRIMA</button>
+ </div>
+ <div class="pause-audio pause-satellite" role="group" aria-label="Foto aerea di confronto"><button id="pause-satellite" type="button" aria-pressed="false" aria-label="Mostra o nascondi la foto aerea Esri sopra la mappa">SATELLITE: OFF</button><div class="pause-volume" role="group" aria-label="Opacità della foto aerea"><span class="pause-volume-name">OPACITÀ FOTO</span><button id="pause-satellite-down" type="button" aria-label="Riduci l'opacità della foto aerea">−</button><output id="pause-satellite-level" aria-live="polite">50%</output><button id="pause-satellite-up" type="button" aria-label="Aumenta l'opacità della foto aerea">＋</button></div></div>
+ <div class="pause-audio" role="group" aria-label="Minigiochi di prova"><button id="pause-slot" type="button" aria-label="Apri la slot machine di prova con crediti virtuali">PROVA SLOT</button><button id="pause-poker" type="button" aria-label="Apri il video poker di prova con crediti virtuali">PROVA VIDEO POKER</button><button id="pause-goriziana" type="button" aria-label="Apri la goriziana di prova, biliardo a nove birilli senza soldi">PROVA GORIZIANA</button><button id="pause-pool" type="button" aria-label="Apri il biliardo arcade di prova, senza denaro né scommesse">PROVA BILIARDO</button></div>
+ <p class="pause-info">PROVA SLOT: slot machine arcade di fantasia (Q28), solo crediti virtuali di gioco che non si comprano e non valgono denaro. In attesa del cabinato nei bar (Q27).</p>
+ <p class="pause-info">PROVA VIDEO POKER: video poker Jacks or Better di fantasia (Q29), crediti virtuali propri, separati da quelli della slot; anche lui in attesa del cabinato (Q27).</p>
+ <p class="pause-info">PROVA GORIZIANA: biliardo all'italiana a nove birilli, tavolo senza buche (Q31), regole semplificate a schermo, partita contro l'IA a 30 punti o 5 tiri a testa; niente soldi né crediti. In attesa del tavolo nei bar grandi (Q27).</p>
+ <p class="pause-info">PROVA BILIARDO: biliardo arcade di fantasia (Q30) visto dall'alto, contro la CPU o a tiro libero, con regole semplificate scritte sul pannello; niente denaro né scommesse, si salvano solo i risultati. Nel gioco vero si giocherà solo dai tavoli disegnati nei bar grandi (Q27).</p>
+ <p class="pause-info">FOTO AEREA DI CONFRONTO: la foto Esri World Imagery sopra la mappa del gioco, per vedere dove mancano dettagli. Si scarica solo mentre è accesa e riparte sempre spenta.</p>
+ </section>
+ <section class="pause-section pause-credits" aria-labelledby="pause-h-credits"><h3 id="pause-h-credits">CREDITI E LICENZE</h3>
+ <p class="instructions"><a href="./survey/index.html" target="_blank" rel="noopener noreferrer">🗺 TUTTA MELITO · 2.056 EDIFICI MODELLATI →</a> · 2.056 sagome OSM censite · 2.056 edifici con profilo grafico individuale e palazzi segnaposto aggiuntivi (NON rilievi OSM). Piazza Santo Stefano dettagliata: una facciata verificata fotograficamente, le altre ancora stimate.</p>
+ <footer class="credits"><span>© OpenStreetMap contributors — ODbL · Confini: ISTAT 2026 — CC BY · Foto aerea di confronto (solo se accesa in STRUMENTI): Esri World Imagery — Esri, Maxar, Earthstar Geographics e la comunità GIS · MIT: ispirazione motore <a href="https://github.com/harmanhanjra/punjab-stories" target="_blank" rel="noreferrer">Punjab Stories</a></span><span><a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noreferrer">Crediti cartografia</a> · <a href="./README.md">Informazioni sul progetto</a></span></footer>
+ </section>
+ </div></div>
+ <div class="rotate-screen" id="rotate-screen" hidden><div class="rotate-card"><span class="rotate-icon" aria-hidden="true">▰</span><h2>RUOTA LO SCHERMO</h2><p>GTA Melito si gioca in orizzontale. Ruota il telefono per continuare.</p></div></div>
+</div>
+<div class="controls" aria-label="Comandi"><div class="touch-actions" aria-label="Azioni"><button class="control-action" id="action">ENTRA IN VEICOLO</button><button id="sprint" aria-label="Corri a piedi">CORRI</button><div class="pedals" aria-label="Pedali di guida"><button id="brake" aria-label="Tieni premuto per frenare">FRENO</button><button id="accelerator" aria-label="Tieni premuto per accelerare">ACCELERA</button><button id="reverse" aria-label="Tieni premuto per andare in retromarcia">RETRO</button></div></div><div class="dpad" aria-hidden="true"></div><div class="buttons"><button id="map-toggle" class="mini" aria-label="Apri la mappa completa">MAPPA</button><button class="mini" id="zoom-auto" aria-label="Ripristina zoom automatico">AUTO</button><button class="mini" id="zoom-in" aria-label="Regola zoom avanti">＋</button><button class="mini" id="zoom-out" aria-label="Zoom indietro">－</button><button class="mini" id="reset" aria-label="Torna al punto di partenza">⌂</button></div></div>
+</main><script type="module" src="./game.mjs?v=220&amp;gam=1"></script></body></html>
