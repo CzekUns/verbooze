@@ -1346,3 +1346,10 @@ laude (account `ilconsulentelogistico-hue`) — Q02 collaudata e chiusa
 - **Verifiche:** suite Node eseguita nella copia Verbooze **687/687**; Chrome headless dalla landing al gioco, caricamento nascosto dopo il completamento, viste 1280×720 e 844×390 su due zone. Zero pageerror e HTTP >=400; screenshot aggiornati in `qa/building-positions/`, risultati in `verbooze-after.json`. Nessuna prova Android fisico o deploy pubblico verificato.
 - **Documenti:** README radice aggiornato al gioco già migrato; AGENTS radice indica repository/cartella attive per evitare nuove modifiche sulla vecchia destinazione. `survey/building-position-review.json` elenca i 76 casi residui.
 - **Da fare:** trattare singolarmente i residui e valutare la scala dei fabbricati ridotti. Commit/push/PR registrati nel riepilogo di consegna; non dichiarare risolte tutte le strade.
+
+### 2026-11-24 — Codex Work — consegna su Verbooze
+- Pubblicato il ramo `fix/gam-building-positions` esclusivamente in CzekUns/verbooze; commit codice `53dead16e50d5a00c1893a607b9c15652744055e`.
+- Aperta PR #1: https://github.com/CzekUns/verbooze/pull/1; verificata aperta, non draft e mergeable. Merge e deploy non eseguiti.
+- Albero GitHub confrontato con l'albero locale verificato: SHA identico `c84e1196249ab5b596f6a84109ed5e86def47d55`.
+- Verifiche finali: 687/687 test, navigazione landing→gioco e caricamento desktop/mobile emulato senza errori; limiti e 76 residui descritti nel rapporto e nella PR.
+- Ripresa: revisione/integrazione PR #1 e test Android reale; nessuna modifica pubblicata sulla precedente repository Effettokarmagra.
