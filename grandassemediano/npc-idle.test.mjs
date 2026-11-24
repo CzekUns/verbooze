@@ -62,7 +62,7 @@ test('collegamento nel gioco: nessuna collisione, disegno con lo stesso renderer
  assert.match(game,/stepIdlePeople\(state\.idle,elapsed/);
  assert.match(game,/drawIdlePeople\(c,state\.idle/);
  assert.doesNotMatch(game,/makeCollisionIndex\([^\n]*state\.idle/);
- assert.match(game,/novita\.mjs\?v=020/);
+ assert.ok(Number(game.match(/novita\.mjs\?v=(\d+)/)?.[1])>=20);
  assert.ok(Number(html.match(/game\.mjs\?v=(\d+)/)?.[1])>=220);
  assert.match(novita,/id:'vita-di-quartiere'/);
  const entry=NOVITA.find(e=>e.id==='vita-di-quartiere');assert.equal(entry.ora,660);

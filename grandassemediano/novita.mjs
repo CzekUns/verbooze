@@ -44,6 +44,9 @@ const hasPassengers=v=>(Array.isArray(v?.passengers)&&v.passengers.length>0)||(A
  * ora = minuti del giorno, meteo = 'pioggia'|'sereno', mercato = monta il mercato anche fuori dal
  * venerdì, satellite = opacità della foto aerea BF13. futura = in arrivo: attiva solo se nel gioco c'è. */
 export const NOVITA=Object.freeze([
+ {id:'palazzi-via-roma',nome:'Via Roma: facciate ordinate e terrazzi puliti',autore:'Codex Work',lavoro:'Pilota estetico',pr:'#1',
+  cosa:'Otto palazzi con la direzione approvata: colori sobri, finestre e balconi allineati, sei terrazzi e due tetti in tegole. Sagome, altezze e camera conservate. Dettagli stilizzati, non un rilievo fotografico.',
+  ora:11*60,trova:s=>boundsCentre((s?.buildings||[]).find(b=>b.art?.stylePilot))},
  {id:'semafori',nome:'Semafori di gioco, alone notturno e linee d’arresto',lavoro:'BF07',pr:'#48',
   cosa:'Palo con lanterna all’angolo del marciapiede e linea d’arresto dipinta; di notte la luce accesa fa alone. Sono semafori simulati, non quelli reali.',
   ora:21*60+30,trova:s=>near((s?.graph?.signals||[]).map(j=>({x:j.x,y:j.y})),s)},

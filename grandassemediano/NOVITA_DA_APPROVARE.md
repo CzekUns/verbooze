@@ -167,3 +167,9 @@ I 22 PNG stanno in `assets/people/`; il generatore unico è `assets/people/sourc
 | Voce | Cosa guardare | Lavoro | Dove | Quando | Stato |
 |---|---|---|---|---|---|
 | `animali-di-strada` | Piccioni nelle piazze che si alzano in volo; gatti presso muretti e auto in sosta | Animali di strada · CODEX-GH / ramo `animali`, PR a cura di Claude | PAUSA › NOVITÀ › `animali-di-strada` › VAI A VEDERE | Sempre | Sprite e densità da giudicare; **PROVVISORIO, da approvare da Simone**. |
+
+### Palazzi Via Roma — prima applicazione della direzione approvata (24 novembre 2026)
+
+| Voce | Cosa guardare | Lavoro | Dove | Quando | Stato |
+|---|---|---|---|---|---|
+| `palazzi-via-roma` | Otto palazzi: colori sobri, balconi allineati, sei terrazzi e due tetti in tegole; stessa camera dall'alto | Pilota estetico · Codex Work · PR #1 Verbooze | PAUSA › NOVITÀ › VAI A VEDERE; tratto di Via Roma presso la partenza | 11:00, poi controllare anche di notte | Direzione del bozzetto approvata dall'utente; prima resa effettiva da valutare nel gioco. Stilizzazione, nessuna nuova verifica fotografica. |

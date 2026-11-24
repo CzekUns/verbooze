@@ -333,7 +333,7 @@ test('Q33 game wiring: no separate scene, the city keeps running, E inside the l
  assert.match(html,/<button id="football-pass"[^>]*>PASSA<\/button>/);assert.match(html,/<button id="football-shoot"[^>]*>TIRO<\/button>/);assert.match(html,/\.controls\.football #action,\.controls\.football #sprint\{visibility:hidden\}/);
  assert.match(game,/pitchNear\?'GIOCA'/);assert.match(game,/PARTITA NEL CAMPO GRANDE DI VIA DELLE PALME/);assert.match(game,/if\(kickLabel\)\$\('action'\)\.textContent=kickLabel;/);assert.match(game,/if\(football\)boardPrompt\(football\.prompt\(\)\);/);
  assert.match(game,/from '\.\/campaign\.mjs\?v=005'/);assert.match(campaign,/from '\.\/minigame-football\.mjs\?v=003'/);
- assert.match(game,/from '\.\/football-pitches\.mjs\?v=002'/);assert.match(game,/from '\.\/novita\.mjs\?v=020'/);
+ assert.match(game,/from '\.\/football-pitches\.mjs\?v=002'/);assert.ok(Number(game.match(/novita\.mjs\?v=(\d+)/)?.[1])>=20);
  assert.ok(Number((html.match(/game\.mjs\?v=(\d+)/)||[])[1])>=197);
  assert.match(novita,/id:'calcetto'[\s\S]*?filter\(p=>p\.partita\)/);assert.match(md,/\| `calcetto` \|[^\n]*campo grande/);
  assert.match(pitches,/id:'palme-campo',nome:'Campo di Via delle Palme',kind:'calcetto',partita:true/);

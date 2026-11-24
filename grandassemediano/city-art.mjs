@@ -1,3 +1,4 @@
+import {drawPilotFacade,drawPilotRoof,pilotFacadeWindows} from './building-style-pilot.mjs?v=001';
 /* WORK HANDOFF: art direction / photo evidence / acceptance criteria live
  * in ./HANDOFF_WORK_REALISMO.md (see also ./AGENTS.md).
  * Do not claim hypothetical materials or pixel geometry as photo-verified.
@@ -423,6 +424,7 @@ function drawRaisedWalls(c,b,v,zoom){
   c.beginPath();c.moveTo(f.x4,f.y4);c.lineTo(f.x3,f.y3);c.stroke();
   c.lineWidth=.55;c.strokeStyle=shiftColor(wall,-27);
   c.beginPath();c.moveTo(f.x2,f.y2);c.lineTo(f.x3,f.y3);c.stroke();
+  if(a.stylePilot){drawPilotFacade(c,a,v,f,edgeX,edgeY,len,zoom);continue;}
   if(zoom>=1.5&&len>10&&south&&a.type!=='industrial'){
    const ux=edgeX/len,uy=edgeY/len,span=Math.min(8,len*.55),cx=(f.x3+f.x4)/2,cy=(f.y3+f.y4)/2;
    // Shopfront canopy on the ground storey: striped fabric, dark valance,
@@ -556,6 +558,14 @@ export function facadeWindowPanes(b){
   const columns=Math.max(1,Math.min(18,Math.floor(len/(doors?7.5:4.8))));
   const depth=Math.hypot(v.dx,v.dy),ex=edgeX/len,ey=edgeY/len,sx=v.dx/depth,sy=v.dy/depth;
   const ox=p[j-2]-v.dx,oy=p[j-1]-v.dy,at=(u,w)=>[ox+ex*u+sx*w,oy+ey*u+sy*w];
+  if(a.stylePilot){
+   for(const w of pilotFacadeWindows(a,v,len,j).windows){
+    if(w.door)continue;
+    const u=w.x-w.w/2,q=w.y-w.h/2;
+    panes.push({seed:w.seed,quad:[...at(u,q),...at(u+w.w,q),...at(u+w.w,q+w.h),...at(u,q+w.h)]});
+   }
+   continue;
+  }
   for(let floor=0;floor<floors;floor++)for(let col=1;col<=columns;col++){
    const wx=len*col/(columns+1),wy=depth*(floor+.48)/floors,seed=h(a.seed+floor*97+col*131+j*17);
    const w=doors?2.4:seed%4===0?1.8:1.45,hh=floors>=5?1.35:1.85,u0=wx-w*.5,w0=wy-hh*.55;
@@ -602,7 +612,8 @@ export function drawCityBuildings(c,buildings,zoom){
   c.translate(-v.dx,-v.dy);
   drawRaisedWalls(c,b,v,zoom);
   const tone=a.roofTint||historicalRoofTone(a);
-  if(a.glass)glassRoof(c,b,a);
+  if(a.stylePilot)drawPilotRoof(c,b,a);
+  else if(a.glass)glassRoof(c,b,a);
   else if(!specialized(c,b,a)){
    if(a.roof&&a.area>55)slopedRoof(c,b,a,tone);
    else flatRoof(c,b,a,a.roofTint||
@@ -612,7 +623,7 @@ export function drawCityBuildings(c,buildings,zoom){
   // including tiny annexes, historic churches and one-floor workshops.
   // Only ordinary buildings reach this branch; Santa Maria has been
   // fully rendered in its exclusive sprite branch and cannot reach here.
-  poly(c,b.p);c.strokeStyle='#643c29';c.lineWidth=.65;c.stroke();
+  poly(c,b.p);c.strokeStyle=a.stylePilot?'#72766b':'#643c29';c.lineWidth=.65;c.stroke();
   c.save();c.translate(-.55,-.55);poly(c,b.p);
   c.strokeStyle='#f1d9ac88';c.lineWidth=.48;c.stroke();c.restore();
   if(zoom>=1.45&&b.id===733703600){

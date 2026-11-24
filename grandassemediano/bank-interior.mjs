@@ -1,4 +1,4 @@
-import {drawCityPlayer} from './city-art.mjs?v=139';
+import {drawCityPlayer} from './city-art.mjs?v=140';
 import {drawPedestrianSprite} from './pedestrian-sprites.mjs?v=002';
 import {WALK_SPEED,RUN_SPEED} from './driving-controls.mjs?v=100';
 

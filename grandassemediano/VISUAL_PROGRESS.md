@@ -861,3 +861,10 @@ Secondo screenshot e correzione dell'utente, **mantenere la torre molto grande e
 - Corpi/volumi nell'asfalto 675→76; impronte nell'asfalto 182→47; sulla linea centrale 39→16. Nessuna modifica della cartografia sorgente; collisioni e rendering condividono le sagome corrette.
 - Caricamento ufficiale con avanzamento reale conservato; pagina versione 222. [Confronti](./qa/building-positions/README.md) e [rapporto completo](./survey/building-position-review.json).
 - 687/687 test nella copia Verbooze; navigazione landing→GAM e screenshot aggiornati desktop/mobile emulato senza pageerror/HTTP >=400. Android reale e deploy non verificati; 76 residui ancora aperti.
+
+### 2026-11-24 — Via Roma: otto palazzi dalla proposta approvata
+- Applicata la direzione estetica approvata a otto ID: colori sobri, sei terrazzi e due tetti in tegole, finestre e balconi allineati, portoni residenziali e tetti meno affollati. Nessun nuovo dato fotografico.
+- Il pilota è separato in `building-style-pilot.mjs`; preserva camera dall'alto, geometrie e altezze. Il resto della città e gli asset speciali conservano lo stile precedente.
+- [Confronti autentici prima/dopo, notte e ID](./qa/via-roma-style/README.md). Nuova voce PAUSA → NOVITÀ → `palazzi-via-roma` con VAI A VEDERE.
+- 696/696 test; browser desktop e telefono emulato, zero pageerror/HTTP >=400. Il controllo visivo ha portato a correggere il clip delle facciate prima della consegna. Android fisico non verificato.
+- Pagina versione 224; tranche da aggiungere alla PR #1 Verbooze, non dichiarata pubblicata sul sito. Valutare la resa effettiva prima di estendere agli altri quartieri.

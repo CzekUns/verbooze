@@ -1361,3 +1361,13 @@ laude (account `ilconsulentelogistico-hue`) — Q02 collaudata e chiusa
 - **Verifiche:** suite completa **692/692**; ripetuti i quattro scenari in browser dopo il fix, tutti conformi e zero pageerror. Dati prima/dopo e limiti in `qa/modal-input/`. Non verificati Android reale o tutti i minigiochi.
 - **Ulteriore osservazione aperta:** nel controllo a runtime un passante si trovava dentro l'impronta 733704295; non corretto né diagnosticato in questa tranche. Le 76 posizioni residue rimangono aperte.
 - **Consegna:** correzioni da aggiungere al ramo della PR #1 su CzekUns/verbooze; nessuna modifica su Effettokarmagra e nessun merge/deploy dichiarato.
+
+### 2026-11-24 — Codex Work — prima applicazione della proposta estetica approvata
+- **Autorizzazione:** dopo l'anteprima ImageGen l'utente ha approvato la direzione e chiesto «Vai». Prima tranche su otto palazzi ordinari presso Via Roma, nella repository Verbooze.
+- **Fatto:** nuovo `building-style-pilot.mjs`: famiglie crema, rosa spento, ocra, condominio grigio caldo e casa storica; sei terrazzi e due tetti in tegole attenuate, finestre/balconi su griglia, portoni ordinati e un solo vano scala sul terrazzo dove entra nella vera sagoma. Tolte le decorazioni casuali dei precedenti renderer solo sugli otto ID.
+- **Integrazione:** `city-art.mjs` usa renderer dedicati per il pilota; luci notturne e finestre condividono la medesima geometria. `game.mjs` applica lo stile dopo gli override esistenti. Sagome, piani, altezze, collisioni e camera preservati; facciate photo-verified e monumenti esclusi. Pagina versione 224; import/cache aggiornati.
+- **Controllo visivo:** il primo confronto ha evidenziato un clip delle pareti che nascondeva le finestre; corretto ricostruendo il poligono della facciata prima di clip. Aggiunta regressione specifica. Nessuna dichiarazione di buona resa basata soltanto sui test.
+- **Verifiche finali:** suite **696/696**; Chrome headless desktop 1280×720 e telefono emulato 844×390, stessa camera prima/dopo in due zone di Via Roma; anche notte 21:30. Zero pageerror o HTTP >=400. Screenshot autentici, ID e limiti in `qa/via-roma-style/README.md`.
+- **Registrazione:** nuova voce NOVITÀ `palazzi-via-roma` con VAI A VEDERE e riepilogo in `NOVITA_DA_APPROVARE.md`; stile complessivo approvato dal bozzetto, applicazione reale limitata al pilota e da valutare nel gioco. Nessun nuovo rilievo fotografico dichiarato.
+- **Consegna:** aggiornamento previsto sulla PR #1 di CzekUns/verbooze. Nessun merge/deploy dichiarato e nessun intervento su Effettokarmagra.
+- **Da fare:** giudizio sul confronto effettivo prima di estendere il pilota; Android reale non verificato. Restano 76 posizioni residue e il passante nell'impronta 733704295, estranei a questa tranche.
