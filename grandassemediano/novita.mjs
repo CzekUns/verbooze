@@ -44,6 +44,9 @@ const hasPassengers=v=>(Array.isArray(v?.passengers)&&v.passengers.length>0)||(A
  * ora = minuti del giorno, meteo = 'pioggia'|'sereno', mercato = monta il mercato anche fuori dal
  * venerdì, satellite = opacità della foto aerea BF13. futura = in arrivo: attiva solo se nel gioco c'è. */
 export const NOVITA=Object.freeze([
+ {id:'palazzo-campione',nome:'Palazzo campione: sagoma regolare e balconi sporgenti',autore:'Codex Work',lavoro:'Campione volumetrico',pr:'#1',
+  cosa:'Un solo palazzo di Via Roma ridisegnato nella forma: corpo a quattro lati, pareti continue e balconi con soletta, spessore e ombra. Stessa palette, stessa altezza e area quasi identica. Geometria artistica di gioco; collisioni allineate al nuovo corpo.',
+  ora:11*60,trova:s=>boundsCentre((s?.buildings||[]).find(b=>b.shapePilot))},
  {id:'palazzi-via-roma',nome:'Via Roma: facciate ordinate e terrazzi puliti',autore:'Codex Work',lavoro:'Pilota estetico',pr:'#1',
   cosa:'Otto palazzi con la direzione approvata: colori sobri, finestre e balconi allineati, sei terrazzi e due tetti in tegole. Sagome, altezze e camera conservate. Dettagli stilizzati, non un rilievo fotografico.',
   ora:11*60,trova:s=>boundsCentre((s?.buildings||[]).find(b=>b.art?.stylePilot))},

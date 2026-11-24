@@ -1,4 +1,5 @@
-import {applyViaRomaStylePilot} from './building-style-pilot.mjs?v=001';
+import {applyBuildingShapeSample} from './building-shape-sample.mjs?v=001';
+import {applyViaRomaStylePilot} from './building-style-pilot.mjs?v=002';
 /* WORK HANDOFF / VISUAL REALISM:
  * Read ./AGENTS.md and ./HANDOFF_WORK_REALISMO.md before changing this game;
  * log completed visual improvements in ./VISUAL_PROGRESS.md.
@@ -42,7 +43,7 @@ import {riderPickups,riderDestinations,riderOffers,riderVehicleCheck,acceptOffer
 import {openGoriziana,isGorizianaOpen} from './minigame-goriziana.mjs?v=001';
 import {openPoolMachine,isPoolOpen} from './minigame-pool.mjs?v=001';
 import {drawWorldLandmarks,drawMinimapLandmarks,drawBigMap} from './landmark-art.mjs?v=089';
-import {prepareCityStyles,applyApprovedArcadeRoofStyle,applyPiazzaRoofStudies,prepareUrbanGround,drawTerrain,drawCityParcels,drawCityStreets,drawCityBuildings,drawCityPeople,drawCityCar,drawCityPlayer,loadChurchWebp,facadeWindowPanes,SANTA_MARIA_OSM_ID} from './city-art.mjs?v=140';
+import {prepareCityStyles,applyApprovedArcadeRoofStyle,applyPiazzaRoofStudies,prepareUrbanGround,drawTerrain,drawCityParcels,drawCityStreets,drawCityBuildings,drawCityPeople,drawCityCar,drawCityPlayer,loadChurchWebp,facadeWindowPanes,SANTA_MARIA_OSM_ID} from './city-art.mjs?v=141';
 import {createSatelliteOverlay,satelliteFromUrl} from './satellite-overlay.mjs?v=001';
 import {loadCarSprites,drawCarSprite,carDrawSize,CAR_TRAFFIC_SPRITE_IDS,CAR_TRAFFIC_STRIDE,CAR_PARKED_SPRITE_IDS,APE_CAR_IDS,COURIER_IDS,REFUSE_TRUCK_IDS,TOW_TRUCK_IDS,BUS_IDS} from './car-sprites.mjs?v=118';
 import {DAMAGE_RULES,DAMAGE_LABEL,addDamage,damagePoints,damageLevel,damagedProfile,repairCost,payRepair,repairMessage,healOutOfView,drawVehicleDamage,placeWorkshop,nearWorkshop,drawWorkshop} from './vehicle-damage.mjs?v=001';
@@ -66,9 +67,9 @@ import {buildTurnGuides,guideIntersection} from './intersection-assist.mjs?v=097
 import {reboundCar,advanceRecoil} from './car-rebound.mjs?v=098';
 import {canDriveProbe} from './road-clearance.mjs?v=100';
 import {roofRevealTarget,easeRoofReveal,traceRoofCover} from './roof-reveal.mjs?v=122';
-import {resolveBankEntrances,nearestBankEntrance,drawBankEntrance,drawBankInterior,stepBankInteriorPlayer,bankInteriorCamera,BANK_FOOT_ZOOM_MULTIPLIER} from './bank-interior.mjs?v=014';
+import {resolveBankEntrances,nearestBankEntrance,drawBankEntrance,drawBankInterior,stepBankInteriorPlayer,bankInteriorCamera,BANK_FOOT_ZOOM_MULTIPLIER} from './bank-interior.mjs?v=015';
 import {applyNonlethalImpact,advanceNonlethalImpact,sweptVehicleContact,slowImpactSource,IMPACT_MIN_SPEED} from './impact-physics.mjs?v=006';
-import {resolveShopEntrances,nearestShopEntrance,drawShopEntrance,enterShop,stepShopInteriorPlayer,shopInteriorCamera,interiorCounterNear,drawShopInterior,outdoorShops,entranceAtSign,interiorGameNear,startBarGame,endBarGame,footprintArea} from './shop-interiors.mjs?v=007';
+import {resolveShopEntrances,nearestShopEntrance,drawShopEntrance,enterShop,stepShopInteriorPlayer,shopInteriorCamera,interiorCounterNear,drawShopInterior,outdoorShops,entranceAtSign,interiorGameNear,startBarGame,endBarGame,footprintArea} from './shop-interiors.mjs?v=008';
 import {WHEEL_MAX_ANGLE,pointerWheelAngle,turnSteeringWheel,steeringInput,returnSteeringWheel} from './steering-wheel.mjs?v=001';
 import {SIDEWALK_DRIVE,SIDEWALK_OUTER} from './sidewalk.mjs?v=099';
 import {placeBuildings,placeInferredBuildings} from './building-placement.mjs?v=124';
@@ -83,7 +84,7 @@ import {createCarRadio} from './car-radio.mjs?v=003';
 import {createRaceWorld,raceHotspot,startRace,stepRace,awardPrize,parkIdleRivals,resultsText,drawRaceWorld,drawRaceMini,drawRaceHud,RACE_DISCLAIMER} from './street-race.mjs?v=001';
 import {mountPhone} from './smartphone.mjs?v=001';
 import {createDrive,stepDrive,instructionText,drawDriveRoute,mountDriveApp,cancelDrive,ARROW} from './drive-app.mjs?v=001';
-import {renderNovita,novitaTarget,findStandingPoint,minutesAtHour,loadJudgements,saveJudgements,toggleJudgement,judgementSummary,NOVITA} from './novita.mjs?v=021';
+import {renderNovita,novitaTarget,findStandingPoint,minutesAtHour,loadJudgements,saveJudgements,toggleJudgement,judgementSummary,NOVITA} from './novita.mjs?v=022';
 // Lotto 15: dialoghi con volto (prototipo per la storyline, PROVVISORIO): barra in basso + riquadro del personaggio.
 import {openDialogue,isDialogueOpen,DEMO_DIALOGUE} from './dialogue.mjs?v=001';
 import {placeRoadSurfaces,roadSurfaceEffect,kerbEffect,emitSurfaceHit,onSurfaceHit,drawRoadSurfaces,drawSurfacePuddles} from './road-surfaces.mjs?v=001';
@@ -753,7 +754,7 @@ function prepareMap(map,surveyData=[],infillCache=null,placement=null,enclosureD
  if(!map||!Array.isArray(map.roads)||map.roads.length<20||!Array.isArray(map.border))throw Error('La mappa salvata non contiene una rete stradale valida');
  staticTiles.clear();roofReveal.clear();tileRoadMode=null;
  state.map=map;
- state.roads=map.roads;state.buildings=placeBuildings(map,placement);
+ state.roads=map.roads;state.buildings=applyBuildingShapeSample(placeBuildings(map,placement));
  prepareCityStyles(state.buildings,map.pois||[]);
  const survey=applySurveyDrafts(state.buildings,surveyData);
  state.enclosureData=enclosureData;state.enclosures=null;

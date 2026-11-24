@@ -868,3 +868,9 @@ Secondo screenshot e correzione dell'utente, **mantenere la torre molto grande e
 - [Confronti autentici prima/dopo, notte e ID](./qa/via-roma-style/README.md). Nuova voce PAUSA → NOVITÀ → `palazzi-via-roma` con VAI A VEDERE.
 - 696/696 test; browser desktop e telefono emulato, zero pageerror/HTTP >=400. Il controllo visivo ha portato a correggere il clip delle facciate prima della consegna. Android fisico non verificato.
 - Pagina versione 224; tranche da aggiungere alla PR #1 Verbooze, non dichiarata pubblicata sul sito. Valutare la resa effettiva prima di estendere agli altri quartieri.
+
+### 2026-11-25 — Campione volumetrico Via Roma: modifica reale della sagoma
+- Dopo il riscontro dell'utente, ridisegnato un solo corpo: 733704038 passa da 18 segmenti frastagliati a quattro lati continui, area quasi uguale e stessa altezza/palette.
+- Aggiunti balconi sporgenti con soletta, spessore e ombra. Collisione aggiornata sul nuovo corpo; altri edifici e mappa OSM sorgente conservati. Non è una ricostruzione fotografica.
+- [Prima/dopo autentici, notte e limiti](./qa/building-shape-sample/README.md); nel gioco PAUSA → NOVITÀ → `palazzo-campione` → VAI A VEDERE.
+- 700/700 test; prove desktop e telefono emulato a camera identica, zero errori JS/HTTP. Android fisico e deploy pubblico non verificati. Pagina versione 225; campione da valutare prima di estendere.

@@ -173,3 +173,9 @@ I 22 PNG stanno in `assets/people/`; il generatore unico è `assets/people/sourc
 | Voce | Cosa guardare | Lavoro | Dove | Quando | Stato |
 |---|---|---|---|---|---|
 | `palazzi-via-roma` | Otto palazzi: colori sobri, balconi allineati, sei terrazzi e due tetti in tegole; stessa camera dall'alto | Pilota estetico · Codex Work · PR #1 Verbooze | PAUSA › NOVITÀ › VAI A VEDERE; tratto di Via Roma presso la partenza | 11:00, poi controllare anche di notte | Direzione del bozzetto approvata dall'utente; prima resa effettiva da valutare nel gioco. Stilizzazione, nessuna nuova verifica fotografica. |
+
+### Campione volumetrico — Via Roma (25 novembre 2026)
+
+| Voce | Cosa guardare | Lavoro | Dove | Quando | Stato |
+|---|---|---|---|---|---|
+| `palazzo-campione` | Il palazzo 733704038 cambia sagoma: corpo regolare di quattro lati e balconi realmente sporgenti con soletta e ombra; palette rosa invariata | Campione volumetrico · Codex Work · PR #1 Verbooze | PAUSA › NOVITÀ › VAI A VEDERE | 11:00; controllo anche notturno | Primo campione richiesto dopo il rifiuto della sola modifica cromatica. Nuova sagoma artistica, non correzione cartografica; da valutare prima di estenderla. |

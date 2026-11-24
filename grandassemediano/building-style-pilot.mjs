@@ -1,3 +1,4 @@
+import {sampleBalconySlabs,drawSampleBalconies} from './building-shape-sample.mjs?v=001';
 /* Approved aesthetic direction, first eight ordinary Via Roma buildings only.
  * Palette and facades are fictional styling, not photographic observations.
  * Footprints, height, collisions and the high top-down camera stay unchanged. */
@@ -20,7 +21,7 @@ export function applyViaRomaStylePilot(buildings){
  for(const b of buildings){
   const p=byId.get(b.id),a=b.art;
   if(!p||!a||a.surveyStatus==='photo-verified'||a.glass||a.ruinPool)continue;
-  a.stylePilot=p;a.facadeTint=p.wall;a.roofTint=p.roof;a.roof=p.pitched&&b.roof!=='flat';
+  a.shapeSample=!!b.shapePilot;a.stylePilot=p;a.facadeTint=p.wall;a.roofTint=p.roof;a.roof=p.pitched&&b.roof!=='flat';
   delete a.windowPanes;changed++;
  }
  return changed;
@@ -62,7 +63,7 @@ export function drawPilotFacade(c,a,v,f,edgeX,edgeY,length,zoom){
   if(profile.family!=='condominio'&&w.column%3===1){
    c.fillStyle=profile.shutter;c.fillRect(x-.8,y,.5,w.h);c.fillRect(x+w.w+.3,y,.5,w.h);
   }
-  if(w.row<layout.rows-1&&profile.balcony!=='none'){
+  if(!a.shapeSample&&w.row<layout.rows-1&&profile.balcony!=='none'){
    const span=profile.balcony==='continuous'?Math.min(5.3,length/(Math.ceil(length/6.8)+1)*.8):3.8;
    const bx=w.x-span/2,by=w.y+w.h*.6;
    c.fillStyle='#e2d8c2';c.fillRect(bx,by,span,.38);
@@ -71,6 +72,7 @@ export function drawPilotFacade(c,a,v,f,edgeX,edgeY,length,zoom){
   }
  }
  c.restore();
+ if(a.shapeSample)drawSampleBalconies(c,sampleBalconySlabs(a,v,f,edgeX,edgeY,length,layout.windows));
 }
 export function drawPilotRoof(c,b,a){
  const p=a.stylePilot;

@@ -1,4 +1,4 @@
-import {drawPilotFacade,drawPilotRoof,pilotFacadeWindows} from './building-style-pilot.mjs?v=001';
+import {drawPilotFacade,drawPilotRoof,pilotFacadeWindows} from './building-style-pilot.mjs?v=002';
 /* WORK HANDOFF: art direction / photo evidence / acceptance criteria live
  * in ./HANDOFF_WORK_REALISMO.md (see also ./AGENTS.md).
  * Do not claim hypothetical materials or pixel geometry as photo-verified.
