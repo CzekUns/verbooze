@@ -4,7 +4,7 @@
  */
 import {visualRoadWidth} from './road-widths.mjs?v=044';
 import {SIDEWALK_OUTER,SIDEWALK_SHADOW,SIDEWALK_KERB} from './sidewalk.mjs?v=099';
-import {buildingVolume,exposedFacade,facadePoints,shiftColor} from './building-volume.mjs?v=088';
+import {buildingVolume,exposedFacade,facadePoints,shiftColor} from './building-volume.mjs?v=089';
 import {material} from './arcade-materials.mjs?v=095';
 import {drawPedestrianSprite} from './pedestrian-sprites.mjs?v=002';
 import {PERSON_SCALE} from './world-scale.mjs?v=001';

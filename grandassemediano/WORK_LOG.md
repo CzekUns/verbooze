@@ -1337,3 +1337,12 @@ laude (account `ilconsulentelogistico-hue`) — Q02 collaudata e chiusa
 ### 2026-11-24 — Migrazione GAM in Verbooze
 - Copia integrale da Effettokarmagra al commit d040b56047c04ae6c8614da809067c57ac9d4591; originale invariato.
 - Landing collegata alla copia locale. Pulizia radio, marchi e negozi ancora da fare; versione di prova, non pronta al lancio commerciale.
+
+### 2026-11-24 — Codex Work — correzioni edifici trasferite nella repository attiva Verbooze
+- **Destinazione confermata dall'utente:** CzekUns/verbooze, gioco in `grandassemediano/`. Nuovo ramo `fix/gam-building-positions`; nessun push su Effettokarmagra.
+- **Fatto:** trasferiti il raddrizzamento degli spigoli e le 599 correzioni di posizione/scala, con audit completo, generatore, test e confronti grafici. Fonte locale: e7351cf e 57f2c4b della precedente lavorazione; il codice è stato adattato alla versione migrata, non copiato integralmente.
+- **Compatibilità:** mantenuti artwork ufficiale, caricamento con avanzamento reale e query `gam=1`. Merge a tre vie di `game.mjs`; aggiornamento della sola versione nella pagina a 222. Le altre modifiche successive alla migrazione restano presenti.
+- **Misure:** edifici con corpo/volume nell'asfalto 675→76, impronte nell'asfalto 182→47, sulla linea centrale 39→16. 321 traslazioni e 278 riduzioni uniformi con eventuale traslazione; minimo scala 55%. Sorgente OSM immutata, collisioni e indici aggiornati sulle nuove sagome.
+- **Verifiche:** suite Node eseguita nella copia Verbooze **687/687**; Chrome headless dalla landing al gioco, caricamento nascosto dopo il completamento, viste 1280×720 e 844×390 su due zone. Zero pageerror e HTTP >=400; screenshot aggiornati in `qa/building-positions/`, risultati in `verbooze-after.json`. Nessuna prova Android fisico o deploy pubblico verificato.
+- **Documenti:** README radice aggiornato al gioco già migrato; AGENTS radice indica repository/cartella attive per evitare nuove modifiche sulla vecchia destinazione. `survey/building-position-review.json` elenca i 76 casi residui.
+- **Da fare:** trattare singolarmente i residui e valutare la scala dei fabbricati ridotti. Commit/push/PR registrati nel riepilogo di consegna; non dichiarare risolte tutte le strade.

@@ -14,7 +14,7 @@ test('the complete raised roof and its walls can cover a road point outside the 
  const paths=[];
  const ctx={beginPath(){},moveTo(x,y){paths.push([x,y]);},lineTo(){},closePath(){}};
  traceRoofCover(ctx,building);
- assert.deepEqual(paths,[[0,0],[-v.dx,-v.dy]],'clip combines the ground footprint and the uncut roof');
+ assert.deepEqual(paths,[[0,0],[-v.dx||0,-v.dy]],'clip combines the ground footprint and the uncut roof');
  assert.deepEqual(building.p,original,'rendering must not alter OSM geometry');
 });
 

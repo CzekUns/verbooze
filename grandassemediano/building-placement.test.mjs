@@ -1,7 +1,8 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
 import {readFile} from 'node:fs/promises';
-import {placeBuildings} from './building-placement.mjs';
+import {placeBuildings,placeInferredBuildings} from './building-placement.mjs';
+import {mapFingerprint} from './urban-infill.mjs';
 import {roadFootprintDistance} from './urban-infill.mjs';
 import {visualRoadWidth} from './road-widths.mjs';
 import {SIDEWALK_OUTER} from './sidewalk.mjs';
@@ -14,16 +15,17 @@ test('placement keeps source OSM geometry, landmark identities and collision foo
  const placed=placeBuildings(map,placement);
  assert.equal(placement.sourceCreated,map.created);
  assert.equal(placed.length,2056);
- assert.ok(placement.improved>1000);
+ assert.ok(Object.keys(placement.offsets).length>1000);
  for(let i=0;i<placed.length;i++){
   const old=map.buildings[i],next=placed[i];
   assert.equal(next.id,old.id);
   assert.deepEqual(old.p,before[i]);
   const dx=next.p[0]-old.p[0],dy=next.p[1]-old.p[1];
-  assert.ok(Math.hypot(dx,dy)<=12.1,'excessive displacement '+old.id);
+  const review=placement.reviewed?.[old.id],scale=review?.scale??1;
+  assert.ok(Math.hypot(review?.dx??dx,review?.dy??dy)<=(review?48.1:12.1),'excessive displacement '+old.id);
   for(let j=0;j<next.p.length;j+=2){
-   assert.ok(Math.abs(next.p[j]-old.p[j]-dx)<.001);
-   assert.ok(Math.abs(next.p[j+1]-old.p[j+1]-dy)<.001);
+   assert.ok(Math.abs(next.p[j]-(old.p[j]-old.p[0])*scale-next.p[0])<.101);
+   assert.ok(Math.abs(next.p[j+1]-(old.p[j+1]-old.p[1])*scale-next.p[1])<.101);
   }
  }
  for(const id of [733703815,733703600]){
@@ -58,4 +60,19 @@ test('corrected buildings reduce measured intrusion into real road and sidewalk 
   before+=score(source.p,near);after+=score(corrected.p,near);
  }
  assert.ok(after<before*.45,'road intrusion barely improved: '+after+'/'+before);
+});
+
+test('reviewed placement rejects stale geometry and invalid transforms; infill uses the same transform',()=>{
+ const b=map.buildings.find(b=>!b.n),fake={...placement,schema:2,sourceFingerprint:mapFingerprint(map),reviewed:{[b.id]:{dx:20,dy:0,scale:.7}}};
+ const moved=placeBuildings(map,fake).find(q=>q.id===b.id);
+ assert.equal(moved.placementCorrection.scale,.7);
+ assert.notDeepEqual(moved.p,b.p);
+ assert.equal(moved.id,b.id);
+ assert.equal(placeBuildings(map,{...fake,sourceFingerprint:'stale'}),map.buildings);
+ const infill=[{...b,id:-1}],review={...fake,reviewed:{'-1':{dx:4,dy:3,scale:.85}}};
+ assert.equal(placeInferredBuildings(infill,map,review)[0].placementCorrection.scale,.85);
+ for(const invalid of [{dx:Infinity,dy:0,scale:1},{dx:49,dy:0,scale:1},{dx:0,dy:0,scale:.4},{dx:0,dy:0,scale:2}]){
+  const result=placeInferredBuildings(infill,map,{...review,reviewed:{'-1':invalid}});
+  assert.equal(result[0],infill[0]);
+ }
 });

@@ -12,11 +12,11 @@ import {drawBorderGates,borderGateList,borderRing,distanceToBorder,GATE_RULES} f
 import {createRoutineResidents,createDoorVisitors,attachDoorToPavement} from './resident-routines.mjs?v=012';
 import {probeDoor,doorFacesViewer,drawDoorSteps,drawDoorFronts,DOOR_SOURCE} from './building-doors.mjs?v=001';
 import {NPC_START_MINUTE,advanceNpcClock,formatNpcClock,npcWeekday} from './npc-agenda.mjs?v=002';
-import {createMarket,stepMarket,marketBlocksWalker,marketBlocksVehicle,stepParasolReveal,drawMarketGround,drawMarketStalls,drawMarketParasols,loadMarketArt} from './market.mjs?v=008';
+import {createMarket,stepMarket,marketBlocksWalker,marketBlocksVehicle,stepParasolReveal,drawMarketGround,drawMarketStalls,drawMarketParasols,loadMarketArt} from './market.mjs?v=009';
 import {createCityEvents,stepCityEvents,cityEventAction,interactCityEvent,cityEventBubble,drawLostItem,drawCityEventOverlay} from './city-events.mjs?v=002';
 import {offersFor,nearestShop,buyOffer,addBoost,boostFactor,boostSecondsLeft,purchaseMessage,shopNote,vendorShops} from './local-shops.mjs?v=003';
 import {weatherAt,combineWeather,drawRain,drawCloudShadows,placePuddles,drawPuddles,drawUmbrella} from './weather.mjs?v=001';
-import {buildingVolume} from './building-volume.mjs?v=088';
+import {buildingVolume} from './building-volume.mjs?v=089';
 import {createCityAudio} from './city-audio.mjs?v=006';
 import {createSocial,stepSocial} from './npc-social.mjs?v=004';
 import {createIdlePeople,stepIdlePeople,drawIdlePeople,loadIdlePoseSheets} from './npc-idle.mjs?v=003';
@@ -41,7 +41,7 @@ import {riderPickups,riderDestinations,riderOffers,riderVehicleCheck,acceptOffer
 import {openGoriziana,isGorizianaOpen} from './minigame-goriziana.mjs?v=001';
 import {openPoolMachine,isPoolOpen} from './minigame-pool.mjs?v=001';
 import {drawWorldLandmarks,drawMinimapLandmarks,drawBigMap} from './landmark-art.mjs?v=089';
-import {prepareCityStyles,applyApprovedArcadeRoofStyle,applyPiazzaRoofStudies,prepareUrbanGround,drawTerrain,drawCityParcels,drawCityStreets,drawCityBuildings,drawCityPeople,drawCityCar,drawCityPlayer,loadChurchWebp,facadeWindowPanes,SANTA_MARIA_OSM_ID} from './city-art.mjs?v=138';
+import {prepareCityStyles,applyApprovedArcadeRoofStyle,applyPiazzaRoofStudies,prepareUrbanGround,drawTerrain,drawCityParcels,drawCityStreets,drawCityBuildings,drawCityPeople,drawCityCar,drawCityPlayer,loadChurchWebp,facadeWindowPanes,SANTA_MARIA_OSM_ID} from './city-art.mjs?v=139';
 import {createSatelliteOverlay,satelliteFromUrl} from './satellite-overlay.mjs?v=001';
 import {loadCarSprites,drawCarSprite,carDrawSize,CAR_TRAFFIC_SPRITE_IDS,CAR_TRAFFIC_STRIDE,CAR_PARKED_SPRITE_IDS,APE_CAR_IDS,COURIER_IDS,REFUSE_TRUCK_IDS,TOW_TRUCK_IDS,BUS_IDS} from './car-sprites.mjs?v=118';
 import {DAMAGE_RULES,DAMAGE_LABEL,addDamage,damagePoints,damageLevel,damagedProfile,repairCost,payRepair,repairMessage,healOutOfView,drawVehicleDamage,placeWorkshop,nearWorkshop,drawWorkshop} from './vehicle-damage.mjs?v=001';
@@ -64,13 +64,13 @@ import {guideCar} from './driving-assist.mjs?v=099';
 import {buildTurnGuides,guideIntersection} from './intersection-assist.mjs?v=097';
 import {reboundCar,advanceRecoil} from './car-rebound.mjs?v=098';
 import {canDriveProbe} from './road-clearance.mjs?v=100';
-import {roofRevealTarget,easeRoofReveal,traceRoofCover} from './roof-reveal.mjs?v=121';
-import {resolveBankEntrances,nearestBankEntrance,drawBankEntrance,drawBankInterior,stepBankInteriorPlayer,bankInteriorCamera,BANK_FOOT_ZOOM_MULTIPLIER} from './bank-interior.mjs?v=012';
+import {roofRevealTarget,easeRoofReveal,traceRoofCover} from './roof-reveal.mjs?v=122';
+import {resolveBankEntrances,nearestBankEntrance,drawBankEntrance,drawBankInterior,stepBankInteriorPlayer,bankInteriorCamera,BANK_FOOT_ZOOM_MULTIPLIER} from './bank-interior.mjs?v=013';
 import {applyNonlethalImpact,advanceNonlethalImpact,sweptVehicleContact,slowImpactSource,IMPACT_MIN_SPEED} from './impact-physics.mjs?v=006';
-import {resolveShopEntrances,nearestShopEntrance,drawShopEntrance,enterShop,stepShopInteriorPlayer,shopInteriorCamera,interiorCounterNear,drawShopInterior,outdoorShops,entranceAtSign,interiorGameNear,startBarGame,endBarGame,footprintArea} from './shop-interiors.mjs?v=005';
+import {resolveShopEntrances,nearestShopEntrance,drawShopEntrance,enterShop,stepShopInteriorPlayer,shopInteriorCamera,interiorCounterNear,drawShopInterior,outdoorShops,entranceAtSign,interiorGameNear,startBarGame,endBarGame,footprintArea} from './shop-interiors.mjs?v=006';
 import {WHEEL_MAX_ANGLE,pointerWheelAngle,turnSteeringWheel,steeringInput,returnSteeringWheel} from './steering-wheel.mjs?v=001';
 import {SIDEWALK_DRIVE,SIDEWALK_OUTER} from './sidewalk.mjs?v=099';
-import {placeBuildings} from './building-placement.mjs?v=123';
+import {placeBuildings,placeInferredBuildings} from './building-placement.mjs?v=124';
 import {prepareEnclosures,enclosureWalkBlocked,enclosureVehicleContacts,markGlassBuildings,drawEnclosureWalls,drawEnclosureGates} from './enclosures.mjs?v=003';
 import {preparePitches,infillOnPitch,pitchWalkBlocked,pitchVehicleContacts,pitchHotspot,drawPitches,PITCH_RULES} from './football-pitches.mjs?v=002';
 import {GARAGES,nearestGarage,canStoreVehicle,depositVehicle,takeVehicle,vehicleFromEntry,chooseExitSpot,garageMessage,vehicleLabel,ownedEntry,ownedCount,garageById,GARAGE_SLOTS,drawGarage} from './garages.mjs?v=001';
@@ -776,7 +776,8 @@ function prepareMap(map,surveyData=[],infillCache=null,placement=null,enclosureD
   Array.isArray(infillCache.buildings)&&infillCache.stats?.generated===infillCache.buildings.length?
   infillCache:generateUrbanInfill(map);
  // Q32: invented placeholders standing on a real pitch (seen on the aerial photo) are left out.
- state.inferredBuildings=inferred.buildings.filter(b=>!infillOnPitch(b));state.infillStats=inferred.stats;
+ state.inferredBuildings=inferred.buildings.filter(b=>!infillOnPitch(b));
+ state.inferredBuildings=placeInferredBuildings(state.inferredBuildings,map,placement);state.infillStats=inferred.stats;
  state.pitchInfillRemoved=inferred.buildings.length-state.inferredBuildings.length;
  prepareCityStyles(state.inferredBuildings,[]);
  const facade=['#e6bb7b','#edca92','#dfab67','#f0d59e','#d89c63','#e8b879'];

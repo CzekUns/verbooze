@@ -855,3 +855,9 @@ Secondo screenshot e correzione dell'utente, **mantenere la torre molto grande e
 
 ### 2026-11-24 — Artwork ufficiale Grand Asse Mediano: Melito — APPROVATO
 - Copertina illustrata approvata dall'utente, logo con skyline interamente nero e fungo nero, fungo rosso/bianco separato nello sfondo; segnaletica blu Aversa–Melito. WebP 1440×758 (circa 260 KiB), barra finta rimossa con crop; sfondo contain e barra rosa reale separata nell'HTML. I sette asset storici restano conservati. Verifica browser/telefono ancora da fare.
+
+### 2026-11-24 — Verbooze: palazzi verticali e revisione delle posizioni
+- Integrate in `CzekUns/verbooze/grandassemediano` le correzioni già preparate: spigoli verticali, 599 trasformazioni complete (321 spostamenti, 278 riduzioni uniformi con eventuale spostamento); nessun taglio. Scala minima 55%; cambiamenti da valutare in gioco.
+- Corpi/volumi nell'asfalto 675→76; impronte nell'asfalto 182→47; sulla linea centrale 39→16. Nessuna modifica della cartografia sorgente; collisioni e rendering condividono le sagome corrette.
+- Caricamento ufficiale con avanzamento reale conservato; pagina versione 222. [Confronti](./qa/building-positions/README.md) e [rapporto completo](./survey/building-position-review.json).
+- 687/687 test nella copia Verbooze; navigazione landing→GAM e screenshot aggiornati desktop/mobile emulato senza pageerror/HTTP >=400. Android reale e deploy non verificati; 76 residui ancora aperti.

@@ -60,7 +60,7 @@ test('collegamento all’avvio e anteprima da NOVITÀ con sfumatura sotto il tes
  assert.match(game,/entry\.prova==='caricamento'/);
  assert.match(game,/loading-preview-close/);
  assert.match(game,/novita\.mjs\?v=020/);
- assert.match(html,/game\.mjs\?v=220/);
+ assert.ok(Number(html.match(/game\.mjs\?v=(\d+)/)?.[1])>=220);
  assert.match(html,/--loading-desktop/);assert.match(html,/--loading-mobile/);
  assert.match(html,/\.loading::before\{[^}]*linear-gradient/);
  assert.match(html,/id="loading-scene-title"/);

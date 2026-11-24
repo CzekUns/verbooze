@@ -69,7 +69,7 @@ test('details on diagonal facades follow the OSM wall and its extrusion',()=>{
  const ctx=new Proxy({transform:(...args)=>transforms.push(args)},{get(o,k){return k in o?o[k]:()=>{}},set(o,k,v){o[k]=v;return true;}});
  drawCityBuildings(ctx,[building],2.5);
  assert.ok(transforms.length>0,'visible facades should receive a detail plane');
- assert.ok(transforms.some(([a,b,c,d])=>Math.abs(a)>.1&&Math.abs(b)>.1&&c>0&&d>0),
+ assert.ok(transforms.some(([a,b,c,d])=>Math.abs(a)>.1&&Math.abs(b)>.1&&c===0&&d===1),
   'the facade axis must follow an oblique edge and its depth must follow the building projection');
 });
 test('mobile controls prevent selection but retain accessibility and mission UI',async()=>{
