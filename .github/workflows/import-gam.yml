@@ -1,0 +1,47 @@
+name: Import GAM snapshot
+on:
+  push:
+    paths:
+      - '.github/workflows/import-gam.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  import:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Import approved source snapshot
+        shell: bash
+        run: |
+          set -euo pipefail
+          test ! -e grandassemediano || { echo "GAM already exists; refusing to overwrite"; exit 1; }
+          git init "$RUNNER_TEMP/gam-source"
+          git -C "$RUNNER_TEMP/gam-source" fetch --depth=1 https://github.com/CzekUns/Effettokarmagra.git d040b56047c04ae6c8614da809067c57ac9d4591
+          git -C "$RUNNER_TEMP/gam-source" checkout --detach FETCH_HEAD
+          cp -a "$RUNNER_TEMP/gam-source/games/gta-melito" grandassemediano
+          test -s grandassemediano/index.html
+          test -s grandassemediano/data/melito-map.json
+          test -s grandassemediano/assets/ui/gam-loading.webp
+          node --check grandassemediano/game.mjs
+          python3 - <<'PY'
+          from pathlib import Path
+          p=Path('index.html')
+          s=p.read_text()
+          old='https://czekuns.github.io/Effettokarmagra/games/gta-melito/'
+          assert old in s
+          p.write_text(s.replace(old,'./grandassemediano/'))
+          p=Path('grandassemediano/WORK_LOG.md')
+          with p.open('a') as f:
+              f.write('\n### 2026-11-24 — Migrazione GAM in Verbooze\n- Copia integrale da Effettokarmagra al commit d040b56047c04ae6c8614da809067c57ac9d4591; originale invariato.\n- Landing collegata alla copia locale. Pulizia radio, marchi e negozi ancora da fare; versione di prova, non pronta al lancio commerciale.\n')
+          PY
+      - name: Run regression suite
+        continue-on-error: true
+        run: node --test grandassemediano/*.test.mjs grandassemediano/survey/*.test.mjs
+      - name: Commit imported files
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add grandassemediano index.html
+          git commit -m "Import GAM snapshot into Verbooze"
+          git push origin HEAD:main
