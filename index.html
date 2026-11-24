@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#101010">
+<meta name="description" content="Verbooze presenta GAM — Grand Asse Mediano: Melito. Esplora Melito in un videogioco indipendente gratuito da browser.">
+<title>Verbooze — Grand Asse Mediano</title>
+<link rel="icon" href="data:,">
+<style>
+:root{color-scheme:dark;--ink:#101010;--paper:#f3f0e9;--accent:#ff1685;--muted:#aaa8a7;font-family:Arial,Helvetica,sans-serif}
+*{box-sizing:border-box}
+body{margin:0;background:var(--ink);color:var(--paper);min-height:100svh}
+.page{max-width:1240px;padding:0 clamp(20px,5vw,64px);margin:auto;min-height:100svh;display:flex;flex-direction:column}
+header{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:26px 0;border-bottom:1px solid #ffffff20}
+.wordmark{font-size:clamp(24px,3.3vw,36px);font-weight:900;letter-spacing:-.08em;line-height:1}
+.wordmark span{color:var(--accent)}
+.header-label,.eyebrow{font-size:10px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+main{flex:1;display:grid;align-content:center;gap:0;padding:clamp(24px,4vw,54px) 0}
+.hero{position:relative;border:1px solid #ffffff25;overflow:hidden;background:#050505}
+.hero img{display:block;width:100%;height:auto;aspect-ratio:1440/758;object-fit:contain}
+.hero-tag{position:absolute;bottom:0;left:0;background:var(--accent);color:#101010;padding:9px 14px;font-weight:900;font-size:11px;letter-spacing:.13em;text-transform:uppercase}
+.details{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:24px;align-items:end;padding:24px 0 8px}
+.eyebrow{color:var(--accent);margin:0 0 9px}
+h1{font-size:clamp(28px,5vw,56px);font-weight:900;letter-spacing:-.055em;line-height:.99;margin:0;max-width:720px}
+h1 span{display:block;color:var(--muted);font-size:.57em;letter-spacing:-.03em;margin-top:6px}
+.description{color:#c9c7c4;font-size:clamp(14px,1.5vw,17px);line-height:1.5;max-width:580px;margin:16px 0 0}
+.play{display:flex;align-items:center;justify-content:space-between;gap:32px;background:var(--accent);color:#101010;font-weight:900;text-decoration:none;text-transform:uppercase;letter-spacing:.06em;padding:20px 24px;min-height:60px;min-width:208px;transition:background .15s,transform .15s}
+.play:hover{background:#ff64ac;transform:translateY(-2px)}
+.play:focus-visible{outline:3px solid white;outline-offset:5px}
+.play span{font-size:21px;line-height:1}
+.actions small{display:block;color:var(--muted);font-size:11px;text-align:center;margin-top:10px}
+footer{padding:20px 0 max(20px,env(safe-area-inset-bottom));border-top:1px solid #ffffff20;color:var(--muted);font-size:11px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+@media(max-width:640px){header{padding:19px 0}.header-label{font-size:9px;letter-spacing:.1em}main{align-content:start;padding:22px 0}.details{grid-template-columns:1fr;gap:22px;padding-top:20px}.actions{width:100%}.play{width:100%}.description{margin-top:12px}.hero-tag{font-size:9px;padding:6px 9px}}
+@media(prefers-reduced-motion:reduce){.play{transition:none}.play:hover{transform:none}}
+</style>
+</head>
+<body>
+<div class="page">
+<header><div class="wordmark">verbooze<span>.</span></div><span class="header-label">Videogiochi indipendenti</span></header>
+<main>
+<div class="hero"><img src="./assets/gam-hero.webp" width="1440" height="758" alt="Artwork illustrato di Grand Asse Mediano: Melito, con il serbatoio idrico, il traffico e lo svincolo Aversa–Melito." fetchpriority="high"><span class="hero-tag">In evidenza · 001</span></div>
+<section class="details" aria-labelledby="gam-title">
+<div><p class="eyebrow">Verbooze presenta</p><h1 id="gam-title">Grand Asse Mediano<span>Melito di Napoli</span></h1><p class="description">Le strade di Melito, il traffico e la vita di quartiere. Un videogioco indipendente da costruire insieme alla community. Parti da qui.</p></div>
+<div class="actions"><a class="play" href="https://czekuns.github.io/Effettokarmagra/games/gta-melito/">Gioca gratis <span aria-hidden="true">↗</span></a><small>Nel browser · Nessun download</small></div>
+</section>
+</main>
+<footer><span>© Verbooze</span><span>GAM è un progetto indipendente in sviluppo.</span></footer>
+</div>
+</body>
+</html>
