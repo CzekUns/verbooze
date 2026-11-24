@@ -1353,3 +1353,11 @@ laude (account `ilconsulentelogistico-hue`) — Q02 collaudata e chiusa
 - Albero GitHub confrontato con l'albero locale verificato: SHA identico `c84e1196249ab5b596f6a84109ed5e86def47d55`.
 - Verifiche finali: 687/687 test, navigazione landing→gioco e caricamento desktop/mobile emulato senza errori; limiti e 76 residui descritti nel rapporto e nella PR.
 - Ripresa: revisione/integrazione PR #1 e test Android reale; nessuna modifica pubblicata sulla precedente repository Effettokarmagra.
+
+### 2026-11-24 — Codex Work — altri bug: comandi attivi dietro pausa, mappa e messaggi
+- **Riprodotto:** con pausa/mappa/messaggio aperti, E permetteva ancora di salire nella Panda. In banca, P→Esc faceva uscire dalla banca mantenendo aperta la pausa. Quattro scenari verificati in Chromium con tasti reali.
+- **Corretto:** il gestore keydown di `game.mjs` dà priorità alle schermate aperte prima di movimento e scorciatoie del mondo. Navigazione telefono preservata; Esc chiude prima la pausa senza uscire dagli interni, M/Esc chiudono solo la mappa, Esc/Invio/Spazio chiudono il messaggio. Versione pagina 223.
+- **Test:** cinque regressioni in `modal-input.test.mjs` sul corpo reale del gestore. Corretto il DOM finto di `browser-smoke.test.mjs`: ora gli attributi hidden iniziali sono quelli dell'HTML, invece di simulare erroneamente la pausa già aperta.
+- **Verifiche:** suite completa **692/692**; ripetuti i quattro scenari in browser dopo il fix, tutti conformi e zero pageerror. Dati prima/dopo e limiti in `qa/modal-input/`. Non verificati Android reale o tutti i minigiochi.
+- **Ulteriore osservazione aperta:** nel controllo a runtime un passante si trovava dentro l'impronta 733704295; non corretto né diagnosticato in questa tranche. Le 76 posizioni residue rimangono aperte.
+- **Consegna:** correzioni da aggiungere al ramo della PR #1 su CzekUns/verbooze; nessuna modifica su Effettokarmagra e nessun merge/deploy dichiarato.

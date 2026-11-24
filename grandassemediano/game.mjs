@@ -2582,6 +2582,22 @@ function bind(){
  window.addEventListener('keydown',e=>{
   // Q37: con il telefono aperto frecce, INVIO, ESC e la scrittura nella ricerca restano al telefono.
   if(!$('pause-menu').hidden&&phoneUi?.key(e))return;
+  // Open overlays own keyboard input before bank/shop/world shortcuts.
+  if(!pause.hidden){
+   e.preventDefault();
+   if(!e.repeat&&(e.key==='Escape'||e.key.toLowerCase()==='p'))closePause();
+   return;
+  }
+  if(state.mapOpen){
+   e.preventDefault();
+   if(!e.repeat&&(e.key==='Escape'||e.key.toLowerCase()==='m'))toggleBigMap();
+   return;
+  }
+  if(!$('dialog').hidden){
+   e.preventDefault();
+   if(!e.repeat&&(e.key==='Escape'||e.key==='Enter'||e.code==='Space'))$('dialog').hidden=true;
+   return;
+  }
   // Lotto 15: con la barra del dialogo aperta INVIO/SPAZIO/ESC li gestisce dialogue.mjs; gli altri tasti di gioco restano fermi.
   if(isDialogueOpen()&&$('pause-menu').hidden)return;
   const dir={ArrowUp:'up',ArrowDown:'down',ArrowLeft:'left',ArrowRight:'right',w:'up',a:'left',s:'down',d:'right',W:'up',A:'left',S:'down',D:'right'}[e.key];
