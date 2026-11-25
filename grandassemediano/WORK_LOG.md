@@ -1399,3 +1399,9 @@ laude (account `ilconsulentelogistico-hue`) — Q02 collaudata e chiusa
 Confronto indipendente pre/post: 228 varianti con profili di guida, dimensioni di collisione e ingombri di disegno invariati; rapporto `qa/commerciale/mechanics-comparison.json`.
 
 Completato l’inventario anche per la copertina SVG preesistente fuori dalla cartella assets; verificati 151 file con hash e dimensioni. Aggiunto il comando riproducibile `scripts/inventory-rights.py`, che non attribuisce licenze ai nuovi file.
+
+## 2026-11-25 — Pubblicazione e controllo continuo
+
+- PR #2 integrata in main, commit di merge `83b56ffb044c2a73bb9e11783da130bf1a08b26d`; GitHub Pages completato con esito positivo, entry pubblica v1226 e pulsante fullscreen presente.
+- Ritirato il workflow monouso di migrazione: la copia locale già esiste e l'importazione falliva intenzionalmente per impedirne la sovrascrittura. Sostituito con `GAM regression checks` (permessi di sola lettura, Node 24, sintassi e suite completa); nessun nuovo collegamento operativo alla repository originale.
+- Provenienza del trasferimento originale: Effettokarmagra al commit `d040b56047c04ae6c8614da809067c57ac9d4591`; dettagli e percorsi originari restano consultabili nella cronologia git. Non reimportare quel pacchetto sopra la versione bonificata.

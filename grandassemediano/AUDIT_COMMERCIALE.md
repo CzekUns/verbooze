@@ -69,3 +69,7 @@ Ispezionati i master nuovi e le tavole degli atlanti; riviste per contatto le al
 5. **Monetizzazione futura.** Non è stata integrata pubblicità né un servizio musicale. Prima di abilitarli verificare contratti, privacy/consensi e condizioni del fornitore pertinenti. Slot/poker usano soltanto crediti virtuali: valutare classificazione per età, distribuzione e regole effettivamente applicabili senza presumere che la sola gratuità risolva ogni tema.
 6. **QA residuo.** Prova su dispositivi fisici e browser principali; passata completa di missioni, gare, calcetto e interni. Restano i conflitti geometrici storici (76 casi nell'audit di posizionamento, inclusi casi solo visivi) e il passante osservato nell'impronta 733704295. Non sono stati dichiarati risolti dalla bonifica.
 7. **Cronologia e pubblicazione.** Gli asset/riferimenti ritirati possono essere recuperati dalla cronologia git pubblica. Non sono stati cancellati dalla storia né modificata la visibilità: la decisione resta al proprietario. Questa distribuzione tecnica non equivale a dichiarare pronto o autorizzato il lancio commerciale.
+
+## Pubblicazione tecnica
+
+PR #2 integrata su main; GitHub Pages della versione v1226 completato con esito positivo il 25 novembre 2026. Presenza pubblica del pulsante fullscreen e dell'entry nuova verificata. Il vecchio workflow monouso di importazione è stato ritirato e sostituito con controlli Node senza permessi di scrittura. La pubblicazione tecnica non rimuove i blocchi commerciali indicati sopra.
