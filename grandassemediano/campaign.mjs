@@ -9,9 +9,9 @@ import {freshFootballSave,sanitizeFootballSave} from './minigame-football.mjs?v=
 export const SAVE_KEY='gta-melito-campaign-v3';
 export const STORY=[
  {id:'primo-contatto',title:'01 · Il primo contatto',reward:75,time:0,
-  intro:'Nico ha lasciato un messaggio su Via Roma. Vuole parlarti di una piccola commissione.',
+  intro:'Leggi il messaggio dal pannello Missioni su Via Roma per iniziare una piccola commissione.',
   steps:[
-   {at:'via-roma',verb:'PARLA',mode:'foot',speaker:'NICO',text:'Oh, finalmente! Raggiungimi a Piazza Santo Stefano. Ho bisogno di qualcuno che conosca le strade.'},
+   {at:'via-roma',verb:'LEGGI',mode:'foot',speaker:'MESSAGGIO',text:'Messaggio ricevuto. Raggiungimi a Piazza Santo Stefano. Ho bisogno di qualcuno che conosca le strade.'},
    {at:'piazza-stefano',verb:'INCONTRA',mode:'foot',speaker:'NICO',text:'Bravo! A Melito ogni vicolo racconta qualcosa. Questa è per il disturbo.'}
   ]},
  {id:'giro-in-centro',title:'02 · Il giro del centro',reward:150,time:190,
@@ -24,7 +24,7 @@ export const STORY=[
  {id:'posta-celere',title:'03 · La staffetta',reward:220,time:250,
   intro:'Una staffetta di messaggi fittizi tra le zone commerciali della città.',
   steps:[
-   {at:'piazza-immacolata',verb:'RITIRA',mode:'foot',speaker:'CONTATTO',text:'La staffetta parte da qui. Prima fermata: Ufficio Postale Melito 1.'},
+   {at:'piazza-immacolata',verb:'RITIRA',mode:'foot',speaker:'CONTATTO',text:'La staffetta parte da qui. Prima fermata: Sportello postale 01.'},
    {at:'poste-1',verb:'REGISTRA',mode:'either',speaker:'RADIO',text:'Punto raggiunto. Ora attraversa il quartiere fino a Corso Europa.'},
    {at:'corso-europa',verb:'INCONTRA',mode:'foot',speaker:'NICO',text:'Ci sei quasi. Chiudi il giro verso il secondo ufficio postale.'},
    {at:'poste-2',verb:'CONSEGNA',mode:'foot',speaker:'CONTATTO',text:'Staffetta completata. Melito è più grande di quanto sembri.'}
@@ -43,9 +43,9 @@ export const LANDMARKS=[
  {id:'piazza-stefano',source:'road',name:'Piazza Santo Stefano',kind:'square',match:'Piazza Santo Stefano'},
  {id:'piazza-immacolata',source:'road',name:'Piazza Immacolata',kind:'square',match:'Piazza Immacolata'},
  {id:'municipio',source:'poi',name:'Municipio di Melito di Napoli',kind:'townhall',match:'Municipio di Melito di Napoli'},
- {id:'poste-1',source:'poi',name:'Ufficio Postale Melito 1',kind:'post',match:'Ufficio Postale Melito 1'},
+ {id:'poste-1',source:'poi',name:'Sportello postale 01',kind:'post',match:'Sportello postale 01'},
  {id:'corso-europa',source:'road',name:'Corso Europa',kind:'avenue',match:'Corso Europa'},
- {id:'poste-2',source:'poi',name:'Ufficio Postale Melito 2',kind:'post',match:'Ufficio Postale Melito 2'},
+ {id:'poste-2',source:'poi',name:'Sportello postale 02',kind:'post',match:'Sportello postale 02'},
  {id:'largo-cinque-via',source:'road',name:'Largo Cinque Via',kind:'square',match:'Largo Cinque Via'}
 ];
 export const distance=(a,b)=>Math.hypot(a.x-b.x,a.y-b.y);

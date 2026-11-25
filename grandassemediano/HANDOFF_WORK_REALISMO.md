@@ -147,9 +147,9 @@ Il renderer ora scala il canvas con nearest-neighbor a risoluzione ridotta. `gam
 - Aggiunto `bank-interior.mjs`: individua i POI con `k === 'bank'`, colloca il punto d'ingresso su uno spazio pedonale libero vicino a una strada e mostra un cerchio luminoso all'esterno.
 - Quando il personaggio è a piedi sul punto, il comando contestuale diventa **ENTRA IN BANCA**. Si entra con E o con il comando touch.
 - L'interno è una scena dedicata con pavimento, bancone, sedute e ATM; all'interno si può camminare. E, Escape o **ESCI DALLA BANCA** riportano all'esatta posizione esterna salvata. L'HUD di strada viene nascosto durante la scena.
-- L'identità e la posizione della banca provengono dai POI OSM. La stanza è un interno di gioco stilizzato, non un rilievo dell'edificio. Al momento la mappa OSM contiene il Banco BPM come banca; altri indirizzi potranno essere aggiunti in seguito.
+- L'identità e la posizione della banca provengono dai POI OSM. La stanza è un interno di gioco stilizzato, non un rilievo dell'edificio. Al momento la mappa OSM contiene il Banca civica 01 come banca; altri indirizzi potranno essere aggiunti in seguito.
 - Merge su `main`: PR #24, commit `c3314469e86151082714ecbc7e1d6f230a694ea5`. Registro visuale aggiornato con commit `6d2266ff60723e0edd6faaa8699a68a8915b328b`.
-- Test locali al merge: **139/139 passati**, inclusi resolver del POI Banco BPM, mock di disegno Canvas e smoke test browser. CI e deploy Pages risultavano riusciti.
+- Test locali al merge: **139/139 passati**, inclusi resolver del POI Banca civica 01, mock di disegno Canvas e smoke test browser. CI e deploy Pages risultavano riusciti.
 - URL pubblicato verificato al caricamento: https://czekuns.github.io/Effettokarmagra/games/gta-melito/?v=129. La pagina e gli script si caricavano senza errori JavaScript del gioco. **Non è stata verificata manualmente l'interazione col cerchio in un browser né su telefono**: farlo prima di dichiarare completato il QA touch.
 
 ### Ripresa consigliata

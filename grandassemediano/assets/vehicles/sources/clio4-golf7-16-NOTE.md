@@ -1,4 +1,4 @@
-# Lotto 6 — Renault Clio IV e Volkswagen Golf VII
+# Lotto 6 — Autosalone 01 Clio IV e Volkswagen Golf VII
 
 Atlante procedurale visto perfettamente dall'alto. La Clio IV (2012–2019) ha corpo più corto e arrotondato, muso curvo e fari a goccia; la Golf VII (2012–2019) è più lunga, larga e squadrata, con tetto piatto e fari stretti. Contorni scuri, vetri riflessi, specchietti e ombre a più toni riprendono il lotto 1. Prima di disegnare ho ricontrollato `CAR_ATLAS_VARIANTS` ed `EXTRA_MODELS` in `car-sprites.mjs`: nessuno dei due modelli è presente.
 
@@ -12,10 +12,10 @@ Atlante procedurale visto perfettamente dall'alto. La Clio IV (2012–2019) ha c
 
 | Celle | Modello | `colors` nell'ordine delle celle |
 |---|---|---|
-| 0–7 | Renault Clio IV | `white`, `red`, `blue`, `silver`, `graphite`, `black`, `yellow`, `brown` |
+| 0–7 | Autosalone 01 Clio IV | `white`, `red`, `blue`, `silver`, `graphite`, `black`, `yellow`, `brown` |
 | 8–15 | Volkswagen Golf VII | `white`, `red`, `silver`, `grey`, `black`, `nightblue`, `pacificblue`, `sunsetred` |
 
-La [cartella stampa Renault Clio 2012](https://renaultphp82.staging.digitalnewspress.com/view/releases/508) documenta bianco, blu, giallo, rosso, due grigi e nero; la [cartella stampa Renault completa](https://www.autoblog.gr/wp-content/gallery/renault-clio-2013_1/Renault_Clio_2013_Press_kit.pdf) riporta anche il marrone. Il [comunicato Volkswagen della Golf VII](https://www.volkswagen-newsroom.com/en/the-new-golf-das-auto-international-driving-presentation-2797/the-new-golf-overview-quick-facts-2854) documenta le tinte rappresentate. Nomi brevi e valori RGB sono interpretazioni per il gioco, non codici vernice. Le forme sono create dal codice e non contengono fotografie.
+La [cartella stampa Autosalone 01 Clio 2012](https://renaultphp82.staging.digitalnewspress.com/view/releases/508) documenta bianco, blu, giallo, rosso, due grigi e nero; la [cartella stampa Autosalone 01 completa](https://www.autoblog.gr/wp-content/gallery/renault-clio-2013_1/Renault_Clio_2013_Press_kit.pdf) riporta anche il marrone. Il [comunicato Volkswagen della Golf VII](https://www.volkswagen-newsroom.com/en/the-new-golf-das-auto-international-driving-presentation-2797/the-new-golf-overview-quick-facts-2854) documenta le tinte rappresentate. Nomi brevi e valori RGB sono interpretazioni per il gioco, non codici vernice. Le forme sono create dal codice e non contengono fotografie.
 
 ## Collegamento proposto in `car-sprites.mjs`
 

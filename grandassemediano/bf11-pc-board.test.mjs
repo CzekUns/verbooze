@@ -18,7 +18,7 @@ const mobileBlock=css.slice(css.indexOf('@media(max-width:760px),(pointer:coarse
 test('BF11 the page opens on the game board: nothing around the stage, everything else inside the PAUSE menu',()=>{
  assert.ok(pauseStart>0&&pauseEnd>pauseStart);
  assert.match(html,/<main class="app">\n<div class="stage" id="stage">/,'the stage is the first thing on the page');
- for(const [what,pattern] of [['title and version',/<header class="header">[\s\S]*VERSIONE 0\.7\.0[\s\S]*SALA GIOCHI/],
+ for(const [what,pattern] of [['title and version',/<header class="header">[\s\S]*VERSIONE 0\.7\.0[\s\S]*VERBOOZE/],
   ['status bar',/<div class="hud">/],['road-width tool',/<div class="road-width-bar"/],['PC and phone commands',/<p class="instructions">PC:/],
   ['survey link',/<p class="instructions"><a href="\.\/survey\/index\.html"/],['credits and licences',/<footer class="credits">[\s\S]*ODbL[\s\S]*CC BY/]]){
   assert.match(pause,pattern,what+' now lives in the pause menu');

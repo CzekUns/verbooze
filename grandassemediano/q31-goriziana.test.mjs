@@ -139,7 +139,7 @@ test('Q31 game wiring: world paused, radio ducked, PAUSA › STRUMENTI and ?mini
  assert.match(game,/import \{openGoriziana,isGorizianaOpen\} from '\.\/minigame-goriziana\.mjs\?v=\d+'/);
  assert.match(game,/function tick\(dt\)\{\n if\(!state\.ready\)return;\n if\(state\.mapOpen\|\|[^\n]*\|\|isGorizianaOpen\(\)[^\n]*\)\{\n  for\(const key of Object\.keys\(pressed\)\)pressed\[key\]=false;/,'the world stops under the table');
  assert.match(game,/const paused=state\.mapOpen\|\|[^\n]*\|\|isGorizianaOpen\(\)/,'city audio quiet');
- assert.match(game,/function openGorizianaGame\(\)\{[\s\S]{0,260}carRadio\.duck\(true\);[\s\S]{0,200}onExit:\(\)=>\{carRadio\.duck\(false\);/);
+ assert.match(game,/function openGorizianaGame\(\)\{[\s\S]{0,260}licensedAudio\.duck\(true\);[\s\S]{0,200}onExit:\(\)=>\{licensedAudio\.duck\(false\);/);
  assert.match(game,/get\('minigioco'\)==='goriziana'/);assert.match(game,/else if\(GORIZIANA_FROM_URL\)openGorizianaGame\(\);/);
  assert.match(game,/\$\('pause-goriziana'\)\.addEventListener\('click',\(\)=>\{closePause\(\);openGorizianaGame\(\);\}\);/);
  const tools=html.slice(html.indexOf('pause-h-tools'),html.indexOf('pause-h-credits'));

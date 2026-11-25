@@ -266,10 +266,6 @@ body{background:radial-gradient(ellipse at 50% -18%,#304337 0,#17231e 48%,#10171
 /* BF11: on a PC the page is ONLY the game board, full window; title, status bar, road-width tool,
  * instructions and credits live in the PAUSE menu (Esc, P or the small Ⅱ button). Phones keep BF06. */
 .pc-prompt,.map-attribution{display:none}
-/* BF13: attribuzione della foto aerea, visibile su PC e telefono solo mentre la sovramappa è accesa. */
-.satellite-attribution{position:absolute;z-index:4;left:50%;top:6px;transform:translateX(-50%);margin:0;max-width:calc(100% - 120px);
- background:#101b17d9;border:1px solid #c9b47a;color:#f1e3bd;font-size:9px;letter-spacing:.03em;padding:3px 8px;text-align:center;pointer-events:none}
-.satellite-attribution[hidden]{display:none}
 .pause-head{display:flex;align-items:center;justify-content:space-between;gap:10px}.pause-head h2{font-size:18px;margin:0;color:#f2d18a}
 .pause-close{background:#dfc27b;color:#1c2a23;border:1px solid #fff0ba;font-weight:bold;padding:8px 12px}
 .pause-info{font-size:11px;line-height:1.7;color:#c6d0bf;margin:10px 0}
@@ -365,24 +361,6 @@ body{background:radial-gradient(ellipse at 50% -18%,#304337 0,#17231e 48%,#10171
 }
 @media(max-width:760px) and (orientation:landscape),(pointer:coarse) and (orientation:landscape){.rotate-screen{display:none}}
 
-/* Experimental third-party live radio: compact, no overlay above the driving pedals. */
-.car-radio{position:absolute;z-index:4;top:9px;left:50%;transform:translateX(-50%);
- display:flex;align-items:center;gap:4px;padding:5px 7px;max-width:44%;min-width:240px;
- border:2px solid #d5bd79;background:#10211def;color:#f5eac7;box-shadow:0 4px 12px #0008}
-.car-radio button,.car-radio a{flex:0 0 auto;min-width:31px;height:31px;padding:4px 6px;
- display:flex;align-items:center;justify-content:center;border:1px solid #b7ab7a;background:#294237;
- color:#ffe1a0;text-decoration:none;font-size:11px;font-weight:900;touch-action:manipulation}
-.car-radio button:active{background:#d9be7d;color:#14251e}
-.car-radio #radio-toggle{background:#dbbd76;color:#1e2b22}
-.radio-info{min-width:0;flex:1;text-align:center;line-height:1.25}
-.radio-info strong{display:block;font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.radio-info small{display:block;margin-top:2px;font-size:9px;color:#bdc8b8;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-@media(max-width:760px),(pointer:coarse) and (orientation:landscape){
- .car-radio{top:max(10px,env(safe-area-inset-top));max-width:none;width:min(315px,49vw);min-width:230px;
-  padding:4px;gap:3px}
- .car-radio button,.car-radio a{height:28px;min-width:27px;padding:2px;font-size:10px}
- .radio-info strong{font-size:10px}.radio-info small{font-size:8px}
-}
 /* Q28: slot machine arcade di prova sopra la plancia, pixel art ingrandita senza sfocature. */
 .slot-panel{position:fixed;inset:0;z-index:40;display:flex;align-items:center;justify-content:center;background:#0b0807d9}
 .slot-panel[hidden]{display:none}
@@ -450,26 +428,23 @@ body{background:radial-gradient(ellipse at 50% -18%,#304337 0,#17231e 48%,#10171
  .dialogue-name{font-size:9px}.dialogue-text{font-size:11px;line-height:1.35;min-height:2.7em}
  .dialogue-next{min-height:34px;min-width:72px;font-size:9px;padding:6px 8px}.dialogue-counter{font-size:8px}
 }
+
+.fullscreen-toggle{position:absolute;z-index:7;left:max(58px,calc(env(safe-area-inset-left) + 58px));top:max(9px,env(safe-area-inset-top));width:44px;height:44px;border:1px solid #d8c48c;background:#17261eeb;color:#ffdf99;border-radius:10px;font-size:25px;touch-action:manipulation;user-select:none}
+.fullscreen-toggle:disabled{opacity:.5}.fullscreen-status{position:absolute;z-index:8;top:58px;left:12px;max-width:80%;color:#ffe7ad;background:#17261eee;font-size:11px}.fullscreen-status:empty{display:none}
+.coins{left:112px}:fullscreen .stage{position:fixed;inset:0;width:100vw;height:100dvh;max-height:none;border:0}:-webkit-full-screen .stage{position:fixed;inset:0;width:100vw;height:100vh;border:0}
 </style>
 </head><body><main class="app">
 <div class="stage" id="stage">
  <canvas id="world" aria-label="Mappa giocabile di Melito, muoviti con frecce o WASD" tabindex="0"></canvas>
  <canvas id="radar" width="168" height="142" aria-label="Minimappa di Melito"></canvas>
  <div class="coins">MELITO · LIBERA ESPLORAZIONE <span id="street">RETE STRADALE REALE</span></div>
- <aside class="car-radio" id="car-radio" hidden aria-label="Radio auto, ascolto in diretta di prova">
-  <button id="radio-prev" type="button" aria-label="Radio precedente">◀</button>
-  <button id="radio-toggle" type="button" aria-label="Accendi o spegni radio" aria-pressed="false">▶</button>
-  <div class="radio-info"><strong id="radio-name">RADIO MARTE</strong><small id="radio-status" aria-live="polite">RADIO SPENTA</small></div>
-  <button id="radio-next" type="button" aria-label="Radio successiva">▶▶</button>
-  <a id="radio-official" href="https://www.radiomarte.it/" target="_blank" rel="noopener noreferrer" aria-label="Ascolta sul sito della radio" title="Apri il sito ufficiale della radio">↗</a>
- </aside>
+ <button class="fullscreen-toggle" id="fullscreen-toggle" type="button" aria-label="Attiva schermo intero" aria-pressed="false" title="Schermo intero">⛶</button><span id="fullscreen-status" class="fullscreen-status" role="status" aria-live="polite"></span>
  <button class="pause-toggle" id="pause-toggle" type="button" aria-expanded="false" aria-label="Pausa e altre informazioni" title="Pausa · Esc o P">Ⅱ</button>
  <div id="football-hud" class="football-hud" hidden aria-live="polite"><span class="red">ROSSI</span><strong id="football-score">0 – 0</strong><span class="blue">BLU</span><span id="football-clock">0'</span><button id="football-exit" type="button">ESCI</button></div>
  <div id="football-banner" class="football-banner" hidden aria-live="polite"></div>
  <div id="football-touch" class="football-touch" hidden><button id="football-pass" type="button">PASSA</button><button id="football-shoot" type="button">TIRO</button></div>
  <div class="pc-prompt" id="pc-prompt" hidden aria-live="polite"></div>
  <p class="map-attribution"><a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noreferrer">© OpenStreetMap</a> · ISTAT · menu PAUSA: Esc / P</p>
- <p class="satellite-attribution" id="satellite-attribution" hidden>Immagini: Esri, Maxar, Earthstar Geographics e la comunità GIS — Esri World Imagery</p>
  <div class="touch-stick" id="touch-stick" role="application" aria-label="Levetta analogica: muovi il personaggio a piedi"><div class="stick-knob" id="stick-knob"></div></div>
  <div class="steering-wheel" id="steering-wheel" role="application" tabindex="0" aria-label="Sterzo: trascina il volante in senso orario o antiorario per girare">
   <div class="steering-face" id="steering-face" aria-hidden="true">
@@ -540,14 +515,14 @@ body{background:radial-gradient(ellipse at 50% -18%,#304337 0,#17231e 48%,#10171
  <p class="pause-info">Stato · zoom · mappa · missioni · controlli secondari</p>
  <!-- BF11: on PC the page shows only the game board; everything that used to sit around it lives here, in sections. -->
  <section class="pause-section pause-status" aria-labelledby="pause-h-status"><h3 id="pause-h-status">STATO · INFO</h3>
- <header class="header"><div><h1>GTA: MELITO <span aria-hidden="true">★</span></h1><small>UNS ARCADE / MELITO DI NAPOLI / VERSIONE 0.7.0</small></div><a class="back" href="../../index.html">← SALA GIOCHI</a></header>
+ <header class="header"><div><h1>GTA: MELITO <span aria-hidden="true">★</span></h1><small>UNS ARCADE / MELITO DI NAPOLI / VERSIONE 0.7.0</small></div><a class="back" href="../index.html">← VERBOOZE</a></header>
  <div class="hud"><span>ORA NPC: <b id="npc-clock" aria-live="off">07:30 · MATTINA</b></span><span id="place">CARICAMENTO MAPPA…</span><span>MEZZO: <b id="vehicle">A PIEDI</b></span><span>CAMERA: <b id="camera-mode">PIEDI · 5.0×</b></span><span>STRADE: <b id="road-count">—</b></span><span>OSM: <b id="building-count">—</b></span><span>EDIFICI PLACEHOLDER: <b id="inferred-count">—</b></span><span>INCROCI: <b id="junction-count">—</b></span></div>
  </section>
  <section class="pause-section pause-commands" aria-labelledby="pause-h-commands"><h3 id="pause-h-commands">COMANDI</h3>
- <p class="instructions">PC: WASD/frecce a piedi; in auto A/D sterzo, W acceleratore, S retromarcia, SPAZIO freno a mano · E sali/scendi · SHIFT corri · R cambia radio, SHIFT+R precedente, T accendi/spegni. ESC o P: pausa con stato, comandi, mappa, strumenti e crediti. Telefono: a piedi levetta e CORRI, alla guida volante vero a sinistra e, a destra in colonna dall’alto, FRENO, ACCELERA e RETRO; START apre pausa, missioni e impostazioni. In macchina la radio di prova permette di scegliere sei emittenti in diretta; l’audio richiede una connessione e può richiedere un tocco iniziale. Telecamera automatica: massimo zoom a piedi; su veicoli arretra progressivamente con la velocità. ＋/－ personalizzano, AUTO ripristina. Missioni nel pannello dedicato; F per interagire, M per la mappa. Traffico che svolta sulle vere strade, marciapiedi, attraversamenti, tetti tridimensionali e dettagli urbani immaginari in stile pixel art. Strade, incroci e sagome dei palazzi si basano su OpenStreetMap.</p>
+ <p class="instructions">PC: WASD/frecce a piedi; in auto A/D sterzo, W acceleratore, S retromarcia, SPAZIO freno a mano · E sali/scendi · SHIFT corri. ESC o P: pausa con stato, comandi, mappa, strumenti e crediti. Telefono: a piedi levetta e CORRI, alla guida volante vero a sinistra e, a destra in colonna dall’alto, FRENO, ACCELERA e RETRO; START apre pausa, missioni e impostazioni. Telecamera automatica: massimo zoom a piedi; su veicoli arretra progressivamente con la velocità. ＋/－ personalizzano, AUTO ripristina. Missioni nel pannello dedicato; F per interagire, M per la mappa. Traffico che svolta sulle vere strade, marciapiedi, attraversamenti, tetti tridimensionali e dettagli urbani immaginari in stile pixel art. Strade, incroci e sagome dei palazzi si basano su OpenStreetMap.</p>
  </section>
  <section class="pause-section pause-play" aria-labelledby="pause-h-play"><h3 id="pause-h-play">MAPPA · ZOOM · SUONI</h3>
- <div class="pause-shortcuts"><button id="pause-missions">MISSIONI</button><button id="pause-rider" title="App Rider · tasto J">🛵 RIDER</button><button id="pause-map">MAPPA COMPLETA</button><button id="pause-zoom-auto">ZOOM AUTO</button><button id="pause-zoom-in">＋ ZOOM</button><button id="pause-zoom-out">－ ZOOM</button><button id="pause-reset">TORNA ALL’INIZIO</button><button id="pause-road-compare">CONFRONTA STRADE</button></div><div class="pause-audio" role="group" aria-label="Audio"><button id="pause-sound" aria-label="Attiva o disattiva tutti i suoni (effetti e radio)" aria-pressed="true">SUONI: ON</button><div class="pause-volume" role="group" aria-label="Volume effetti e ambiente"><span class="pause-volume-name">EFFETTI / AMBIENTE</span><button id="pause-volume-down" aria-label="Abbassa il volume di effetti e ambiente">−</button><output id="pause-fx-level" aria-live="polite">70%</output><button id="pause-volume-up" aria-label="Alza il volume di effetti e ambiente">＋</button></div><div class="pause-volume" role="group" aria-label="Volume radio e musica"><span class="pause-volume-name">RADIO / MUSICA</span><button id="pause-radio-down" aria-label="Abbassa il volume della radio">−</button><output id="pause-radio-level" aria-live="polite">52%</output><button id="pause-radio-up" aria-label="Alza il volume della radio">＋</button></div></div>
+ <div class="pause-shortcuts"><button id="pause-missions">MISSIONI</button><button id="pause-rider" title="App Rider · tasto J">🛵 RIDER</button><button id="pause-map">MAPPA COMPLETA</button><button id="pause-zoom-auto">ZOOM AUTO</button><button id="pause-zoom-in">＋ ZOOM</button><button id="pause-zoom-out">－ ZOOM</button><button id="pause-reset">TORNA ALL’INIZIO</button><button id="pause-road-compare">CONFRONTA STRADE</button></div><div class="pause-audio" role="group" aria-label="Audio"><button id="pause-sound" aria-label="Attiva o disattiva effetti e ambiente" aria-pressed="true">SUONI: ON</button><div class="pause-volume" role="group" aria-label="Volume effetti e ambiente"><span class="pause-volume-name">EFFETTI / AMBIENTE</span><button id="pause-volume-down" aria-label="Abbassa il volume di effetti e ambiente">−</button><output id="pause-fx-level" aria-live="polite">70%</output><button id="pause-volume-up" aria-label="Alza il volume di effetti e ambiente">＋</button></div></div>
  </section>
  <div class="pause-details" id="pause-details">Carico i dati del gioco…</div>
  <p class="pause-info">Su PC restano disponibili tastiera e tasti WASD/frecce; missioni e mappa completa sono qui.</p><p class="pause-info" id="signal-note">SEMAFORI DI GIOCO, NON RILEVATI: sono posizionati sugli incroci principali per giocare, non sono i semafori reali di Melito.</p><p class="pause-info" id="market-note">MERCATO DEL VENERDÌ · RIONE 219: il luogo è reale, giorno e orari non sono verificati; banchi, merci e venditori sono di fantasia (segnaposto).</p>
@@ -562,17 +537,15 @@ body{background:radial-gradient(ellipse at 50% -18%,#304337 0,#17231e 48%,#10171
   <div><strong>STRADA RESIDENZIALE</strong> <span id="road-width-current">ADESSO · 15,4</span> <small>unità grafiche</small></div>
   <button id="road-width-compare" type="button" aria-pressed="false">CONFRONTA CON PRIMA</button>
  </div>
- <div class="pause-audio pause-satellite" role="group" aria-label="Foto aerea di confronto"><button id="pause-satellite" type="button" aria-pressed="false" aria-label="Mostra o nascondi la foto aerea Esri sopra la mappa">SATELLITE: OFF</button><div class="pause-volume" role="group" aria-label="Opacità della foto aerea"><span class="pause-volume-name">OPACITÀ FOTO</span><button id="pause-satellite-down" type="button" aria-label="Riduci l'opacità della foto aerea">−</button><output id="pause-satellite-level" aria-live="polite">50%</output><button id="pause-satellite-up" type="button" aria-label="Aumenta l'opacità della foto aerea">＋</button></div></div>
  <div class="pause-audio" role="group" aria-label="Minigiochi di prova"><button id="pause-slot" type="button" aria-label="Apri la slot machine di prova con crediti virtuali">PROVA SLOT</button><button id="pause-poker" type="button" aria-label="Apri il video poker di prova con crediti virtuali">PROVA VIDEO POKER</button><button id="pause-goriziana" type="button" aria-label="Apri la goriziana di prova, biliardo a nove birilli senza soldi">PROVA GORIZIANA</button><button id="pause-pool" type="button" aria-label="Apri il biliardo arcade di prova, senza denaro né scommesse">PROVA BILIARDO</button></div>
  <p class="pause-info">PROVA SLOT: slot machine arcade di fantasia (Q28), solo crediti virtuali di gioco che non si comprano e non valgono denaro. In attesa del cabinato nei bar (Q27).</p>
  <p class="pause-info">PROVA VIDEO POKER: video poker Jacks or Better di fantasia (Q29), crediti virtuali propri, separati da quelli della slot; anche lui in attesa del cabinato (Q27).</p>
  <p class="pause-info">PROVA GORIZIANA: biliardo all'italiana a nove birilli, tavolo senza buche (Q31), regole semplificate a schermo, partita contro l'IA a 30 punti o 5 tiri a testa; niente soldi né crediti. In attesa del tavolo nei bar grandi (Q27).</p>
  <p class="pause-info">PROVA BILIARDO: biliardo arcade di fantasia (Q30) visto dall'alto, contro la CPU o a tiro libero, con regole semplificate scritte sul pannello; niente denaro né scommesse, si salvano solo i risultati. Nel gioco vero si giocherà solo dai tavoli disegnati nei bar grandi (Q27).</p>
- <p class="pause-info">FOTO AEREA DI CONFRONTO: la foto Esri World Imagery sopra la mappa del gioco, per vedere dove mancano dettagli. Si scarica solo mentre è accesa e riparte sempre spenta.</p>
  </section>
  <section class="pause-section pause-credits" aria-labelledby="pause-h-credits"><h3 id="pause-h-credits">CREDITI E LICENZE</h3>
  <p class="instructions"><a href="./survey/index.html" target="_blank" rel="noopener noreferrer">🗺 TUTTA MELITO · 2.056 EDIFICI MODELLATI →</a> · 2.056 sagome OSM censite · 2.056 edifici con profilo grafico individuale e palazzi segnaposto aggiuntivi (NON rilievi OSM). Piazza Santo Stefano dettagliata: una facciata verificata fotograficamente, le altre ancora stimate.</p>
- <footer class="credits"><span>© OpenStreetMap contributors — ODbL · Confini: ISTAT 2026 — CC BY · Foto aerea di confronto (solo se accesa in STRUMENTI): Esri World Imagery — Esri, Maxar, Earthstar Geographics e la comunità GIS · MIT: ispirazione motore <a href="https://github.com/harmanhanjra/punjab-stories" target="_blank" rel="noreferrer">Punjab Stories</a></span><span><a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noreferrer">Crediti cartografia</a> · <a href="./README.md">Informazioni sul progetto</a></span></footer>
+ <footer class="credits"><span>© OpenStreetMap contributors — ODbL · Confini: ISTAT 2026 — CC BY · MIT: ispirazione motore <a href="https://github.com/harmanhanjra/punjab-stories" target="_blank" rel="noreferrer">Punjab Stories</a></span><span><a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noreferrer">Crediti cartografia</a> · <a href="./README.md">Informazioni sul progetto</a></span></footer>
  </section>
  </div></div>
  <div class="rotate-screen" id="rotate-screen" hidden><div class="rotate-card"><span class="rotate-icon" aria-hidden="true">▰</span><h2>RUOTA LO SCHERMO</h2><p>GTA Melito si gioca in orizzontale. Ruota il telefono per continuare.</p></div></div>

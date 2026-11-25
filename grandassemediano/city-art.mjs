@@ -63,7 +63,7 @@ function roofType(b,box,nearPOI){
  if(name.includes('chiesa')||/church|chapel|religious|place_of_worship/.test(type+' '+u))return 'church';
  if(name.includes('municipio')||b.id===733703600||nearPOI?.k==='townhall')return 'civic';
  if(/school|kindergarten|college/.test(type+' '+u)||nearPOI?.k==='school')return 'school';
- if(/retail|commercial|supermarket|shop/.test(type+' '+u)||/(lidl|eurospin|decò|^md$|todis)/i.test(name)||nearPOI?.k==='supermarket')return 'market';
+ if(/retail|commercial|supermarket|shop/.test(type+' '+u)||/(supermercato)/i.test(name)||nearPOI?.k==='supermarket')return 'market';
  if(/industrial|warehouse|storage|hangar|factory/.test(type+' '+u)||box.area>2300)return 'industrial';
  // The centre around Piazza Santo Stefano contains a dense historic fabric.
  // Roof profiles there are a stylised hypothesis, never a measured facade.

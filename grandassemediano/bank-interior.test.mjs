@@ -9,23 +9,23 @@ const width=()=>4;
 
 test('bank entrance resolves to a clear point beside a walkable road',()=>{
  const banks=resolveBankEntrances([
-  {n:'Banco BPM',k:'bank',p:[5,2]},
+  {n:'Banca civica 01',k:'bank',p:[5,2]},
   {n:'Office',k:'post_office',p:[5,2]},
  ],[{n:'Via Roma',t:'residential',p:[0,0,10,0]}],(x,y)=>y>=0,width);
  assert.equal(banks.length,1);
- assert.equal(banks[0].n,'Banco BPM');
+ assert.equal(banks[0].n,'Banca civica 01');
  assert.ok(banks[0].y>=2.8&&banks[0].y<=5.1);
  assert.equal(banks[0].roadName,'Via Roma');
 });
 
 test('nearest bank activates only within the walking interaction radius',()=>{
- const entrances=[{n:'Banco BPM',x:10,y:20},{n:'Another Bank',x:30,y:20}];
- assert.equal(nearestBankEntrance(entrances,{x:15,y:20}).bank.n,'Banco BPM');
+ const entrances=[{n:'Banca civica 01',x:10,y:20},{n:'Another Bank',x:30,y:20}];
+ assert.equal(nearestBankEntrance(entrances,{x:15,y:20}).bank.n,'Banca civica 01');
  assert.equal(nearestBankEntrance(entrances,{x:20,y:20}),null);
  assert.equal(nearestBankEntrance(entrances,{x:30,y:20},9).bank.n,'Another Bank');
 });
 
-test('the mapped Banco BPM gets a real on-foot entrance point',()=>{
+test('the mapped Banca civica 01 gets a real on-foot entrance point',()=>{
  const map=JSON.parse(fs.readFileSync(new URL('./data/melito-map.json',import.meta.url),'utf8'));
  const poi=map.pois.find(item=>item.k==='bank');assert.ok(poi,'current OSM snapshot should contain a mapped bank');
  const near=(p)=>{
@@ -47,7 +47,7 @@ test('exterior marker and interior-only scene draw without touching street state
   if(key==='measureText')return ()=>({width:20});
   return (...args)=>calls.push([key,...args]);
  },set(target,key,value){target[key]=value;return true;}});
- const bank={n:'Banco BPM',x:10,y:20};
+ const bank={n:'Banca civica 01',x:10,y:20};
  assert.doesNotThrow(()=>drawBankEntrance(ctx,bank,1));
  assert.doesNotThrow(()=>drawBankInterior(ctx,800,450,1,bank,{x:.5,y:.8}));
  assert.ok(calls.some(call=>call[0]==='fillRect'&&call[3]===800));

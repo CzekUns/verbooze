@@ -92,7 +92,7 @@ I bug sono segnalazioni del committente sulla versione giocabile, non diagnosi o
   - **Villa comunale:** perimetro e due cancelli OSM, verificati.
   - **Complesso Municipio:** perimetro ricalcato a vista sulla foto aerea, 2 varchi carrabili con sbarra e guardiola; da verificare.
   - **Recinto di fronte all'area mercatale:** forse il «Parco GB»; ricalcato a vista, con il lato nord sul muro OSM 404895514, un cancello stimato e la guardiola; da verificare.
-  - **Galleria Atlante:** probabilmente l'edificio OSM 794814541, accanto all'Ufficio Postale Melito 2; facciate e atrio di vetro.
+  - **Galleria Atlante:** probabilmente l'edificio OSM 794814541, accanto all'Sportello postale 02; facciate e atrio di vetro.
   - **Parco Prima Casa:** NON disegnato, perché non è stato localizzato.
   - **Complesso Municipio, secondo commit (richiesta del committente: «vedi su internet il complesso del municipio/piscina/carabinieri e capisci. la piscina abbandonata è interrata e ospita anche l'acquedotto/serbatoio che è diciamo una torre un po' simbolo, fatta a scacchi»):**
     - **torre del serbatoio a fungo:** landmark a scacchi rosso/bianco con ombra lunga, trasparenza vicino al giocatore e luce notturna; posizione dalla foto aerea, colori e altezza stimati;

@@ -1,4 +1,4 @@
-/* Lotto 6 (2026-10-21, Claude + CODEX-GH): Renault Clio IV 2012 and Volkswagen Golf VII 2012 in the traffic.
+/* Lotto 6 (2026-10-21, Claude + CODEX-GH): Autosalone 01 Clio IV 2012 and Volkswagen Golf VII 2012 in the traffic.
  * Atlas drawn by code by CODEX-GH (assets/vehicles/sources/clio4-golf7-16-genera.py); PROVISIONAL art. */
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
@@ -110,9 +110,9 @@ test('lotto 6: NOVITÀ entry, registers and cache versions',async()=>{
  const read=f=>readFile(new URL('./'+f,import.meta.url),'utf8');
  const [game,page,doc,log,visual,guide]=await Promise.all(['game.mjs','index.html','NOVITA_DA_APPROVARE.md','WORK_LOG.md','VISUAL_PROGRESS.md','VEHICLE_ART_GUIDE.md'].map(read));
  assert.ok(doc.includes('`lotto6-auto`'));
- assert.match(log,/lotto 6 grafica: Renault Clio IV e VW Golf VII/);assert.match(log,/PROVVISORIO/);
+ assert.match(log,/lotto 6 grafica: Autosalone 01 Clio IV e VW Golf VII/);assert.match(log,/PROVVISORIO/);
  assert.match(visual,/Clio IV/);assert.match(visual,/Golf VII/);
- assert.match(guide,/Renault Clio IV\*\* .*lotto 6/i);assert.match(guide,/Volkswagen Golf VII\*\* .*lotto 6/i);
+ assert.match(guide,/Autosalone 01 Clio IV\*\* .*lotto 6/i);assert.match(guide,/Volkswagen Golf VII\*\* .*lotto 6/i);
  const v=(src,mod)=>Number((src.match(new RegExp(mod.replace('.','\\.')+'\\?v=(\\d+)'))||[])[1]);
  assert.ok(v(game,'car-sprites.mjs')>=116,'car-sprites v116');
  assert.ok(v(game,'vehicle-handling.mjs')>=8,'vehicle-handling v008');

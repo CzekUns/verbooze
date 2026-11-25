@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Lotto 6: Renault Clio IV e Volkswagen Golf VII, 4x4 top-down."""
+"""Lotto 6: Autosalone 01 Clio IV e Volkswagen Golf VII, 4x4 top-down."""
 from pathlib import Path
 
 from PIL import Image, ImageDraw, ImageFilter, ImageFont

@@ -48,11 +48,11 @@ Per ogni tranche completata aggiungi una sezione:
 
 **Commit / PR:** PR #24, commit merge `c3314469e86151082714ecbc7e1d6f230a694ea5`.
 
-**Fatto nel codice:** aggiunto `bank-interior.mjs`: individua i POI OSM `bank`, risolve un punto pedonale libero vicino a una strada e disegna un anello luminoso con invito `BANCA · E`. Avvicinandosi a piedi, il comando contestuale diventa `ENTRA IN BANCA`; E o il pulsante touch apre una scena pixel art autonoma del Banco BPM, con pavimento, sportelli, area d’attesa e ATM. Nella sala si può camminare e uscire con E, Escape o il pulsante `ESCI DALLA BANCA`, che riporta alle coordinate esterne salvate. Il radar e gli elementi di navigazione stradale scompaiono durante l’interno. La prima banca disponibile nello snapshot OSM è Banco BPM; l’individuazione per tag OSM permette di aggiungere automaticamente altri punti banca e in futuro indirizzi specifici.
+**Fatto nel codice:** aggiunto `bank-interior.mjs`: individua i POI OSM `bank`, risolve un punto pedonale libero vicino a una strada e disegna un anello luminoso con invito `BANCA · E`. Avvicinandosi a piedi, il comando contestuale diventa `ENTRA IN BANCA`; E o il pulsante touch apre una scena pixel art autonoma del Banca civica 01, con pavimento, sportelli, area d’attesa e ATM. Nella sala si può camminare e uscire con E, Escape o il pulsante `ESCI DALLA BANCA`, che riporta alle coordinate esterne salvate. Il radar e gli elementi di navigazione stradale scompaiono durante l’interno. La prima banca disponibile nello snapshot OSM è Banca civica 01; l’individuazione per tag OSM permette di aggiungere automaticamente altri punti banca e in futuro indirizzi specifici.
 
-**Edifici documentati:** l’identità e la coordinata del POI Banco BPM provengono dallo snapshot cartografico OSM; il layout interno è una scena inventata per il gioco, non una ricostruzione dell’interno reale. L’accesso viene posto su una posizione pedonale libera vicino al POI e fuori dagli ingombri degli edifici mappati.
+**Edifici documentati:** l’identità e la coordinata del POI Banca civica 01 provengono dallo snapshot cartografico OSM; il layout interno è una scena inventata per il gioco, non una ricostruzione dell’interno reale. L’accesso viene posto su una posizione pedonale libera vicino al POI e fuori dagli ingombri degli edifici mappati.
 
-**Test e deploy:** suite locale aggiornata: 139 test superati. Il test dedicato risolve il POI Banco BPM della mappa effettiva e controlla che il marker resti vicino al punto banca; test grafico verifica che la scena interna venga disegnata senza stato della strada. Cache pagina aggiornata a `v129`. GitHub Actions Node 22: 139 test superati; deploy GitHub Pages completato. Pagina pubblica `?v=129` verificata in browser: mappa caricata e nuovi moduli senza errori JavaScript.
+**Test e deploy:** suite locale aggiornata: 139 test superati. Il test dedicato risolve il POI Banca civica 01 della mappa effettiva e controlla che il marker resti vicino al punto banca; test grafico verifica che la scena interna venga disegnata senza stato della strada. Cache pagina aggiornata a `v129`. GitHub Actions Node 22: 139 test superati; deploy GitHub Pages completato. Pagina pubblica `?v=129` verificata in browser: mappa caricata e nuovi moduli senza errori JavaScript.
 
 **Aree successive:** l’utente indicherà gli indirizzi ulteriori; resta da verificare la scena su telefono dopo il deploy.
 
@@ -490,7 +490,7 @@ Aggiunta una barretta compatta nella parte superiore della scena, visibile solo 
 
 **Grafica:** nuovi portoni disegnati sul filo del muro, leggibili dall'alto con qualsiasi orientamento della facciata: gradino in piperno grigio scuro sul marciapiede, vano del portone in legno marrone (vetro azzurro per i negozi OSM) e stipiti in pietra chiara. Quando qualcuno entra o esce il portone resta aperto 1,4 s: vano scuro e luce calda sul gradino. Sulle facciate ben esposte (`facadeExposure ≥ 0,45`) c'è anche il portone in alzato. Disegno in `building-doors.mjs`, dopo gli edifici e prima delle persone.
 
-**Fatti e ipotesi:** i portoni di casa sono inventati; per 3 negozi con nome OSM (Le fantasie di Andrea, I Grimaldi's BARBER, L'Angolo Dei Colori) la porta è stimata sulla facciata dietro l'insegna, non rilevata.
+**Fatti e ipotesi:** i portoni di casa sono inventati; per 3 negozi con nome OSM (Cartoleria 01, Parrucchiere 02, Colorificio 01) la porta è stimata sulla facciata dietro l'insegna, non rilevata.
 
 **Verifiche:** screenshot Chrome headless su desktop 1280×720 e telefono 844×390 in orizzontale: porte visibili lungo Via Roma, residente che esce dalla porta aperta, porte a vetro nel gruppo di negozi a sud. Allo zoom a piedi una porta è larga circa 10 px: si vede ma è discreta. Non provato su un telefono reale.
 
@@ -707,7 +707,7 @@ Titolo, barra di stato, comandi, confronto strade e crediti sono nel menu PAUSA,
 - **Dove guardare:** `?servizio=1&ora=10:00` accelera le routine; le foto di prova sono fuori dal repo.
 ### 2026-10-20 — Q25 interni dei negozi (Claude, PROVVISORIO · da approvare)
 - Tre interni in pixel art procedurale con la stessa palette, gli stessi muri e le stesse ombre della banca: **bar** (bancone in legno con macchina del caffè e tazzine, mensole di bottiglie, vetrina dei dolci, tre tavolini con sedie, pavimento in graniglia), **panificio/pasticceria** (banco vetrina con pane e cassa, scaffali del pane a parete, cesti, piastrelle chiare), **minimarket** (scaffali con prodotti generici senza marche, frigoriferi a vetro, frutta, cassa, linoleum). Commesso con lo sprite dei pedoni. Fuori: punto luminoso caldo sul portone, senza scritta sopra l'insegna.
-- **Da far vedere a Simone:** Bar Alexander su Corso Europa (628,1291) e Panificio Pagliuca: avvicinarsi al punto luminoso sul portone, E · ENTRA, poi andare al bancone (PARLA).
+- **Da far vedere a Simone:** Bar di quartiere 02 su Corso Europa (628,1291) e Panificio 01: avvicinarsi al punto luminoso sul portone, E · ENTRA, poi andare al bancone (PARLA).
 
 
 ### 2026-10-20 — Q28 «SLOT DEL VESUVIO» (provvisoria, da approvare)
@@ -776,8 +776,8 @@ Secondo screenshot e correzione dell'utente, **mantenere la torre molto grande e
 - Verificato con una prova Chrome headless di ~20 s (screenshot in PR, le due auto accanto a una Punto); **non provato su Android vero**. Giudizio di Simone da raccogliere.
 
 
-### 2026-10-21 — Lotto 6 grafica: Renault Clio IV 2012 e Volkswagen Golf VII 2012 nel traffico (CODEX-GH + Claude) — grafica PROVVISORIA, da approvare
-- Atlante di CODEX-GH `assets/vehicles/clio4-golf7-16-rgba.png`: 16 auto viste dall'alto, muso in su, contorno scuro, due toni di carrozzeria, vetri con riflesso, fari, specchi, ruote; stesso reticolo 4×4 da 40×60 degli altri atlanti auto. Righe 1–2 Clio IV (white, red, blue, silver, graphite, black, yellow, brown: tinte della cartella stampa Renault 2012, per approssimazione), righe 3–4 Golf VII (white, red, silver, grey, black, nightblue, pacificblue, sunsetred: dal comunicato Volkswagen). Tinte interpretate, non codici vernice.
+### 2026-10-21 — Lotto 6 grafica: Autosalone 01 Clio IV 2012 e Volkswagen Golf VII 2012 nel traffico (CODEX-GH + Claude) — grafica PROVVISORIA, da approvare
+- Atlante di CODEX-GH `assets/vehicles/clio4-golf7-16-rgba.png`: 16 auto viste dall'alto, muso in su, contorno scuro, due toni di carrozzeria, vetri con riflesso, fari, specchi, ruote; stesso reticolo 4×4 da 40×60 degli altri atlanti auto. Righe 1–2 Clio IV (white, red, blue, silver, graphite, black, yellow, brown: tinte della cartella stampa Autosalone 01 2012, per approssimazione), righe 3–4 Golf VII (white, red, silver, grey, black, nightblue, pacificblue, sunsetred: dal comunicato Volkswagen). Tinte interpretate, non codici vernice.
 - Nel gioco: 16 auto su 98 id del traffico, anche nei parcheggi e in garage/officina. La Clio è disegnata poco più lunga e un filo più stretta della Punto 188 (`[5.4,8.9]`), la Golf è la compatta più grande (`[5.6,9.2]`, come la Tipo in lunghezza): sono le misure prudenti proposte da CODEX-GH, tenute così per restare nella corsia. Dove vederle: Via Roma (PAUSA › NOVITÀ › `lotto6-auto`).
 - Verificato con una prova Chrome headless di ~20 s (screenshot in PR, Clio e Golf accanto a una Punto 188 nella stessa corsia); **non provato su Android vero**. Giudizio di Simone da raccogliere.
 

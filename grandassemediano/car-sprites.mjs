@@ -2,7 +2,7 @@
  * Punto 188 and Ypsilon 2003: 16 recolored cars, clean transparent 4x4 PNG atlas, 40x60/cell.
  * Lotto 1: Grande Punto 2005 and Ypsilon III 2011, same 4x4 40x60 grid (atlas by CODEX-GH).
  * Lotto 5: Tipo hatchback 2016 and 500L 2012, same grid (atlas by CODEX-GH).
- * Lotto 6: Renault Clio IV 2012 and Volkswagen Golf VII 2012, same grid (atlas by CODEX-GH).
+ * Lotto 6: Autosalone 01 Clio IV 2012 and Volkswagen Golf VII 2012, same grid (atlas by CODEX-GH).
  * Lotto 7: Opel Corsa E 2014 and Peugeot 208 2012; lotto 8: Nissan Qashqai J11 2013 and Dacia Duster 2010 (CODEX-GH).
  * Lotto 9: Fiat Doblò II 2010 and Fiat Fiorino III 2008, work vans on a 4x4 grid with the 52x92 cells of the Q18
  * service atlas (CODEX-GH); the first extra atlas with its own cell size (EXTRA_MODELS «cell» + «body»).
@@ -34,7 +34,7 @@ export const EXTRA_CAR_ATLASES=Object.freeze({
  // Lotto 5 (CODEX-GH, 2026-10-21): Fiat Tipo hatchback 2016 and Fiat 500L 2012, RGBA atlas drawn by code
  // (sources/tipo-500l-16-genera.py, notes in tipo-500l-16-NOTE.md). PROVISIONAL art, to be approved by Simone.
  '@tipo-500l-atlas':'./assets/vehicles/tipo-500l-16-rgba.png',
- // Lotto 6 (CODEX-GH, 2026-10-21): Renault Clio IV 2012 and Volkswagen Golf VII 2012, RGBA atlas drawn by code
+ // Lotto 6 (CODEX-GH, 2026-10-21): Autosalone 01 Clio IV 2012 and Volkswagen Golf VII 2012, RGBA atlas drawn by code
  // (sources/clio4-golf7-16-genera.py, notes in clio4-golf7-16-NOTE.md). PROVISIONAL art, to be approved by Simone.
  '@clio4-golf7-atlas':'./assets/vehicles/clio4-golf7-16-rgba.png',
  // Lotto 7 (CODEX-GH, 2026-10-21): Opel Corsa E 2014 and Peugeot 208 2012, RGBA atlas drawn by code

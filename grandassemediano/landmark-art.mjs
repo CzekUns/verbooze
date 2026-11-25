@@ -32,7 +32,7 @@ export function drawWorldLandmarks(c,landmarks,focus,bounds,clock,zoom,speaker='
  // Compact waypoint retains guidance without hiding buildings or vehicles.
  const x=item.x+8,y=item.y+2;
  c.strokeStyle='#f4cc75b0';c.lineWidth=.4;c.beginPath();c.arc(x,y+1,2.6,0,T);c.stroke();
- if(speaker!=='RADIO'){
+ if(speaker!=='RADIO'&&speaker!=='MESSAGGIO'){
   c.fillStyle='#263128';c.fillRect(x-1,y-.8,2,3);
   c.fillStyle=speaker==='NICO'?'#d29c49':'#72a2ab';c.fillRect(x-1.2,y-1,2.4,1.7);
   c.fillStyle='#e5ad7c';c.fillRect(x-.65,y-2,1.3,1.3);

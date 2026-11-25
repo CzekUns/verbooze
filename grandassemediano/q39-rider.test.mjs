@@ -36,9 +36,9 @@ test('Q39: si accetta solo su scooter o moto compatibile, una consegna alla volt
 });
 
 test('Q39: offerte da POI di cibo reali e furgoncini, destinazioni su vie OSM con nome', () => {
- const shops=[{id:1,name:'Bar Signorelli',kind:'bar',x:0,y:0},{id:2,name:'Farmacia',kind:'pharmacy',x:5,y:0},{id:3,name:'Il re del pollo',kind:'fast_food',x:20,y:0}];
+ const shops=[{id:1,name:'Bar di quartiere 01',kind:'bar',x:0,y:0},{id:2,name:'Farmacia',kind:'pharmacy',x:5,y:0},{id:3,name:'Rosticceria 02',kind:'fast_food',x:20,y:0}];
  const pickups=riderPickups(shops,[{name:'Zeppole e panzerotti',kind:'street-zeppole',x:40,y:0}]);
- assert.deepEqual(pickups.map(p=>p.name),['Bar Signorelli','Il re del pollo','Zeppole e panzerotti']);
+ assert.deepEqual(pickups.map(p=>p.name),['Bar di quartiere 01','Rosticceria 02','Zeppole e panzerotti']);
  assert.equal(pickups[2].truck,true);
  const roads=[{id:9,n:'Via Roma',t:'residential',p:[300,0,320,0,340,0]},{id:10,n:'',t:'residential',p:[300,0,400,0]},{id:11,n:'Sentiero',t:'path',p:[300,0,400,0]}];
  const dests=riderDestinations(roads);

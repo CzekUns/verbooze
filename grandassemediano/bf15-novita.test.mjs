@@ -5,7 +5,7 @@ import {NOVITA,NOVITA_STORAGE_KEY,novitaAvailable,novitaTarget,findStandingPoint
  loadJudgements,saveJudgements,toggleJudgement,judgementSummary,renderNovita} from './novita.mjs';
 
 const REQUIRED=['semafori','frecce','lavavetri','varchi','baie','recinti','guardiole','atlante','torre','piscina',
- 'mercato','ombrelloni','posteggi','ape','ambulante','satellite','corsie','pulsante','scala','transenne','corriere','nettezza','passeggeri','lotto2-pedoni','lotto3-banchi','lotto10-12-pedoni','lotto13-14-pedoni','lotto17-20-pedoni','varianti-pedoni','vita-di-quartiere','pose-fermi','giochi-di-strada','animali-di-strada','caricamento-artwork','dialogo-volti'];
+ 'mercato','ombrelloni','posteggi','ape','ambulante','corsie','pulsante','scala','transenne','corriere','nettezza','passeggeri','lotto2-pedoni','lotto3-banchi','lotto10-12-pedoni','lotto13-14-pedoni','lotto17-20-pedoni','varianti-pedoni','vita-di-quartiere','pose-fermi','giochi-di-strada','animali-di-strada','caricamento-artwork','dialogo-volti'];
 // Una mappa finta con un esempio per ogni voce, vicino alla partenza.
 const world=()=>({spawn:[100,100],
  graph:{signals:[{x:900,y:900},{x:120,y:110}]},
@@ -48,7 +48,6 @@ test('BF15 VAI A VEDERE finds a real example for each entry (the closest to the 
  assert.deepEqual(at('ombrelloni'),{x:1160,y:940},'a stall of the market');
  assert.deepEqual(at('ape'),{x:150,y:160},'one of the 16 Ape Car variants');
  assert.deepEqual(at('ambulante'),{x:140,y:120});
- assert.deepEqual(at('satellite'),{x:210,y:220},'Santa Maria delle Grazie in Piazza Santo Stefano');
  assert.deepEqual(at('corsie'),{x:100,y:0});
  assert.equal(at('pulsante'),null,'phone-only entry: description, no jump');
 });
@@ -131,7 +130,7 @@ test('BF15 game wiring: section in the PAUSE menu (also on phones), preview of h
  assert.match(game,/import \{renderNovita,novitaTarget,findStandingPoint,minutesAtHour,loadJudgements,saveJudgements,toggleJudgement,judgementSummary,NOVITA\} from '\.\/novita\.mjs\?v=\d+'/);
  assert.equal((game.match(/weatherAt\(state\.npcClockMinutes,\{forced:state\.preview\?\.weather\|\|FORCED_WEATHER\}\)/g)||[]).length>=2,true,'weather preview where the weather is computed');
  assert.match(game,/force:FORCE_MARKET\|\|!!state\.preview\?\.market/);
- assert.match(game,/const openPause=\(\)=>\{carRadio\.duck\(true\);refreshNovita\(\);/,'refreshed on every opening');
+ assert.match(game,/const openPause=\(\)=>\{licensedAudio\.duck\(true\);refreshNovita\(\);/,'refreshed on every opening');
  assert.match(game,/function goToNovita\(entry\)\{[\s\S]{0,1600}findStandingPoint\(target,\{walkable:novitaStandOK\}/);
  assert.match(game,/if\(!state\.preview\)state\.preview=\{back:\{x:p\.x,y:p\.y,a:p\.a,car:p\.car,minutes:state\.npcClockMinutes/,'the way back is the place before the first jump');
  assert.match(game,/function backFromNovita\(\)\{[\s\S]{0,1200}state\.npcClockMinutes=back\.minutes;state\.preview=null;/);

@@ -2,7 +2,7 @@ import {test} from 'node:test';
 import assert from 'node:assert/strict';
 import {readFile} from 'node:fs/promises';
 import {createCityAudio,audioMix,engineSound,readAudioPrefs,AUDIO_STORAGE_KEY,RADIO_DEFAULT_VOLUME} from './city-audio.mjs';
-import {createCarRadio} from './car-radio.mjs';
+import {createLicensedAudio} from './licensed-audio.mjs';
 import {handlingProfile,gearAt} from './vehicle-handling.mjs';
 
 const memory=(init={})=>{const m=new Map(Object.entries(init));return {getItem:k=>m.get(k)??null,setItem:(k,v)=>m.set(k,v)};};
@@ -95,27 +95,17 @@ test('BF10 SUONI OFF silences effects AND radio; the radio stream keeps its own 
  assert.equal(audio.radioLevel,0);assert.equal(levels.at(-1),0,'radio muted too');
  assert.equal(audio.update({player:{x:0,y:0,inVehicle:true,...punto,speed:10}}).master,0,'effects muted');
  audio.toggleMuted();assert.equal(levels.at(-1),.72,'radio back at its level');
- // the tuner applies the level to the real audio element, before and after it exists
- const player={volume:1,addEventListener(){},load(){},pause(){},removeAttribute(){},play:()=>Promise.resolve()};
- const radio=createCarRadio({audioFactory:()=>player,volume:.3});
- return radio.enterVehicle().then(()=>{
-  assert.equal(player.volume,.3,'level chosen before entering the car');
-  assert.equal(radio.setVolume(.8),.8);assert.equal(player.volume,.8,'live change while streaming');
-  assert.equal(radio.setVolume(0),0);assert.equal(player.volume,0);assert.equal(radio.snapshot().status,'live','muted, not disconnected');
-  assert.equal(radio.setVolume(7),1);assert.equal(createCarRadio({audioFactory:()=>player}).snapshot().volume,.52,'default unchanged');
+ const radio=createLicensedAudio();
+ return radio.enterVehicle().then(available=>{
+  assert.equal(available,false);assert.equal(radio.snapshot().available,false);
+  assert.equal(radio.snapshot().status,'off');assert.equal(radio.setVolume(7),1);
  });
 });
 
-test('BF10 game wiring: model and real NPC speed to the audio, radio level to the stream, two volumes in the pause menu',async()=>{
- const [game,html,todo]=await Promise.all(['game.mjs','index.html','TODO.md'].map(f=>readFile(new URL('./'+f,import.meta.url),'utf8')));
- assert.match(game,/import \{createCityAudio\} from '\.\/city-audio\.mjs\?v=(\d+)'/);
- assert.ok(Number(game.match(/city-audio\.mjs\?v=(\d+)/)[1])>=3&&Number(game.match(/car-radio\.mjs\?v=(\d+)/)[1])>=2);
- assert.match(game,/createCityAudio\(\{storage:globalThis\.localStorage,onRadioLevel:level=>carRadio\.setVolume\(level\)\}\);\ncarRadio\.setVolume\(cityAudio\.radioLevel\);/);
- assert.match(game,/model:car\?\.model\|\|'',speed:car\?car\.speed:0/);
- assert.match(game,/speed:v\.braking\?0:\(Number\.isFinite\(v\.v\)\?v\.v:v\.speed\)/);
- for(const id of ['pause-sound','pause-volume-down','pause-volume-up','pause-fx-level','pause-radio-down','pause-radio-up','pause-radio-level'])assert.match(html,new RegExp('id="'+id+'"'));
- assert.match(html,/EFFETTI \/ AMBIENTE<\/span><button id="pause-volume-down"/);assert.match(html,/RADIO \/ MUSICA<\/span><button id="pause-radio-down"/);
- assert.ok(html.indexOf('class="pause-audio"')>html.indexOf('class="pause-shortcuts"')&&html.indexOf('class="pause-audio"')<html.indexOf('id="pause-details"'),'own block in the pause card');
- assert.match(game,/\$\('pause-radio-up'\)\.addEventListener\('click',\(\)=>\{cityAudio\.changeRadioVolume\(\.1\);soundLabel\(\);\}\);/);
- assert.match(todo,/\*\*Q37[\s\S]*?Nota 2026-10-20 \(committente\):\*\* l'app Impostazioni dello smartphone deve contenere i due volumi separati RADIO\/MUSICA ed EFFETTI\/AMBIENTE/);
+test('Commercial audio wiring preserves synthesized effects and removes station controls',async()=>{
+ const [game,html]=await Promise.all(['game.mjs','index.html'].map(f=>readFile(new URL('./'+f,import.meta.url),'utf8')));
+ assert.match(game,/createCityAudio/);assert.match(game,/licensedAudio/);
+ for(const id of ['pause-sound','pause-volume-down','pause-volume-up','pause-fx-level'])assert.ok(html.includes('id="'+id+'"'));
+ assert.doesNotMatch(html,/id="(?:car-radio|radio-toggle|pause-radio-up)"/);
+ assert.doesNotMatch(game,/createCarRadio|radioStatus/);
 });

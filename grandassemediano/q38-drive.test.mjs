@@ -31,7 +31,7 @@ test('Q38 search: OSM street names and map POIs, accents and case ignored, unkno
 });
 
 test('Q38 route: valid path on the road graph between two real places, one-way respected by car',()=>{
- const a=searchPlaces('municipio',places)[0],b=searchPlaces('ufficio postale melito 1',places)[0];
+ const a=searchPlaces('municipio',places)[0],b=searchPlaces('sportello postale 01',places)[0];
  const route=planDriveRoute(graph,a,b,'car');
  assert.ok(route&&route.points.length>2,'route found');
  assert.ok(route.length>Math.hypot(b.x-a.x,b.y-a.y)*.9,'not shorter than the straight line');
@@ -46,7 +46,7 @@ test('Q38 route: valid path on the road graph between two real places, one-way r
 });
 
 test('Q38 instructions: «tra N m gira a destra/sinistra», off-route recalculation and ARRIVATO, cancel',()=>{
- const a=searchPlaces('municipio',places)[0],b=searchPlaces('ufficio postale melito 1',places)[0];
+ const a=searchPlaces('municipio',places)[0],b=searchPlaces('sportello postale 01',places)[0];
  const drive=createDrive();
  assert.equal(setDestination(drive,b,{graph,player:{x:a.x,y:a.y},mode:'car'}),true);
  assert.match(instructionText(drive),/^(tra \d+ m (gira|inverti\/gira stretto) a (destra|sinistra)|prosegui dritto per \d+ m)$/);
@@ -60,7 +60,7 @@ test('Q38 instructions: «tra N m gira a destra/sinistra», off-route recalculat
  // arrivo
  stepDrive(drive,{x:b.x+3,y:b.y-2},{graph,mode:'car'},2);
  assert.equal(drive.arrived,true);
- assert.match(instructionText(drive),/^ARRIVATO · UFFICIO POSTALE MELITO 1$/);
+ assert.match(instructionText(drive),/^ARRIVATO · SPORTELLO POSTALE 01$/);
  cancelDrive(drive);assert.equal(drive.destination,null);assert.equal(instructionText(drive),'');
 });
 

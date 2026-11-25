@@ -13661,7 +13661,7 @@
         "roads": [
           {
             "roadId": 203010242,
-            "name": "Via Marino Guarano",
+            "name": "Via Marino Scuola di quartiere 01",
             "type": "residential",
             "penetration": 3.95,
             "footprint": false,
@@ -26768,7 +26768,7 @@
     },
     {
       "id": 224671159,
-      "name": "MD",
+      "name": "Supermercato 02",
       "inferred": false,
       "bounds": [
         1635.8,
@@ -27178,7 +27178,7 @@
     },
     {
       "id": 1375907301,
-      "name": "EuroSpin",
+      "name": "Supermercato 04",
       "inferred": false,
       "bounds": [
         1210,
