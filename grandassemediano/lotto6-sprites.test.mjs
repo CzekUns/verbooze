@@ -1,5 +1,5 @@
-/* Lotto 6 (2026-10-21, Claude + CODEX-GH): Renault Clio IV 2012 and Volkswagen Golf VII 2012 in the traffic.
- * Atlas drawn by code by CODEX-GH (assets/vehicles/sources/clio4-golf7-16-genera.py); PROVISIONAL art. */
+/* Lotto 6 (2026-10-21, Claude + CODEX-GH): Autosalone 01 Quarzo 2012 and costruttore di fantasia Onda 2012 in the traffic.
+ * Atlas drawn by code by CODEX-GH (assets/vehicles/sources/quarzo-onda-16-genera.py); PROVISIONAL art. */
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
 import {readFile} from 'node:fs/promises';
@@ -9,10 +9,10 @@ import {handlingProfile} from './vehicle-handling.mjs';
 import {vehicleShape} from './traffic-collision.mjs';
 import {NOVITA,novitaAvailable} from './novita.mjs';
 
-const ATLAS='@clio4-golf7-atlas';
-const CLIO=['white','red','blue','silver','graphite','black','yellow','brown'];
-const GOLF=['white','red','silver','grey','black','nightblue','pacificblue','sunsetred'];
-const IDS=[...CLIO.map(c=>'clio-iv-2012-'+c),...GOLF.map(c=>'golf-vii-2012-'+c)];
+const ATLAS='@quarzo-onda-atlas';
+const QUARZO=['white','red','blue','silver','graphite','black','yellow','brown'];
+const ONDA=['white','red','silver','grey','black','nightblue','pacificblue','sunsetred'];
+const IDS=[...QUARZO.map(c=>'quarzo-'+c),...ONDA.map(c=>'onda-'+c)];
 
 // Minimal reader of a non-interlaced 8-bit RGBA PNG (colour type 6), enough for the alpha channel.
 function decodeRGBA(bytes){
@@ -43,11 +43,11 @@ function decodeRGBA(bytes){
 
 test('lotto 6: the atlas is a 160x240 RGBA PNG with 16 cells, transparent corners and solid bodies',async()=>{
  const path=EXTRA_CAR_ATLASES[ATLAS];
- assert.equal(path,'./assets/vehicles/clio4-golf7-16-rgba.png');
+ assert.equal(path,'./assets/vehicles/quarzo-onda-16-rgba.png');
  const bin=await readFile(new URL(path,import.meta.url));
  const png=decodeRGBA(bin);
  assert.equal(png.w,160);assert.equal(png.h,240);
- assert.ok(bin.length<18000,'compact for mobile');
+ assert.ok(bin.length<40000,'compact for mobile');
  assert.deepEqual(CAR_ATLAS_CELL,{width:40,height:60,columns:4,rows:4});
  for(let i=0;i<16;i++){
   const ox=i%4*40,oy=Math.floor(i/4)*60;
@@ -58,24 +58,23 @@ test('lotto 6: the atlas is a 160x240 RGBA PNG with 16 cells, transparent corner
   assert.ok(opaque>900&&opaque<2000,'cell '+i+' has a car-sized body: '+opaque);
  }
  // The generator and CODEX-GH's notes travel with the atlas; neither is used by the game.
- for(const f of ['clio4-golf7-16-genera.py','clio4-golf7-16-NOTE.md'])
-  assert.ok((await readFile(new URL('./assets/vehicles/sources/'+f,import.meta.url))).length>1000,f);
+ assert.ok((await readFile(new URL('./assets/vehicles/sources/fictional-cars-master.png',import.meta.url))).length>1000);
 });
 
 test('lotto 6: 16 variant ids, two models with eight colours each on the right cells',()=>{
  assert.equal(IDS.length,16);
  for(const id of IDS)assert.ok(EXTRA_CAR_VARIANTS[id],'variant '+id);
- CLIO.forEach((color,i)=>assert.deepEqual(EXTRA_CAR_VARIANTS['clio-iv-2012-'+color],{index:i,model:'clio-iv-2012',color,atlas:ATLAS}));
- GOLF.forEach((color,i)=>assert.deepEqual(EXTRA_CAR_VARIANTS['golf-vii-2012-'+color],{index:8+i,model:'golf-vii-2012',color,atlas:ATLAS}));
+ QUARZO.forEach((color,i)=>assert.deepEqual(EXTRA_CAR_VARIANTS['quarzo-'+color],{index:i,model:'quarzo',color,atlas:ATLAS}));
+ ONDA.forEach((color,i)=>assert.deepEqual(EXTRA_CAR_VARIANTS['onda-'+color],{index:8+i,model:'onda',color,atlas:ATLAS}));
  assert.equal(Object.keys(EXTRA_CAR_VARIANTS).filter(id=>EXTRA_CAR_VARIANTS[id].atlas===ATLAS).length,16);
- // Draw sizes: CODEX-GH's own prudent proposals ([5.4,8.9] Clio, [5.6,9.2] Golf): the Clio a touch longer than the
- // Punto 188, the Golf the biggest hatchback, both still inside the lane (no wider than 5.6 world units).
- const clio=carDrawSize('clio-iv-2012-red'),golf=carDrawSize('golf-vii-2012-nightblue'),punto=carDrawSize('punto-188-red');
- assert.deepEqual(clio,[5.4,8.9]);assert.deepEqual(golf,[5.6,9.2]);
- assert.ok(clio[1]>punto[1]&&clio[0]<punto[0],'Clio a little longer and narrower than the Punto 188');
- assert.ok(golf[1]>clio[1]&&golf[0]>clio[0],'Golf longer and wider than the Clio');
- assert.ok(clio[0]<=5.6&&golf[0]<=5.6,'both no wider than 5.6 world units');
- assert.ok(golf[1]<=9.2,'Golf no longer than the lotto 5 Tipo');
+ // Draw sizes: CODEX-GH's own prudent proposals ([5.4,8.9] Quarzo, [5.6,9.2] Onda): the Quarzo a touch longer than the
+ // Alba 188, the Onda the biggest hatchback, both still inside the lane (no wider than 5.6 world units).
+ const quarzo=carDrawSize('quarzo-red'),onda=carDrawSize('onda-nightblue'),alba=carDrawSize('alba-red');
+ assert.deepEqual(quarzo,[5.4,8.9]);assert.deepEqual(onda,[5.6,9.2]);
+ assert.ok(quarzo[1]>alba[1]&&quarzo[0]<alba[0],'Quarzo a little longer and narrower than the Alba 188');
+ assert.ok(onda[1]>quarzo[1]&&onda[0]>quarzo[0],'Onda longer and wider than the Quarzo');
+ assert.ok(quarzo[0]<=5.6&&onda[0]<=5.6,'both no wider than 5.6 world units');
+ assert.ok(onda[1]<=9.2,'Onda no longer than the lotto 5 Tipo');
 });
 
 test('lotto 6: both models are in the AI traffic and in the parked cars, with their own driving profile',()=>{
@@ -90,29 +89,29 @@ test('lotto 6: both models are in the AI traffic and in the parked cars, with th
  const seen=new Set();for(let i=0;i<CAR_TRAFFIC_SPRITE_IDS.length;i++)seen.add(CAR_TRAFFIC_SPRITE_IDS[(i*CAR_TRAFFIC_STRIDE)%CAR_TRAFFIC_SPRITE_IDS.length]);
  for(const id of IDS)assert.ok(seen.has(id),'spawned '+id);
  assert.equal(seen.size,CAR_TRAFFIC_SPRITE_IDS.length,'every traffic car id is reachable');
- const clio=handlingProfile({model:'clio-iv-2012-blue'}),golf=handlingProfile({model:'golf-vii-2012-pacificblue'}),gp=handlingProfile({model:'grande-punto-2005-blue'});
- assert.equal(clio.model,'clio-iv-2012');assert.equal(golf.model,'golf-vii-2012');
- assert.equal(clio.top,gp.top);assert.equal(clio.brake,gp.brake);assert.ok(Math.abs(clio.accel-gp.accel)<.5,'Clio drives like the Grande Punto');
- assert.ok(golf.top>clio.top&&golf.accel>clio.accel&&golf.brake>clio.brake&&golf.grip>clio.grip,'Golf a bit faster and steadier than the Clio');
- assert.equal(clio.kind,gp.kind);assert.equal(golf.kind,gp.kind);
+ const quarzo=handlingProfile({model:'quarzo-blue'}),onda=handlingProfile({model:'onda-pacificblue'}),gp=handlingProfile({model:'aurora-blue'});
+ assert.equal(quarzo.model,'quarzo');assert.equal(onda.model,'onda');
+ assert.equal(quarzo.top,gp.top);assert.equal(quarzo.brake,gp.brake);assert.ok(Math.abs(quarzo.accel-gp.accel)<.5,'Quarzo drives like the Aurora');
+ assert.ok(onda.top>quarzo.top&&onda.accel>quarzo.accel&&onda.brake>quarzo.brake&&onda.grip>quarzo.grip,'Onda a bit faster and steadier than the Quarzo');
+ assert.equal(quarzo.kind,gp.kind);assert.equal(onda.kind,gp.kind);
  // Collision box of the standard car (no model-specific shape).
- assert.deepEqual(vehicleShape({model:'clio-iv-2012-white'}),vehicleShape({model:'punto-188-white'}));
- assert.deepEqual(vehicleShape({model:'golf-vii-2012-red'}),vehicleShape({model:'punto-188-white'}));
+ assert.deepEqual(vehicleShape({model:'quarzo-white'}),vehicleShape({model:'alba-white'}));
+ assert.deepEqual(vehicleShape({model:'onda-red'}),vehicleShape({model:'alba-white'}));
 });
 
 test('lotto 6: NOVITÀ entry, registers and cache versions',async()=>{
  const entry=NOVITA.find(e=>e.id==='lotto6-auto');
  assert.ok(entry,'novita lotto6-auto');
- assert.match(entry.cosa,/Clio/);assert.match(entry.cosa,/Golf/);
+ assert.match(entry.cosa,/Quarzo/);assert.match(entry.cosa,/Onda/);
  const roads=[{n:'Via Roma',p:[100,100,200,100,300,100,400,100]}];
  assert.deepEqual(entry.trova({roads,traffic:[],cars:[]}),{x:300,y:100});
- assert.equal(novitaAvailable(entry,{traffic:[{model:'golf-vii-2012-red'}]}),true);
+ assert.equal(novitaAvailable(entry,{traffic:[{model:'onda-red'}]}),true);
  const read=f=>readFile(new URL('./'+f,import.meta.url),'utf8');
  const [game,page,doc,log,visual,guide]=await Promise.all(['game.mjs','index.html','NOVITA_DA_APPROVARE.md','WORK_LOG.md','VISUAL_PROGRESS.md','VEHICLE_ART_GUIDE.md'].map(read));
  assert.ok(doc.includes('`lotto6-auto`'));
- assert.match(log,/lotto 6 grafica: Renault Clio IV e VW Golf VII/);assert.match(log,/PROVVISORIO/);
- assert.match(visual,/Clio IV/);assert.match(visual,/Golf VII/);
- assert.match(guide,/Renault Clio IV\*\* .*lotto 6/i);assert.match(guide,/Volkswagen Golf VII\*\* .*lotto 6/i);
+ assert.match(log,/lotto 6 grafica: Autosalone 01 Quarzo e VW Onda/);assert.match(log,/PROVVISORIO/);
+ assert.match(visual,/Quarzo/);assert.match(visual,/Onda/);
+ assert.match(guide,/Autosalone 01 Quarzo\*\* .*lotto 6/i);assert.match(guide,/costruttore di fantasia Onda\*\* .*lotto 6/i);
  const v=(src,mod)=>Number((src.match(new RegExp(mod.replace('.','\\.')+'\\?v=(\\d+)'))||[])[1]);
  assert.ok(v(game,'car-sprites.mjs')>=116,'car-sprites v116');
  assert.ok(v(game,'vehicle-handling.mjs')>=8,'vehicle-handling v008');

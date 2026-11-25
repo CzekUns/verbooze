@@ -1,11 +1,11 @@
-/* GTA Melito — BF07: incroci con buon senso e semafori di gioco.
+/* GAM Melito — BF07: incroci con buon senso e semafori di gioco.
  * Gli incroci sono quelli veri del grafo OSM (nodi dove si incontrano almeno tre strade carrabili).
  * SEMAFORI SIMULATI: l'istantanea OSM del gioco (data/melito-map.json) non contiene nodi
  * highway=traffic_signals, quindi i semafori sono POSIZIONAMENTI DI GIOCO scelti con una regola
  * sugli incroci principali, NON semafori rilevati né attribuiti alla città reale. */
-import {roadTrafficLaneOffset} from './road-widths.mjs?v=044';
-import {NPC_MINUTES_PER_SECOND} from './npc-agenda.mjs?v=002';
-import {vehicleShape,vehiclesOverlap,nearbyColliders} from './traffic-collision.mjs?v=131';
+import {roadTrafficLaneOffset} from './road-widths.mjs?v=1044';
+import {NPC_MINUTES_PER_SECOND} from './npc-agenda.mjs?v=1002';
+import {vehicleShape,vehiclesOverlap,nearbyColliders} from './traffic-collision.mjs?v=1131';
 
 // Nessun semaforo nei dati: quelli in gioco sono simulati (vedi README e scheda PAUSA).
 export const SIGNALS_SIMULATED=true;

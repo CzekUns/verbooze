@@ -6,7 +6,7 @@
  * L'archivio vive nel salvataggio della campagna (progress.garage) e ha al massimo 6 posti.
  * Un veicolo è sempre in UN solo posto: in garage (stored) oppure in strada (ownedId sull'auto).
  * Al ricaricamento un'auto registrata rimasta in strada torna nel suo garage: mai persa né doppia. */
-import {CAR_ATLAS_VARIANTS,EXTRA_CAR_VARIANTS,APE_CAR_VARIANTS} from './car-sprites.mjs?v=118';
+import {CAR_ATLAS_VARIANTS,EXTRA_CAR_VARIANTS,TRICYCLE_CAR_VARIANTS} from './car-sprites.mjs?v=1118';
 
 export const GARAGE_SLOTS=6;
 export const GARAGE_RADIUS={car:9,foot:6};
@@ -20,15 +20,15 @@ export const GARAGES=Object.freeze([
 ]);
 export const GARAGE_LANE_OFFSET=3.6;
 
-const VARIANT_TABLES=[CAR_ATLAS_VARIANTS,EXTRA_CAR_VARIANTS,APE_CAR_VARIANTS];
+const VARIANT_TABLES=[CAR_ATLAS_VARIANTS,EXTRA_CAR_VARIANTS,TRICYCLE_CAR_VARIANTS];
 export function spriteVariant(model){for(const t of VARIANT_TABLES)if(t[model])return t[model];return null;}
-// Auto e Ape del traffico/parcheggi: sì. Moto, Ape del mercato e furgoni degli ambulanti: no
+// Auto e Triciclo del traffico/parcheggi: sì. Moto, Triciclo del mercato e furgoni degli ambulanti: no
 // (appartengono ai banchi e alle bancarelle, toglierli romperebbe il mercato).
 export function canStoreVehicle(vehicle){
  if(!vehicle||vehicle.vehicleType==='motorcycle'||vehicle.vendor||vehicle.market)return false;
  const model=String(vehicle.model||'');
- if(model==='ape-car-azzurra'||model==='furgone-fritti')return false;
- return !!spriteVariant(model)||model==='panda-modern-white'||model==='panda-fire-red';
+ if(model==='triciclo-car-azzurra'||model==='furgone-fritti')return false;
+ return !!spriteVariant(model)||model==='borgo-nuova-white'||model==='borgo-classica-red';
 }
 export const freshTuning=()=>({perf:0,neon:null,paintPaid:0});
 export function freshGarageSave(){return {next:1,vehicles:[],spent:0};}
@@ -115,7 +115,7 @@ export function garageMessage(result){
 export function vehicleLabel(model){
  const v=spriteVariant(model);
  const base=String(v?.model||model).replace(/-\d{4}$/,'').replace(/-188$/,'').replace(/-/g,' ').toUpperCase();
- const color=v?.color||v?.paint||(model==='panda-fire-red'?'rossa':model==='panda-modern-white'?'bianca':'');
+ const color=v?.color||v?.paint||(model==='borgo-classica-red'?'rossa':model==='borgo-nuova-white'?'bianca':'');
  return base.replace(/ (WHITE|RED)$/,'')+(color?' · '+String(color).toUpperCase():'');
 }
 /* Grafica provvisoria (da approvare): saracinesca a doghe sul marciapiede, rampa gialla verso la

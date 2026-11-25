@@ -82,10 +82,10 @@ test('gatto si allontana con calma a 1,5 m e resta sul percorso pedonale',()=>{
 test('integrazione, NOVITÀ, versioni e registri',async()=>{
  const files=['game.mjs','index.html','novita.mjs','WORK_LOG.md','VISUAL_PROGRESS.md','PIXEL_ART_MODUS.md','NOVITA_DA_APPROVARE.md'];
  const [game,html,novita,...docs]=await Promise.all(files.map(f=>readFile(new URL(f,import.meta.url),'utf8')));
- assert.match(game,/animali\.mjs\?v=001/);assert.match(game,/createNeighbourhoodAnimals\(\)/);
+ assert.match(game,/animali\.mjs\?v=1001/);assert.match(game,/createNeighbourhoodAnimals\(\)/);
  assert.match(game,/stepAnimals\(state\.animals/);assert.match(game,/drawAnimals\(c,state\.animals/);
  assert.doesNotMatch(game,/makeCollisionIndex\([^\n]*state\.animals/);
- assert.match(game,/novita\.mjs\?v=020/);assert.match(html,/game\.mjs\?v=220/);
+ assert.ok(Number(game.match(/novita\.mjs\?v=(\d+)/)?.[1])>=20);assert.ok(Number(html.match(/game\.mjs\?v=(\d+)/)?.[1])>=220);
  assert.match(novita,/id:'animali-di-strada'/);
  const entry=NOVITA.find(e=>e.id==='animali-di-strada');
  assert.deepEqual(novitaTarget(entry,{spawn:[0,0],animals:{flocks:[{center:{x:5,y:6}}]}}),{x:5,y:6});

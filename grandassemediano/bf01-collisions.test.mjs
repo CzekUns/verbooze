@@ -23,22 +23,22 @@ test('BF01 separation: the shortest way out of an overlap, null when bodies are 
  assert.equal(vehicleSeparation({x:0,y:0,a:0},{x:0,y:vs(3.5),a:0}),null,'side by side in two lanes: no contact');
 });
 
-test('BF01 Ape and food trucks: collision boxes follow the sprites, cars unchanged',()=>{
- assert.deepEqual(vehicleShape({model:'panda-modern-white'}),{halfLength:vs(3.15),halfWidth:vs(1.7)});
- assert.ok(vehicleShape({model:'ape-car-azzurra'}).halfWidth<vs(1.7)&&vehicleShape({model:'ape-car-azzurra'}).halfLength<vs(3.15));
- assert.ok(vehicleShape({model:'ape-verde-pesce'}).halfLength<vs(3.15));
+test('BF01 Triciclo and food trucks: collision boxes follow the sprites, cars unchanged',()=>{
+ assert.deepEqual(vehicleShape({model:'borgo-nuova-white'}),{halfLength:vs(3.15),halfWidth:vs(1.7)});
+ assert.ok(vehicleShape({model:'triciclo-car-azzurra'}).halfWidth<vs(1.7)&&vehicleShape({model:'triciclo-car-azzurra'}).halfLength<vs(3.15));
+ assert.ok(vehicleShape({model:'triciclo-verde-pesce'}).halfLength<vs(3.15));
  assert.ok(vehicleShape({model:'food-panini'}).halfWidth<vs(1.7),'awning not part of the solid body');
- assert.equal(vehicleShape({vehicleType:'motorcycle',model:'moto-scooter-sh-red'}).halfLength,vs(2.8));
- // the model travels with every swept pose, so a small Ape is not tested as a full car
- const ape={x:0,y:0,a:0,model:'ape-car-azzurra',body:'car'},wall={x:vs(6),y:0,a:0,body:'car',model:'panda-modern-white'};
- assert.equal(trafficMoveBlocked(ape,{x:vs(.4),y:0,a:0},'car',makeCollisionIndex([wall]),ape),false,'an Ape fits where a full car would touch');
- assert.equal(trafficMoveBlocked({...ape,model:'panda-modern-white'},{x:vs(.4),y:0,a:0},'car',makeCollisionIndex([wall]),ape),true);
+ assert.equal(vehicleShape({vehicleType:'motorcycle',model:'moto-scooter-urbano-red'}).halfLength,vs(2.8));
+ // the model travels with every swept pose, so a small Triciclo is not tested as a full car
+ const triciclo={x:0,y:0,a:0,model:'triciclo-car-azzurra',body:'car'},wall={x:vs(6),y:0,a:0,body:'car',model:'borgo-nuova-white'};
+ assert.equal(trafficMoveBlocked(triciclo,{x:vs(.4),y:0,a:0},'car',makeCollisionIndex([wall]),triciclo),false,'an Triciclo fits where a full car would touch');
+ assert.equal(trafficMoveBlocked({...triciclo,model:'borgo-nuova-white'},{x:vs(.4),y:0,a:0},'car',makeCollisionIndex([wall]),triciclo),true);
 });
 
 test('BF01 an NPC car shoved onto a car parked at the kerb slides out and drives on (no permanent jam)',()=>{
  const npc=firstCar(),e=graph.edges[npc.edge],nx=-Math.sin(e.angle),ny=Math.cos(e.angle);
  // parked at the kerb, well outside the lane; the knock left the NPC half on top of it
- const parked={x:npc.x+nx*5+Math.cos(npc.a)*1,y:npc.y+ny*5+Math.sin(npc.a)*1,a:npc.a,body:'car',speed:0,model:'panda-fire-red'};
+ const parked={x:npc.x+nx*5+Math.cos(npc.a)*1,y:npc.y+ny*5+Math.sin(npc.a)*1,a:npc.a,body:'car',speed:0,model:'borgo-classica-red'};
  Object.assign(npc,{x:npc.x+nx*2.5,y:npc.y+ny*2.5,needsRoutineRecovery:true});
  assert.ok(vehiclesOverlap(npc,parked,0),'set-up: bodies overlap');
  const start={x:npc.x,y:npc.y};let free=null;
@@ -134,7 +134,7 @@ test('BF01 the player never stays stuck off the street: shoves stop at the kerb,
 test('BF01 a car the player drives into backs off; one merely waiting behind the player keeps waiting',()=>{
  const run=push=>{
   const npc=firstCar(),c=Math.cos(npc.a),s=Math.sin(npc.a);
-  const mine={x:npc.x+c*7,y:npc.y+s*7,a:npc.a,body:'car',speed:0,model:'panda-modern-white'};
+  const mine={x:npc.x+c*7,y:npc.y+s*7,a:npc.a,body:'car',speed:0,model:'borgo-nuova-white'};
   const start={x:npc.x,y:npc.y};let away=0;
   for(let i=0;i<120;i++){
    if(push)npc.yieldToPlayer=1.5; // game.mjs: the player keeps pressing against it

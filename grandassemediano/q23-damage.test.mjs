@@ -6,7 +6,7 @@ import {DAMAGE_RULES,addDamage,damageLevel,damagePoints,damagedProfile,repairCos
 import {CAR_HANDLING} from './vehicle-handling.mjs';
 import {freshProgress} from './campaign.mjs';
 
-const car=(extra={})=>({x:0,y:0,a:0,model:'panda-modern-white',vehicleType:'car',...extra});
+const car=(extra={})=>({x:0,y:0,a:0,model:'borgo-nuova-white',vehicleType:'car',...extra});
 
 test('Q23 levels: a light knock scratches, repeated or strong hits dent and then badly damage; never over 100',()=>{
  const v=car();

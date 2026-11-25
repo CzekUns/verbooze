@@ -21,14 +21,14 @@ test('every OSM footprint and every generated visual infill building has actual 
  for(const b of all){
   const v=buildingVolume(b);
   assert.ok(v&&v.vertical>=9,'flat roof '+b.id);
-  assert.ok(v.dx>=2&&v.dx<=6&&v.dy>=6&&v.dy<=18,'wall projection outside bounded oblique range '+b.id);
+  assert.ok(v.dx===0&&v.dy>=6&&v.dy<=18,'wall projection must stay upright '+b.id);
   assert.ok(Number.isFinite(v.stories)&&v.stories>=1,'missing stories '+b.id);
   let exposed=0;
   for(let j=2;j<b.p.length;j+=2)
    if(exposedFacade(b.p[j]-b.p[j-2],b.p[j+1]-b.p[j-1],v)){
     const face=facadePoints(b.p,j,v);
     assert.ok(face.length>0);
-    assert.ok(face.y3>face.y2&&face.x4>face.x1);
+    assert.ok(face.y3>face.y2&&face.x4===face.x1&&face.x3===face.x2);
     exposed++;
    }
   assert.ok(exposed>0,'no visible facade '+b.id);
@@ -43,16 +43,17 @@ test('reversed OSM rings and very small outbuildings still show visible walls',(
   const visible=[];
   for(let j=2;j<p.length;j+=2)
    if(exposedFacade(p[j]-p[j-2],p[j+1]-p[j-1],volume))visible.push(j);
-  assert.equal(visible.length,2);
+  assert.equal(visible.length,1);
   assert.notEqual(signedFootprintArea(p),0);
  }
 });
-test('taller buildings keep a bounded oblique facade projection',()=>{
+test('taller buildings keep a bounded upright facade projection',()=>{
  const p=[0,0,12,0,12,9,0,9,0,0];
  const b={id:3,p,h:2,art:{type:'house',seed:1,renderHeight:3,surveyFeatures:{stories:1}}};
  const high={id:4,p,h:19,art:{type:'apartment',seed:1,renderHeight:19,surveyFeatures:{stories:6}}};
  assert.ok(buildingVolume(high).vertical>buildingVolume(b).vertical+5);
- assert.ok(buildingVolume(high).dx>buildingVolume(b).dx);
+ assert.equal(buildingVolume(high).dx,0);
+ assert.equal(buildingVolume(b).dx,0);
  assert.ok(buildingVolume(high).dy>buildingVolume(b).dy);
  assert.equal(buildingVolume(high).stories,6);
  assert.equal(shiftColor('#808080',30),'#9e9e9e');

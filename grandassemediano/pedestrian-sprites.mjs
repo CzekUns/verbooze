@@ -1,9 +1,9 @@
-/* GTA Melito — 4 top-down/three-quarter NPC sprites, 4 facing directions
+/* GAM Melito — 4 top-down/three-quarter NPC sprites, 4 facing directions
  * and 4 walking frames. One transparent 384x160 palette PNG, 24x40 cells.
  * Visual-only layer: actor position, pathfinding and collision stay unchanged.
  * Canvas fallback remains in city-art while the atlas is pending/unavailable.
  */
-import {VEHICLE_SCALE,PERSON_SCALE,vs,ps} from './world-scale.mjs?v=001';
+import {VEHICLE_SCALE,PERSON_SCALE,vs,ps} from './world-scale.mjs?v=1001';
 export const PEOPLE_ATLAS_PATH='./assets/people/pedoni-4x4frames-24x40-rgba.png';
 export const PEOPLE_ATLAS_CELL=Object.freeze({width:24,height:40,columns:16,rows:4});
 export const PEOPLE_SPRITE_TYPES=Object.freeze(['man-blue','woman-red','elder-beige','rider-yellow']);
@@ -13,7 +13,7 @@ export function loadPedestrianSprites(){
  if(atlas||typeof Image==='undefined')return;
  const img=new Image();
  atlas=img;
- img.onerror=()=>console.warn('GTA Melito: pedestrian atlas missing, using procedural NPCs');
+ img.onerror=()=>console.warn('GAM Melito: pedestrian atlas missing, using procedural NPCs');
  img.src=new URL(PEOPLE_ATLAS_PATH,import.meta.url).href;
 }
 export function pedestrianSpriteReady(){

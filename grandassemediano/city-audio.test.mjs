@@ -113,7 +113,7 @@ test('Q09 game wiring: gesture start, focus, per-frame update, horn on H and on 
  assert.match(game,/tick\(dt\);draw\(dt\);drawMini\(\);updateCityAudio\(\);/);
  assert.match(game,/e\.key\.toLowerCase\(\)==='h'&&!e\.repeat&&state\.player\.car>=0/);
  assert.match(game,/tap\?\.hub&&performance\.now\(\)-tap\.t<260/,'quick tap on the hub, not a drag');
- assert.match(game,/radioLive:radioStatus==='live'/);
- assert.match(game,/createCarRadio\(/,'the six radios are still created as before');
+ assert.match(game,/radioLive:false/);
+ assert.doesNotMatch(game,/createCarRadio/,'no external radio transport');
  for(const id of ['pause-sound','pause-volume-down','pause-volume-up'])assert.match(html,new RegExp('id="'+id+'"'));
 });

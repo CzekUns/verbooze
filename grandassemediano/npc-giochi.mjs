@@ -1,9 +1,9 @@
 /* Giochi di strada: scene decorative, senza collisione con il giocatore.
  * Luoghi da recinti/POI/percorsi pedonali già presenti; nessuna coordinata cittadina inventata. */
-import {npcWeekday} from './npc-agenda.mjs?v=002';
-import {pedestrianSheet} from './extra-pedestrian-sprites.mjs?v=007';
-import {drawSheetPedestrianSprite} from './extra-pedestrian-sprites.mjs?v=007';
-import {drawIdlePose,drawIdleCardGesture} from './pose-pedoni.mjs?v=002';
+import {npcWeekday} from './npc-agenda.mjs?v=1002';
+import {pedestrianSheet} from './extra-pedestrian-sprites.mjs?v=1007';
+import {drawSheetPedestrianSprite} from './extra-pedestrian-sprites.mjs?v=1007';
+import {drawIdlePose,drawIdleCardGesture} from './pose-pedoni.mjs?v=1002';
 
 const dist=(a,b)=>Math.hypot(a.x-b.x,a.y-b.y);
 const hash=n=>{let x=n|0;x=Math.imul(x^x>>>16,2246822519);x=Math.imul(x^x>>>13,3266489917);return (x^x>>>16)>>>0;};

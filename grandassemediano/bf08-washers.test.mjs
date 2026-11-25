@@ -25,7 +25,7 @@ function scene({clockAt='red',remaining=15,vehicle={}}={}){
  let clock=0;
  while(!(signalAspect(J,A,clock).color===clockAt&&signalAspect(J,A,clock).remaining>remaining&&signalAspect(J,A,clock).remaining<remaining+1))clock+=.05;
  const car=createAgents(g,1,9,'car',[])[0],shape=vehicleShape({...car,...vehicle}),d=A.stop+shape.halfLength;
- Object.assign(car,lanePosition(g,A.edge,1-d/e.len,'car'),{edge:A.edge,t:1-d/e.len,speed:10,wait:0,model:'panda-modern-white',vehicleType:'car',...vehicle});
+ Object.assign(car,lanePosition(g,A.edge,1-d/e.len,'car'),{edge:A.edge,t:1-d/e.len,speed:10,wait:0,model:'borgo-nuova-white',vehicleType:'car',...vehicle});
  const out=g.nodes[e.to].out.find(id=>g.edges[id].car&&Math.abs(g.edges[id].angle-e.angle)<.1);
  car.path=[A.edge,out];delete car.home;
  return {g,J,A,washer,car,clock};
@@ -93,14 +93,14 @@ test('BF08 not enough red left: the washer stays on the kerb',()=>{
 });
 
 test('BF08 scooters and motorbikes are ignored',()=>{
- const sc=scene({remaining:15,vehicle:{vehicleType:'motorcycle',model:'moto-scooter-sh-red'}});
+ const sc=scene({remaining:15,vehicle:{vehicleType:'motorcycle',model:'moto-scooter-urbano-red'}});
  const r=run(sc,8);
  assert.deepEqual(r.phases,['KERB']);
 });
 
 test('BF08 the player car first at the red light gets its windscreen washed too, from the driver side',()=>{
  const sc=scene({remaining:15});
- const player={...sc.car,speed:0,body:'car',vehicleType:'car',model:'panda-modern-white'};
+ const player={...sc.car,speed:0,body:'car',vehicleType:'car',model:'borgo-nuova-white'};
  let reached=false;
  const r=run(sc,14,{player,onTick:()=>{if(sc.washer.washer.phase==='WASH'){reached=true;assert.ok(leftOf(player,sc.washer)>0);}}});
  assert.ok(reached&&r.phases.includes('BACK'));

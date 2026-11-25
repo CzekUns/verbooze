@@ -1,15 +1,15 @@
 /* Four professions from the 384x160 atlas derived from the primary pedestrian reference (approved 2026-10-20).
  * Columns 0-3 fryer, 4-7 vigile, 8-11 lavavetri, 12-15 contrabbandiere.
  * Rows: up, down, left, right; 24x40 per frame, feet at world anchor. */
-import {VEHICLE_SCALE,PERSON_SCALE,vs,ps} from './world-scale.mjs?v=001';
-import {pedestrianDirection} from './pedestrian-sprites.mjs?v=002';
+import {VEHICLE_SCALE,PERSON_SCALE,vs,ps} from './world-scale.mjs?v=1001';
+import {pedestrianDirection} from './pedestrian-sprites.mjs?v=1002';
 export const PROFESSION_ATLAS_PATH='./assets/people/npc-mestieri-prima-reference-384x160.png';
 export const PROFESSION_TYPES=Object.freeze(['friggitore','vigile','lavavetri','contrabbandiere']);
 let image=null;
 export function loadProfessionSprites(){
  if(image||typeof Image==='undefined')return;
  image=new Image();
- image.onerror=()=>console.warn('GTA Melito: professioni PNG non disponibile');
+ image.onerror=()=>console.warn('GAM Melito: professioni PNG non disponibile');
  image.src=new URL(PROFESSION_ATLAS_PATH,import.meta.url).href;
 }
 export function professionSpriteReady(){

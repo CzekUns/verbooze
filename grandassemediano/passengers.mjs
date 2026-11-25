@@ -1,4 +1,4 @@
-/* GTA Melito — Q21: posti e passeggeri su auto, Ape, furgoni e scooter.
+/* GAM Melito — Q21: posti e passeggeri su auto, Triciclo, furgoni e scooter.
  * Ogni veicolo ha una capienza di passeggeri (guidatore escluso). Un posto è libero oppure
  * occupato da UN solo NPC: associazione stabile NPC ↔ mezzo ↔ posto (vehicle.seats[i] ↔
  * npc.aboard={vehicle,seat}). Gli NPC a bordo del giocatore sono pedoni veri tolti dal
@@ -27,7 +27,7 @@ export function seatCapacity(v){
  if(!v||v.vendorStand)return 0;
  if(isBike(v))return 1;
  const m=String(v.model||'');
- if(m.startsWith('ape-'))return 1;
+ if(m.startsWith('triciclo-'))return 1;
  if(m.startsWith('furgone')||m.startsWith('food-'))return 2;
  return 4;
 }
@@ -152,7 +152,7 @@ export function lookOf(npc,seat){return npc?.look||personLook((npc?.seed|0)*13+9
  * In Italia si guida a sinistra del mezzo: guidatore r<0. */
 function seatPositions(v){
  const m=String(v.model||'');
- if(m.startsWith('ape-'))return {driver:[1.05,-.35],seats:[[1.05,.45]],head:.3};
+ if(m.startsWith('triciclo-'))return {driver:[1.05,-.35],seats:[[1.05,.45]],head:.3};
  if(m.startsWith('furgone')||m.startsWith('food-'))return {driver:[2.35,-.8],seats:[[2.35,.05],[2.35,.85]],head:.36};
  return {driver:[1.45,-.78],seats:[[1.45,.78],[-1.6,-.82],[-1.6,.82],[-1.6,0]],head:.36};
 }

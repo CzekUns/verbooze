@@ -10,7 +10,7 @@ const accelTime=(p,target)=>{let s=0,a=0,t=0;while(s<target&&t<20){({speed:s,ang
 const topSpeed=p=>{let s=0,a=0;for(let i=0;i<900;i++)({speed:s,angle:a}=stepVehicle(s,a,{x:0,y:-1},false,dt,false,p));return s;};
 const brakeDistance=(p,v0,wet=0)=>{let s=v0,a=0,d=0;for(let i=0;i<900&&s>0;i++){({speed:s,angle:a}=stepVehicle(s,a,{x:0,y:0},false,dt,true,p,wet));d+=Math.max(0,s)*dt;}return d;};
 const turnAt=(p,speed)=>{let s=speed,a=0;for(let i=0;i<60;i++){({speed:s,angle:a}=stepVehicle(s,a,{x:1,y:-.5},false,dt,false,p));}return a;};
-const car=handlingProfile({model:'panda-modern-white'}),scooter=handlingProfile({vehicleType:'motorcycle',model:'moto-scooter-sh-red'}),moto=handlingProfile({vehicleType:'motorcycle',model:'moto-moto-sport-blue'});
+const car=handlingProfile({model:'borgo-nuova-white'}),scooter=handlingProfile({vehicleType:'motorcycle',model:'moto-scooter-urbano-red'}),moto=handlingProfile({vehicleType:'motorcycle',model:'moto-moto-sport-blue'});
 
 test('Q10 without a profile the old car and motorcycle physics are untouched',()=>{
  let seed=11;const r=()=>{seed=(seed*1103515245+12345)>>>0;return seed/4294967295;};
@@ -30,13 +30,13 @@ test('Q10 car, scooter and motorbike feel different: pick-up, top speed, brakes 
  assert.ok(brakeDistance(moto,20)<brakeDistance(car,20),'a bike stops shorter than a car');
  assert.ok(turnAt(scooter,10)>turnAt(moto,10),'the scooter is the most nimble');
  assert.ok(turnAt(moto,28)<turnAt(moto,10),'every vehicle steers less at speed');
- const punto=handlingProfile({model:'punto-188-red'}),uno=handlingProfile({model:'fiat-uno-1983-white'});
- assert.ok(topSpeed(punto)>topSpeed(uno)&&accelTime(punto,25)<accelTime(uno,25),'a Punto is livelier than an old Uno');
- assert.ok(turnAt(handlingProfile({model:'smart-fortwo-2007-red'}),10)>turnAt(car,10),'the Smart turns tighter');
+ const alba=handlingProfile({model:'alba-red'}),uno=handlingProfile({model:'riva-white'});
+ assert.ok(topSpeed(alba)>topSpeed(uno)&&accelTime(alba,25)<accelTime(uno,25),'a Alba is livelier than an old Uno');
+ assert.ok(turnAt(handlingProfile({model:'mira-red'}),10)>turnAt(car,10),'the Mira turns tighter');
 });
 
 test('Q10 wheel and pedals keep their rules on every vehicle: no gas from steering, brake never reverses, RETRO reverses',()=>{
- for(const p of [CAR_HANDLING,car,scooter,moto,handlingProfile({model:'seicento-1998-blue'})]){
+ for(const p of [CAR_HANDLING,car,scooter,moto,handlingProfile({model:'nido-blue'})]){
   const still=stepVehicle(0,0,{x:1,y:0},false,.05,false,p);
   assert.deepEqual(still,{speed:0,angle:0},'steering alone neither moves nor pivots');
   let s=20;for(let i=0;i<120;i++)s=stepVehicle(s,0,{x:.6,y:-1},false,dt,true,p).speed;

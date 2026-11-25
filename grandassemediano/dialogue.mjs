@@ -1,4 +1,4 @@
-/* GTA Melito — Lotto 15: dialoghi con volto (prototipo per la storyline). PROVVISORIO, da approvare da Simone.
+/* GAM Melito — Lotto 15: dialoghi con volto (prototipo per la storyline). PROVVISORIO, da approvare da Simone.
  * Decisione di Simone (21/10/2026): le battute delle missioni vanno in una BARRA nella parte bassa dello
  * schermo, con accanto il RIQUADRO del volto di chi parla (illustrazioni cel-shaded di CODEX-GH, 256×256).
  * Il modulo non è agganciato alle missioni esistenti: si prova da PAUSA › NOVITÀ › «dialogo-volti» › PROVA.
@@ -26,7 +26,7 @@ export function portraitSrc(id){const p=PORTRAITS[id];return p?PORTRAIT_DIR+p.fi
 /* Dialogo di esempio: sei battute, una per volto, personaggi inventati, tono di paese. Nessuna persona reale. */
 export const DEMO_DIALOGUE=Object.freeze([
  {speaker:'nonna',name:'Nonna Assunta',text:'Guagliò, a quest’ora ancora in giro? Vai a prendere il pane prima che chiude, e piano con quel motorino.'},
- {speaker:'meccanico',name:'Ciro il meccanico',text:'La Panda te la tengo pronta per domani. Oggi mi manca un pezzo, è rimasto dal ricambista a Giugliano.'},
+ {speaker:'meccanico',name:'Ciro il meccanico',text:'La Borgo te la tengo pronta per domani. Oggi mi manca un pezzo, è rimasto dal ricambista a Giugliano.'},
  {speaker:'ragazza-cuffie',name:'Marika',text:'Se passi dal mercato prendimi le olive al banco vicino alla fontana. Ti aspetto in piazza, davanti alla chiesa.'},
  {speaker:'vigile',name:'Il vigile',text:'Qui non si parcheggia, c’è la fermata del pullman. Sposta la macchina adesso e non ne parliamo più.'},
  {speaker:'barista',name:'Don Peppino',text:'Caffè e cornetto, come sempre? Il giornale sta sul bancone: stamattina parlano del mercato del venerdì.'},

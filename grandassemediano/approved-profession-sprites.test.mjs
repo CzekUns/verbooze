@@ -19,8 +19,8 @@ test('approved 4-profession atlas is PNG 384x160 based on original pedestrian fo
 test('approved professions are loaded by both the city renderer and the game',async()=>{
  const [game,city,html]=await Promise.all(['game.mjs','city-art.mjs','index.html']
   .map(p=>readFile(new URL('./'+p,import.meta.url),'utf8')));
- assert.match(game,/profession-sprites\.mjs\?v=003/);
- assert.match(city,/profession-sprites\.mjs\?v=003/);
+ assert.match(game,/profession-sprites\.mjs\?v=1003/);
+ assert.match(city,/profession-sprites\.mjs\?v=1003/);
  // Cache versions only move forward: at least the ones of the approval commit (city-art 133, game 197).
  assert.ok(Number((game.match(/city-art\.mjs\?v=(\d+)/)||[])[1])>=133,'city-art.mjs almeno v=133');
  assert.ok(Number((html.match(/game\.mjs\?v=(\d+)/)||[])[1])>=197,'game.mjs almeno v=197');

@@ -5,9 +5,9 @@
  * OSM, l'arredo no (nessuna pretesa sulla pianta reale del locale). Superficie fra 1/4 e 1/6
  * della banca 160×120: bar e minimarket 80×60, panificio o pasticceria 64×50.
  * I locali di tipo non previsto o senza un portone raggiungibile restano chiusi. */
-import {drawCityPlayer} from './city-art.mjs?v=138';
-import {drawPedestrianSprite} from './pedestrian-sprites.mjs?v=002';
-import {WALK_SPEED,RUN_SPEED} from './driving-controls.mjs?v=100';
+import {drawCityPlayer} from './city-art.mjs?v=1141';
+import {drawPedestrianSprite} from './pedestrian-sprites.mjs?v=1002';
+import {WALK_SPEED,RUN_SPEED} from './driving-controls.mjs?v=1100';
 
 const clamp=(n,a,b)=>Math.min(b,Math.max(a,n));
 const WALL=3,DOOR_WIDTH=10,BODY=1.1;
@@ -369,7 +369,7 @@ function drawBar(ctx,room,clock){
  for(const game of room.games||[])if(game.type!=='pool')drawCabinet(ctx,game,clock);
 }
 function drawHotspots(ctx,room,interior,clock){
- // Punto luminoso davanti a ogni gioco (come i portoni): mostra dove premere E.
+ // Alba luminoso davanti a ogni gioco (come i portoni): mostra dove premere E.
  for(const game of room.games||[]){
   const pulse=.75+.25*Math.sin(clock*4+game.x);
   ctx.globalAlpha=.18+.1*pulse;ctx.fillStyle='#ffe08a';ctx.beginPath();ctx.arc(game.x,game.y,1.6*pulse,0,Math.PI*2);ctx.fill();

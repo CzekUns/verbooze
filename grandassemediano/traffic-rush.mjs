@@ -1,4 +1,4 @@
-/* GTA Melito — Q13: ore di punta del traffico (richiesta del committente, 20/10/2026).
+/* GAM Melito — Q13: ore di punta del traffico (richiesta del committente, 20/10/2026).
  * Il numero di mezzi in circolazione segue l'orologio NPC (Q02): giorno normale = 140 mezzi,
  * picchi morbidi alle 8:00 e alle 20:00 (circa +35%, salita e discesa di circa un'ora), notte
  * fonda (1–5) circa la metà. Nessuno scalino: la curva è continua.

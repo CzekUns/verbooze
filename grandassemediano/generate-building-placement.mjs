@@ -1,5 +1,5 @@
 /* Generate visual-only offsets for mapped buildings beside widened streets.
- * Run from the repository root: node games/gta-melito/generate-building-placement.mjs
+ * Run from the repository root: node games/gam-melito/generate-building-placement.mjs
  * Original OSM polygons, way IDs and street centrelines remain untouched. */
 import {readFile,writeFile} from 'node:fs/promises';
 import {visualRoadWidth} from './road-widths.mjs';

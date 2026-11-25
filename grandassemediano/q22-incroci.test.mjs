@@ -31,7 +31,7 @@ test('Q22 the commuter scooter signals before its turns, like the cars (last 30 
 
 const car=(x,speed=8)=>{
  const c=createAgents(graph,1,91,'car',[])[0],t=x/graph.edges[east].len,p=lanePosition(graph,east,t,'car');
- return Object.assign(c,{edge:east,t,x:p.x,y:p.y,a:0,speed,v:speed,wait:0,braking:false,model:'panda-modern-white',vehicleType:'car'});
+ return Object.assign(c,{edge:east,t,x:p.x,y:p.y,a:0,speed,v:speed,wait:0,braking:false,model:'borgo-nuova-white',vehicleType:'car'});
 };
 // Un pedone che aspetta di attraversare Via Roma a x=290 (richiesta come la registra kerbWait).
 const request=()=>{const ped={x:290,y:-pave,body:'walk'};return [ped,new Map([[ped,{ped,from:{x:290,y:-pave},to:{x:290,y:pave}}]])];};
@@ -68,7 +68,7 @@ test('Q22 a waiting pedestrian asks for right of way after 1 s; a car giving way
  Object.assign(walker,{x:p.x,y:p.y,a:0,edge:east,t,side:1,wait:0,corner:null});
  // un'auto sulla traversa che arriva verso il passaggio
  const n=find('Traversa',300,-250,Math.PI/2),q=lanePosition(graph,n,(250-18)/250,'car');
- const v={x:q.x,y:q.y,a:Math.PI/2,speed:8,v:8,body:'car',edge:n,vehicleType:'car',model:'panda-modern-white'};
+ const v={x:q.x,y:q.y,a:Math.PI/2,speed:8,v:8,body:'car',edge:n,vehicleType:'car',model:'borgo-nuova-white'};
  let waited=0;
  for(let i=0;i<40;i++){if(kerbWait(r,walker,graph,{vehicles:[v],dt}))waited+=dt;}
  assert.ok(waited>=1,'waits at the kerb for the car');

@@ -193,7 +193,7 @@ test('Q30 results only: saved once per finished game, no money, no betting, no n
  const src=await readFile(new URL('./minigame-pool.mjs',import.meta.url),'utf8');
  assert.match(src,/NIENTE DENARO E NIENTE SCOMMESSE/);
  assert.doesNotMatch(src,/fetch\(|XMLHttpRequest|WebSocket|sendBeacon|€|progress\.money|paypal|stripe|credits/i);
- assert.ok(!['gta-melito-slot-v1','gta-melito-poker-v1'].includes(POOL_SAVE_KEY));
+ assert.ok(!['gam-melito-slot-v1','gam-melito-poker-v1'].includes(POOL_SAVE_KEY));
 });
 
 test('Q30 pixel art: table, balls, cue, aim guide and the whole screen draw without errors',()=>{
@@ -278,7 +278,7 @@ test('Q30 game wiring: pause under the table, radio ducked, PAUSA › STRUMENTI 
  assert.match(game,/import \{openPoolMachine,isPoolOpen\} from '\.\/minigame-pool\.mjs\?v=\d+'/);
  assert.match(game,/function tick\(dt\)\{\n if\(!state\.ready\)return;\n if\(state\.mapOpen\|\|[^\n]*\|\|isPoolOpen\(\)\)\{\n  for\(const key of Object\.keys\(pressed\)\)pressed\[key\]=false;/,'the world stops under the table');
  assert.match(game,/const paused=state\.mapOpen\|\|[^\n]*\|\|isPoolOpen\(\)(?:\|\|is\w+Open\(\))*;/,'city audio quiet');
- assert.match(game,/function openPoolGame\(\)\{\n if\(isPoolOpen\(\)\|\|isSlotOpen\(\)\|\|isPokerOpen\(\)\)return false;[\s\S]{0,120}carRadio\.duck\(true\);[\s\S]{0,200}onExit:\(\)=>\{carRadio\.duck\(false\);/);
+ assert.match(game,/function openPoolGame\(\)\{\n if\(isPoolOpen\(\)\|\|isSlotOpen\(\)\|\|isPokerOpen\(\)\)return false;[\s\S]{0,120}licensedAudio\.duck\(true\);[\s\S]{0,200}onExit:\(\)=>\{licensedAudio\.duck\(false\);/);
  assert.match(game,/function openSlotGame\(\)\{\n if\([^\n]*isPoolOpen\(\)\)return false;/,'never two minigames at once');
  assert.match(game,/function openPokerGame\(\)\{\n if\([^\n]*isPoolOpen\(\)\)return false;/);
  assert.match(game,/get\('minigioco'\)==='biliardo'/);assert.match(game,/else if\(POOL_FROM_URL\)openPoolGame\(\);/);

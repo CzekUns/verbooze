@@ -1,6 +1,6 @@
 /* Gentle road alignment for one-stick driving. Strong turns release the guide
  * briefly so an intersection or a sidewalk remains reachable. */
-import {SIDEWALK_DRIVE} from './sidewalk.mjs?v=099';
+import {SIDEWALK_DRIVE} from './sidewalk.mjs?v=1099';
 const clamp=(v,lo,hi)=>Math.max(lo,Math.min(hi,v));
 const wrap=a=>Math.atan2(Math.sin(a),Math.cos(a));
 

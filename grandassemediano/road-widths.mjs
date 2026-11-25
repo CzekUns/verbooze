@@ -1,4 +1,4 @@
-/* GTA Melito 0.4.3 — synchronized visual / simulation road proportions.
+/* GAM Melito 0.4.3 — synchronized visual / simulation road proportions.
  * OSM road.w stays immutable. 'before' is the original pre-0.4.2 arcade
  * rendition for an in-game A/B comparison; wide is the new default. */
 export const ROAD_WIDTH_MULTIPLIER=Object.freeze({
@@ -7,7 +7,7 @@ export const ROAD_WIDTH_MULTIPLIER=Object.freeze({
  living_street:2.12,service:2.0,track:1.55,
  pedestrian:1.35,footway:1.2,path:1.18,steps:1.1,cycleway:1.15
 });
-import {VEHICLE_SCALE} from './world-scale.mjs?v=001';
+import {VEHICLE_SCALE} from './world-scale.mjs?v=1001';
 let mode='wide';
 export function getRoadWidthMode(){return mode;}
 export function setRoadWidthMode(value){

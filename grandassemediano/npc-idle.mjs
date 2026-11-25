@@ -1,9 +1,9 @@
 /* Vita di quartiere: figure ferme, derivate da POI/edifici OSM, banchi e panchine già collocate.
  * Sono solo grafica: non entrano nell'indice collisioni, nelle routine o nel traffico. */
-import {PEDESTRIAN_KIND_COUNT} from './extra-pedestrian-sprites.mjs?v=007';
-import {drawIdlePose,loadIdlePoseSheets} from './pose-pedoni.mjs?v=002';
-import {drawPedestrianSprite} from './pedestrian-sprites.mjs?v=002';
-import {drawExtraPedestrianSprite,drawSheetPedestrianSprite} from './extra-pedestrian-sprites.mjs?v=007';
+import {PEDESTRIAN_KIND_COUNT} from './extra-pedestrian-sprites.mjs?v=1007';
+import {drawIdlePose,loadIdlePoseSheets} from './pose-pedoni.mjs?v=1002';
+import {drawPedestrianSprite} from './pedestrian-sprites.mjs?v=1002';
+import {drawExtraPedestrianSprite,drawSheetPedestrianSprite} from './extra-pedestrian-sprites.mjs?v=1007';
 export {loadIdlePoseSheets};
 
 const CAFE_KINDS=new Set(['bar','cafe','fast_food','restaurant']);

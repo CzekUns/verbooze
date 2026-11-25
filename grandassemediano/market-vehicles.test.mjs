@@ -39,13 +39,13 @@ function decodeAlpha(bytes){
  }
  return {w,h,alpha:(x,y)=>table[indexes[y*w+x]]??255};
 }
-test('vehicle sheet has 16 variants, eight Ape and eight food trucks',()=>{
+test('vehicle sheet has 16 variants, eight Triciclo and eight food trucks',()=>{
  assert.deepEqual(MARKET_ATLAS_CELL,{width:56,height:64,columns:4,rows:4});
  assert.equal(MARKET_VARIANT_IDS.length,16);
  assert.deepEqual(MARKET_VARIANT_IDS.map(id=>MARKET_VARIANTS[id].index),Array.from({length:16},(_,i)=>i));
- assert.equal(MARKET_VARIANT_IDS.filter(id=>MARKET_VARIANTS[id].model==='ape-mercato').length,8);
+ assert.equal(MARKET_VARIANT_IDS.filter(id=>MARKET_VARIANTS[id].model==='triciclo-mercato').length,8);
  assert.equal(MARKET_VARIANT_IDS.filter(id=>MARKET_VARIANTS[id].model==='furgone-ambulante').length,8);
- assert.deepEqual(MARKET_VARIANT_IDS.slice(0,4),['ape-azzurra-vuota','ape-azzurra-ferro','ape-azzurra-ortofrutta','ape-azzurra-pesce']);
+ assert.deepEqual(MARKET_VARIANT_IDS.slice(0,4),['triciclo-azzurra-vuota','triciclo-azzurra-ferro','triciclo-azzurra-ortofrutta','triciclo-azzurra-pesce']);
  assert.equal(MARKET_VARIANT_IDS[9],'food-pere-e-musso');
  assert.equal(MARKET_VARIANT_IDS[15],'food-misto');
  assert.equal(CAR_TRAFFIC_SPRITE_IDS.length,146,'vehicles with extended awnings are parked only');
@@ -64,11 +64,11 @@ test('all 16 PNG cells: no opaque rectangular background, actual visible vehicle
   assert.ok(data.alpha(x+28,y+32)>0,'sprite '+i+' body is opaque');
  }
 });
-test('game draws each sprite from the correct source crop and follows GTA heading',()=>{
+test('game draws each sprite from the correct source crop and follows GAM heading',()=>{
  const original=globalThis.Image;
  class Img {
   complete=true; naturalWidth=0; naturalHeight=0;
-  set src(v){this._src=v; if(v.includes('ape-food-16-rgba.png')){this.naturalWidth=224;this.naturalHeight=256;}}
+  set src(v){this._src=v; if(v.includes('triciclo-food-16-rgba.png')){this.naturalWidth=224;this.naturalHeight=256;}}
  }
  try{
   globalThis.Image=Img;loadCarSprites();
@@ -86,14 +86,14 @@ test('game draws each sprite from the correct source crop and follows GTA headin
   }
  }finally{if(original===undefined)delete globalThis.Image;else globalThis.Image=original;}
 });
-test('food truck awnings stay parked while compact Ape models join moving traffic',async()=>{
+test('food truck awnings stay parked while compact Triciclo models join moving traffic',async()=>{
  const [game,page]=await Promise.all([
   readFile(new URL('./game.mjs',import.meta.url),'utf8'),
   readFile(new URL('./index.html',import.meta.url),'utf8')]);
  assert.ok(game.includes('CAR_PARKED_SPRITE_IDS[(k*7)%CAR_PARKED_SPRITE_IDS.length]'));
  assert.ok(game.includes('CAR_TRAFFIC_SPRITE_IDS[(i*CAR_TRAFFIC_STRIDE)%CAR_TRAFFIC_SPRITE_IDS.length]'));
  assert.ok(Number((game.match(/car\-sprites\.mjs\?v=(\d+)/)||[])[1])>=108,'car-sprites.mjs almeno v=108');
- assert.ok(game.includes('trafficApeModel(i)'));
+ assert.ok(game.includes('trafficTricycleModel(i)'));
  assert.ok(!game.includes("v.model='food-zeppole-panzerotti'"));
  assert.ok(Number((page.match(/game\.mjs\?v=(\d+)/)||[])[1])>=154,'game.mjs almeno v=154');
 });

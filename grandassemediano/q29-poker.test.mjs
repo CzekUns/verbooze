@@ -89,7 +89,7 @@ test('Q29 virtual only and separate: no money, no purchase, no betting service, 
  const src=await readFile(new URL('./minigame-poker.mjs',import.meta.url),'utf8');
  assert.match(src,/SOLO CREDITI VIRTUALI DI GIOCO/);
  assert.doesNotMatch(src,/fetch\(|XMLHttpRequest|WebSocket|sendBeacon|€|progress\.money|paypal|stripe/i);
- assert.notEqual(POKER_SAVE_KEY,'gta-melito-slot-v1');
+ assert.notEqual(POKER_SAVE_KEY,'gam-melito-slot-v1');
 });
 
 test('Q29 pixel art: cards, suits and the whole screen draw without errors; taps find the right card',()=>{
@@ -109,7 +109,7 @@ test('Q29 game wiring: pause under the cabinet, radio ducked, PAUSE › STRUMENT
  assert.match(game,/import \{openPokerMachine,isPokerOpen\} from '\.\/minigame-poker\.mjs\?v=\d+'/);
  assert.match(game,/function tick\(dt\)\{\n if\(!state\.ready\)return;\n if\(state\.mapOpen\|\|[^\n]*\|\|isSlotOpen\(\)\|\|isPokerOpen\(\)(?:\|\|is\w+Open\(\))*\)\{\n  for\(const key of Object\.keys\(pressed\)\)pressed\[key\]=false;/,'the world stops under the poker');
  assert.match(game,/const paused=state\.mapOpen\|\|[^\n]*\|\|isPokerOpen\(\)(?:\|\|is\w+Open\(\))*;/,'city audio quiet');
- assert.match(game,/function openPokerGame\(\)\{[\s\S]{0,260}carRadio\.duck\(true\);[\s\S]{0,200}onExit:\(\)=>\{carRadio\.duck\(false\);/);
+ assert.match(game,/function openPokerGame\(\)\{[\s\S]{0,260}licensedAudio\.duck\(true\);[\s\S]{0,200}onExit:\(\)=>\{licensedAudio\.duck\(false\);/);
  assert.match(game,/get\('minigioco'\)==='poker'/);assert.match(game,/else if\(POKER_FROM_URL\)openPokerGame\(\);/);
  assert.match(game,/\$\('pause-poker'\)\.addEventListener\('click',\(\)=>\{closePause\(\);openPokerGame\(\);\}\);/);
  const tools=html.slice(html.indexOf('pause-h-tools'),html.indexOf('pause-h-credits'));

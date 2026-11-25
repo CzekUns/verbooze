@@ -56,15 +56,15 @@ test('Q37 settings: the two BF10 volumes and «Sviluppatore» with every old pau
  assert.match(phoneSrc,/#phone-dev \.pause-section\{display:block!important/,'all sections visible on phones too');
  const pause=html.slice(html.indexOf('<div class="pause-menu" id="pause-menu" hidden>'),html.indexOf('<div class="rotate-screen"'));
  for(const id of ['pause-close','pause-missions','pause-map','pause-zoom-auto','pause-zoom-in','pause-zoom-out','pause-reset','pause-road-compare',
-  'pause-sound','pause-volume-down','pause-volume-up','pause-fx-level','pause-radio-down','pause-radio-up','pause-radio-level',
-  'road-width-compare','pause-satellite','pause-satellite-down','pause-satellite-up','novita-list','novita-copy','novita-back','pause-details','npc-clock'])
+  'pause-sound','pause-volume-down','pause-volume-up','pause-fx-level',
+  'road-width-compare','novita-list','novita-copy','novita-back','pause-details','npc-clock'])
   assert.ok(pause.includes('id="'+id+'"'),id+' still in the pause menu markup');
  assert.ok(pause.includes('openstreetmap.org/copyright')&&pause.includes('ISTAT'),'OSM/ISTAT attribution reachable');
  assert.match(phoneSrc,/PROVE MINIGIOCHI/);
 });
 
 test('Q37 game wiring: phone mounted on the pause menu, keys to the phone first, inputs reset on open',()=>{
- assert.match(game,/import \{mountPhone\} from '\.\/smartphone\.mjs\?v=001';/);
+ assert.match(game,/import \{mountPhone\} from '\.\/smartphone\.mjs\?v=1001';/);
  assert.match(game,/phoneUi=mountPhone\(document,\{menu:pause,/);
  assert.match(game,/window\.addEventListener\('keydown',e=>\{\n  \/\/ Q37[^\n]*\n  if\(!\$\('pause-menu'\)\.hidden&&phoneUi\?\.key\(e\)\)return;/);
  assert.match(game,/Object\.keys\(pressed\)\.forEach\(k=>pressed\[k\]=false\);stick\.x=0;stick\.y=0;resetDrivingControls\(\);pause\.hidden=false;phoneUi\?\.opened\(\);/,'no pedal held through the phone');

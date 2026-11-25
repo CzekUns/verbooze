@@ -1,4 +1,4 @@
-/* GTA Melito — Q33: regole, IA e salvataggio della partita di calcetto 5 contro 5 (SOLO libreria).
+/* GAM Melito — Q33: regole, IA e salvataggio della partita di calcetto 5 contro 5 (SOLO libreria).
  * Dal 21/10/2026, su richiesta del committente, la partita si gioca nell'overworld (football-match.mjs):
  * questo modulo non apre più nessuna scena a parte e non disegna nulla. Contiene la simulazione pura e
  * ripetibile (seme): due squadre da cinque con portiere, possesso, passaggi, tiri, contrasti, portieri,

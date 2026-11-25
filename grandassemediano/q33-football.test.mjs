@@ -315,7 +315,7 @@ test('Q33 field: drawing without errors (fake canvas), two shirt colours and kee
 
 test('Q33 game wiring: no separate scene, the city keeps running, E inside the lines, kick/pass keys and touch, versions',async()=>{
  const [game,html,campaign,novita,md,pitches]=await Promise.all([read('game.mjs'),read('index.html'),read('campaign.mjs'),read('novita.mjs'),read('NOVITA_DA_APPROVARE.md'),read('football-pitches.mjs')]);
- assert.match(game,/import \{recordFootballResult,footballRecordText\} from '\.\/minigame-football\.mjs\?v=003'/);
+ assert.match(game,/import \{recordFootballResult,footballRecordText\} from '\.\/minigame-football\.mjs\?v=1003'/);
  assert.match(game,/import \{createFieldMatch\} from '\.\/football-match\.mjs\?v=\d+'/);
  assert.doesNotMatch(game,/openFootballGame|isFootballOpen|footballReturnPoint|football-panel/,'the full-screen scene is gone');
  assert.doesNotMatch(html,/\.football\{position:fixed|fb-stick|fb-canvas/,'no full-screen CSS left');
@@ -332,8 +332,8 @@ test('Q33 game wiring: no separate scene, the city keeps running, E inside the l
  assert.match(game,/\$\('football-pass'\)\.addEventListener\('pointerdown'/);
  assert.match(html,/<button id="football-pass"[^>]*>PASSA<\/button>/);assert.match(html,/<button id="football-shoot"[^>]*>TIRO<\/button>/);assert.match(html,/\.controls\.football #action,\.controls\.football #sprint\{visibility:hidden\}/);
  assert.match(game,/pitchNear\?'GIOCA'/);assert.match(game,/PARTITA NEL CAMPO GRANDE DI VIA DELLE PALME/);assert.match(game,/if\(kickLabel\)\$\('action'\)\.textContent=kickLabel;/);assert.match(game,/if\(football\)boardPrompt\(football\.prompt\(\)\);/);
- assert.match(game,/from '\.\/campaign\.mjs\?v=005'/);assert.match(campaign,/from '\.\/minigame-football\.mjs\?v=003'/);
- assert.match(game,/from '\.\/football-pitches\.mjs\?v=002'/);assert.match(game,/from '\.\/novita\.mjs\?v=020'/);
+ assert.match(game,/from '\.\/campaign\.mjs\?v=1005'/);assert.match(campaign,/from '\.\/minigame-football\.mjs\?v=1003'/);
+ assert.match(game,/from '\.\/football-pitches\.mjs\?v=1002'/);assert.ok(Number(game.match(/novita\.mjs\?v=(\d+)/)?.[1])>=20);
  assert.ok(Number((html.match(/game\.mjs\?v=(\d+)/)||[])[1])>=197);
  assert.match(novita,/id:'calcetto'[\s\S]*?filter\(p=>p\.partita\)/);assert.match(md,/\| `calcetto` \|[^\n]*campo grande/);
  assert.match(pitches,/id:'palme-campo',nome:'Campo di Via delle Palme',kind:'calcetto',partita:true/);

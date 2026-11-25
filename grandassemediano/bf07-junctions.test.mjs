@@ -21,7 +21,7 @@ const edgeFrom=(g,toX,toY)=>g.edges.findIndex(e=>e.car&&g.nodes[e.from].x===300&
 // Un'auto del traffico sull'accesso `edge`, a `dist` metri dal centro dell'incrocio, con percorso fissato.
 function carOn(g,edge,dist,out,seed=1){
  const car=createAgents(g,1,seed,'car',[])[0],e=g.edges[edge],t=1-dist/e.len;
- Object.assign(car,lanePosition(g,edge,t,'car'),{edge,t,path:[edge,out],speed:10,wait:0,model:'panda-modern-white',vehicleType:'car'});
+ Object.assign(car,lanePosition(g,edge,t,'car'),{edge,t,path:[edge,out],speed:10,wait:0,model:'borgo-nuova-white',vehicleType:'car'});
  delete car.home;
  return car;
 }
@@ -116,7 +116,7 @@ test('BF07 do not block the box: with no room after the junction the car waits b
  const car=carOn(g,west,40,east,31);
  // un'auto ferma subito dopo l'incrocio, proprio nella corsia di uscita
  const jam=createAgents(g,1,33,'car',[])[0],e=g.edges[east];
- Object.assign(jam,lanePosition(g,east,(J.r+4)/e.len,'car'),{edge:east,t:(J.r+4)/e.len,wait:1e9,speed:9,model:'panda-modern-white'});
+ Object.assign(jam,lanePosition(g,east,(J.r+4)/e.len,'car'),{edge:east,t:(J.r+4)/e.len,wait:1e9,speed:9,model:'borgo-nuova-white'});
  const A=J.approaches.get(west);
  for(let i=0;i<300;i++){
   stepAgents(g,[car,jam],dt,null,{});

@@ -1,10 +1,10 @@
-/* GTA Melito · Q39–Q41 · App «RIDER» (lavoro di FINZIONE).
+/* GAM Melito · Q39–Q41 · App «RIDER» (lavoro di FINZIONE).
  * Punti di ritiro: bar, caffè, pasticcerie, ristoranti e friggitorie con nome OSM già in strada
  * (storefronts.mjs) e i furgoncini del cibo di strada (Q17, ambulanti di fantasia).
  * Destinazioni: strade OSM reali con nome; clienti, ordini, compensi e recensioni sono INVENTATI.
  * Nessun collegamento a persone, attività o piattaforme di consegna reali.
  * Solo logica pura (testabile con node --test); disegno e pannello stanno in game.mjs. */
-export const RIDER_COMPATIBLE=Object.freeze(['scooter-sh','scooter-retro','moto-naked']);
+export const RIDER_COMPATIBLE=Object.freeze(['scooter-urbano','scooter-retro','moto-naked']);
 export const PICKUP_KINDS=Object.freeze(['bar','cafe','fast_food','pastry','restaurant','bakery']);
 export const PICKUP_RADIUS=9,DELIVERY_RADIUS=12,CARGO_WALK_RADIUS=25;
 export const OFFER_MIN_DISTANCE=140,OFFER_MAX_DISTANCE=750;
@@ -26,7 +26,7 @@ export const REVIEWS=Object.freeze({
 const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
 const dist=(a,b)=>Math.hypot(a.x-b.x,a.y-b.y);
 function rng(seed){let s=(seed>>>0)||1;return ()=>{s=(s+0x6D2B79F5)>>>0;let t=s;t=Math.imul(t^t>>>15,t|1);t^=t+Math.imul(t^t>>>7,t|61);return ((t^t>>>14)>>>0)/4294967296;};}
-// Modello dal nome dello sprite («moto-scooter-sh-white» → «scooter-sh»).
+// Modello dal nome dello sprite («moto-scooter-urbano-white» → «scooter-urbano»).
 export function riderModelOf(vehicle){
  const m=String(vehicle?.model||'').match(/^moto-(.+)-(white|red|black|blue)$/);
  return m?m[1]:null;
@@ -195,7 +195,7 @@ export function riderRoute(graph,from,to){
  points.push({x:to.x,y:to.y});
  return {points,length:Math.round(d[g]+dist(graph.nodes[g],to))};
 }
-// Punto del percorso circa `ahead` metri davanti al giocatore (per la freccia HUD).
+// Alba del percorso circa `ahead` metri davanti al giocatore (per la freccia HUD).
 export function routeLookahead(points,p,ahead=18){
  if(!points?.length)return null;
  let bi=0,bd=Infinity;

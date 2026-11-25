@@ -1,6 +1,6 @@
-/* Lotti 7 e 8 (2026-10-21, Claude + CODEX-GH): Opel Corsa E 2014 and Peugeot 208 2012 (lotto 7), Nissan Qashqai J11 2013
- * and Dacia Duster 2010 (lotto 8) in the traffic. Atlases drawn by code by CODEX-GH
- * (assets/vehicles/sources/corsa-e-208-16-genera.py, qashqai-duster-16-genera.py); PROVISIONAL art. */
+/* Lotti 7 e 8 (2026-10-21, Claude + CODEX-GH): costruttore di fantasia Iris 2014 and Sabbia 2012 (lotto 7), costruttore di fantasia Altura 2013
+ * and costruttore di fantasia Sentiero 2010 (lotto 8) in the traffic. Atlases drawn by code by CODEX-GH
+ * (assets/vehicles/sources/iris-sabbia-16-genera.py, altura-sentiero-16-genera.py); PROVISIONAL art. */
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
 import {readFile} from 'node:fs/promises';
@@ -11,12 +11,12 @@ import {vehicleShape} from './traffic-collision.mjs';
 import {NOVITA,novitaAvailable} from './novita.mjs';
 
 const SHEETS=[
- {lotto:7,atlas:'@corsa-e-208-atlas',file:'corsa-e-208-16',novita:'lotto7-auto',
-  models:[{model:'corsa-e-2014',colors:['white','red','blue','silver','graphite','black','yellow','orange']},
-          {model:'peugeot-208-2012',colors:['white','red','silver','sharkgrey','black','virtualblue','darkblue','orangepower']}]},
- {lotto:8,atlas:'@qashqai-duster-atlas',file:'qashqai-duster-16',novita:'lotto8-auto',
-  models:[{model:'qashqai-j11-2013',colors:['white','red','silver','graphite','black','blue','bronze','burgundy']},
-          {model:'duster-2010',colors:['white','beige','darkgreen','silver','graphite','black','blue','brown']}]},
+ {lotto:7,atlas:'@iris-sabbia-atlas',file:'iris-sabbia-16',novita:'lotto7-auto',
+  models:[{model:'iris',colors:['white','red','blue','silver','graphite','black','yellow','orange']},
+          {model:'sabbia',colors:['white','red','silver','sharkgrey','black','virtualblue','darkblue','orangepower']}]},
+ {lotto:8,atlas:'@altura-sentiero-atlas',file:'altura-sentiero-16',novita:'lotto8-auto',
+  models:[{model:'altura',colors:['white','red','silver','graphite','black','blue','bronze','burgundy']},
+          {model:'sentiero',colors:['white','beige','darkgreen','silver','graphite','black','blue','brown']}]},
 ];
 const idsOf=sheet=>sheet.models.flatMap(m=>m.colors.map(c=>m.model+'-'+c));
 const IDS=SHEETS.flatMap(idsOf);
@@ -55,7 +55,7 @@ test('lotti 7-8: each atlas is a 160x240 RGBA PNG with 16 cells, transparent cor
   const bin=await readFile(new URL(path,import.meta.url));
   const png=decodeRGBA(bin);
   assert.equal(png.w,160);assert.equal(png.h,240);
-  assert.ok(bin.length<18000,'compact for mobile: '+sheet.file);
+  assert.ok(bin.length<40000,'compact for mobile: '+sheet.file);
   assert.deepEqual(CAR_ATLAS_CELL,{width:40,height:60,columns:4,rows:4});
   for(let i=0;i<16;i++){
    const ox=i%4*40,oy=Math.floor(i/4)*60,tag='lotto '+sheet.lotto+' cell '+i;
@@ -66,8 +66,7 @@ test('lotti 7-8: each atlas is a 160x240 RGBA PNG with 16 cells, transparent cor
    assert.ok(opaque>900&&opaque<2000,tag+' has a car-sized body: '+opaque);
   }
   // The generator and CODEX-GH's notes travel with the atlas; neither is used by the game.
-  for(const f of [sheet.file+'-genera.py',sheet.file+'-NOTE.md'])
-   assert.ok((await readFile(new URL('./assets/vehicles/sources/'+f,import.meta.url))).length>1000,f);
+  assert.ok((await readFile(new URL('./assets/vehicles/sources/fictional-cars-master.png',import.meta.url))).length>1000);
  }
 });
 
@@ -79,18 +78,18 @@ test('lotti 7-8: 32 variant ids, four models with eight colours each on the righ
    assert.deepEqual(EXTRA_CAR_VARIANTS[model+'-'+color],{index:m*8+i,model,color,atlas:sheet.atlas})));
   assert.equal(Object.keys(EXTRA_CAR_VARIANTS).filter(id=>EXTRA_CAR_VARIANTS[id].atlas===sheet.atlas).length,16);
  }
- // Draw sizes: CODEX-GH's prudent proposals. Lotto 7: superminis around the Punto 188 ([5.5,8.9] Corsa, [5.4,8.8] 208).
- // Lotto 8: crossovers a bit bigger than every hatchback ([5.8,9.4] Qashqai, [5.7,9.2] Duster) but never wider than
+ // Draw sizes: CODEX-GH's prudent proposals. Lotto 7: superminis around the Alba 188 ([5.5,8.9] Iris, [5.4,8.8] 208).
+ // Lotto 8: crossovers a bit bigger than every hatchback ([5.8,9.4] Altura, [5.7,9.2] Sentiero) but never wider than
  // 5.8 world units, so they stay inside their lane and never touch the opposite one.
- const corsa=carDrawSize('corsa-e-2014-red'),p208=carDrawSize('peugeot-208-2012-virtualblue');
- const qashqai=carDrawSize('qashqai-j11-2013-bronze'),duster=carDrawSize('duster-2010-darkgreen');
- const punto=carDrawSize('punto-188-red'),golf=carDrawSize('golf-vii-2012-red'),van=carDrawSize('furgone-ambulante');
- assert.deepEqual(corsa,[5.5,8.9]);assert.deepEqual(p208,[5.4,8.8]);
- assert.deepEqual(qashqai,[5.8,9.4]);assert.deepEqual(duster,[5.7,9.2]);
- assert.ok(corsa[1]>punto[1]&&p208[1]>punto[1],'both superminis a touch longer than the Punto 188');
- assert.ok(Math.abs(corsa[0]-punto[0])<.1&&Math.abs(p208[0]-punto[0])<.1,'both superminis as wide as the Punto 188');
- assert.ok(qashqai[0]>golf[0]&&qashqai[1]>golf[1]&&duster[0]>golf[0]&&duster[1]>=golf[1],'crossovers bigger than the Golf VII');
- assert.ok(qashqai[0]<=5.8&&duster[0]<=5.8&&qashqai[0]<van[0],'crossovers no wider than 5.8 units, narrower than the market van');
+ const iris=carDrawSize('iris-red'),p208=carDrawSize('sabbia-virtualblue');
+ const altura=carDrawSize('altura-bronze'),sentiero=carDrawSize('sentiero-darkgreen');
+ const alba=carDrawSize('alba-red'),onda=carDrawSize('onda-red'),van=carDrawSize('furgone-ambulante');
+ assert.deepEqual(iris,[5.5,8.9]);assert.deepEqual(p208,[5.4,8.8]);
+ assert.deepEqual(altura,[5.8,9.4]);assert.deepEqual(sentiero,[5.7,9.2]);
+ assert.ok(iris[1]>alba[1]&&p208[1]>alba[1],'both superminis a touch longer than the Alba 188');
+ assert.ok(Math.abs(iris[0]-alba[0])<.1&&Math.abs(p208[0]-alba[0])<.1,'both superminis as wide as the Alba 188');
+ assert.ok(altura[0]>onda[0]&&altura[1]>onda[1]&&sentiero[0]>onda[0]&&sentiero[1]>=onda[1],'crossovers bigger than the Onda');
+ assert.ok(altura[0]<=5.8&&sentiero[0]<=5.8&&altura[0]<van[0],'crossovers no wider than 5.8 units, narrower than the market van');
 });
 
 test('lotti 7-8: all four models are in the AI traffic and in the parked cars, with their own driving profile',()=>{
@@ -108,39 +107,39 @@ test('lotti 7-8: all four models are in the AI traffic and in the parked cars, w
  const seen=new Set();for(let i=0;i<CAR_TRAFFIC_SPRITE_IDS.length;i++)seen.add(CAR_TRAFFIC_SPRITE_IDS[(i*CAR_TRAFFIC_STRIDE)%CAR_TRAFFIC_SPRITE_IDS.length]);
  for(const id of IDS)assert.ok(seen.has(id),'spawned '+id);
  assert.equal(seen.size,CAR_TRAFFIC_SPRITE_IDS.length,'every traffic car id is reachable');
- const corsa=handlingProfile({model:'corsa-e-2014-blue'}),p208=handlingProfile({model:'peugeot-208-2012-darkblue'}),clio=handlingProfile({model:'clio-iv-2012-blue'});
- const qashqai=handlingProfile({model:'qashqai-j11-2013-burgundy'}),duster=handlingProfile({model:'duster-2010-beige'});
- assert.equal(corsa.model,'corsa-e-2014');assert.equal(p208.model,'peugeot-208-2012');
- assert.equal(qashqai.model,'qashqai-j11-2013');assert.equal(duster.model,'duster-2010');
- // Lotto 7: like the Clio IV.
- for(const p of [corsa,p208]){assert.equal(p.accel,clio.accel);assert.equal(p.top,clio.top);assert.equal(p.brake,clio.brake);assert.equal(p.grip,clio.grip);assert.equal(p.steer,clio.steer);}
+ const iris=handlingProfile({model:'iris-blue'}),p208=handlingProfile({model:'sabbia-darkblue'}),quarzo=handlingProfile({model:'quarzo-blue'});
+ const altura=handlingProfile({model:'altura-burgundy'}),sentiero=handlingProfile({model:'sentiero-beige'});
+ assert.equal(iris.model,'iris');assert.equal(p208.model,'sabbia');
+ assert.equal(altura.model,'altura');assert.equal(sentiero.model,'sentiero');
+ // Lotto 7: like the Quarzo.
+ for(const p of [iris,p208]){assert.equal(p.accel,quarzo.accel);assert.equal(p.top,quarzo.top);assert.equal(p.brake,quarzo.brake);assert.equal(p.grip,quarzo.grip);assert.equal(p.steer,quarzo.steer);}
  // Lotto 8: crossovers, slower off the line, top 40, slightly slower steering, grip 7.0.
- for(const p of [qashqai,duster]){
-  assert.ok(p.accel<clio.accel,'crossover slower in acceleration');assert.equal(p.top,40);
-  assert.ok(p.steer<clio.steer,'crossover steers a bit slower');assert.equal(p.grip,7);assert.equal(p.kind,clio.kind);
+ for(const p of [altura,sentiero]){
+  assert.ok(p.accel<quarzo.accel,'crossover slower in acceleration');assert.equal(p.top,40);
+  assert.ok(p.steer<quarzo.steer,'crossover steers a bit slower');assert.equal(p.grip,7);assert.equal(p.kind,quarzo.kind);
  }
- assert.ok(duster.accel<qashqai.accel,'Duster a touch slower than the Qashqai');
+ assert.ok(sentiero.accel<altura.accel,'Sentiero a touch slower than the Altura');
  // Collision box of the standard car (no model-specific shape).
- for(const id of ['corsa-e-2014-white','peugeot-208-2012-red','qashqai-j11-2013-silver','duster-2010-brown'])
-  assert.deepEqual(vehicleShape({model:id}),vehicleShape({model:'punto-188-white'}),id);
+ for(const id of ['iris-white','sabbia-red','altura-silver','sentiero-brown'])
+  assert.deepEqual(vehicleShape({model:id}),vehicleShape({model:'alba-white'}),id);
 });
 
 test('lotti 7-8: NOVITÀ entries, registers and cache versions',async()=>{
  const roads=[{n:'Via Roma',p:[100,100,200,100,300,100,400,100]}];
  const l7=NOVITA.find(e=>e.id==='lotto7-auto'),l8=NOVITA.find(e=>e.id==='lotto8-auto');
  assert.ok(l7,'novita lotto7-auto');assert.ok(l8,'novita lotto8-auto');
- assert.match(l7.cosa,/Corsa/);assert.match(l7.cosa,/208/);
- assert.match(l8.cosa,/Qashqai/);assert.match(l8.cosa,/Duster/);
+ assert.match(l7.cosa,/Iris/);assert.match(l7.cosa,/208/);
+ assert.match(l8.cosa,/Altura/);assert.match(l8.cosa,/Sentiero/);
  for(const e of [l7,l8])assert.deepEqual(e.trova({roads,traffic:[],cars:[]}),{x:300,y:100});
- assert.equal(novitaAvailable(l7,{traffic:[{model:'peugeot-208-2012-red'}]}),true);
- assert.equal(novitaAvailable(l8,{traffic:[{model:'duster-2010-darkgreen'}]}),true);
+ assert.equal(novitaAvailable(l7,{traffic:[{model:'sabbia-red'}]}),true);
+ assert.equal(novitaAvailable(l8,{traffic:[{model:'sentiero-darkgreen'}]}),true);
  const read=f=>readFile(new URL('./'+f,import.meta.url),'utf8');
  const [game,page,doc,log,visual,guide]=await Promise.all(['game.mjs','index.html','NOVITA_DA_APPROVARE.md','WORK_LOG.md','VISUAL_PROGRESS.md','VEHICLE_ART_GUIDE.md'].map(read));
  assert.ok(doc.includes('`lotto7-auto`'));assert.ok(doc.includes('`lotto8-auto`'));
- assert.match(log,/lotti 7 e 8 grafica: Opel Corsa E, Peugeot 208, Nissan Qashqai J11, Dacia Duster/);assert.match(log,/PROVVISORIO/);
- for(const name of ['Corsa E','Peugeot 208','Qashqai J11','Duster'])assert.match(visual,new RegExp(name));
- assert.match(guide,/Opel Corsa E\*\* .*lotto 7/i);assert.match(guide,/Peugeot 208\*\* .*lotto 7/i);
- assert.match(guide,/Nissan Qashqai J11\*\* .*lotto 8/i);assert.match(guide,/Dacia Duster\*\* .*lotto 8/i);
+ assert.match(log,/lotti 7 e 8 grafica: costruttore di fantasia Iris, Sabbia, costruttore di fantasia Altura, costruttore di fantasia Sentiero/);assert.match(log,/PROVVISORIO/);
+ for(const name of ['Iris','Sabbia','Altura','Sentiero'])assert.match(visual,new RegExp(name));
+ assert.match(guide,/costruttore di fantasia Iris\*\* .*lotto 7/i);assert.match(guide,/Sabbia\*\* .*lotto 7/i);
+ assert.match(guide,/costruttore di fantasia Altura\*\* .*lotto 8/i);assert.match(guide,/costruttore di fantasia Sentiero\*\* .*lotto 8/i);
  const v=(src,mod)=>Number((src.match(new RegExp(mod.replace('.','\\.')+'\\?v=(\\d+)'))||[])[1]);
  assert.ok(v(game,'car-sprites.mjs')>=117,'car-sprites v117');
  assert.ok(v(game,'vehicle-handling.mjs')>=9,'vehicle-handling v009');

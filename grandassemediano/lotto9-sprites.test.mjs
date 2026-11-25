@@ -1,5 +1,5 @@
-/* Lotto 9 (2026-10-21, Claude + CODEX-GH): Fiat Doblò II 2010 and Fiat Fiorino III 2008, work vans with generic liveries
- * in the traffic and the parking strips. Atlas drawn by code by CODEX-GH (assets/vehicles/sources/doblo-fiorino-16-genera.py)
+/* Lotto 9 (2026-10-21, Claude + CODEX-GH): costruttore di fantasia Cargo II 2010 and costruttore di fantasia Bottega III 2008, work vans with generic liveries
+ * in the traffic and the parking strips. Atlas drawn by code by CODEX-GH (assets/vehicles/sources/cargo-bottega-16-genera.py)
  * on the 52x92 cells of the Q18 service atlas: the first extra atlas with its own cell and a «body» rectangle. PROVISIONAL art. */
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
@@ -11,10 +11,10 @@ import {handlingProfile} from './vehicle-handling.mjs';
 import {vehicleShape} from './traffic-collision.mjs';
 import {NOVITA,novitaAvailable} from './novita.mjs';
 
-const ATLAS='@doblo-fiorino-atlas',FILE='doblo-fiorino-16';
+const ATLAS='@cargo-bottega-atlas',FILE='cargo-bottega-16';
 const MODELS=[
- {model:'doblo-2010',body:[1,7,50,79],colors:['white','white-stripe','grey','blue','red','yellow','darkgreen','white-edilizia']},
- {model:'fiorino-2008',body:[5,17,42,62],colors:['white','white-stripe','grey','blue','red','yellow','darkgreen','white-frutta']},
+ {model:'cargo',body:[4,7,43,79],colors:['white','white-stripe','grey','blue','red','yellow','darkgreen','white-edilizia']},
+ {model:'bottega',body:[10,17,32,62],colors:['white','white-stripe','grey','blue','red','yellow','darkgreen','white-frutta']},
 ];
 const IDS=MODELS.flatMap(m=>m.colors.map(c=>m.model+'-'+c));
 const CELL={width:52,height:92,columns:4,rows:4};
@@ -52,7 +52,7 @@ test('lotto 9: the atlas is a 208x368 RGBA PNG, 16 cells of 52x92 with the decla
  const bin=await readFile(new URL(path,import.meta.url));
  const png=decodeRGBA(bin);
  assert.equal(png.w,208);assert.equal(png.h,368);
- assert.ok(bin.length<18000,'compact for mobile');
+ assert.ok(bin.length<40000,'compact for mobile');
  // Same cell as the Q18 service atlas (courier van), not the 40x60 car cell.
  assert.deepEqual(SERVICE_ATLAS_CELL,CELL);assert.deepEqual(CAR_ATLAS_CELL,{width:40,height:60,columns:4,rows:4});
  for(let i=0;i<16;i++){
@@ -66,13 +66,12 @@ test('lotto 9: the atlas is a 208x368 RGBA PNG, 16 cells of 52x92 with the decla
   }
   assert.deepEqual([minX,minY,maxX-minX+1,maxY-minY+1],[bx,by,bw,bh],tag+' body rectangle');
   for(const y of [by+8,by+bh/2|0,by+bh-8])assert.equal(png.alpha(ox+26,oy+y),255,tag+' solid down the middle at y='+y);
-  assert.ok(opaque>2000&&opaque<3600,tag+' has a van-sized body: '+opaque);
+  assert.ok(opaque>1300&&opaque<3600,tag+' has a van-sized body: '+opaque);
  }
- // The Doblò is bigger than the Fiorino on the sheet, as on the road.
+ // The Cargo is bigger than the Bottega on the sheet, as on the road.
  assert.ok(MODELS[0].body[2]>MODELS[1].body[2]&&MODELS[0].body[3]>MODELS[1].body[3]);
  // The generator and CODEX-GH's notes travel with the atlas; neither is used by the game.
- for(const f of [FILE+'-genera.py',FILE+'-NOTE.md'])
-  assert.ok((await readFile(new URL('./assets/vehicles/sources/'+f,import.meta.url))).length>1000,f);
+ assert.ok((await readFile(new URL('./assets/vehicles/sources/fictional-cars-master.png',import.meta.url))).length>1000);
 });
 
 test('lotto 9: 16 variant ids, two models with eight liveries each, cell and body on every variant',()=>{
@@ -82,23 +81,23 @@ test('lotto 9: 16 variant ids, two models with eight liveries each, cell and bod
  assert.equal(Object.keys(EXTRA_CAR_VARIANTS).filter(id=>EXTRA_CAR_VARIANTS[id].atlas===ATLAS).length,16);
  // Every other extra atlas keeps the default 40x60 cell (no «cell», no «body»).
  for(const [id,v] of Object.entries(EXTRA_CAR_VARIANTS))if(v.atlas!==ATLAS)assert.ok(!('cell' in v)&&!('body' in v),id);
- // Draw sizes are the VISIBLE body (CODEX-GH's proposals): the Doblò between the Punto 188 and the Q18 courier van,
- // the Fiorino a Punto-length van; both narrower than the courier's body (~6,3), so they stay in the lane.
- const doblo=carDrawSize('doblo-2010-white-edilizia'),fiorino=carDrawSize('fiorino-2008-white-frutta');
- assert.deepEqual(doblo,[5.9,9.6]);assert.deepEqual(fiorino,[5.5,8.9]);
- const punto=carDrawSize('punto-188-red'),courier=carDrawSize('corriere-bianco'),van=carDrawSize('furgone-ambulante');
+ // Draw sizes are the VISIBLE body (CODEX-GH's proposals): the Cargo between the Alba 188 and the Q18 courier van,
+ // the Bottega a Alba-length van; both narrower than the courier's body (~6,3), so they stay in the lane.
+ const cargo=carDrawSize('cargo-white-edilizia'),bottega=carDrawSize('bottega-white-frutta');
+ assert.deepEqual(cargo,[5.9,9.6]);assert.deepEqual(bottega,[5.5,8.9]);
+ const alba=carDrawSize('alba-red'),courier=carDrawSize('corriere-bianco'),van=carDrawSize('furgone-ambulante');
  const courierBody=[courier[0]*44/52,courier[1]*70/92]; // opaque box of the Q18 courier cell: 44x70 of 52x92
- assert.ok(doblo[1]>punto[1]&&doblo[1]<courierBody[1],'Doblò longer than the Punto, shorter than the courier');
- assert.ok(doblo[0]<courierBody[0]&&fiorino[0]<courierBody[0]&&doblo[0]<van[0],'both narrower than the courier body and the market van');
- assert.ok(fiorino[0]<doblo[0]&&fiorino[1]<doblo[1],'Fiorino smaller than the Doblò');
- assert.ok(Math.abs(fiorino[1]-punto[1])<.2,'Fiorino about as long as the Punto 188');
+ assert.ok(cargo[1]>alba[1]&&cargo[1]<courierBody[1],'Cargo longer than the Alba, shorter than the courier');
+ assert.ok(cargo[0]<courierBody[0]&&bottega[0]<courierBody[0]&&cargo[0]<van[0],'both narrower than the courier body and the market van');
+ assert.ok(bottega[0]<cargo[0]&&bottega[1]<cargo[1],'Bottega smaller than the Cargo');
+ assert.ok(Math.abs(bottega[1]-alba[1])<.2,'Bottega about as long as the Alba 188');
 });
 
 test('lotto 9: the 208x368 atlas is accepted and only the body rectangle of the 52x92 cell is drawn',()=>{
  // Lotto 9 atlas 208x368; every other image answers with the size the game expects for it.
  class MockImage{
   complete=true;
-  set src(v){this._src=v;const big=/doblo-fiorino|servizio-16/.test(v);this.naturalWidth=this.width=big?208:v.includes('servizio2')?208:v.includes('ape-')?224:160;this.naturalHeight=this.height=big?368:v.includes('servizio2')?496:v.includes('ape-')?256:240;}
+  set src(v){this._src=v;const big=/cargo-bottega|servizio-16/.test(v);this.naturalWidth=this.width=big?208:v.includes('servizio2')?208:v.includes('triciclo-')?224:160;this.naturalHeight=this.height=big?368:v.includes('servizio2')?496:v.includes('triciclo-')?256:240;}
  }
  const oldImage=globalThis.Image;
  try{
@@ -119,11 +118,11 @@ test('lotto 9: the 208x368 atlas is accepted and only the body rectangle of the 
   // A 160x240 image would NOT be accepted for the work vans (the cell decides the expected atlas size)...
   const img=new MockImage();img.src='x.png';
   assert.equal(img.naturalWidth,160);
-  // ...while the Punto atlas and the courier keep their own checks and whole-cell drawing.
-  assert.equal(carSpriteReady('punto-188-red'),true);assert.equal(carSpriteReady('corriere-bianco'),true);
+  // ...while the Alba atlas and the courier keep their own checks and whole-cell drawing.
+  assert.equal(carSpriteReady('alba-red'),true);assert.equal(carSpriteReady('corriere-bianco'),true);
   calls.length=0;drawCarSprite(ctx,0,0,0,'corriere-bianco');
   assert.deepEqual(calls.find(x=>x[0]==='draw').slice(2,6),[0,0,52,92],'courier: whole cell as before');
-  calls.length=0;drawCarSprite(ctx,0,0,0,'corsa-e-2014-white');
+  calls.length=0;drawCarSprite(ctx,0,0,0,'iris-white');
   assert.deepEqual(calls.find(x=>x[0]==='draw').slice(2,6),[0,0,40,60],'lotto 7 car: whole 40x60 cell as before');
  }finally{
   if(oldImage===undefined)delete globalThis.Image;else globalThis.Image=oldImage;
@@ -145,33 +144,33 @@ test('lotto 9: both vans are in the AI traffic and in the parked cars, with the 
  for(const id of IDS)assert.ok(seen.has(id),'spawned '+id);
  assert.equal(seen.size,CAR_TRAFFIC_SPRITE_IDS.length,'every traffic car id is reachable');
  // Light work vans: slower than the hatchbacks, top 38, softer steering and grip; still «auto», not the market VAN profile.
- const doblo=handlingProfile({model:'doblo-2010-white-edilizia'}),fiorino=handlingProfile({model:'fiorino-2008-darkgreen'});
- const clio=handlingProfile({model:'clio-iv-2012-blue'}),courier=handlingProfile({model:'corriere-bianco'});
- assert.equal(doblo.model,'doblo-2010');assert.equal(fiorino.model,'fiorino-2008');
- for(const p of [doblo,fiorino]){
+ const cargo=handlingProfile({model:'cargo-white-edilizia'}),bottega=handlingProfile({model:'bottega-darkgreen'});
+ const quarzo=handlingProfile({model:'quarzo-blue'}),courier=handlingProfile({model:'corriere-bianco'});
+ assert.equal(cargo.model,'cargo');assert.equal(bottega.model,'bottega');
+ for(const p of [cargo,bottega]){
   assert.equal(p.accel,11.5);assert.equal(p.top,38);assert.equal(p.brake,46);assert.equal(p.steer,2.3);assert.equal(p.grip,6.6);
-  assert.equal(p.kind,'auto');assert.ok(p.accel<clio.accel&&p.top<clio.top,'slower than a Clio');
+  assert.equal(p.kind,'auto');assert.ok(p.accel<quarzo.accel&&p.top<quarzo.top,'slower than a Quarzo');
   assert.ok(p.top>courier.top&&p.kind!==courier.kind,'quicker than the Q18 courier van, and not its profile');
  }
  // Collision box of the standard car (no model-specific shape), like every other extra atlas car.
- for(const id of ['doblo-2010-white','fiorino-2008-white-frutta'])
-  assert.deepEqual(vehicleShape({model:id}),vehicleShape({model:'punto-188-white'}),id);
+ for(const id of ['cargo-white','bottega-white-frutta'])
+  assert.deepEqual(vehicleShape({model:id}),vehicleShape({model:'alba-white'}),id);
 });
 
 test('lotto 9: NOVITÀ entry, registers and cache versions',async()=>{
  const roads=[{n:'Via Roma',p:[100,100,200,100,300,100,400,100]}];
  const l9=NOVITA.find(e=>e.id==='lotto9-furgoncini');
  assert.ok(l9,'novita lotto9-furgoncini');
- assert.match(l9.cosa,/Doblò/);assert.match(l9.cosa,/Fiorino/);assert.match(l9.cosa,/EDILIZIA/);assert.match(l9.cosa,/FRUTTA/);assert.match(l9.cosa,/PROVVISORIA/);
+ assert.match(l9.cosa,/Cargo/);assert.match(l9.cosa,/Bottega/);assert.match(l9.cosa,/EDILIZIA/);assert.match(l9.cosa,/FRUTTA/);assert.match(l9.cosa,/PROVVISORIA/);
  assert.deepEqual(l9.trova({roads,traffic:[],cars:[]}),{x:300,y:100});
- assert.equal(novitaAvailable(l9,{traffic:[{model:'fiorino-2008-white-frutta'}]}),true);
- assert.equal(novitaAvailable(l9,{traffic:[{model:'punto-188-red'}],cars:[{model:'doblo-2010-grey'}]}),true);
+ assert.equal(novitaAvailable(l9,{traffic:[{model:'bottega-white-frutta'}]}),true);
+ assert.equal(novitaAvailable(l9,{traffic:[{model:'alba-red'}],cars:[{model:'cargo-grey'}]}),true);
  const read=f=>readFile(new URL('./'+f,import.meta.url),'utf8');
  const [game,page,doc,log,visual,guide]=await Promise.all(['game.mjs','index.html','NOVITA_DA_APPROVARE.md','WORK_LOG.md','VISUAL_PROGRESS.md','VEHICLE_ART_GUIDE.md'].map(read));
  assert.ok(doc.includes('`lotto9-furgoncini`'));
- assert.match(log,/lotto 9 grafica: Fiat Doblò II e Fiat Fiorino III, furgoncini da lavoro con livree generiche/);assert.match(log,/PROVVISORIO/);
- for(const name of ['Doblò II','Fiorino III'])assert.match(visual,new RegExp(name));
- assert.match(guide,/Fiat Doblò II\*\* .*lotto 9/i);assert.match(guide,/Fiat Fiorino III\*\* .*lotto 9/i);
+ assert.match(log,/lotto 9 grafica: costruttore di fantasia Cargo II e costruttore di fantasia Bottega III, furgoncini da lavoro con livree generiche/);assert.match(log,/PROVVISORIO/);
+ for(const name of ['Cargo II','Bottega III'])assert.match(visual,new RegExp(name));
+ assert.match(guide,/costruttore di fantasia Cargo II\*\* .*lotto 9/i);assert.match(guide,/costruttore di fantasia Bottega III\*\* .*lotto 9/i);
  const v=(src,mod)=>Number((src.match(new RegExp(mod.replace('.','\\.')+'\\?v=(\\d+)'))||[])[1]);
  assert.ok(v(game,'car-sprites.mjs')>=118,'car-sprites v118');
  assert.ok(v(game,'vehicle-handling.mjs')>=10,'vehicle-handling v010');

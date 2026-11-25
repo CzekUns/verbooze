@@ -1,4 +1,4 @@
-/* GTA Melito — BF12: il complesso del Municipio.
+/* GAM Melito — BF12: il complesso del Municipio.
  * - Torre del serbatoio idrico «a fungo» (serbatoio pensile), simbolo del quartiere, dipinta a scacchi:
  *   posizione dalla foto aerea Esri World Imagery (fusto al centro dell'edificio tondo OSM 733703519,
  *   vasca a fungo con copertura a spicchi). L'altezza e i dettagli sono STIME; il colore ROSSO e' indicato dal committente. Non ci

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Verifica atlante mercato dall'alto e confronto con Ape ortofrutta."""
+"""Verifica atlante mercato dall'alto e confronto con Triciclo ortofrutta."""
 from collections import deque
 from pathlib import Path
 from PIL import Image
@@ -7,7 +7,7 @@ from PIL import Image
 HERE = Path(__file__).resolve().parent
 ATLAS = HERE / 'mercato-banchi-14-teli-4-rgba.png'
 SHEET = HERE / 'sheet.png'
-APE = HERE / 'riferimento-ape-food.png'
+TRICICLO = HERE / 'riferimento-triciclo-food.png'
 CW, CH, COLS = 64, 48, 6
 BG = (242, 238, 223)
 WIDTHS = [48, 36, 36, 48, 36, 48, 36, 36, 36, 36, 36, 24, 48, 36]
@@ -80,19 +80,19 @@ def check_cell(cell, index):
 
 
 def main():
-    for path in (ATLAS, SHEET, APE):
+    for path in (ATLAS, SHEET, TRICICLO):
         if not path.exists():
             raise SystemExit(f'Manca {path.name}: esegui prima genera.py')
     atlas = Image.open(ATLAS)
     sheet = Image.open(SHEET)
-    ape = Image.open(APE).convert('RGBA')
+    triciclo = Image.open(TRICICLO).convert('RGBA')
     faults = []
     if atlas.mode != 'RGBA' or atlas.size != (384, 144):
         faults.append(f'atlas {atlas.mode} {atlas.size}, atteso RGBA 384x144')
     if sheet.mode != 'RGB' or sheet.size != (1792, 600):
         faults.append(f'sheet {sheet.mode} {sheet.size}, atteso RGB 1792x600')
-    if ape.size != (224, 256):
-        faults.append(f'Ape {ape.size}, atteso 224x256')
+    if triciclo.size != (224, 256):
+        faults.append(f'Triciclo {triciclo.size}, atteso 224x256')
     if faults:
         raise SystemExit('\n'.join(faults))
     variants = []
@@ -108,17 +108,17 @@ def main():
     expected_atlas = on_bg(atlas).resize((left_w, left_h), Image.Resampling.NEAREST)
     if sheet.crop((0, top, left_w, top + left_h)).tobytes() != expected_atlas.tobytes():
         faults.append('sheet: atlante non corrispondente alla scala 4x')
-    sample = ape.crop((112, 0, 168, 64))
+    sample = triciclo.crop((112, 0, 168, 64))
     expected_ape = on_bg(sample).resize((56 * zoom, 64 * zoom),
                                        Image.Resampling.NEAREST)
     x0, y0 = left_w + gap, top + 8
     if sheet.crop((x0, y0, x0 + 56 * zoom, y0 + 64 * zoom)).tobytes() != expected_ape.tobytes():
-        faults.append('sheet: Ape non corrispondente alla scala 4x')
+        faults.append('sheet: Triciclo non corrispondente alla scala 4x')
     if faults:
         raise SystemExit('\n'.join(faults))
     print('OK: 18/18 celle, 14 banchi + 4 teli, RGBA 384x144, celle 64x48;')
     print('    dettaglio 2x rispetto a market.mjs PX=4, margini e angoli trasparenti,')
-    print('    alpha binario, un corpo, nessun alone, Ape affiancata alla scala 4x.')
+    print('    alpha binario, un corpo, nessun alone, Triciclo affiancata alla scala 4x.')
 
 
 if __name__ == '__main__':

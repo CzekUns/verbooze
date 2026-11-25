@@ -30,7 +30,7 @@ const rand=h=>(h%100000)/100000;
 // drag = freno continuo al secondo, grip = perdita di aderenza sommata al bagnato).
 export const SURFACE_FEEL=Object.freeze({
  car:Object.freeze({pothole:{loss:.05,bump:.45},manhole:{loss:0,bump:.14},bump:{comfort:5,loss:.18,bump:.8},cobble:{drag:.08,grip:.12,vib:.08},dirt:{drag:.14,grip:.22,vib:.12},kerb:{loss:.05,bump:.35}}),
- ape:Object.freeze({pothole:{loss:.08,bump:.65},manhole:{loss:.01,bump:.25},bump:{comfort:4,loss:.2,bump:.9},cobble:{drag:.10,grip:.16,vib:.14},dirt:{drag:.16,grip:.26,vib:.18},kerb:{loss:.07,bump:.5}}),
+ triciclo:Object.freeze({pothole:{loss:.08,bump:.65},manhole:{loss:.01,bump:.25},bump:{comfort:4,loss:.2,bump:.9},cobble:{drag:.10,grip:.16,vib:.14},dirt:{drag:.16,grip:.26,vib:.18},kerb:{loss:.07,bump:.5}}),
  scooter:Object.freeze({pothole:{loss:.11,bump:.85},manhole:{loss:.02,bump:.3},bump:{comfort:4,loss:.24,bump:1},cobble:{drag:.12,grip:.2,vib:.16},dirt:{drag:.2,grip:.32,vib:.22},kerb:{loss:.09,bump:.6}}),
  moto:Object.freeze({pothole:{loss:.08,bump:.7},manhole:{loss:.01,bump:.22},bump:{comfort:5,loss:.2,bump:.9},cobble:{drag:.09,grip:.16,vib:.12},dirt:{drag:.15,grip:.26,vib:.18},kerb:{loss:.07,bump:.5}}),
  heavy:Object.freeze({pothole:{loss:.03,bump:.3},manhole:{loss:0,bump:.08},bump:{comfort:4,loss:.14,bump:.6},cobble:{drag:.06,grip:.08,vib:.06},dirt:{drag:.1,grip:.14,vib:.1},kerb:{loss:.04,bump:.3}})
@@ -38,7 +38,7 @@ export const SURFACE_FEEL=Object.freeze({
 export function feelKind(vehicle){
  const model=String(vehicle?.model||'');
  if(vehicle?.vehicleType==='motorcycle')return model.startsWith('moto-scooter')?'scooter':'moto';
- if(model.startsWith('ape-'))return 'ape';
+ if(model.startsWith('triciclo-'))return 'triciclo';
  if(/^(furgone|food-|servizio|camion|bus|attrezzi|corriere|nettezza)/.test(model))return 'heavy';
  return 'car';
 }

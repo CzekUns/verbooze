@@ -1,110 +1,100 @@
+import {migrateLegacyStorage} from './storage-migration.mjs?v=1001';
+import {sanitizeCommercialMap} from './commercial-map.mjs?v=1001';
+import {applyBuildingShapeSample} from './building-shape-sample.mjs?v=1001';
+import {applyViaRomaStylePilot} from './building-style-pilot.mjs?v=1002';
 /* WORK HANDOFF / VISUAL REALISM:
  * Read ./AGENTS.md and ./HANDOFF_WORK_REALISMO.md before changing this game;
  * log completed visual improvements in ./VISUAL_PROGRESS.md.
  * Aim: identifiable Melito di Napoli in original top-down pixel art 2.5D.
  * Preserve OSM geometry, gameplay and camera controls. 
  */
-import {visualRoadWidth,setRoadWidthMode,getRoadWidthMode} from './road-widths.mjs?v=044';
-import {fetchOverpass,inside} from './osm.mjs';
-import {buildRoadGraph,createAgents,stepAgents,lanePosition,balanceTraffic,createGateVehicle} from './roads.mjs?v=165';
-import {createCommuter,stepCommuter,kerbSpot,carEdgeFor,planRoute,routeLength} from './npc-commute.mjs?v=015';
-import {drawBorderGates,borderGateList,borderRing,distanceToBorder,GATE_RULES} from './border-gates.mjs?v=002';
-import {createRoutineResidents,createDoorVisitors,attachDoorToPavement} from './resident-routines.mjs?v=012';
-import {probeDoor,doorFacesViewer,drawDoorSteps,drawDoorFronts,DOOR_SOURCE} from './building-doors.mjs?v=001';
-import {NPC_START_MINUTE,advanceNpcClock,formatNpcClock,npcWeekday} from './npc-agenda.mjs?v=002';
-import {createMarket,stepMarket,marketBlocksWalker,marketBlocksVehicle,stepParasolReveal,drawMarketGround,drawMarketStalls,drawMarketParasols,loadMarketArt} from './market.mjs?v=008';
-import {createCityEvents,stepCityEvents,cityEventAction,interactCityEvent,cityEventBubble,drawLostItem,drawCityEventOverlay} from './city-events.mjs?v=002';
-import {offersFor,nearestShop,buyOffer,addBoost,boostFactor,boostSecondsLeft,purchaseMessage,shopNote,vendorShops} from './local-shops.mjs?v=003';
-import {weatherAt,combineWeather,drawRain,drawCloudShadows,placePuddles,drawPuddles,drawUmbrella} from './weather.mjs?v=001';
-import {buildingVolume} from './building-volume.mjs?v=088';
-import {createCityAudio} from './city-audio.mjs?v=006';
-import {createSocial,stepSocial} from './npc-social.mjs?v=004';
-import {createIdlePeople,stepIdlePeople,drawIdlePeople,loadIdlePoseSheets} from './npc-idle.mjs?v=003';
-import {createStreetGames,stepStreetGames,drawStreetGames} from './npc-giochi.mjs?v=002';
-import {createAnimals,stepAnimals,drawAnimals,loadAnimalSprites} from './animali.mjs?v=001';
-import {createReactions,stepReactions,kerbWait,pickBlockedHorn} from './npc-reactions.mjs?v=007';
-import {createDensity,stepDensity,prepareWalkWeights} from './npc-density.mjs?v=007';
-import {trafficTargetAt} from './traffic-rush.mjs?v=001';
-import {daylightAt,paintLightMap,paintGlows,headlightLights,vehicleLamps,litWindowPath,nightQuality,NIGHT_DARKNESS} from './daylight.mjs?v=002';
-import {makeCollisionIndex,collidesWithTraffic,vehiclesOverlap,nearbyColliders,vehicleShape,trafficMoveBlocked,trafficMoveBlocker,addToCollisionIndex} from './traffic-collision.mjs?v=131';
-import {buildParkingBays,bayOffset,fitsParkingBay,nearestFreeStalls,parkInStall,insideParkingStrip,drawParkingBays} from './parking-bays.mjs?v=003';
-import {placeStreetObjects,stepStreetObjects,drawStreetObjects,bollardBlocksVehicle,bollardBlocksWalker,moveStreetObject} from './street-objects.mjs?v=002';
-import {createServiceRoutines,stepServiceRoutines,drawBusStops,drawBusDoors,drawWarningTriangle,towedCarPose} from './service-routines.mjs?v=002';
-import {SIGNALS_SIMULATED,clockSecondsFromMinutes} from './junctions.mjs?v=003';
-import {prepareSignalPosts,drawStopLines,drawSignals,signalGlows} from './traffic-light-art.mjs?v=004';
-import {stepWasher,drawWasherEffects} from './window-washers.mjs?v=004';
-import {buildStreetProps,drawArchitecture,drawStreets,drawCrosswalks,drawStreetProps,drawPoiSigns} from './visuals.mjs?v=091';
-import {STORY,readProgress,saveProgress,freshProgress,resolveLandmarks,currentStep,activeTarget,isNear,doInteraction,updateTimer,resetCurrentMission} from './campaign.mjs?v=005';
-import {openSlotMachine,isSlotOpen} from './minigame-slot.mjs?v=001';
-import {openPokerMachine,isPokerOpen} from './minigame-poker.mjs?v=001';
-import {riderPickups,riderDestinations,riderOffers,riderVehicleCheck,acceptOffer,cancelJob,stepJob,completeDelivery,riderStats,riderRoute,routeLookahead,PICKUP_RADIUS,DELIVERY_RADIUS} from './rider.mjs?v=001';
-import {openGoriziana,isGorizianaOpen} from './minigame-goriziana.mjs?v=001';
-import {openPoolMachine,isPoolOpen} from './minigame-pool.mjs?v=001';
-import {drawWorldLandmarks,drawMinimapLandmarks,drawBigMap} from './landmark-art.mjs?v=089';
-import {prepareCityStyles,applyApprovedArcadeRoofStyle,applyPiazzaRoofStudies,prepareUrbanGround,drawTerrain,drawCityParcels,drawCityStreets,drawCityBuildings,drawCityPeople,drawCityCar,drawCityPlayer,loadChurchWebp,facadeWindowPanes,SANTA_MARIA_OSM_ID} from './city-art.mjs?v=138';
-import {createSatelliteOverlay,satelliteFromUrl} from './satellite-overlay.mjs?v=001';
-import {loadCarSprites,drawCarSprite,carDrawSize,CAR_TRAFFIC_SPRITE_IDS,CAR_TRAFFIC_STRIDE,CAR_PARKED_SPRITE_IDS,APE_CAR_IDS,COURIER_IDS,REFUSE_TRUCK_IDS,TOW_TRUCK_IDS,BUS_IDS} from './car-sprites.mjs?v=118';
-import {DAMAGE_RULES,DAMAGE_LABEL,addDamage,damagePoints,damageLevel,damagedProfile,repairCost,payRepair,repairMessage,healOutOfView,drawVehicleDamage,placeWorkshop,nearWorkshop,drawWorkshop} from './vehicle-damage.mjs?v=001';
-import {loadPedestrianSprites} from './pedestrian-sprites.mjs?v=002';
-import {loadExtraPedestrianSprites,loadPedestrianSheets,PEDESTRIAN_KIND_COUNT} from './extra-pedestrian-sprites.mjs?v=007';
-import {applyLoadingScreen,setLoadingProgress,LOADING_PHASES} from './loading-screens.mjs?v=001&gam=1';
-import {loadFryerSprite} from './friggitore-sprites.mjs?v=002';
-import {loadProfessionSprites} from './profession-sprites.mjs?v=003';
-import {trafficApeModel,placeStreetFoodVendors,createStreetProfessionActors} from './street-professions.mjs?v=007';
-import {prepareStorefronts,drawStorefronts} from './storefronts.mjs?v=044';
-import {applySurveyDrafts} from './survey/visual-profiles.mjs?v=045';
-import {generateUrbanInfill,INFILL_VERSION,mapFingerprint} from './urban-infill.mjs?v=116';
-import {CAMERA_ZOOM_MAX,targetCameraZoom,advanceCameraZoom,describeCameraZoom,vehicleCameraTarget} from './camera-zoom.mjs?v=102';
-import {WALK_SPEED,RUN_SPEED,stepDriving} from './driving-controls.mjs?v=100';
-import {handlingProfile,applyGrip} from './vehicle-handling.mjs?v=010';
-import {MOTORCYCLE_IDS,isMotorcycle,loadMotorcycleSprites,drawMotorcycle,stepMotorcycle,chooseMotorcycleDismount} from './motorcycles.mjs?v=008';
-import {nearestEnterableVehicle} from './vehicle-entry.mjs?v=004';
-import {PARKED_BIKE_TARGET,PARKED_VEHICLE_CAP,PARKED_CAR_PHASE_CAP,motorcycleParkingRoadOrder,parkedBikeLabel} from './motorcycle-parking.mjs?v=001';
-import {guideCar} from './driving-assist.mjs?v=099';
-import {buildTurnGuides,guideIntersection} from './intersection-assist.mjs?v=097';
-import {reboundCar,advanceRecoil} from './car-rebound.mjs?v=098';
-import {canDriveProbe} from './road-clearance.mjs?v=100';
-import {roofRevealTarget,easeRoofReveal,traceRoofCover} from './roof-reveal.mjs?v=121';
-import {resolveBankEntrances,nearestBankEntrance,drawBankEntrance,drawBankInterior,stepBankInteriorPlayer,bankInteriorCamera,BANK_FOOT_ZOOM_MULTIPLIER} from './bank-interior.mjs?v=012';
-import {applyNonlethalImpact,advanceNonlethalImpact,sweptVehicleContact,slowImpactSource,IMPACT_MIN_SPEED} from './impact-physics.mjs?v=006';
-import {resolveShopEntrances,nearestShopEntrance,drawShopEntrance,enterShop,stepShopInteriorPlayer,shopInteriorCamera,interiorCounterNear,drawShopInterior,outdoorShops,entranceAtSign,interiorGameNear,startBarGame,endBarGame,footprintArea} from './shop-interiors.mjs?v=005';
-import {WHEEL_MAX_ANGLE,pointerWheelAngle,turnSteeringWheel,steeringInput,returnSteeringWheel} from './steering-wheel.mjs?v=001';
-import {SIDEWALK_DRIVE,SIDEWALK_OUTER} from './sidewalk.mjs?v=099';
-import {placeBuildings} from './building-placement.mjs?v=123';
-import {prepareEnclosures,enclosureWalkBlocked,enclosureVehicleContacts,markGlassBuildings,drawEnclosureWalls,drawEnclosureGates} from './enclosures.mjs?v=003';
-import {preparePitches,infillOnPitch,pitchWalkBlocked,pitchVehicleContacts,pitchHotspot,drawPitches,PITCH_RULES} from './football-pitches.mjs?v=002';
-import {GARAGES,nearestGarage,canStoreVehicle,depositVehicle,takeVehicle,vehicleFromEntry,chooseExitSpot,garageMessage,vehicleLabel,ownedEntry,ownedCount,garageById,GARAGE_SLOTS,drawGarage} from './garages.mjs?v=001';
-import {paintOptions,paintName,PERF_LEVELS,perfPrice,PAINT_PRICE,NEON_PRICE,NEON_COLORS,tunedProfile,buyTuning,tuningMessage,drawNeonUnderglow,neonNightGlows} from './tuning.mjs?v=001';
-import {recordFootballResult,footballRecordText} from './minigame-football.mjs?v=003';
-import {createFieldMatch} from './football-match.mjs?v=002';
-import {prepareWaterTowers,towerRevealTarget,drawWaterTower,drawWaterTowerLight,loadWaterTowerSprite,markRuinPool,drawRuinPoolPuddles} from './municipio-landmarks.mjs?v=003';
-import {createCarRadio} from './car-radio.mjs?v=003';
-import {createRaceWorld,raceHotspot,startRace,stepRace,awardPrize,parkIdleRivals,resultsText,drawRaceWorld,drawRaceMini,drawRaceHud,RACE_DISCLAIMER} from './street-race.mjs?v=001';
-import {mountPhone} from './smartphone.mjs?v=001';
-import {createDrive,stepDrive,instructionText,drawDriveRoute,mountDriveApp,cancelDrive,ARROW} from './drive-app.mjs?v=001';
-import {renderNovita,novitaTarget,findStandingPoint,minutesAtHour,loadJudgements,saveJudgements,toggleJudgement,judgementSummary,NOVITA} from './novita.mjs?v=020';
+import {visualRoadWidth,setRoadWidthMode,getRoadWidthMode} from './road-widths.mjs?v=1044';
+import {inside} from './osm.mjs';
+import {buildRoadGraph,createAgents,stepAgents,lanePosition,balanceTraffic,createGateVehicle} from './roads.mjs?v=1165';
+import {createCommuter,stepCommuter,kerbSpot,carEdgeFor,planRoute,routeLength} from './npc-commute.mjs?v=1015';
+import {drawBorderGates,borderGateList,borderRing,distanceToBorder,GATE_RULES} from './border-gates.mjs?v=1002';
+import {createRoutineResidents,createDoorVisitors,attachDoorToPavement} from './resident-routines.mjs?v=1012';
+import {probeDoor,doorFacesViewer,drawDoorSteps,drawDoorFronts,DOOR_SOURCE} from './building-doors.mjs?v=1001';
+import {NPC_START_MINUTE,advanceNpcClock,formatNpcClock,npcWeekday} from './npc-agenda.mjs?v=1002';
+import {createMarket,stepMarket,marketBlocksWalker,marketBlocksVehicle,stepParasolReveal,drawMarketGround,drawMarketStalls,drawMarketParasols,loadMarketArt} from './market.mjs?v=1009';
+import {createCityEvents,stepCityEvents,cityEventAction,interactCityEvent,cityEventBubble,drawLostItem,drawCityEventOverlay} from './city-events.mjs?v=1002';
+import {offersFor,nearestShop,buyOffer,addBoost,boostFactor,boostSecondsLeft,purchaseMessage,shopNote,vendorShops} from './local-shops.mjs?v=1003';
+import {weatherAt,combineWeather,drawRain,drawCloudShadows,placePuddles,drawPuddles,drawUmbrella} from './weather.mjs?v=1001';
+import {buildingVolume} from './building-volume.mjs?v=1089';
+import {createCityAudio} from './city-audio.mjs?v=1006';
+import {createSocial,stepSocial} from './npc-social.mjs?v=1004';
+import {createIdlePeople,stepIdlePeople,drawIdlePeople,loadIdlePoseSheets} from './npc-idle.mjs?v=1003';
+import {createStreetGames,stepStreetGames,drawStreetGames} from './npc-giochi.mjs?v=1002';
+import {createAnimals,stepAnimals,drawAnimals,loadAnimalSprites} from './animali.mjs?v=1001';
+import {createReactions,stepReactions,kerbWait,pickBlockedHorn} from './npc-reactions.mjs?v=1007';
+import {createDensity,stepDensity,prepareWalkWeights} from './npc-density.mjs?v=1007';
+import {trafficTargetAt} from './traffic-rush.mjs?v=1001';
+import {daylightAt,paintLightMap,paintGlows,headlightLights,vehicleLamps,litWindowPath,nightQuality,NIGHT_DARKNESS} from './daylight.mjs?v=1002';
+import {makeCollisionIndex,collidesWithTraffic,vehiclesOverlap,nearbyColliders,vehicleShape,trafficMoveBlocked,trafficMoveBlocker,addToCollisionIndex} from './traffic-collision.mjs?v=1131';
+import {buildParkingBays,bayOffset,fitsParkingBay,nearestFreeStalls,parkInStall,insideParkingStrip,drawParkingBays} from './parking-bays.mjs?v=1003';
+import {placeStreetObjects,stepStreetObjects,drawStreetObjects,bollardBlocksVehicle,bollardBlocksWalker,moveStreetObject} from './street-objects.mjs?v=1002';
+import {createServiceRoutines,stepServiceRoutines,drawBusStops,drawBusDoors,drawWarningTriangle,towedCarPose} from './service-routines.mjs?v=1002';
+import {SIGNALS_SIMULATED,clockSecondsFromMinutes} from './junctions.mjs?v=1003';
+import {prepareSignalPosts,drawStopLines,drawSignals,signalGlows} from './traffic-light-art.mjs?v=1004';
+import {stepWasher,drawWasherEffects} from './window-washers.mjs?v=1004';
+import {buildStreetProps,drawArchitecture,drawStreets,drawCrosswalks,drawStreetProps,drawPoiSigns} from './visuals.mjs?v=1091';
+import {STORY,readProgress,saveProgress,freshProgress,resolveLandmarks,currentStep,activeTarget,isNear,doInteraction,updateTimer,resetCurrentMission} from './campaign.mjs?v=1005';
+import {openSlotMachine,isSlotOpen} from './minigame-slot.mjs?v=1001';
+import {openPokerMachine,isPokerOpen} from './minigame-poker.mjs?v=1001';
+import {riderPickups,riderDestinations,riderOffers,riderVehicleCheck,acceptOffer,cancelJob,stepJob,completeDelivery,riderStats,riderRoute,routeLookahead,PICKUP_RADIUS,DELIVERY_RADIUS} from './rider.mjs?v=1001';
+import {openGoriziana,isGorizianaOpen} from './minigame-goriziana.mjs?v=1001';
+import {openPoolMachine,isPoolOpen} from './minigame-pool.mjs?v=1001';
+import {drawWorldLandmarks,drawMinimapLandmarks,drawBigMap} from './landmark-art.mjs?v=1089';
+import {prepareCityStyles,applyApprovedArcadeRoofStyle,applyPiazzaRoofStudies,prepareUrbanGround,drawTerrain,drawCityParcels,drawCityStreets,drawCityBuildings,drawCityPeople,drawCityCar,drawCityPlayer,loadChurchWebp,facadeWindowPanes,SANTA_MARIA_OSM_ID} from './city-art.mjs?v=1141';
+import {loadCarSprites,drawCarSprite,carDrawSize,CAR_TRAFFIC_SPRITE_IDS,CAR_TRAFFIC_STRIDE,CAR_PARKED_SPRITE_IDS,TRICYCLE_CAR_IDS,COURIER_IDS,REFUSE_TRUCK_IDS,TOW_TRUCK_IDS,BUS_IDS} from './car-sprites.mjs?v=1118';
+import {DAMAGE_RULES,DAMAGE_LABEL,addDamage,damagePoints,damageLevel,damagedProfile,repairCost,payRepair,repairMessage,healOutOfView,drawVehicleDamage,placeWorkshop,nearWorkshop,drawWorkshop} from './vehicle-damage.mjs?v=1001';
+import {loadPedestrianSprites} from './pedestrian-sprites.mjs?v=1002';
+import {loadExtraPedestrianSprites,loadPedestrianSheets,PEDESTRIAN_KIND_COUNT} from './extra-pedestrian-sprites.mjs?v=1007';
+import {applyLoadingScreen,setLoadingProgress,LOADING_PHASES} from './loading-screens.mjs?v=1001&gam=1';
+import {loadFryerSprite} from './friggitore-sprites.mjs?v=1002';
+import {loadProfessionSprites} from './profession-sprites.mjs?v=1003';
+import {trafficTricycleModel,placeStreetFoodVendors,createStreetProfessionActors} from './street-professions.mjs?v=1007';
+import {prepareStorefronts,drawStorefronts} from './storefronts.mjs?v=1044';
+import {applySurveyDrafts} from './survey/visual-profiles.mjs?v=1045';
+import {generateUrbanInfill,INFILL_VERSION,mapFingerprint} from './urban-infill.mjs?v=1116';
+import {CAMERA_ZOOM_MAX,targetCameraZoom,advanceCameraZoom,describeCameraZoom,vehicleCameraTarget} from './camera-zoom.mjs?v=1102';
+import {WALK_SPEED,RUN_SPEED,stepDriving} from './driving-controls.mjs?v=1100';
+import {handlingProfile,applyGrip} from './vehicle-handling.mjs?v=1010';
+import {MOTORCYCLE_IDS,isMotorcycle,loadMotorcycleSprites,drawMotorcycle,stepMotorcycle,chooseMotorcycleDismount} from './motorcycles.mjs?v=1008';
+import {nearestEnterableVehicle} from './vehicle-entry.mjs?v=1004';
+import {PARKED_BIKE_TARGET,PARKED_VEHICLE_CAP,PARKED_CAR_PHASE_CAP,motorcycleParkingRoadOrder,parkedBikeLabel} from './motorcycle-parking.mjs?v=1001';
+import {guideCar} from './driving-assist.mjs?v=1099';
+import {buildTurnGuides,guideIntersection} from './intersection-assist.mjs?v=1097';
+import {reboundCar,advanceRecoil} from './car-rebound.mjs?v=1098';
+import {canDriveProbe} from './road-clearance.mjs?v=1100';
+import {roofRevealTarget,easeRoofReveal,traceRoofCover} from './roof-reveal.mjs?v=1122';
+import {resolveBankEntrances,nearestBankEntrance,drawBankEntrance,drawBankInterior,stepBankInteriorPlayer,bankInteriorCamera,BANK_FOOT_ZOOM_MULTIPLIER} from './bank-interior.mjs?v=1015';
+import {applyNonlethalImpact,advanceNonlethalImpact,sweptVehicleContact,slowImpactSource,IMPACT_MIN_SPEED} from './impact-physics.mjs?v=1006';
+import {resolveShopEntrances,nearestShopEntrance,drawShopEntrance,enterShop,stepShopInteriorPlayer,shopInteriorCamera,interiorCounterNear,drawShopInterior,outdoorShops,entranceAtSign,interiorGameNear,startBarGame,endBarGame,footprintArea} from './shop-interiors.mjs?v=1008';
+import {WHEEL_MAX_ANGLE,pointerWheelAngle,turnSteeringWheel,steeringInput,returnSteeringWheel} from './steering-wheel.mjs?v=1001';
+import {SIDEWALK_DRIVE,SIDEWALK_OUTER} from './sidewalk.mjs?v=1099';
+import {placeBuildings,placeInferredBuildings} from './building-placement.mjs?v=1124';
+import {prepareEnclosures,enclosureWalkBlocked,enclosureVehicleContacts,markGlassBuildings,drawEnclosureWalls,drawEnclosureGates} from './enclosures.mjs?v=1003';
+import {preparePitches,infillOnPitch,pitchWalkBlocked,pitchVehicleContacts,pitchHotspot,drawPitches,PITCH_RULES} from './football-pitches.mjs?v=1002';
+import {GARAGES,nearestGarage,canStoreVehicle,depositVehicle,takeVehicle,vehicleFromEntry,chooseExitSpot,garageMessage,vehicleLabel,ownedEntry,ownedCount,garageById,GARAGE_SLOTS,drawGarage} from './garages.mjs?v=1001';
+import {paintOptions,paintName,PERF_LEVELS,perfPrice,PAINT_PRICE,NEON_PRICE,NEON_COLORS,tunedProfile,buyTuning,tuningMessage,drawNeonUnderglow,neonNightGlows} from './tuning.mjs?v=1001';
+import {recordFootballResult,footballRecordText} from './minigame-football.mjs?v=1003';
+import {createFieldMatch} from './football-match.mjs?v=1002';
+import {prepareWaterTowers,towerRevealTarget,drawWaterTower,drawWaterTowerLight,loadWaterTowerSprite,markRuinPool,drawRuinPoolPuddles} from './municipio-landmarks.mjs?v=1003';
+import {createLicensedAudio} from './licensed-audio.mjs?v=1001';
+import {mountFullscreen} from './fullscreen.mjs?v=1001';
+import {createRaceWorld,raceHotspot,startRace,stepRace,awardPrize,parkIdleRivals,resultsText,drawRaceWorld,drawRaceMini,drawRaceHud,RACE_DISCLAIMER} from './street-race.mjs?v=1001';
+import {mountPhone} from './smartphone.mjs?v=1001';
+import {createDrive,stepDrive,instructionText,drawDriveRoute,mountDriveApp,cancelDrive,ARROW} from './drive-app.mjs?v=1001';
+import {renderNovita,novitaTarget,findStandingPoint,minutesAtHour,loadJudgements,saveJudgements,toggleJudgement,judgementSummary,NOVITA} from './novita.mjs?v=1022';
 // Lotto 15: dialoghi con volto (prototipo per la storyline, PROVVISORIO): barra in basso + riquadro del personaggio.
-import {openDialogue,isDialogueOpen,DEMO_DIALOGUE} from './dialogue.mjs?v=001';
-import {placeRoadSurfaces,roadSurfaceEffect,kerbEffect,emitSurfaceHit,onSurfaceHit,drawRoadSurfaces,drawSurfacePuddles} from './road-surfaces.mjs?v=001';
-import {PASSENGER_RULES,seatCapacity,ensureSeats,occupantsOf,freeSeat,boardPassenger,alightPassenger,hitchhikersNear,liftCandidate,liftDestination,alightSpot,doorSpots,trafficOccupants,lookOf,drawCabinOccupants} from './passengers.mjs?v=001';
-import {VEHICLE_SCALE,PERSON_SCALE,vs,ps} from './world-scale.mjs?v=001';
+import {openDialogue,isDialogueOpen,DEMO_DIALOGUE} from './dialogue.mjs?v=1001';
+import {placeRoadSurfaces,roadSurfaceEffect,kerbEffect,emitSurfaceHit,onSurfaceHit,drawRoadSurfaces,drawSurfacePuddles} from './road-surfaces.mjs?v=1001';
+import {PASSENGER_RULES,seatCapacity,ensureSeats,occupantsOf,freeSeat,boardPassenger,alightPassenger,hitchhikersNear,liftCandidate,liftDestination,alightSpot,doorSpots,trafficOccupants,lookOf,drawCabinOccupants} from './passengers.mjs?v=1001';
+import {VEHICLE_SCALE,PERSON_SCALE,vs,ps} from './world-scale.mjs?v=1001';
 const $=id=>document.getElementById(id);
-// Q09: last radio status, read by the city sound to duck engines while a station plays.
-let radioStatus='off';
-function updateCarRadioUi({inVehicle,status,station,enabled}){
- radioStatus=status;
- const panel=$('car-radio');
- panel.hidden=!inVehicle;
- $('radio-name').textContent=station.name;
- $('radio-official').href=station.site;
- const messages={off:'RADIO SPENTA',connecting:'CONNESSIONE…',live:'IN DIRETTA',tap:'TOCCA ▶ PER ASCOLTARE',unavailable:'STREAM NON DISPONIBILE · ↗'};
- $('radio-status').textContent=messages[status]||'PROVA RADIO';
- const button=$('radio-toggle');
- button.textContent=enabled&&(status==='live'||status==='connecting')?'■':'▶';
- button.setAttribute('aria-pressed',String(enabled&&status!=='off'));
- button.setAttribute('aria-label',enabled&&(status==='live'||status==='connecting')?'Spegni radio':'Avvia o riprova radio');
-}
-const carRadio=createCarRadio({storage:globalThis.localStorage,onChange:updateCarRadioUi});
+try{migrateLegacyStorage(globalThis.localStorage);}catch{}
+const licensedAudio=createLicensedAudio();
 const canvas=$('world'),c=canvas.getContext('2d',{alpha:false});
 const STATIC_TILE=96,TILE_PIXELS=4,TILE_BLEED=20;
 const staticTiles=new Map();
@@ -147,8 +137,8 @@ function startMinuteFromUrl(){
 const START_MINUTE=startMinuteFromUrl();
 // Q09: synthesized city sound; created only on the first user gesture.
 // BF10: RADIO/MUSICA ed EFFETTI/AMBIENTE separati; il livello radio (0 con SUONI OFF) va allo stream.
-const cityAudio=createCityAudio({storage:globalThis.localStorage,onRadioLevel:level=>carRadio.setVolume(level)});
-carRadio.setVolume(cityAudio.radioLevel);
+const cityAudio=createCityAudio({storage:globalThis.localStorage,onRadioLevel:level=>licensedAudio.setVolume(level)});
+licensedAudio.setVolume(cityAudio.radioLevel);
 // Q08: ?meteo=pioggia|nuvoloso|sereno fixes the weather for checks; otherwise it follows the clock.
 // Q42: ?mercato=1 fa montare il mercato del rione 219 ogni giorno (per le prove); di norma è il venerdì.
 const FORCE_MARKET=new URLSearchParams(globalThis.location?.search||'').get('mercato')==='1';
@@ -159,8 +149,8 @@ const SLOT_FROM_URL=new URLSearchParams(globalThis.location?.search||'').get('mi
 function openSlotGame(){
  if(isSlotOpen()||isPokerOpen()||isGorizianaOpen()||isPoolOpen())return false;
  for(const key of Object.keys(pressed))pressed[key]=false;
- carRadio.duck(true);
- return openSlotMachine({storage:globalThis.localStorage,onExit:()=>{carRadio.duck(false);canvas.focus?.({preventScroll:true});updateHud();}});
+ licensedAudio.duck(true);
+ return openSlotMachine({storage:globalThis.localStorage,onExit:()=>{licensedAudio.duck(false);canvas.focus?.({preventScroll:true});updateHud();}});
 }
 // Q29: ?minigioco=poker apre subito il video poker di prova (crediti virtuali, nessun denaro reale).
 const POKER_FROM_URL=new URLSearchParams(globalThis.location?.search||'').get('minigioco')==='poker';
@@ -169,8 +159,8 @@ const POKER_FROM_URL=new URLSearchParams(globalThis.location?.search||'').get('m
 function openPokerGame(){
  if(isPokerOpen()||isSlotOpen()||isGorizianaOpen()||isPoolOpen())return false;
  for(const key of Object.keys(pressed))pressed[key]=false;
- carRadio.duck(true);
- return openPokerMachine({storage:globalThis.localStorage,onExit:()=>{carRadio.duck(false);canvas.focus?.({preventScroll:true});updateHud();}});
+ licensedAudio.duck(true);
+ return openPokerMachine({storage:globalThis.localStorage,onExit:()=>{licensedAudio.duck(false);canvas.focus?.({preventScroll:true});updateHud();}});
 }
 // Q31: ?minigioco=goriziana apre subito la goriziana di prova (biliardo a 9 birilli, senza soldi né crediti).
 const GORIZIANA_FROM_URL=new URLSearchParams(globalThis.location?.search||'').get('minigioco')==='goriziana';
@@ -179,8 +169,8 @@ const GORIZIANA_FROM_URL=new URLSearchParams(globalThis.location?.search||'').ge
 function openGorizianaGame(){
  if(isGorizianaOpen()||isSlotOpen()||isPokerOpen())return false;
  for(const key of Object.keys(pressed))pressed[key]=false;
- carRadio.duck(true);
- return openGoriziana({onExit:()=>{carRadio.duck(false);canvas.focus?.({preventScroll:true});updateHud();}});
+ licensedAudio.duck(true);
+ return openGoriziana({onExit:()=>{licensedAudio.duck(false);canvas.focus?.({preventScroll:true});updateHud();}});
 }
 // Q30: ?minigioco=biliardo apre subito il biliardo di prova (niente denaro né scommesse, si salvano solo i risultati).
 const POOL_FROM_URL=new URLSearchParams(globalThis.location?.search||'').get('minigioco')==='biliardo';
@@ -189,8 +179,8 @@ const POOL_FROM_URL=new URLSearchParams(globalThis.location?.search||'').get('mi
 function openPoolGame(){
  if(isPoolOpen()||isSlotOpen()||isPokerOpen())return false;
  for(const key of Object.keys(pressed))pressed[key]=false;
- carRadio.duck(true);
- return openPoolMachine({storage:globalThis.localStorage,onExit:()=>{carRadio.duck(false);canvas.focus?.({preventScroll:true});updateHud();}});
+ licensedAudio.duck(true);
+ return openPoolMachine({storage:globalThis.localStorage,onExit:()=>{licensedAudio.duck(false);canvas.focus?.({preventScroll:true});updateHud();}});
 }
 const FORCED_WEATHER=(()=>{const w=new URLSearchParams(globalThis.location?.search||'').get('meteo');return ['pioggia','nuvoloso','sereno'].includes(w)?w:null;})();
 const state={football:null,map:null,roads:null,buildings:null,roadGrid:null,buildingGrid:null,cars:[],traffic:[],people:[],idle:null,streetGames:null,animals:null,dynamicCollision:null,trafficClock:0,npcClockMinutes:START_MINUTE,player:{x:0,y:0,a:0,car:-1},spawn:[0,0],zoom:CAMERA_ZOOM_MAX,zoomBias:1,zoomTarget:CAMERA_ZOOM_MAX,clock:0,last:0,hud:0,ready:false,loading:false,mapCanvas:null,graph:null,turnGuides:[],props:[],propsGrid:null,camera:{x:0,y:0},distance:0,shops:[],shopGrid:null,bankEntrances:[],bankInterior:null,ground:null,inferredBuildings:[],inferredGrid:null,infillStats:null,landmarks:new Map(),progress:null,lastSave:0,bannerTimeout:0,mapOpen:false};
@@ -363,7 +353,7 @@ function storeDrivenVehicle(garage){
  if(!result.ok){setNotice(garageMessage(result));return false;}
  // The archive is now its only place: the car leaves the street (no double).
  state.cars.splice(p.car,1);
- p.car=-1;p.vehicleType=null;carRadio.leaveVehicle();
+ p.car=-1;p.vehicleType=null;licensedAudio.leaveVehicle();
  p.x=stand.x;p.y=stand.y;p.a=garage.face;p.impactTime=0;p.impactVX=0;p.impactVY=0;p.impactLock=0;
  state.dynamicCollision=makeCollisionIndex([...state.cars,...state.traffic,...state.people]);
  saveProgress(localStorage,state.progress);
@@ -575,9 +565,9 @@ function inParkingBay(x,y,margin=0){
  if(!state.parkingBays)return false;
  return query(state.parkingBays.strips,state.bayGrid,x-6,y-6,x+6,y+6).some(strip=>insideParkingStrip(strip,x,y,margin));
 }
-// Q16: an Ape keeps its own short, narrow three-wheeler body; Q18/Q19: the courier van, the refuse truck, the
+// Q16: an Triciclo keeps its own short, narrow three-wheeler body; Q18/Q19: the courier van, the refuse truck, the
 // tow truck and the bus their longer ones. Every other car keeps the common car body.
-const ownBody=v=>!isMotorcycle(v)&&/^(ape-|corriere-|nettezza-|attrezzi-|autobus-)/.test(v?.model||'');
+const ownBody=v=>!isMotorcycle(v)&&/^(triciclo-|corriere-|nettezza-|attrezzi-|autobus-)/.test(v?.model||'');
 const bodyShape=v=>vehicleShape(isMotorcycle(v)?{vehicleType:'motorcycle'}:ownBody(v)?v:{vehicleType:'car'});
 function stepStreetPhysics(dt){
  const objects=state.streetObjects,p=state.player;if(!objects)return;
@@ -752,7 +742,7 @@ function prepareMap(map,surveyData=[],infillCache=null,placement=null,enclosureD
  if(!map||!Array.isArray(map.roads)||map.roads.length<20||!Array.isArray(map.border))throw Error('La mappa salvata non contiene una rete stradale valida');
  staticTiles.clear();roofReveal.clear();tileRoadMode=null;
  state.map=map;
- state.roads=map.roads;state.buildings=placeBuildings(map,placement);
+ state.roads=map.roads;state.buildings=applyBuildingShapeSample(placeBuildings(map,placement));
  prepareCityStyles(state.buildings,map.pois||[]);
  const survey=applySurveyDrafts(state.buildings,surveyData);
  state.enclosureData=enclosureData;state.enclosures=null;
@@ -764,6 +754,7 @@ function prepareMap(map,surveyData=[],infillCache=null,placement=null,enclosureD
  loadWaterTowerSprite(); // preload the authored red/cream tower
  const terracotta=applyApprovedArcadeRoofStyle(state.buildings);
  applyPiazzaRoofStudies(state.buildings);
+ applyViaRomaStylePilot(state.buildings);
  console.info('Melito visual city scan: '+survey.applied+'/'+survey.total+' buildings styled, '+survey.verified+' photo-verified');
  console.info('Approved arcade roof style: '+terracotta+' unverified stylistic drafts in terracotta; no photo status changed');
  // Synthetic fillers are visually plausible but not mapped real addresses.
@@ -776,7 +767,8 @@ function prepareMap(map,surveyData=[],infillCache=null,placement=null,enclosureD
   Array.isArray(infillCache.buildings)&&infillCache.stats?.generated===infillCache.buildings.length?
   infillCache:generateUrbanInfill(map);
  // Q32: invented placeholders standing on a real pitch (seen on the aerial photo) are left out.
- state.inferredBuildings=inferred.buildings.filter(b=>!infillOnPitch(b));state.infillStats=inferred.stats;
+ state.inferredBuildings=inferred.buildings.filter(b=>!infillOnPitch(b));
+ state.inferredBuildings=placeInferredBuildings(state.inferredBuildings,map,placement);state.infillStats=inferred.stats;
  state.pitchInfillRemoved=inferred.buildings.length-state.inferredBuildings.length;
  prepareCityStyles(state.inferredBuildings,[]);
  const facade=['#e6bb7b','#edca92','#dfab67','#f0d59e','#d89c63','#e8b879'];
@@ -826,10 +818,10 @@ function prepareMap(map,surveyData=[],infillCache=null,placement=null,enclosureD
  state.cars=[];state.streetObjects=null;createWorkshop();createParkingBays();createRoadSurfaces();
  const free=(x,y,options)=>nearestFreeStalls(state.parkingBays,x,y,state.cars,vehiclesOverlap,options)[0]||null;
  const starterStall=free(point.x,point.y,{radius:60})||free(point.x,point.y);
- const nearCar=starterStall?parkInStall({type:0,model:'panda-modern-white'},starterStall):
-  {x:point.x+Math.cos(point.a)*9,y:point.y+Math.sin(point.a)*9,a:point.a,speed:0,type:0,model:'panda-modern-white'};
+ const nearCar=starterStall?parkInStall({type:0,model:'borgo-nuova-white'},starterStall):
+  {x:point.x+Math.cos(point.a)*9,y:point.y+Math.sin(point.a)*9,a:point.a,speed:0,type:0,model:'borgo-nuova-white'};
  state.cars=[nearCar];
- // BF02: the starter scooter takes the free stall closest to the Panda.
+ // BF02: the starter scooter takes the free stall closest to the Borgo.
  const bikeStall=free(nearCar.x,nearCar.y,{radius:40});
  if(bikeStall)state.cars.push(parkInStall({type:0,model:MOTORCYCLE_IDS[0],vehicleType:'motorcycle'},bikeStall));
  // Food trucks first, so that their districts still have room; they too stand in the strip.
@@ -872,7 +864,7 @@ function prepareMap(map,surveyData=[],infillCache=null,placement=null,enclosureD
   const stall=free(pt.x,pt.y,{roadId:road.id,radius:45});
   if(!stall)continue;
   // Q18: a courier van now and then, a refuse truck only where its whole body fits the strip.
-  let model=k%3===1?MOTORCYCLE_IDS[(k+Math.floor(k/3)*5)%MOTORCYCLE_IDS.length]:k===2?'ape-car-azzurra':k===5?'furgone-fritti':k%9===8?APE_CAR_IDS[(k*5)%APE_CAR_IDS.length]:k%8===1?'panda-fire-red':CAR_PARKED_SPRITE_IDS[(k*7)%CAR_PARKED_SPRITE_IDS.length];
+  let model=k%3===1?MOTORCYCLE_IDS[(k+Math.floor(k/3)*5)%MOTORCYCLE_IDS.length]:k===2?'triciclo-car-azzurra':k===5?'furgone-fritti':k%9===8?TRICYCLE_CAR_IDS[(k*5)%TRICYCLE_CAR_IDS.length]:k%8===1?'borgo-classica-red':CAR_PARKED_SPRITE_IDS[(k*7)%CAR_PARKED_SPRITE_IDS.length];
   if(k%3!==1&&k%10===6&&serviceFits(COURIER_IDS[k%COURIER_IDS.length],stall))model=COURIER_IDS[k%COURIER_IDS.length];
   else if(k%3!==1&&k%17===9&&serviceFits(REFUSE_TRUCK_IDS[k%REFUSE_TRUCK_IDS.length],stall))model=REFUSE_TRUCK_IDS[k%REFUSE_TRUCK_IDS.length];
   // Q19: now and then a tow truck, only where its whole body fits; the bus never parks in a bay.
@@ -889,7 +881,7 @@ function prepareMap(map,surveyData=[],infillCache=null,placement=null,enclosureD
  $('inferred-count').textContent=String(state.inferredBuildings.length);
  $('junction-count').textContent=String(state.graph.junctions);
  $('place').textContent='MELITO DI NAPOLI · MAPPA REALE';
- state.ready=true;if(SLOT_FROM_URL)openSlotGame();else if(POKER_FROM_URL)openPokerGame();else if(GORIZIANA_FROM_URL)openGorizianaGame();else if(POOL_FROM_URL)openPoolGame();{const v=satelliteFromUrl(globalThis.location?.search||'');if(v){satelliteOverlay()?.setEnabled(true);state.satellite?.setOpacity(v);}satelliteLabel();}state.last=0;canvas.focus({preventScroll:true});prepareMini();refreshCampaign();updateRoadWidthLabel();updateHud();
+ state.ready=true;if(SLOT_FROM_URL)openSlotGame();else if(POKER_FROM_URL)openPokerGame();else if(GORIZIANA_FROM_URL)openGorizianaGame();else if(POOL_FROM_URL)openPoolGame();state.last=0;canvas.focus({preventScroll:true});prepareMini();refreshCampaign();updateRoadWidthLabel();updateHud();
 }
 
 /* Campaign v0.3 — map positions always resolved from the downloaded OSM snapshot. */
@@ -1083,7 +1075,7 @@ function drawBlinker(x,y,a,v){
 }
 function trafficModel(i,type){
  return type==='motorcycle'?MOTORCYCLE_IDS[(i+Math.floor(i/4)*5)%MOTORCYCLE_IDS.length]:
-  trafficApeModel(i)||(i%11===8?APE_CAR_IDS[Math.floor(i/11)%APE_CAR_IDS.length]:null)||
+  trafficTricycleModel(i)||(i%11===8?TRICYCLE_CAR_IDS[Math.floor(i/11)%TRICYCLE_CAR_IDS.length]:null)||
   // Q18: about one courier van in thirteen and one refuse truck in thirty-one, real vehicles of the traffic.
   (i%13===5?COURIER_IDS[Math.floor(i/13)%COURIER_IDS.length]:null)||(i%31===20?REFUSE_TRUCK_IDS[Math.floor(i/31)%REFUSE_TRUCK_IDS.length]:null)||
   // Q19: a few tow trucks and buses (roads.mjs keeps the buses on the main roads).
@@ -1378,7 +1370,7 @@ function drawRiderWorld(c){
    if(Math.hypot(x-here.x,y-here.y)>90)continue;
    c.save();c.translate(x,y);c.rotate(ang);c.beginPath();c.moveTo(1.6,0);c.lineTo(-1,-1.1);c.lineTo(-.4,0);c.lineTo(-1,1.1);c.closePath();c.fill();c.restore();}
  }
- // Punto di ritiro / consegna: anello pulsante giallo.
+ // Alba di ritiro / consegna: anello pulsante giallo.
  const pulse=1+.15*Math.sin(state.clock*5);
  c.strokeStyle='#ffd640';c.lineWidth=.6;c.beginPath();c.arc(goal.x,goal.y,(j.phase==='pickup'?PICKUP_RADIUS:DELIVERY_RADIUS)*.55*pulse,0,Math.PI*2);c.stroke();
  // Cubo giallo sul mezzo che porta il pacco.
@@ -1527,7 +1519,7 @@ function toggleVehicle(){
   if(!exit){$('street').textContent='NESSUNO SPAZIO LIBERO PER SCENDERE';return;}
   vehicle.turnGuide=null;vehicle.recoil=0;vehicle.speed=0;
   p.x=exit.x;p.y=exit.y;p.car=-1;p.vehicleType=null;
-  carRadio.leaveVehicle();
+  licensedAudio.leaveVehicle();
   p.impactTime=0;p.impactVX=0;p.impactVY=0;p.impactLock=0;
  }else{
   // Same targeted vehicle for keyboard E and the touch/HUD label.
@@ -1537,8 +1529,8 @@ function toggleVehicle(){
    p.vehicleType=target.bike?'motorcycle':'car';
    p.impactTime=0;p.impactVX=0;p.impactVY=0;p.impactLock=0;
    p.x=target.vehicle.x;p.y=target.vehicle.y;
-   if(!target.bike)carRadio.enterVehicle();
-   else carRadio.leaveVehicle();
+   if(!target.bike)licensedAudio.enterVehicle();
+   else licensedAudio.leaveVehicle();
   }else{$('street').textContent='AVVICINATI A UN VEICOLO PER SALIRE';}
  }
  // Touch stick belongs only to walking; never carry an offset into driving.
@@ -1551,7 +1543,7 @@ function toggleVehicle(){
 function offStreetExcess(x,y,a,vehicle){
  // Both classes stay within the OSM road; scooters use narrow side probes.
  const dirx=Math.cos(a),diry=Math.sin(a),bike=isMotorcycle(vehicle);
- // Q16/Q18: Ape, van and truck probe the street with their own body (same proportions as the car probes).
+ // Q16/Q18: Triciclo, van and truck probe the street with their own body (same proportions as the car probes).
  const own=ownBody(vehicle),k=own?vehicleShape(vehicle):null;
  // BF14: probes at VEHICLE_SCALE of the measured body, like the sprite and the collision box.
  const forwards=bike?[-2.25,0,2.25].map(vs):own?[-k.halfLength*.83,0,k.halfLength*1.08]:[-2.6,0,3.4].map(vs);
@@ -2323,7 +2315,6 @@ function draw(dt=0){
  // BF13: foto aerea di confronto sopra tutta la scena, in trasparenza (spenta: nessun costo).
  // Q34: cronometro, checkpoint e posizione in coordinate schermo.
  if(state.races?.active){c.save();c.setTransform(ratio,0,0,ratio,0,0);drawRaceHud(c,state.races,cw,ch);c.restore();}
- if(state.satellite?.enabled)state.satellite.draw(c,[x0,y0,x1,y1],state.zoom);
 }
 const lightMap=document.createElement('canvas');
 const LAMP_KINDS=new Set([5,6,13]);
@@ -2423,7 +2414,7 @@ function updateCityAudio(){
  const p=state.player,car=p.car>=0?state.cars[p.car]:null;
  const paused=state.mapOpen||!$('dialog').hidden||!$('pause-menu').hidden||!!state.shopOpen||!!state.garageOpen||isSlotOpen()||isPokerOpen()||isGorizianaOpen()||isPoolOpen();
  const traffic=[...state.traffic.filter(v=>v.body==='car'),...(state.commuters||[]).filter(c=>c.bike.rider).map(c=>c.bike)];
- cityAudio.update({paused,interior:!!state.bankInterior||!!state.shopInterior,radioLive:radioStatus==='live',
+ cityAudio.update({paused,interior:!!state.bankInterior||!!state.shopInterior,radioLive:false,
   player:{x:p.x,y:p.y,inVehicle:!!car,vehicleType:car&&isMotorcycle(car)?'motorcycle':'car',model:car?.model||'',speed:car?car.speed:0,throttle:pressed.up||pressed.accelerate?1:0},
   // BF10: marcia e giri anche per il traffico, dalla velocità reale (agent.v di BF05) e dal modello.
   traffic:traffic.map(v=>({x:v.x,y:v.y,vehicleType:v.vehicleType,model:v.model||'',speed:v.braking?0:(Number.isFinite(v.v)?v.v:v.speed)})),
@@ -2458,14 +2449,12 @@ function goToNovita(entry){
  if(state.garageOpen)closeGarage();
  if(state.bankInterior){const inside=state.bankInterior;state.bankInterior=null;p.x=inside.outside.x;p.y=inside.outside.y;p.a=inside.outside.a;}
  // il ritorno è sempre il punto di prima del primo salto
- if(!state.preview)state.preview={back:{x:p.x,y:p.y,a:p.a,car:p.car,minutes:state.npcClockMinutes,
-  satellite:!!state.satellite?.enabled,opacity:state.satellite?.opacity}};
- if(p.car>=0){const v=state.cars[p.car];if(v){v.speed=0;v.turnGuide=null;v.recoil=0;}p.car=-1;p.vehicleType=null;carRadio.leaveVehicle();}
+ if(!state.preview)state.preview={back:{x:p.x,y:p.y,a:p.a,car:p.car,minutes:state.npcClockMinutes}};
+ if(p.car>=0){const v=state.cars[p.car];if(v){v.speed=0;v.turnGuide=null;v.recoil=0;}p.car=-1;p.vehicleType=null;licensedAudio.leaveVehicle();}
  p.impactTime=0;p.impactVX=0;p.impactVY=0;p.impactLock=0;
  p.x=stand.x;p.y=stand.y;p.a=stand.a;state.camera.x=stand.x;state.camera.y=stand.y;
  if(Number.isFinite(entry.ora))state.npcClockMinutes=minutesAtHour(state.npcClockMinutes,entry.ora);
  state.preview.weather=entry.meteo||null;state.preview.market=!!entry.mercato;
- if(entry.satellite){satelliteOverlay()?.setEnabled(true);state.satellite?.setOpacity(entry.satellite);satelliteLabel();}
  state.weather=weatherAt(state.npcClockMinutes,{forced:state.preview.weather||FORCED_WEATHER});
  for(const key of Object.keys(pressed))pressed[key]=false;stick.x=0;stick.y=0;resetDrivingControls();updateHud();
  $('street').textContent='NOVITÀ · '+entry.nome.toUpperCase()+' · PER TORNARE: PAUSA › TORNA DOVE ERI';
@@ -2476,31 +2465,18 @@ function backFromNovita(){
  const p=state.player,back=preview.back,car=back.car>=0?state.cars[back.car]:null;
  if(state.shopOpen)closeShop();if(state.garageOpen)closeGarage();state.bankInterior=null;
  p.impactTime=0;p.impactVX=0;p.impactVY=0;p.impactLock=0;
- if(car){p.car=back.car;p.vehicleType=isMotorcycle(car)?'motorcycle':'car';p.x=car.x;p.y=car.y;p.a=car.a;if(!isMotorcycle(car))carRadio.enterVehicle();}
+ if(car){p.car=back.car;p.vehicleType=isMotorcycle(car)?'motorcycle':'car';p.x=car.x;p.y=car.y;p.a=car.a;if(!isMotorcycle(car))licensedAudio.enterVehicle();}
  else{p.car=-1;p.vehicleType=null;p.x=back.x;p.y=back.y;p.a=back.a;}
  state.npcClockMinutes=back.minutes;state.preview=null;
- if(state.satellite){if(!back.satellite)state.satellite.setEnabled(false);else if(Number.isFinite(back.opacity))state.satellite.setOpacity(back.opacity);satelliteLabel();}
  state.weather=weatherAt(state.npcClockMinutes,{forced:FORCED_WEATHER});
  state.camera.x=p.x;state.camera.y=p.y;
  for(const key of Object.keys(pressed))pressed[key]=false;stick.x=0;stick.y=0;resetDrivingControls();updateHud();
  return true;
 }
-function satelliteOverlay(){
- if(!state.satellite&&state.map?.projection)state.satellite=createSatelliteOverlay({projection:state.map.projection});
- return state.satellite;
-}
-function satelliteLabel(){
- const o=state.satellite,on=!!o?.enabled;
- $('pause-satellite').textContent='SATELLITE: '+(on?'ON':'OFF');
- $('pause-satellite').setAttribute('aria-pressed',String(on));
- $('pause-satellite-level').textContent=Math.round((o?.opacity??.5)*100)+'%';
- $('satellite-attribution').hidden=!on;
-}
 function soundLabel(){
  $('pause-sound').textContent='SUONI: '+(cityAudio.muted?'OFF':'ON');
  $('pause-sound').setAttribute('aria-pressed',String(!cityAudio.muted));
  $('pause-fx-level').textContent=Math.round(cityAudio.effectsVolume*100)+'%';
- $('pause-radio-level').textContent=Math.round(cityAudio.radioVolume*100)+'%';
 }
 function frame(now){
  const dt=state.last?Math.min(.05,(now-state.last)/1000):0;state.last=now;
@@ -2522,13 +2498,10 @@ async function load(){
    else staticError='Archivio statico non ancora generato';
   }catch(e){staticError=e.message;}
   if(!map){
-   try{const c=JSON.parse(localStorage.getItem('gta-melito-osm-v1')||'null');if(c?.roads?.length>20)map=c;}catch(e){}
+   try{const c=JSON.parse(localStorage.getItem('gam-melito-osm-v1')||'null');if(c?.roads?.length>20)map=c;}catch(e){}
   }
-  if(!map){
-   loading('STO ACQUISENDO MELITO','La prima apertura scarica la rete stradale e gli edifici reali da OpenStreetMap. '+staticError);
-   map=await fetchOverpass(boundary,url=>{$('loading-text').textContent='Collegamento cartografico: '+new URL(url).hostname+'. Le strade resteranno fedeli ai dati OSM.';});
-   try{localStorage.setItem('gta-melito-osm-v1',JSON.stringify(map));}catch(e){console.warn('Cache della mappa non disponibile:',e);}
-  }
+  if(!map)throw Error('Cartografia locale non disponibile. Riprova il caricamento. '+staticError);
+  map=sanitizeCommercialMap(map);
   advance();
   const surveyData=[];
   for(const path of ['./survey/sector-001-002.json','./survey/town-visuals.json','./survey/piazza-santo-stefano.json']){
@@ -2561,10 +2534,11 @@ async function load(){
   prepareMap(map,surveyData,infillCache,placement,enclosureData);
   setLoadingProgress(LOADING_PHASES);
   await paint();hideLoading();
- }catch(e){console.error('GTA Melito map load',e);loading('MAPPA NON DISPONIBILE','Non posso mostrare una Melito inventata: '+e.message+'. Riprova quando la cartografia è disponibile.',true);}
+ }catch(e){console.error('GAM Melito map load',e);loading('MAPPA NON DISPONIBILE','Non posso mostrare una Melito inventata: '+e.message+'. Riprova quando la cartografia è disponibile.',true);}
  finally{state.loading=false;}
 }
 function bind(){
+ mountFullscreen($('fullscreen-toggle'),{onStatus:text=>{$('fullscreen-status').textContent=text;}});
  // Q09: browsers allow sound only after a gesture; every gesture also resumes a suspended context.
  for(const type of ['pointerdown','keydown'])window.addEventListener(type,()=>{cityAudio.start();},{capture:true});
  document.addEventListener('visibilitychange',()=>cityAudio.focus(document.visibilityState!=='hidden'));
@@ -2581,6 +2555,22 @@ function bind(){
  window.addEventListener('keydown',e=>{
   // Q37: con il telefono aperto frecce, INVIO, ESC e la scrittura nella ricerca restano al telefono.
   if(!$('pause-menu').hidden&&phoneUi?.key(e))return;
+  // Open overlays own keyboard input before bank/shop/world shortcuts.
+  if(!pause.hidden){
+   e.preventDefault();
+   if(!e.repeat&&(e.key==='Escape'||e.key.toLowerCase()==='p'))closePause();
+   return;
+  }
+  if(state.mapOpen){
+   e.preventDefault();
+   if(!e.repeat&&(e.key==='Escape'||e.key.toLowerCase()==='m'))toggleBigMap();
+   return;
+  }
+  if(!$('dialog').hidden){
+   e.preventDefault();
+   if(!e.repeat&&(e.key==='Escape'||e.key==='Enter'||e.code==='Space'))$('dialog').hidden=true;
+   return;
+  }
   // Lotto 15: con la barra del dialogo aperta INVIO/SPAZIO/ESC li gestisce dialogue.mjs; gli altri tasti di gioco restano fermi.
   if(isDialogueOpen()&&$('pause-menu').hidden)return;
   const dir={ArrowUp:'up',ArrowDown:'down',ArrowLeft:'left',ArrowRight:'right',w:'up',a:'left',s:'down',d:'right',W:'up',A:'left',S:'down',D:'right'}[e.key];
@@ -2613,14 +2603,6 @@ function bind(){
   if(e.key.toLowerCase()==='h'&&!e.repeat&&state.player.car>=0){e.preventDefault();honk();}
   if(e.key.toLowerCase()==='f'&&!e.repeat){e.preventDefault();interactMission();}
   if(e.key.toLowerCase()==='m'&&!e.repeat){e.preventDefault();toggleBigMap();}
-  const carRadioAvailable=state.player.car>=0&&!state.bankInterior&&!state.shopInterior&&
-   !isMotorcycle(state.cars[state.player.car])&&pause.hidden&&!state.mapOpen&&$('dialog').hidden;
-  if(carRadioAvailable&&e.key.toLowerCase()==='r'&&!e.repeat){
-   e.preventDefault();e.shiftKey?carRadio.previous():carRadio.next();
-  }
-  if(carRadioAvailable&&e.key.toLowerCase()==='t'&&!e.repeat){
-   e.preventDefault();carRadio.toggle();
-  }
   if(e.key==='Escape'){if(state.bankInterior){toggleVehicle();return;}if(state.shopInterior?.playing){returnFromBarGame(state.shopInterior);return;}if(state.shopInterior){leaveShop();return;}$('fullmap').hidden=true;state.mapOpen=false;$('dialog').hidden=true;if(!pause.hidden)closePause();else openPause();}
   // BF11: on a PC the PAUSE menu holds everything that used to sit around the board; P opens and closes it too.
   if(e.key.toLowerCase()==='p'&&!e.repeat&&!state.shopOpen){e.preventDefault();$('fullmap').hidden=true;state.mapOpen=false;if(!pause.hidden)closePause();else openPause();}
@@ -2673,8 +2655,8 @@ function bind(){
  stickPad.addEventListener('pointermove',e=>{if(stickPad.hasPointerCapture?.(e.pointerId))updateStick(e);});
  for(const name of ['pointerup','pointercancel','lostpointercapture'])stickPad.addEventListener(name,resetStick);
  const pause=$('pause-menu'),pauseButton=$('pause-toggle');
- const openPause=()=>{carRadio.duck(true);refreshNovita();$('novita-copy').textContent='COPIA GIUDIZI';Object.keys(pressed).forEach(k=>pressed[k]=false);stick.x=0;stick.y=0;resetDrivingControls();pause.hidden=false;phoneUi?.opened();pauseButton.setAttribute('aria-expanded','true');$('pause-details').textContent='MEZZO: '+$('vehicle').textContent+'  ·  CAMERA: '+$('camera-mode').textContent+'  ·  STRADE: '+$('road-count').textContent+'  ·  EDIFICI OSM: '+$('building-count').textContent+'  ·  PLACEHOLDER: '+$('inferred-count').textContent+'  ·  INCROCI: '+$('junction-count').textContent+'  ·  '+$('road-width-current').textContent+' unità';};
- const closePause=()=>{carRadio.duck(false);pause.hidden=true;pauseButton.setAttribute('aria-expanded','false');};
+ const openPause=()=>{licensedAudio.duck(true);refreshNovita();$('novita-copy').textContent='COPIA GIUDIZI';Object.keys(pressed).forEach(k=>pressed[k]=false);stick.x=0;stick.y=0;resetDrivingControls();pause.hidden=false;phoneUi?.opened();pauseButton.setAttribute('aria-expanded','true');$('pause-details').textContent='MEZZO: '+$('vehicle').textContent+'  ·  CAMERA: '+$('camera-mode').textContent+'  ·  STRADE: '+$('road-count').textContent+'  ·  EDIFICI OSM: '+$('building-count').textContent+'  ·  PLACEHOLDER: '+$('inferred-count').textContent+'  ·  INCROCI: '+$('junction-count').textContent+'  ·  '+$('road-width-current').textContent+' unità';};
+ const closePause=()=>{licensedAudio.duck(false);pause.hidden=true;pauseButton.setAttribute('aria-expanded','false');};
  // BF15: la lista NOVITÀ si ridisegna a ogni apertura (le voci «in arrivo» si attivano quando ci sono).
  function refreshNovita(){
   renderNovita($('novita-list'),{state,judgements:novitaJudgements,
@@ -2703,12 +2685,10 @@ function bind(){
  });
  pauseButton.addEventListener('click',()=>pause.hidden?openPause():closePause());
  $('pause-close').addEventListener('click',closePause);
- $('pause-satellite').addEventListener('click',()=>{satelliteOverlay()?.toggle();satelliteLabel();});
  $('pause-slot').addEventListener('click',()=>{closePause();openSlotGame();});
  $('pause-poker').addEventListener('click',()=>{closePause();openPokerGame();});
  $('pause-goriziana').addEventListener('click',()=>{closePause();openGorizianaGame();});
  $('pause-pool').addEventListener('click',()=>{closePause();openPoolGame();});
- for(const [id,dir] of [['pause-satellite-down',-1],['pause-satellite-up',1]])$(id).addEventListener('click',()=>{satelliteOverlay()?.stepOpacity(dir);satelliteLabel();});
  $('pause-rider').addEventListener('click',()=>{closePause();openRiderApp();});
  $('rider-close').addEventListener('click',closeRiderApp);
  $('pause-missions').addEventListener('click',()=>{closePause();if($('mission-panel').hidden)$('mission-panel-toggle').click();});
@@ -2746,9 +2726,6 @@ function bind(){
  for(const name of ['pointerup','pointercancel','pointerleave'])$('football-shoot').addEventListener(name,()=>state.football?.release('kick'));
  $('football-pass').addEventListener('pointerdown',e=>{e.preventDefault();state.football?.press('pass');});
  $('football-exit').addEventListener('click',abandonFootball);
- $('radio-prev').addEventListener('click',()=>carRadio.previous());
- $('radio-next').addEventListener('click',()=>carRadio.next());
- $('radio-toggle').addEventListener('click',()=>carRadio.toggle());
  $('road-width-compare').addEventListener('click',compareRoadWidths);
  const panel=$('mission-panel'),panelButton=$('mission-panel-toggle');
  panelButton.addEventListener('click',()=>{
@@ -2776,8 +2753,6 @@ function bind(){
  $('pause-sound').addEventListener('click',()=>{cityAudio.start();cityAudio.toggleMuted();soundLabel();});
  $('pause-volume-down').addEventListener('click',()=>{cityAudio.changeVolume(-.1);soundLabel();});
  $('pause-volume-up').addEventListener('click',()=>{cityAudio.changeVolume(.1);soundLabel();});
- $('pause-radio-down').addEventListener('click',()=>{cityAudio.changeRadioVolume(-.1);soundLabel();});
- $('pause-radio-up').addEventListener('click',()=>{cityAudio.changeRadioVolume(.1);soundLabel();});
  soundLabel();
  $('mission-reset').addEventListener('click',()=>{
   if(!state.progress)return;
@@ -2806,11 +2781,11 @@ function bind(){
  $('zoom-out').addEventListener('click',()=>{state.zoomBias=clamp(state.zoomBias/1.17,.62,1.35);});
  $('zoom-auto').addEventListener('click',()=>{state.zoomBias=1;});
  $('reset').addEventListener('click',()=>{
-  if(!state.ready)return;const p=state.player;carRadio.leaveVehicle();p.car=-1;p.vehicleType=null;p.x=state.spawn[0];p.y=state.spawn[1];p.a=0;state.camera.x=p.x;state.camera.y=p.y;
+  if(!state.ready)return;const p=state.player;licensedAudio.leaveVehicle();p.car=-1;p.vehicleType=null;p.x=state.spawn[0];p.y=state.spawn[1];p.a=0;state.camera.x=p.x;state.camera.y=p.y;
   state.zoom=CAMERA_ZOOM_MAX;state.zoomBias=1;state.zoomTarget=CAMERA_ZOOM_MAX;resetDrivingControls();updateHud();
  });
  window.addEventListener('blur',()=>{Object.keys(pressed).forEach(k=>pressed[k]=false);resetStick();resetDrivingControls();});
- document.addEventListener('visibilitychange',()=>{if(document.hidden){Object.keys(pressed).forEach(k=>pressed[k]=false);resetStick();resetDrivingControls();carRadio.suspend();}});
+ document.addEventListener('visibilitychange',()=>{if(document.hidden){Object.keys(pressed).forEach(k=>pressed[k]=false);resetStick();resetDrivingControls();licensedAudio.suspend();}});
  canvas.addEventListener('wheel',e=>{e.preventDefault();
   state.zoomBias=clamp(state.zoomBias*(e.deltaY>0?.91:1.1),.62,1.35);
  },{passive:false});

@@ -18,7 +18,7 @@ const mobileBlock=css.slice(css.indexOf('@media(max-width:760px),(pointer:coarse
 test('BF11 the page opens on the game board: nothing around the stage, everything else inside the PAUSE menu',()=>{
  assert.ok(pauseStart>0&&pauseEnd>pauseStart);
  assert.match(html,/<main class="app">\n<div class="stage" id="stage">/,'the stage is the first thing on the page');
- for(const [what,pattern] of [['title and version',/<header class="header">[\s\S]*VERSIONE 0\.7\.0[\s\S]*SALA GIOCHI/],
+ for(const [what,pattern] of [['title and version',/<header class="header">[\s\S]*VERSIONE 0\.7\.0[\s\S]*VERBOOZE/],
   ['status bar',/<div class="hud">/],['road-width tool',/<div class="road-width-bar"/],['PC and phone commands',/<p class="instructions">PC:/],
   ['survey link',/<p class="instructions"><a href="\.\/survey\/index\.html"/],['credits and licences',/<footer class="credits">[\s\S]*ODbL[\s\S]*CC BY/]]){
   assert.match(pause,pattern,what+' now lives in the pause menu');
@@ -48,7 +48,7 @@ test('BF11 PC layout: full-window board, small pause button, key prompt and attr
  assert.match(pcBlock,/\.pc-prompt\{display:block/);assert.match(pcBlock,/\.map-attribution\{display:block/);
  assert.match(css,/\.pc-prompt,\.map-attribution\{display:none\}/,'hidden everywhere else');
  assert.match(html,/<div class="pc-prompt" id="pc-prompt" hidden aria-live="polite"><\/div>/);
- assert.match(html,/<p class="map-attribution"><a href="https:\/\/www\.openstreetmap\.org\/copyright"[^>]*>© OpenStreetMap<\/a>/,'ODbL attribution stays on the board');
+ assert.match(html,/<p class="map-attribution"><a href="https:\/\/www\.openstreetmap\.org\/copyright"[^>]*>© OpenStreetMap contributors<\/a>/,'ODbL attribution stays on the board');
  assert.ok(css.indexOf(pcBlock)<css.indexOf('@media(max-width:760px),(pointer:coarse) and (orientation:landscape){'),'phone rules come after and win on phones');
 });
 

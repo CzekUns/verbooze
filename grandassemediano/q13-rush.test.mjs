@@ -1,7 +1,7 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
 import {readFile} from 'node:fs/promises';
-import {trafficTargetAt,trafficShare} from './traffic-rush.mjs?v=001';
+import {trafficTargetAt,trafficShare} from './traffic-rush.mjs?v=1001';
 
 test('Q13 rush hours: 140 on a normal day, about +35% at 8:00 and 20:00, about half at night, no steps',()=>{
  const at=(h,m=0)=>trafficTargetAt(h*60+m);

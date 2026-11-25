@@ -7,8 +7,8 @@
  * stesse carte. La puntata si toglie e si salva alla distribuzione, la vincita si aggiunge e si salva al
  * cambio, in un solo passo: ricaricare a metà mano riporta la stessa mano, senza rimborsi né doppioni.
  * Aggancio per il cabinato della Q27: openPokerMachine({onExit}). Grafica provvisoria, da approvare. */
-import {makeRng} from './minigame-slot.mjs?v=001';
-export const POKER_SAVE_KEY='gta-melito-poker-v1';
+import {makeRng} from './minigame-slot.mjs?v=1001';
+export const POKER_SAVE_KEY='gam-melito-poker-v1';
 export const POKER_RULES=Object.freeze({startCredits:100,restartCredits:50,bets:Object.freeze([1,2,3,4,5]),dealStep:.09});
 export const SUITS=Object.freeze(['picche','cuori','quadri','fiori']);
 const RED=new Set(['cuori','quadri']);

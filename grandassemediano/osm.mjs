@@ -1,4 +1,4 @@
-/* GTA Melito — geographic conversion. Derived data © OpenStreetMap contributors (ODbL).
+/* GAM Melito — geographic conversion. Derived data © OpenStreetMap contributors (ODbL).
  * Real street geometry only: no fabricated road grid. */
 export const ENDPOINTS=[
   "https://overpass.kumi.systems/api/interpreter",

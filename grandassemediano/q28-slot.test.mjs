@@ -58,7 +58,7 @@ test('Q28 virtual only: no money, purchase or betting service anywhere in the mo
  const src=await readFile(new URL('./minigame-slot.mjs',import.meta.url),'utf8');
  assert.match(src,/SOLO CREDITI VIRTUALI DI GIOCO/);
  assert.doesNotMatch(src,/fetch\(|XMLHttpRequest|WebSocket|sendBeacon|€|progress\.money|paypal|stripe/i);
- assert.doesNotMatch(src,/localStorage\.setItem\('gta-melito-campaign/);
+ assert.doesNotMatch(src,/localStorage\.setItem\('gam-melito-campaign/);
 });
 
 test('Q28 pixel art: every symbol and the whole screen draw on a canvas without errors',()=>{
@@ -74,7 +74,7 @@ test('Q28 game wiring: pause under the slot, radio ducked, PAUSE › STRUMENTI a
  assert.match(game,/import \{openSlotMachine,isSlotOpen\} from '\.\/minigame-slot\.mjs\?v=\d+'/);
  assert.match(game,/state\.shopOpen(?:\|\|state\.garageOpen)?(?:\|\|state\.riderOpen)?\|\|isSlotOpen\(\)(\|\|is\w+Open\(\))*\)\{\n  for\(const key of Object\.keys\(pressed\)\)pressed\[key\]=false;/,'the world stops under the slot');
  assert.match(game,/const paused=[^\n]*\|\|isSlotOpen\(\)(\|\|is\w+Open\(\))*;/,'city audio quiet');
- assert.match(game,/function openSlotGame\(\)\{[\s\S]{0,260}carRadio\.duck\(true\);[\s\S]{0,200}onExit:\(\)=>\{carRadio\.duck\(false\);/);
+ assert.match(game,/function openSlotGame\(\)\{[\s\S]{0,260}licensedAudio\.duck\(true\);[\s\S]{0,200}onExit:\(\)=>\{licensedAudio\.duck\(false\);/);
  assert.match(game,/get\('minigioco'\)==='slot'/);assert.match(game,/if\(SLOT_FROM_URL\)openSlotGame\(\);/);
  assert.match(game,/\$\('pause-slot'\)\.addEventListener\('click',\(\)=>\{closePause\(\);openSlotGame\(\);\}\);/);
  const tools=html.slice(html.indexOf('pause-h-tools'),html.indexOf('pause-h-credits'));

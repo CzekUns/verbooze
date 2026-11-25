@@ -81,7 +81,7 @@ test('automatic camera starts at the maximum on foot and progressively pulls bac
   'the game passes the magnitude of vehicle speed explicitly');
  assert.equal(targetCameraZoom({inVehicle:false},1.35),6.6*G,'always clamp to maximum');
  assert.ok(targetCameraZoom({inVehicle:false},.7)<6*G,'manual zoom bias persists');
- assert.match(describeCameraZoom({inVehicle:true,speed:22}),/IN CORSA/);
+ assert.match(describeCameraZoom({inVehicle:true,speed:22}),/IN IRIS/);
 });
 test('vehicle stays near trailing third while driving',()=>{
  const car={x:100,y:200,a:0};

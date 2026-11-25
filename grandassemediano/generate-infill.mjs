@@ -1,5 +1,5 @@
 /* Original synthetic art cache; regenerate whenever the generator or map changes.
- * Run: node games/gta-melito/generate-infill.mjs */
+ * Run: node games/gam-melito/generate-infill.mjs */
 import {readFile,writeFile} from 'node:fs/promises';
 import {generateUrbanInfill,INFILL_VERSION,mapFingerprint} from './urban-infill.mjs';
 const map=JSON.parse(await readFile(new URL('./data/melito-map.json',import.meta.url),'utf8'));

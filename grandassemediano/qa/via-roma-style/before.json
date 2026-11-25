@@ -1,0 +1,86 @@
+[
+  {
+    "mode": "desktop",
+    "id": "nord",
+    "errors": [],
+    "state": {
+      "player": {
+        "x": 1180,
+        "y": 1305,
+        "a": -2.105009727402267,
+        "car": -1,
+        "vehicleType": null,
+        "impactLock": 0
+      },
+      "ready": true,
+      "zoom": 5,
+      "spawn": [
+        1178.8765371317554,
+        1302.7533858546767
+      ]
+    }
+  },
+  {
+    "mode": "desktop",
+    "id": "sud",
+    "errors": [],
+    "state": {
+      "player": {
+        "x": 1240,
+        "y": 1405,
+        "a": -2.105009727402267,
+        "car": -1,
+        "vehicleType": null,
+        "impactLock": 0
+      },
+      "ready": true,
+      "zoom": 5,
+      "spawn": [
+        1178.8765371317554,
+        1302.7533858546767
+      ]
+    }
+  },
+  {
+    "mode": "mobile",
+    "id": "nord",
+    "errors": [],
+    "state": {
+      "player": {
+        "x": 1180,
+        "y": 1305,
+        "a": -2.105009727402267,
+        "car": -1,
+        "vehicleType": null,
+        "impactLock": 0
+      },
+      "ready": true,
+      "zoom": 4.8,
+      "spawn": [
+        1178.8765371317554,
+        1302.7533858546767
+      ]
+    }
+  },
+  {
+    "mode": "mobile",
+    "id": "sud",
+    "errors": [],
+    "state": {
+      "player": {
+        "x": 1240,
+        "y": 1405,
+        "a": -2.105009727402267,
+        "car": -1,
+        "vehicleType": null,
+        "impactLock": 0
+      },
+      "ready": true,
+      "zoom": 4.8,
+      "spawn": [
+        1178.8765371317554,
+        1302.7533858546767
+      ]
+    }
+  }
+]

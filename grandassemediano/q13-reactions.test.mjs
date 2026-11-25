@@ -2,10 +2,10 @@ import {test} from 'node:test';
 import assert from 'node:assert/strict';
 import {vs} from './world-scale.mjs';
 import {readFile} from 'node:fs/promises';
-import {buildRoadGraph,createAgents,stepAgents,lanePosition} from './roads.mjs?v=165';
-import {vehicleHitsPedestrian,makeCollisionIndex} from './traffic-collision.mjs?v=131';
-import {createReactions,stepReactions,startCrossing,kerbWait,pickBlockedHorn,vehicleThreat,crossingThreat,speedOf,REACTION_RULES} from './npc-reactions.mjs?v=007';
-import {canSocialize} from './npc-social.mjs?v=004';
+import {buildRoadGraph,createAgents,stepAgents,lanePosition} from './roads.mjs?v=1165';
+import {vehicleHitsPedestrian,makeCollisionIndex} from './traffic-collision.mjs?v=1131';
+import {createReactions,stepReactions,startCrossing,kerbWait,pickBlockedHorn,vehicleThreat,crossingThreat,speedOf,REACTION_RULES} from './npc-reactions.mjs?v=1007';
+import {canSocialize} from './npc-social.mjs?v=1004';
 
 // Via Roma lungo x (residenziale, larga 8) e una traversa a x=300.
 const graph=buildRoadGraph([
@@ -38,7 +38,7 @@ test('Q13 threat: only a moving vehicle with the pedestrian in its corridor; NPC
 
 test('Q13 graded reaction to the player driving on the pavement: looks, hurries, jumps aside (never into the wall), then rejoins',()=>{
  const ped=walker(),start={x:ped.x,y:ped.y};
- const car={x:ped.x-45,y:ped.y,a:0,speed:12,vehicleType:'car',model:'panda-modern-white'};
+ const car={x:ped.x-45,y:ped.y,a:0,speed:12,vehicleType:'car',model:'borgo-nuova-white'};
  const r=createReactions(1),seen=new Set();let minGap=Infinity;
  for(let i=0;i<120;i++){
   car.x+=car.speed*dt;

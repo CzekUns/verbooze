@@ -2,7 +2,7 @@
  * Tutto è una funzione pura dei minuti: la stessa ora dà sempre la stessa luce,
  * le transizioni sono graduali e l'orologio si ferma con pausa e banca.
  * Colori e orari sono una resa arcade, non dati astronomici di Melito. */
-import {VEHICLE_SCALE,PERSON_SCALE,vs,ps} from './world-scale.mjs?v=001';
+import {VEHICLE_SCALE,PERSON_SCALE,vs,ps} from './world-scale.mjs?v=1001';
 const DAY=24*60;
 const modulo=(n,m)=>((n%m)+m)%m;
 const clamp=(v,lo,hi)=>Math.max(lo,Math.min(hi,v));
@@ -22,7 +22,7 @@ export const DAY_KEYFRAMES=Object.freeze([
  [21*60,NIGHT_DARKNESS,[18,26,60]],
  [DAY,NIGHT_DARKNESS,[18,26,60]]
 ]);
-// Quota di finestre accese: sera piena, notte fonda poche, risveglio all'alba.
+// Quota di finestre accese: sera piena, notte fonda poche, risveglio all'punto.
 const WINDOW_KEYS=[[0,.34],[60,.24],[3*60,.12],[5*60,.16],[6*60+10,.32],[7*60+20,.08],[17*60+40,.08],[19*60,.34],[20*60+30,.55],[23*60,.48],[DAY,.34]];
 function track(keys,m,pick){
  for(let i=1;i<keys.length;i++){
@@ -37,7 +37,7 @@ export function daylightAt(minutes){
  const darkness=track(DAY_KEYFRAMES,m,(a,b,t)=>mix(a[1],b[1],t));
  const tint=track(DAY_KEYFRAMES,m,(a,b,t)=>a[2].map((v,k)=>Math.round(mix(v,b[2][k],t))));
  const windowShare=track(WINDOW_KEYS,m,(a,b,t)=>mix(a[1],b[1],t));
- // Luci artificiali: si accendono quando il velo supera ~0,2 e si spengono all'alba allo stesso modo.
+ // Luci artificiali: si accendono quando il velo supera ~0,2 e si spengono all'punto allo stesso modo.
  const lamps=smoothstep(.16,.36,darkness);
  return {minutes:m,darkness,tint,lamps,headlights:smoothstep(.22,.42,darkness),
   windows:lamps*windowShare,windowShare,phase:darkness<.02?'giorno':darkness>=NIGHT_DARKNESS-.01?'notte':m<12*60?'alba':'tramonto'};

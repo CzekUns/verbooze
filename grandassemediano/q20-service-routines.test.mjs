@@ -46,7 +46,7 @@ const eastEdge=(graph,x0=0)=>graph.edges.findIndex(e=>e.car&&Math.abs(e.angle)<1
 test('Q20 kinds: the four service models, nothing else',()=>{
  assert.equal(serviceKind('corriere-bianco'),'courier');assert.equal(serviceKind('nettezza-verde'),'refuse');
  assert.equal(serviceKind('attrezzi-rosso'),'tow');assert.equal(serviceKind('autobus-blu'),'bus');
- assert.equal(serviceKind('panda-modern-white'),null);assert.equal(serviceKind(undefined),null);
+ assert.equal(serviceKind('borgo-nuova-white'),null);assert.equal(serviceKind(undefined),null);
 });
 
 test('Q20 courier: into a free stall next to a door, the driver delivers and walks back, the van drives on (no jumps)',()=>{
@@ -59,7 +59,7 @@ test('Q20 courier: into a free stall next to a door, the driver delivers and wal
  // e così il furgone controllato con la larghezza di un'auto; a tutta larghezza il suo disegno entrerebbe
  // nel margine della corsia.
  const vanShape=vehicleShape(van),pose=st=>({x:st.x,y:st.y,a:e.angle});
- assert.ok(bays.stalls.length>0&&bays.stalls.every(st=>fitsParkingBay(bays,{x:st.x,y:st.y,a:st.a},vehicleShape({model:'panda-modern-white'}))),'a car fits its own stalls');
+ assert.ok(bays.stalls.length>0&&bays.stalls.every(st=>fitsParkingBay(bays,{x:st.x,y:st.y,a:st.a},vehicleShape({model:'borgo-nuova-white'}))),'a car fits its own stalls');
  assert.ok(bays.stalls.filter(st=>st.side>0).every(st=>ctx.fits(pose(st),van)),'the van fits checked as a car');
  assert.equal(bays.stalls.some(st=>fitsParkingBay(bays,pose(st),vanShape)),false,'at full width it would not');
  const s=createServiceRoutines(graph,{test:true});
@@ -115,7 +115,7 @@ test('Q20 tow truck: fetches a broken-down parked car, loads it, takes it away, 
  const E=eastEdge(graph);
  const stall=bays.stalls.filter(st=>st.edge===E||Math.abs(st.y-(graph.edges[E].streetWidth/2+2))<3).find(st=>st.x>140&&st.x<200&&st.y>0);
  assert.ok(stall,'a stall on the right of Via Nord');
- const car=parkInStall({type:1,model:'panda-fire-red',vehicleType:'car',body:'car'},stall);
+ const car=parkInStall({type:1,model:'borgo-classica-red',vehicleType:'car',body:'car'},stall);
  const truck=one(graph,'attrezzi-rosso',9,graph.edges.findIndex(e=>e.car&&e.name==='Via Sud'));truck.speed=8;
  ctx.parked.push(car);ctx.traffic.push(truck);
  const s=createServiceRoutines(graph,{test:true});
@@ -136,7 +136,7 @@ test('Q20 tow truck: fetches a broken-down parked car, loads it, takes it away, 
 
 test('Q20 Q23 hook: a damaged car can be reported for the tow truck',()=>{
  const s=createServiceRoutines({edges:[],nodes:[]});
- const car={x:1,y:2,a:0,model:'panda-fire-red'};
+ const car={x:1,y:2,a:0,model:'borgo-classica-red'};
  assert.equal(reportBreakdown(s,car,{reason:'danni'}),true);assert.equal(car.broken.reason,'danni');assert.equal(car.hazard,true);
  assert.equal(reportBreakdown(s,car),false,'not twice');assert.equal(s.broken.length,1);
 });

@@ -1,4 +1,4 @@
-# GTA Melito — Registro di lavoro grafico per ChatGPT Work
+# GAM Melito — Registro di lavoro grafico per ChatGPT Work
 
 **Stato iniziale: 17 ottobre 2026, versione 0.7.0.** Questo registro nasce con l'handoff; **non** è una prova di verifica fotografica dei singoli fabbricati. Leggere prima [HANDOFF_WORK_REALISMO.md](./HANDOFF_WORK_REALISMO.md) e [AGENTS.md](./AGENTS.md).
 
@@ -48,11 +48,11 @@ Per ogni tranche completata aggiungi una sezione:
 
 **Commit / PR:** PR #24, commit merge `c3314469e86151082714ecbc7e1d6f230a694ea5`.
 
-**Fatto nel codice:** aggiunto `bank-interior.mjs`: individua i POI OSM `bank`, risolve un punto pedonale libero vicino a una strada e disegna un anello luminoso con invito `BANCA · E`. Avvicinandosi a piedi, il comando contestuale diventa `ENTRA IN BANCA`; E o il pulsante touch apre una scena pixel art autonoma del Banco BPM, con pavimento, sportelli, area d’attesa e ATM. Nella sala si può camminare e uscire con E, Escape o il pulsante `ESCI DALLA BANCA`, che riporta alle coordinate esterne salvate. Il radar e gli elementi di navigazione stradale scompaiono durante l’interno. La prima banca disponibile nello snapshot OSM è Banco BPM; l’individuazione per tag OSM permette di aggiungere automaticamente altri punti banca e in futuro indirizzi specifici.
+**Fatto nel codice:** aggiunto `bank-interior.mjs`: individua i POI OSM `bank`, risolve un punto pedonale libero vicino a una strada e disegna un anello luminoso con invito `BANCA · E`. Avvicinandosi a piedi, il comando contestuale diventa `ENTRA IN BANCA`; E o il pulsante touch apre una scena pixel art autonoma del Banca civica 01, con pavimento, sportelli, area d’attesa e ATM. Nella sala si può camminare e uscire con E, Escape o il pulsante `ESCI DALLA BANCA`, che riporta alle coordinate esterne salvate. Il radar e gli elementi di navigazione stradale scompaiono durante l’interno. La prima banca disponibile nello snapshot OSM è Banca civica 01; l’individuazione per tag OSM permette di aggiungere automaticamente altri punti banca e in futuro indirizzi specifici.
 
-**Edifici documentati:** l’identità e la coordinata del POI Banco BPM provengono dallo snapshot cartografico OSM; il layout interno è una scena inventata per il gioco, non una ricostruzione dell’interno reale. L’accesso viene posto su una posizione pedonale libera vicino al POI e fuori dagli ingombri degli edifici mappati.
+**Edifici documentati:** l’identità e la coordinata del POI Banca civica 01 provengono dallo snapshot cartografico OSM; il layout interno è una scena inventata per il gioco, non una ricostruzione dell’interno reale. L’accesso viene posto su una posizione pedonale libera vicino al POI e fuori dagli ingombri degli edifici mappati.
 
-**Test e deploy:** suite locale aggiornata: 139 test superati. Il test dedicato risolve il POI Banco BPM della mappa effettiva e controlla che il marker resti vicino al punto banca; test grafico verifica che la scena interna venga disegnata senza stato della strada. Cache pagina aggiornata a `v129`. GitHub Actions Node 22: 139 test superati; deploy GitHub Pages completato. Pagina pubblica `?v=129` verificata in browser: mappa caricata e nuovi moduli senza errori JavaScript.
+**Test e deploy:** suite locale aggiornata: 139 test superati. Il test dedicato risolve il POI Banca civica 01 della mappa effettiva e controlla che il marker resti vicino al punto banca; test grafico verifica che la scena interna venga disegnata senza stato della strada. Cache pagina aggiornata a `v129`. GitHub Actions Node 22: 139 test superati; deploy GitHub Pages completato. Pagina pubblica `?v=129` verificata in browser: mappa caricata e nuovi moduli senza errori JavaScript.
 
 **Aree successive:** l’utente indicherà gli indirizzi ulteriori; resta da verificare la scena su telefono dopo il deploy.
 
@@ -71,23 +71,23 @@ Questa lista **non è un certificato di qualità**. Le voci sono aperte fino a c
 
 **Edifici documentati:** nessuna nuova verifica fotografica per singolo edificio. I dettagli di pavimentazione, persiane e finestre sono stilizzazioni procedurali, non rilievi di facciata. L’unico edificio con riscontro fotografico registrato resta Santa Maria delle Grazie, way 733703815.
 
-**Test e deploy:** GitHub Actions, Node 22.23.3: 53 test superati, 0 falliti sul commit `0148da0`. Deploy GitHub Pages completato; URL verificato: https://czekuns.github.io/Effettokarmagra/games/gta-melito/?v=071.
+**Test e deploy:** GitHub Actions, Node 22.23.3: 53 test superati, 0 falliti sul commit `0148da0`. Deploy GitHub Pages completato; URL verificato: https://czekuns.github.io/Effettokarmagra/games/gam-melito/?v=071.
 
 **Aree successive:** acquisire una baseline prima/dopo ripetibile su Piazza Santo Stefano; poi continuare con Via Roma e il Municipio usando fonti identificabili, mantenendo distinta la stilizzazione generica dalle caratteristiche verificate.
 
 ### Sessione 2026-10-17 — Etichette della piazza e riferimenti open source
 
-**Commit / PR:** `4bb88fb` (etichetta chiesa), `59dc011` (spaziatura etichette stradali), `28d5070` e `04415f6` (cache/test), `e87c01e` (handoff GTAopen).
+**Commit / PR:** `4bb88fb` (etichetta chiesa), `59dc011` (spaziatura etichette stradali), `28d5070` e `04415f6` (cache/test), `e87c01e` (handoff progetto esterno storico).
 
-**Fatto nel codice:** l'etichetta della chiesa è stata accorciata e riposizionata con fondo scuro; le etichette stradali evitano l'area della minimappa e vengono diradate vicino a punti notevoli e tra loro. Versione cache aggiornata a `v072`. Nel handoff è stata precisata la funzione di GTAopen: case/interiori/arredi nel mondo GTA 3D già esistente, senza renderer delle facciate cittadine.
+**Fatto nel codice:** l'etichetta della chiesa è stata accorciata e riposizionata con fondo scuro; le etichette stradali evitano l'area della minimappa e vengono diradate vicino a punti notevoli e tra loro. Versione cache aggiornata a `v072`. Nel handoff è stata precisata la funzione di progetto esterno storico: case/interiori/arredi nel mondo GAM 3D già esistente, senza renderer delle facciate cittadine.
 
 **Confronto visuale:** lo screenshot fornito mostrava l'etichetta della chiesa coperta dalla minimappa e nomi di strade/piazza sovrapposti. Dopo la modifica, il gioco `v072` è stato aperto nel browser desktop e ha caricato la mappa a Via Roma. Non è disponibile uno screenshot post-modifica alla stessa posizione mobile di Piazza Santo Stefano; non si dichiara un confronto prima/dopo completo né una verifica mobile.
 
-**Edifici documentati:** nessuna nuova facciata verificata. GTAopen non è una fonte di geometrie o aspetto per Melito; le sagome restano OSM e le caratteristiche visive restano stime salvo override con fonti identificabili.
+**Edifici documentati:** nessuna nuova facciata verificata. progetto esterno storico non è una fonte di geometrie o aspetto per Melito; le sagome restano OSM e le caratteristiche visive restano stime salvo override con fonti identificabili.
 
 **Test e deploy:** la validazione GitHub Actions sul commit `04415f6` è risultata positiva (53 test). Il browser ha caricato `v072`; il deploy del successivo aggiornamento documentale è da verificare.
 
-**Aree successive:** tornare su Piazza Santo Stefano con un confronto mobile alla stessa camera; proseguire le verifiche di facciata per ID OSM, senza usare gli interni o i modelli di GTAopen come riferimento architettonico.
+**Aree successive:** tornare su Piazza Santo Stefano con un confronto mobile alla stessa camera; proseguire le verifiche di facciata per ID OSM, senza usare gli interni o i modelli di progetto esterno storico come riferimento architettonico.
 
 ### Sessione 2026-10-17 — Revisione complessiva del comparto grafico
 
@@ -134,21 +134,21 @@ Questa lista **non è un certificato di qualità**. Le voci sono aperte fino a c
 **Aree successive:** rifinire i vuoti residui con cortili, isolati e recinzioni coerenti quando le geometrie o fonti pubbliche permettono di distinguerli; verificare su telefono.
 
 
-### Sessione 2026-10-17 — Passata GTA2: masse, ombre e contrasto
+### Sessione 2026-10-17 — Passata stile arcade storico: masse, ombre e contrasto
 
 **Commit / PR:** `75fe95e` — [commit GitHub](https://github.com/CzekUns/Effettokarmagra/commit/75fe95e3fb5fae406b112488d0793cfbedf26e6f).
 
-**Fatto nel codice:** confronto della scena attuale a Piazza Santo Stefano, Via Roma e Municipio con schermate di gameplay di GTA 2. In `city-art.mjs` resa la palette più calda e contrastata: asfalto grafite, bordi marciapiede ocra, tetti terracotta e facciate in ombra più profonde. Il contatto d’ombra del tetto ora resta ritagliato dentro la sagoma; i fronti mantengono un rilievo corto, cornici marcate, imposte più leggibili e dettagli tetto concentrati. I vicoli minori restano senza righe centrali. Sono regole artistiche originali ispirate alla leggibilità arcade di GTA 2; non sono stati copiati loghi o asset Rockstar.
+**Fatto nel codice:** confronto della scena attuale a Piazza Santo Stefano, Via Roma e Municipio con schermate di gameplay di GAM 2. In `city-art.mjs` resa la palette più calda e contrastata: asfalto grafite, bordi marciapiede ocra, tetti terracotta e facciate in ombra più profonde. Il contatto d’ombra del tetto ora resta ritagliato dentro la sagoma; i fronti mantengono un rilievo corto, cornici marcate, imposte più leggibili e dettagli tetto concentrati. I vicoli minori restano senza righe centrali. Sono regole artistiche originali ispirate alla leggibilità arcade di GAM 2; non sono stati copiati loghi o asset riferimento esterno rimosso.
 
 In `urban-infill.mjs` i vuoti del nucleo centrale sono trattati con soglie più permissive per gli edifici vicini, estendendo la stima dove OSM non contiene sagome; i placeholder generati sono 505, tutti con ID negativi e marcati come sintetici. È stato aggiunto il controllo della distanza minima tra l’intero perimetro dell’impronta e la rete stradale. `data/urban-infill.json` contiene una cache riproducibile, legata alla versione del generatore e all’impronta digitale di edifici e strade OSM, per evitare una generazione geometrica lenta sui telefoni. OSM, strade e collisioni non vengono alterati. Cache del gioco/renderer aggiornata a `v080`.
 
 **Confronto visuale:** verificata la pagina pubblica `v080` su Chrome desktop, in Via Roma, a piedi 5×: HUD caricato con 614 strade, 2.056 edifici OSM, 505 placeholder sintetici e 73 incroci. La cattura live mostra asfalto grafite, bordi chiari, tetti terracotta, ombre compatte e massa urbana più densa; non è disponibile una cattura “prima” con la stessa camera e palette a confronto. Le catture precedenti in `qa/2026-10-17/` documentano solo la tranche di densità precedente, non il renderer `v080`. Un telefono fisico non è stato verificato; la viewport mobile resta da controllare.
 
-**Riferimenti osservati:** gameplay di GTA 2 per prospettiva dall’alto, tetti compatti, ombre dure e contrasto carreggiata/marciapiede. Fotografia istituzionale della chiesa: [Comune di Melito di Napoli](https://comune.melito.na.it/vivere-il-comune/luoghi/chiesa-di-santa-maria-delle-grazie/) (consultata il 17-10-2026). Il catalogo ICCD descrive il centro come abitato compatto lungo Via Roma e la chiesa a croce greca con grande cupola; questa descrizione riguarda il contesto, non identifica i palazzi OSM mancanti. La fotografia non è stata inclusa nei file del gioco.
+**Riferimenti osservati:** gameplay di GAM 2 per prospettiva dall’alto, tetti compatti, ombre dure e contrasto carreggiata/marciapiede. Fotografia istituzionale della chiesa: [Comune di Melito di Napoli](https://comune.melito.na.it/vivere-il-comune/luoghi/chiesa-di-santa-maria-delle-grazie/) (consultata il 17-10-2026). Il catalogo ICCD descrive il centro come abitato compatto lungo Via Roma e la chiesa a croce greca con grande cupola; questa descrizione riguarda il contesto, non identifica i palazzi OSM mancanti. La fotografia non è stata inclusa nei file del gioco.
 
 **Edifici documentati:** nessun nuovo palazzo residenziale è stato verificato per ID OSM. Santa Maria delle Grazie, way `733703815`, resta l’unica corrispondenza fotografica registrata; la posizione esatta della torre nel rendering e i dettagli dei prospetti restano stilizzati.
 
-**Test e deploy:** GitHub Actions `GTA Melito visual and campaign validation` sul commit `75fe95e`: completato con esito positivo (Node 22 nel workflow). Deploy GitHub Pages completato con esito positivo sullo stesso SHA. Test locali Node 24: 57/57 superati; `git diff --check` passato.
+**Test e deploy:** GitHub Actions `GAM Melito visual and campaign validation` sul commit `75fe95e`: completato con esito positivo (Node 22 nel workflow). Deploy GitHub Pages completato con esito positivo sullo stesso SHA. Test locali Node 24: 57/57 superati; `git diff --check` passato.
 
 **Aree successive:** ampliare la copertura sintetica solo dentro isolati con accesso stradale plausibile; censire foto con provenienza chiara per le facciate di Via Roma, Municipio e Piazza Immacolata; confrontare `v080` su telefono fisico.
 
@@ -157,13 +157,13 @@ In `urban-infill.mjs` i vuoti del nucleo centrale sono trattati con soglie più 
 
 **Commit / PR:** `78ef0b0` — [commit GitHub](https://github.com/CzekUns/Effettokarmagra/commit/78ef0b098a534ba3d33798ef02c904882c869123).
 
-**Fatto nel codice:** in `index.html` su smartphone il canvas passa a pieno schermo landscape; la modalità portrait è bloccata da uno schermo che chiede di ruotare. L’interfaccia di gioco mostra la levetta analogica in basso a sinistra, due pulsanti contestuali in basso a destra, minimappa e piccolo tasto pausa. HUD tecnico, missioni, mappa completa, zoom, reset e confronto strade sono accessibili dalla pausa. In `game.mjs` la levetta usa pointer capture e valori continui; in auto controlla accelerazione e sterzo, a piedi direzione e velocità. Il secondo tasto alterna corsa e freno a mano. Schermata pausa sospende la simulazione; tenta il blocco landscape al primo tocco quando supportato. `VISUAL_PROGRESS` e handoff aggiornati.
+**Fatto nel codice:** in `index.html` su smartphone il canvas passa a pieno schermo landscape; la modalità portrait è bloccata da uno schermo che chiede di ruotare. L’interfaccia di gioco mostra la levetta analogica in basso a sinistra, due pulsanti contestuali in basso a destra, minimappa e piccolo tasto pausa. HUD tecnico, missioni, mappa completa, zoom, reset e confronto strade sono accessibili dalla pausa. In `game.mjs` la levetta usa pointer capture e valori continui; in auto controlla accelerazione e sterzo, a piedi direzione e velocità. Il secondo tasto alterna corsa freno a mano. Schermata pausa sospende la simulazione; tenta il blocco landscape al primo tocco quando supportato. `VISUAL_PROGRESS` e handoff aggiornati.
 
 **Confronto visuale:** il riferimento precedente mostrava il gioco desktop con HUD, pulsanti direzionali, molti tasti e istruzioni. Ho riaperto su GitHub Pages la build `v081` a Via Roma dopo il deploy: la mappa si carica con 614 strade, 2.056 sagome OSM, 505 placeholder e 73 incroci. La verifica browser ha usato viewport desktop, quindi non dimostra il layout su telefono; test di struttura e breakpoint responsive sono passati, mentre la cattura mobile emulata/telefono resta da acquisire. L’effettivo blocco orientamento dipende dal supporto browser; il messaggio portrait è il fallback.
 
 **Edifici documentati:** nessun cambio ai dati cartografici o agli asset.
 
-**Test e deploy:** Node locale 24.19.0: `node --check games/gta-melito/game.mjs` e suite prevista: 58/58 test superati. GitHub Actions su Node 22: esito positivo (step sintassi browser e test mappa/grafo/traffico verdi). GitHub Pages completato sul commit `78ef0b0`; pagina `v081` aperta e mappa caricata.
+**Test e deploy:** Node locale 24.19.0: `node --check games/gam-melito/game.mjs` e suite prevista: 58/58 test superati. GitHub Actions su Node 22: esito positivo (step sintassi browser e test mappa/grafo/traffico verdi). GitHub Pages completato sul commit `78ef0b0`; pagina `v081` aperta e mappa caricata.
 
 **Aree successive:** verificare joystick multi-touch, due tasti, overlay pausa, safe-area e lock landscape su Android/iOS fisici; il fallback non deve coprire i controlli in landscape.
 
@@ -171,7 +171,7 @@ In `urban-infill.mjs` i vuoti del nucleo centrale sono trattati con soglie più 
 
 **Fatto nel codice:** viewport mobile limitata a scala 1 e senza pinch zoom; in modalità portrait/mobile `touch-action:none` impedisce i gesti di zoom/pan della pagina. Gesture Safari e wheel con Ctrl/Meta sono annullati a livello finestra, così le gesture browser non ingrandiscono la pagina. Le scorciatoie Ctrl/Meta con tasti zoom vengono bloccate. La rotella normale sul canvas continua a regolare lo zoom della camera di gioco; sono invariati zoom adattivo, joystick e controlli touch. Cache script aggiornata a `v082`.
 
-**Verifica:** Node locale 24: `node --check games/gta-melito/game.mjs`, suite 59/59 e `git diff --check` superati. GitHub Actions Node 22 e Pages sul commit `b2a8462` completati con successo. Aperta la pagina pubblica `?v=082`: mappa caricata a Via Roma con 614 strade, 2.056 edifici OSM e 505 placeholder. Controllo visivo effettuato su Chrome desktop; il blocco zoom mobile è coperto dai test strutturali, non da un telefono fisico.
+**Verifica:** Node locale 24: `node --check games/gam-melito/game.mjs`, suite 59/59 e `git diff --check` superati. GitHub Actions Node 22 e Pages sul commit `b2a8462` completati con successo. Tricyclerta la pagina pubblica `?v=082`: mappa caricata a Via Roma con 614 strade, 2.056 edifici OSM e 505 placeholder. Controllo visivo effettuato su Chrome desktop; il blocco zoom mobile è coperto dai test strutturali, non da un telefono fisico.
 
 ### Sessione 2026-10-17 — Pixel art e liberazione delle carreggiate
 
@@ -181,7 +181,7 @@ In `urban-infill.mjs` i vuoti del nucleo centrale sono trattati con soglie più 
 
 **Confronto visivo:** screenshot browser desktop `v082` → `v084` a Via Roma, identico avvio a piedi 5×: pixel più netti, asfalto ridipinto sopra le sagome interferenti e meno props vicino agli incroci. Sulla build finale ho verificato ingresso in auto, accelerazione (HUD 12 km/h) e variazione dello zoom adattivo. Nessuna verifica su telefono fisico.
 
-**Test e deploy:** Node locale 24.19.0: `node --check games/gta-melito/game.mjs`, suite 61/61 e `git diff --check` superati. GitHub Actions Node 22 e Pages sul commit `0e37134` completati con esito positivo. Aperta `?v=084`: cartografia caricata con 614 strade, 2.056 edifici OSM e 505 placeholder.
+**Test e deploy:** Node locale 24.19.0: `node --check games/gam-melito/game.mjs`, suite 61/61 e `git diff --check` superati. GitHub Actions Node 22 e Pages sul commit `0e37134` completati con esito positivo. Tricyclerta `?v=084`: cartografia caricata con 614 strade, 2.056 edifici OSM e 505 placeholder.
 
 ### Sessione 2026-10-17 — Direzione approvata: arcade mediterraneo compatto
 
@@ -193,13 +193,13 @@ In `urban-infill.mjs` i vuoti del nucleo centrale sono trattati con soglie più 
 
 **Edifici documentati:** nessuna nuova facciata. La reference è un mockup artistico, non una fonte fotografica del Municipio o delle abitazioni. Colori e tegole restano una stilizzazione; Santa Maria delle Grazie (way `733703815`) resta l’unico edificio con corrispondenza fotografica già registrata.
 
-**Test e deploy:** Node locale 24.19.0: `node --check` per `city-art.mjs` e `game.mjs`; suite GTA Melito completa: 62/62; `git diff --check` superato. GitHub Actions Node 22: run `#78` completato; GitHub Pages: run `#289` completato e pagina `?v=086` verificata in Chrome desktop. La verifica mobile fisica resta aperta.
+**Test e deploy:** Node locale 24.19.0: `node --check` per `city-art.mjs` e `game.mjs`; suite GAM Melito completa: 62/62; `git diff --check` superato. GitHub Actions Node 22: run `#78` completato; GitHub Pages: run `#289` completato e pagina `?v=086` verificata in Chrome desktop. La verifica mobile fisica resta aperta.
 
 **Aree successive:** catturare screenshot PNG sincronizzati su Piazza Santo Stefano, Via Roma e Municipio in desktop e landscape mobile; poi aumentare la riconoscibilità dei luoghi con asset originali e riscontri fotografici leciti, senza cambiare le impronte e distinguendo i dettagli stimati da quelli verificati.
 
 ### Sessione 2026-10-17 — Correzione di scala visiva dopo confronto utente
 
-**Fatto nel codice:** il confronto diretto fra lo screenshot mobile pubblicato e il mockup approvato mostra che non sono simili: l'inquadratura corrente è ancora rada e cartografica. Per migliorare la scala leggibile, le chiome sintetiche stradali passano da circa 4.4 a 6.1–7.0 unità, con gruppi di colore e ombre a pixel. Una quota maggiore degli arredi casuali deterministici diventa albero. I punti sono spostati di altri 4 unità dal bordo stradale per mantenere libera la corsia; filtri strade-edifici e collisioni restano invariati. Il massimo zoom a piedi sale da 5× a 6× (corsa 5.55×), con pullback auto invariato e transizione smussata. Nessun edificio è stato aggiunto o spostato.
+**Fatto nel codice:** il confronto diretto fra lo screenshot mobile pubblicato e il mockup approvato mostra che non sono simili: l'inquadratura corrente è ancora rada e cartografica. Per migliorare la scala leggibile, le chiome sintetiche stradali passano da circa 4.4 a 6.1–7.0 unità, con gruppi di colore e ombre a pixel. Una quota maggiore degli arredi casuali deterministici diventa albero. I punti sono spostati di altri 4 unità dal bordo stradale per mantenere libera la corsia; filtri strade-edifici e collisioni restano invariati. Il massimo zoom a piedi sale da 5× a 6× (iris 5.55×), con pullback auto invariato e transizione smussata. Nessun edificio è stato aggiunto o spostato.
 
 **Confronto visuale:** lo screenshot fornito dall'utente è la baseline mobile reale; il mockup approvato mostra alberi grandi e molto più densi, tetti dettagliati, isolati compatti e facciate alte. Le modifiche rendono chiome e dettagli esistenti più leggibili e avvicinano il campo visivo; non trasformano ancora la scena in una replica del mockup. Prima del deploy non è disponibile una cattura sincronizzata dopo su dispositivo mobile; non dichiarare parità visiva.
 
@@ -279,17 +279,17 @@ In `urban-infill.mjs` i vuoti del nucleo centrale sono trattati con soglie più 
 
 **Verifica:** suite locale Node 84/84, sintassi e diff superati. Da completare confronto della pagina pubblicata in desktop e viewport mobile; nessuna misura FPS o prova su telefono fisico. La chiesa Santa Maria delle Grazie rimane l'unico edificio con riscontro fotografico registrato.
 
-### Sessione 2026-10-17 — Fiat Punto 188 e Lancia Ypsilon 2003
+### Sessione 2026-10-17 — costruttore di fantasia Alba 188 e costruttore di fantasia Luna 2003
 
-**Implementato:** due schede top-down su sfondo bianco e 16 PNG individuali ritagliati nella cartella di consegna del progetto; atlante PNG palettizzato trasparente 4×4 da 160×240 caricato nella repository, `car-sprites.mjs` esteso alle 16 varianti senza toccare la Panda iniziale. Traffico AI e alcune auto parcheggiate usano anche Punto e Ypsilon, con fallback grafico e hitbox invariate. Colori illustrativi plausibili, **non attestati uno per uno come tinte di fabbrica**. Test e deploy da verificare sul commit pertinente.
+**Implementato:** due schede top-down su sfondo bianco e 16 PNG individuali ritagliati nella cartella di consegna del progetto; atlante PNG palettizzato trasparente 4×4 da 160×240 caricato nella repository, `car-sprites.mjs` esteso alle 16 varianti senza toccare la Borgo iniziale. Traffico AI e alcune auto parcheggiate usano anche Alba e Luna, con fallback grafico e hitbox invariate. Colori illustrativi plausibili, **non attestati uno per uno come tinte di fabbrica**. Test e deploy da verificare sul commit pertinente.
 
-### Sessione 2026-10-17 — Fix trasparenza Punto 188 / Ypsilon
+### Sessione 2026-10-17 — Fix trasparenza Alba 188 / Luna
 
-**Segnalazione:** rettangolo nero evidente intorno alle nuove auto. **Diagnosi:** atlante PNG legacy con sfondo scuro opaco. **Intervento implementato nel client (v104):** maschera pixel derivata dalle silhouette dei crop originali, applicata una sola volta all'atlante in Canvas 160×240 in caricamento, con alpha esterno azzerato. Solo l'atlante riparato è disegnato nel gioco; fallback Canvas se il ripristino non riesce; Panda inalterate. **Limite:** il PNG originale repository rimane opaco e va sostituito in futuro con un atlante RGBA corretto anche come file statico. Verifica dei test e deploy da riportare dopo GitHub Actions; controllo visuale Android ancora necessario.
+**Segnalazione:** rettangolo nero evidente intorno alle nuove auto. **Diagnosi:** atlante PNG legacy con sfondo scuro opaco. **Intervento implementato nel client (v104):** maschera pixel derivata dalle silhouette dei crop originali, applicata una sola volta all'atlante in Canvas 160×240 in caricamento, con alpha esterno azzerato. Solo l'atlante riparato è disegnato nel gioco; fallback Canvas se il ripristino non riesce; Borgo inalterate. **Limite:** il PNG originale repository rimane opaco e va sostituito in futuro con un atlante RGBA corretto anche come file statico. Verifica dei test e deploy da riportare dopo GitHub Actions; controllo visuale Android ancora necessario.
 
-### Sessione 2026-10-17 — Rigenerazione colori Punto/Ypsilon, ridimensionamento e alfa reale
+### Sessione 2026-10-17 — Rigenerazione colori Alba/Luna, ridimensionamento e alfa reale
 
-**Consegna:** ritagliato e ridimensionato il materiale pittorico generato per Fiat Punto 188 e Lancia Ypsilon 2003, ricolorato coerentemente in 8 varianti per modello (16 in totale), e impacchettato nel nuovo `assets/vehicles/punto-ypsilon-16colors-rgba.png` 160×240, 4 colonne × 4 righe, celle **40×60 px**. I pixel esterni sono davvero trasparenti: il file usa PNG indicizzato con canale alfa `tRNS` corretto, verificato in tutti i 64 angoli di cella. Eliminata la maschera JS di recupero e i suoi test obsoleti; il gioco usa direttamente il file. **Dimensione fisica dei veicoli e collisioni invariata**, Panda non modificate. Aggiornate verifiche sull'atlante e bust cache a v105. Colori **interpretativi** e non catalogo ufficiale. Sono stati controllati a campione i crop su sfondo grigio e i valori alpha; il rendering nel browser su telefono e lo stato Actions restano da controllare dopo il deploy.
+**Consegna:** ritagliato e ridimensionato il materiale pittorico generato per costruttore di fantasia Alba 188 e costruttore di fantasia Luna 2003, ricolorato coerentemente in 8 varianti per modello (16 in totale), e impacchettato nel nuovo `assets/vehicles/alba-luna-16colors-rgba.png` 160×240, 4 colonne × 4 righe, celle **40×60 px**. I pixel esterni sono davvero trasparenti: il file usa PNG indicizzato con canale alfa `tRNS` corretto, verificato in tutti i 64 angoli di cella. Eliminata la maschera JS di recupero e i suoi test obsoleti; il gioco usa direttamente il file. **Dimensione fisica dei veicoli e collisioni invariata**, Borgo non modificate. Aggiornate verifiche sull'atlante e bust cache a v105. Colori **interpretativi** e non catalogo ufficiale. Sono stati controllati a campione i crop su sfondo grigio e i valori alpha; il rendering nel browser su telefono e lo stato Actions restano da controllare dopo il deploy.
 ### Sessione 2026-10-17 — Tre palazzi campione presso Piazza Santo Stefano
 
 **Fonti consultate:** Google Maps in modalità satellite ha presentato una verifica automatica e non ha mostrato la mappa. Una vista satellitare di Melito su satellites.pro ha mostrato la densità e l'alternanza generale di coperture nell'area urbana; non aveva dettaglio sufficiente per assegnare materiali ai singoli way. Apple Maps satellite non ha caricato le immagini; il SIT della Città Metropolitana ha restituito un errore di certificato nel browser. Le sagome e gli ID precisi provengono dallo snapshot OSM del gioco e dalle schede del primo anello. Nessuna immagine satellitare viene incorporata o redistribuita.
@@ -328,14 +328,14 @@ In `urban-infill.mjs` i vuoti del nucleo centrale sono trattati con soglie più 
 
 **Problemi riprodotti:** le auto parcheggiate aggiuntive venivano collocate sul centro della strada; il percorso dei pedoni convergeva verso il centro della carreggiata nei quattro metri presso ogni nodo; l'AI controllava la collisione solo nella posa finale di una svolta. Sulla mappa completa, nella simulazione iniziale di 60 secondi con 140 auto e 190 persone, si osservavano 39.743 campioni di pedoni entro la mezza larghezza della propria strada, 406 inversioni brusche delle auto e gruppi di veicoli fermi per decine di secondi. Questi numeri sono campioni della simulazione, non FPS o conteggi di incidenti osservati nel browser.
 
-**Correzioni:** le auto di sosta aggiuntive cercano posto a uno dei due margini percorribili e scartano posizioni contro edifici o altre auto; anche la Panda iniziale prova un posto raggiungibile sul margine, con fallback sulla posizione precedente se i margini non sono disponibili. I pedoni percorrono il bordo della strada senza convergere al centro presso gli incroci e, quando esiste un angolo di marciapiede percorribile, lo seguono per due brevi segmenti anziché saltare da un lato all'altro. Le auto AI nascono preferibilmente su strade con un'uscita in avanti, evitano svolte in vicoli ciechi quando esiste un'alternativa, e partono più distanziate. Due archi OSM che formano un anello ampio e compatto vengono interpretati come circolazione a senso unico; è un'inferenza geometrica artistica, non una correzione dei dati OSM. Le collisioni AI sono campionate anche durante lo spostamento fra due pose. Un vicolo a senso unico senza uscita trattiene l'auto al capolinea invece di teletrasportarla in un'altra via. Dopo oltre otto secondi di blocco, un'auto può essere reinserita su una strada libera solo se sia il punto di partenza sia quello di arrivo sono fuori dalla camera.
+**Correzioni:** le auto di sosta aggiuntive cercano posto a uno dei due margini percorribili e scartano posizioni contro edifici o altre auto; anche la Borgo iniziale prova un posto raggiungibile sul margine, con fallback sulla posizione precedente se i margini non sono disponibili. I pedoni percorrono il bordo della strada senza convergere al centro presso gli incroci e, quando esiste un angolo di marciapiede percorribile, lo seguono per due brevi segmenti anziché saltare da un lato all'altro. Le auto AI nascono preferibilmente su strade con un'uscita in avanti, evitano svolte in vicoli ciechi quando esiste un'alternativa, e partono più distanziate. Due archi OSM che formano un anello ampio e compatto vengono interpretati come circolazione a senso unico; è un'inferenza geometrica artistica, non una correzione dei dati OSM. Le collisioni AI sono campionate anche durante lo spostamento fra due pose. Un vicolo a senso unico senza uscita trattiene l'auto al capolinea invece di teletrasportarla in un'altra via. Dopo oltre otto secondi di blocco, un'auto può essere reinserita su una strada libera solo se sia il punto di partenza sia quello di arrivo sono fuori dalla camera.
 
 **Misure locali:** 60 secondi simulati con 140 auto e 190 persone, nessuna sovrapposizione rilevata nei campioni ogni secondo; fino a 6 auto bloccate per oltre cinque secondi con il recupero fuori vista, nel campione. I pedoni restano a distanza dal centro della propria carreggiata sui tratti ordinari; nei raccordi di marciapiede la misura sulla linea infinita del vecchio tratto non rappresenta un attraversamento reale. La verifica diretta degli incroci, dei marciapiedi occupati da sagome OSM, delle rotonde diverse dall'anello identificato e degli FPS su telefono resta necessaria. Suite Node 99/99 e sintassi passate. Cache pagina e moduli traffico `v114`.
 
 
-### Sessione 2026-10-18 — Caricamento sprites Fiat Uno, Smart, Seicento, 500
+### Sessione 2026-10-18 — Caricamento sprites Riva, Mira, Nido, 500
 
-Due nuovi atlas PNG indicizzati da 160×240 (4×4, cella 40×60) con alfa corretto: `uno-smart-16colors-rgba.png` (6,826 byte) e `seicento-500-16colors-rgba.png` (8,387 byte). Sfondi trasparenti senza mascheramento a runtime, otto colori per modello. Registrati tutti i 32 nuovi ID nelle auto parcheggiate e nel traffico, ora insieme ai 16 Punto/Ypsilon e alle Panda esistenti. Per ogni modello nuove dimensioni visuali calibrate, collisioni e fisica inalterate. Cache veicoli `v106`, cache pagina `v115`. La Smart resta artisticamente imperfetta: nessuna rivendicazione di fedeltà fotografica. Verificare test GitHub Actions e resa Android post-deploy.
+Due nuovi atlas PNG indicizzati da 160×240 (4×4, cella 40×60) con alfa corretto: `riva-mira-16colors-rgba.png` (6,826 byte) e `nido-vela-16colors-rgba.png` (8,387 byte). Sfondi trasparenti senza mascheramento a runtime, otto colori per modello. Registrati tutti i 32 nuovi ID nelle auto parcheggiate e nel traffico, ora insieme ai 16 Alba/Luna e alle Borgo esistenti. Per ogni modello nuove dimensioni visuali calibrate, collisioni e fisica inalterate. Cache veicoli `v106`, cache pagina `v115`. La Mira resta artisticamente imperfetta: nessuna rivendicazione di fedeltà fotografica. Verificare test GitHub Actions e resa Android post-deploy.
 
 ### Sessione 2026-10-18 — Fronti stradali e contatto degli edifici col suolo
 
@@ -396,11 +396,11 @@ Il modulo `motorcycles.mjs` disegna le moto e sovrappone busto, casco, braccia e
 **Misura del generatore:** 1.433 sagome toccano la fascia misurata; 1.321 ricevono un piccolo spostamento, 42 si liberano interamente. La somma degli indici di intrusione passa da 222.002 a 62.471 (unità quadratiche, non metri quadrati). Le altre sovrapposizioni non si risolvono senza deformare o spostare troppo un intero isolato: il passaggio sotto i tetti mantiene la rivelazione graduale della strada. Materiali dei singoli edifici non verificati fotograficamente.
 
 
-### 2026-10-18 — Fix vecchie moto nel traffico e ingresso moto / Panda
+### 2026-10-18 — Fix vecchie moto nel traffico e ingresso moto / Borgo
 
-Segnalazione utente: apparivano le moto disegnate col vecchio Canvas, mentre il pulsante diceva "SALTA IN SELLA" ma l'interazione poteva entrare nella Panda. Diagnosi: `drawCityCar(type===5)` mostrava il vecchio motociclo come skin di un'auto ordinaria, mentre HUD e tasto E selezionavano i veicoli con due algoritmi diversi. Anche lo scooter iniziale poteva essere collocato oltre il raggio effettivo di ingresso.
+Segnalazione utente: apparivano le moto disegnate col vecchio Canvas, mentre il pulsante diceva "SALTA IN SELLA" ma l'interazione poteva entrare nella Borgo. Diagnosi: `drawCityCar(type===5)` mostrava il vecchio motociclo come skin di un'auto ordinaria, mentre HUD e tasto E selezionavano i veicoli con due algoritmi diversi. Anche lo scooter iniziale poteva essere collocato oltre il raggio effettivo di ingresso.
 
-Nuova funzione comune `nearestEnterableVehicle` per touch/E/HUD: scelta per distanza con lieve priorità a una moto vicina (se un'auto è nettamente più vicina si entra in auto). `starterMotorcycleCandidates` propone un mezzo presso la partenza, preferendo la carreggiata opposta alla Panda e rispettando `carBlocked`/collisioni (non forzare spawn attraversando edifici). Rimosso il vecchio tipo=5 da `drawCityCar`; le moto attuali usano soltanto `drawMotorcycle`. I veicoli non moto parcheggiati e nel traffico assegnano uno sprite PNG esistente: fallback procedurale solo in caso di mancato caricamento. Collisioni e guida invariati. Bust cache `city-art.mjs?v=124` e `game.mjs?v=124`. Verifica finale su Android necessaria per confermare la posizione dello scooter iniziale.
+Nuova funzione comune `nearestEnterableVehicle` per touch/E/HUD: scelta per distanza con lieve priorità a una moto vicina (se un'auto è nettamente più vicina si entra in auto). `starterMotorcycleCandidates` propone un mezzo presso la partenza, preferendo la carreggiata opposta alla Borgo e rispettando `carBlocked`/collisioni (non forzare spawn attraversando edifici). Rimosso il vecchio tipo=5 da `drawCityCar`; le moto attuali usano soltanto `drawMotorcycle`. I veicoli non moto parcheggiati e nel traffico assegnano uno sprite PNG esistente: fallback procedurale solo in caso di mancato caricamento. Collisioni e guida invariati. Bust cache `city-art.mjs?v=124` e `game.mjs?v=124`. Verifica finale su Android necessaria per confermare la posizione dello scooter iniziale.
 
 ### 2026-10-18 — Routine NPC, marciapiedi dei sensi unici e moto diffuse
 
@@ -431,7 +431,7 @@ Chiesa OSM way 733703815: ora in `drawCityBuildings` si usa un **renderer esclus
 
 Il poligono OSM è conservato per collisioni, gioco e navigazione. Gli altri edifici, inclusa la Chiesa Maria SS. di Piedigrotta, mantengono il loro renderer precedente. Cache moduli `city-art.mjs?v=125` e pagina `game.mjs?v=130`. Controlli automatici e riscontro visivo mobile ancora da eseguire.
 
-### 2026-10-18 — Interni banca coerenti con GTA Melito dall'alto
+### 2026-10-18 — Interni banca coerenti con GAM Melito dall'alto
 
 **Problema segnalato:** la scena banca usava un disegno a pieno schermo con protagonista formato da rettangoli, scala di rendering diversa e arredamento da RPG; l'esplorazione esterna e quella interna sembravano due giochi distinti.
 
@@ -445,7 +445,7 @@ Il poligono OSM è conservato per collisioni, gioco e navigazione. Gli altri edi
 
 **Allineamento velocità:** `stepBankInteriorPlayer` ora usa precisamente `WALK_SPEED=8.5` e `RUN_SPEED=13` unità di mondo al secondo da `driving-controls.mjs` sia in X sia in Y, convertendole nelle coordinate normalizzate della stanza 100×64. Evita accelerazioni e proporzioni diverse entrando nell'edificio. Aggiunto controllo numerico nel test dedicato.
 
-### 2026-10-18 — Banca esplorabile con telecamera GTA e zoom pedonale +8%
+### 2026-10-18 — Banca esplorabile con telecamera GAM e zoom pedonale +8%
 
 **Fatto:** eliminato definitivamente il fit-to-screen che mostrava tutta la banca. La nuova camera interna segue il protagonista in unità mondo, con lo stesso zoom del pedone esterno e moltiplicatore **1.08**; l'inquadratura è limitata agli estremi della stanza, adattandosi a rotazione e dimensioni del display. Il movimento, gli sprite, la camera della città, le collisioni esterne e l'uscita dalla banca restano indipendenti e invariati.
 
@@ -457,7 +457,7 @@ Il poligono OSM è conservato per collisioni, gioco e navigazione. Gli altri edi
 
 ### 2026-10-19 — Volante touch reale e tre comandi guida
 
-**UI:** quando il protagonista sale in auto o in moto, sul lato sinistro la levetta a piedi lascia spazio a un volante grafico (cerchio/razze/mozzo) che **ruota realmente seguendo il trascinamento circolare del dito**; il volante ruota in un verso o nell'altro, ha un limite di corsa e torna gradualmente al centro quando viene rilasciato. A destra compare il comando **ACCELERA** sopra **FRENO**: la disposizione verticale permette multitouch contemporaneo con la mano sinistra sul volante. Il pulsante SALI/SCENDI resta disponibile. A piedi (anche negli interni) compaiono di nuovo levetta e CORRI, senza i pedali. Tastiera PC: A/D sterzo, W acceleratore, S retromarcia, Spazio freno a mano.
+**UI:** quando il protagonista sale in auto o in moto, sul lato sinistro la levetta a piedi lascia spazio a un volante grafico (cerchio/razze/mozzo) che **ruota realmente seguendo il trascinamento circolare del dito**; il volante ruota in un verso o nell'altro, ha un limite di corsa torna gradualmente al centro quando viene rilasciato. A destra compare il comando **ACCELERA** sopra **FRENO**: la disposizione verticale permette multitouch contemporaneo con la mano sinistra sul volante. Il pulsante SALI/SCENDI resta disponibile. A piedi (anche negli interni) compaiono di nuovo levetta e CORRI, senza i pedali. Tastiera PC: A/D sterzo, W acceleratore, S retromarcia, Spazio freno a mano.
 
 **Fisica:** eliminate le accelerazioni implicite dalla sterzata su auto e moto: girare da fermo non mette in moto il veicolo. Introdotto freno di servizio separato dall'acceleratore e dal freno a mano, con decelerazione progressiva e arresto senza retromarcia automatica. Restano limiti di velocità, assistenza alla svolta, collisioni, auto/moto e telecamera esistenti.
 
@@ -490,13 +490,13 @@ Aggiunta una barretta compatta nella parte superiore della scena, visibile solo 
 
 **Grafica:** nuovi portoni disegnati sul filo del muro, leggibili dall'alto con qualsiasi orientamento della facciata: gradino in piperno grigio scuro sul marciapiede, vano del portone in legno marrone (vetro azzurro per i negozi OSM) e stipiti in pietra chiara. Quando qualcuno entra o esce il portone resta aperto 1,4 s: vano scuro e luce calda sul gradino. Sulle facciate ben esposte (`facadeExposure ≥ 0,45`) c'è anche il portone in alzato. Disegno in `building-doors.mjs`, dopo gli edifici e prima delle persone.
 
-**Fatti e ipotesi:** i portoni di casa sono inventati; per 3 negozi con nome OSM (Le fantasie di Andrea, I Grimaldi's BARBER, L'Angolo Dei Colori) la porta è stimata sulla facciata dietro l'insegna, non rilevata.
+**Fatti e ipotesi:** i portoni di casa sono inventati; per 3 negozi con nome OSM (Cartoleria 01, Parrucchiere 02, Colorificio 01) la porta è stimata sulla facciata dietro l'insegna, non rilevata.
 
 **Verifiche:** screenshot Chrome headless su desktop 1280×720 e telefono 844×390 in orizzontale: porte visibili lungo Via Roma, residente che esce dalla porta aperta, porte a vetro nel gruppo di negozi a sud. Allo zoom a piedi una porta è larga circa 10 px: si vede ma è discreta. Non provato su un telefono reale.
 
 ### 2026-10-19 — Giorno, tramonto, notte e alba (Q04)
 
-**Grafica:** sopra la città, a partire dalle 17:10, scende un velo graduale: dorato verso le 18:30, viola al crepuscolo, blu notte traslucido dalle 21:00 (opacità massima 0,58, la città resta leggibile), viola-arancio all'alba. Di notte compaiono pozze di luce calda sotto i lampioni già disegnati e le loro lampadine. Le finestre accese sono le stesse vetrate delle facciate, colorate giallo caldo e accese una alla volta. Le auto e le moto in movimento hanno fari bianchi con cono sulla strada e fanali rossi; le porte aperte della Q03 proiettano luce sul gradino. Il velo passa sotto i suggerimenti e sopra tutto il resto, minimappa esclusa.
+**Grafica:** sopra la città, a partire dalle 17:10, scende un velo graduale: dorato verso le 18:30, viola al crepuscolo, blu notte traslucido dalle 21:00 (opacità massima 0,58, la città resta leggibile), viola-arancio all'punto. Di notte compaiono pozze di luce calda sotto i lampioni già disegnati e le loro lampadine. Le finestre accese sono le stesse vetrate delle facciate, colorate giallo caldo e accese una alla volta. Le auto e le moto in movimento hanno fari bianchi con cono sulla strada e fanali rossi; le porte aperte della Q03 proiettano luce sul gradino. Il velo passa sotto i suggerimenti e sopra tutto il resto, minimappa esclusa.
 
 **Verifiche:** foto Chrome headless dallo stesso punto di Via Roma alle 12:00, 18:40, 19:30, 21:30, 23:30 e 05:50, su PC e telefono in orizzontale; foto dei fari su un'auto del traffico alle 22:00. Di giorno l'immagine resta identica a prima (confronto pixel). Non provato su un telefono reale.
 
@@ -518,19 +518,19 @@ Aggiunta una barretta compatta nella parte superiore della scena, visibile solo 
 
 **Verifiche:** foto Chrome headless dallo stesso punto di Via Roma con sereno, nuvoloso e pioggia alle 11:00 e pioggia alle 22:00, su PC e telefono; primo piano di una pozzanghera; confronto ravvicinato sereno/pioggia con i tetti non toccati dal bagnato. Non provato su un telefono reale.
 
-### 2026-10-19 — Ape Car azzurra, furgoncino FRITTI e friggitore in bianco
+### 2026-10-19 — Triciclo Car azzurra, furgoncino FRITTI e friggitore in bianco
 
-**Stile:** tre sprite originali **PNG indicizzati con trasparenza tRNS**, non immagini con sfondo opaco: `assets/vehicles/ape-car-top.png` (88×132, azzurro/cassone crema; motrice corta con frontale piccolo), `assets/vehicles/furgone-fritti-top.png` (88×132, crema/rosso con tenda a righe, insegna fantasy «FRITTI» e sfiato cucina), `assets/people/friggitore-bianco-4dir-4frames-24x40.png` (96×160, 4 orientamenti × 4 frame con grembiule, camice e berretto bianchi, pantaloni scuri). Vista dall'alto, davanti rivolto verso −Y come Panda/Punto; silhouette e pixel calibrati alla precedente palette urbana. Asset disegnati ex novo, non basati su immagini di attività reali, loghi o marchi di terzi.
+**Stile:** tre sprite originali **PNG indicizzati con trasparenza tRNS**, non immagini con sfondo opaco: `assets/vehicles/triciclo-car-top.png` (88×132, azzurro/cassone crema; motrice corta con frontale piccolo), `assets/vehicles/furgone-fritti-top.png` (88×132, crema/rosso con tenda a righe, insegna fantasy «FRITTI» e sfiato cucina), `assets/people/friggitore-bianco-4dir-4frames-24x40.png` (96×160, 4 orientamenti × 4 frame con grembiule, camice e berretto bianchi, pantaloni scuri). Vista dall'alto, davanti rivolto verso −Y come Borgo/Alba; silhouette e pixel calibrati alla precedente palette urbana. Asset disegnati ex novo, non basati su immagini di attività reali, loghi o marchi di terzi.
 
-**Integrazione:** `car-sprites.mjs` registra i due skin come mezzi di traffico e parcheggi con scala rispettivamente 4,1×6,25 e 5,65×8,65 world unit; `friggitore-sprites.mjs` espone caricamento/animazione con le stesse coordinate e scala degli NPC. `city-art.mjs` disegna l'operatore per un pedone reale (flag `isFryer`) e `game.mjs` lo sceglie deterministiciamente fra i pedoni vicini al furgone, mantenendone l'AI. Nel passaggio parcheggi esistenti lo skin appare ai posti k=2 (Ape) e k=5 (furgone), se i candidati strada sono percorribili; i due modelli sono anche nel sorteggio del traffico AI. Non alterati spawn Panda iniziale, numeri NPC, mappe o collisioni di base. Game `v152`, car-sprites `v107`, city-art `v128`.
+**Integrazione:** `car-sprites.mjs` registra i due skin come mezzi di traffico e parcheggi con scala rispettivamente 4,1×6,25 e 5,65×8,65 world unit; `friggitore-sprites.mjs` espone caricamento/animazione con le stesse coordinate e scala degli NPC. `city-art.mjs` disegna l'operatore per un pedone reale (flag `isFryer`) e `game.mjs` lo sceglie deterministiciamente fra i pedoni vicini al furgone, mantenendone l'AI. Nel passaggio parcheggi esistenti lo skin appare ai posti k=2 (Triciclo) e k=5 (furgone), se i candidati strada sono percorribili; i due modelli sono anche nel sorteggio del traffico AI. Non alterati spawn Borgo iniziale, numeri NPC, mappe o collisioni di base. Game `v152`, car-sprites `v107`, city-art `v128`.
 
-**Verifiche:** controllata trasparenza e dimensioni delle tre PNG, incluse firme git blob corrispondenti agli originali; immagini visualizzate e confronto stilistico con la Panda e la sheet dei pedoni originali. Smoke test JavaScript su moduli effettivi: parser di game/city-art, presenza degli skin in registro di traffico e disegno Canvas senza eccezioni, scaling/rotazione coerenti, walker NPC integrato e cache v152, **superato**. Creato test `friggitoria-art.test.mjs`. **Non eseguiti suite Node completa, screenshot nel gioco dal browser né prova Android**.
+**Verifiche:** controllata trasparenza e dimensioni delle tre PNG, incluse firme git blob corrispondenti agli originali; immagini visualizzate e confronto stilistico con la Borgo e la sheet dei pedoni originali. Smoke test JavaScript su moduli effettivi: parser di game/city-art, presenza degli skin in registro di traffico e disegno Canvas senza eccezioni, scaling/rotazione coerenti, walker NPC integrato e cache v152, **superato**. Creato test `friggitoria-art.test.mjs`. **Non eseguiti suite Node completa, screenshot nel gioco dal browser né prova Android**.
 
-**Non ancora Q16/Q17 completate:** per Ape serve fisica vera a tre ruote, colori aggiuntivi e controllo collisioni/guida su strada; per furgone servono sosta autorizzata dalle geometrie, NPC fermo in vendita e acquisti/interazioni (quando previsto dall'economia), oltre a collaudi reali. Lasciare le due Q aperte per il collaboratore che deve completarle in ordine.
+**Non ancora Q16/Q17 completate:** per Triciclo serve fisica vera a tre ruote, colori aggiuntivi e controllo collisioni/guida su strada; per furgone servono sosta autorizzata dalle geometrie, NPC fermo in vendita e acquisti/interazioni (quando previsto dall'economia), oltre a collaudi reali. Lasciare le due Q aperte per il collaboratore che deve completarle in ordine.
 
-### 2026-10-19 — ChatGPT/GitHub — Foglio 4×4 di 16 veicoli: Ape Car e ambulanti
-- **Asset:** tavola ImageGen originale archiviata come `assets/vehicles/sources/ape-food-16-master.png` (1244×1265, RGBA); sedici ritagli con crop e alpha controllati, impaginati in un atlante indicizzato PNG 224×256 (celle 56×64, 96 colori, 19.999 byte) in `assets/vehicles/ape-food-16-rgba.png`.
-- **Varianti:** prime 8 Ape (azzurro e verde rugginoso; vuoto, ferro, ortofrutta, pesce), ultime 8 furgoncini ambulanti (zeppole/panzerotti, pere/musso, panini, hot dog, cornetti, pizza a portafoglio, pizzette fritte, misto).
+### 2026-10-19 — ChatGPT/GitHub — Foglio 4×4 di 16 veicoli: Triciclo Car e ambulanti
+- **Asset:** tavola ImageGen originale archiviata come `assets/vehicles/sources/triciclo-food-16-master.png` (1244×1265, RGBA); sedici ritagli con crop e alpha controllati, impaginati in un atlante indicizzato PNG 224×256 (celle 56×64, 96 colori, 19.999 byte) in `assets/vehicles/triciclo-food-16-rgba.png`.
+- **Varianti:** prime 8 Triciclo (azzurro e verde rugginoso; vuoto, ferro, ortofrutta, pesce), ultime 8 furgoncini ambulanti (zeppole/panzerotti, pere/musso, panini, hot dog, cornetti, pizza a portafoglio, pizzette fritte, misto).
 - **Integrazione:** `car-sprites.mjs` registra 16 ID e un atlas condiviso, `game.mjs` li usa nel repertorio dei parcheggi (apertura tende visibile solo in sosta); **traffico in marcia invariato**, fisica, numero NPC e campagne invariati. `index.html` game v153, import car-sprites v108; aggiunto `market-vehicles.test.mjs`, aggiornate asserzioni in due test esistenti.
 - **Istruzioni:** PIXEL_ART_MODUS.md e VEHICLE_ART_GUIDE.md ora prescrivono come default uno sheet 4×4 da 16 (8+8), con esempi cliccabili.
 - **Controlli locali effettivi:** verificata con PIL la presenza dell'alpha nei 16 ritagli e l'anteprima pixel a zoom; non risultano clip evidenti nello sheet compresso. **Suite Node completa, visita al browser e test su Android non eseguiti in questa sessione:** verificare CI/deploy successivi.
@@ -541,14 +541,14 @@ Aggiunta una barretta compatta nella parte superiore della scena, visibile solo 
 Nuovi sprite top-down 2.5D: friggitore in camice bianco, vigile urbano, lavavetri al semaforo (secchio blu e spazzola), contrabbandiere con borsello sotto l'ascella. Layout dei personaggi [4 × 4 frame per ciascuno] distribuito in 16 colonne × 4 righe, celle 24×40, RGBA trasparente. Pubblicati i quattro ritagli singoli 96×160. Leggibilità verificata con anteprima zoom nearest-neighbor, trasparenza/celle/dimensioni controllate. **Solo libreria di asset, non visualizzati ancora nel gioco**; non confondere con il vecchio friggitore già presente.
 
 
-### 2026-10-20 — Strada viva: Ape, food truck e mestieri NPC (branch di sviluppo)
-Aggiunto il renderer per l'atlante originale `npc-mestieri-4chars-4dir-4frames-24x40.png` (friggitore, vigile, lavavetri, contrabbandiere), collegato agli attori reali della simulazione; gli asset `ape-food-16-rgba.png` già presenti alimentano Ape AI senza tendalino aperto e food truck in sosta. Nuovi ancoraggi commerciali deterministici sulla cartografia, con controlli geometrici; non sono esercizi commerciali o semafori verificati sul campo. Il numero di passanti comuni è stato ridotto mentre aumenta la varietà delle mansioni. Aggiornato `index.html` a `game.mjs?v=154`, import di `city-art.mjs?v=129` e `roads.mjs?v=146`. Non sono state prodotte fotografie/screenshot prima-dopo né controlli manuali di rendering browser/telefono in questa sessione: per completare il QA occorre aprire il gioco e confrontare i cinque siti previsti sul percorso. 
+### 2026-10-20 — Strada viva: Triciclo, food truck e mestieri NPC (branch di sviluppo)
+Aggiunto il renderer per l'atlante originale `npc-mestieri-4chars-4dir-4frames-24x40.png` (friggitore, vigile, lavavetri, contrabbandiere), collegato agli attori reali della simulazione; gli asset `triciclo-food-16-rgba.png` già presenti alimentano Triciclo AI senza tendalino aperto e food truck in sosta. Nuovi ancoraggi commerciali deterministici sulla cartografia, con controlli geometrici; non sono esercizi commerciali o semafori verificati sul campo. Il numero di passanti comuni è stato ridotto mentre aumenta la varietà delle mansioni. Aggiornato `index.html` a `game.mjs?v=154`, import di `city-art.mjs?v=129` e `roads.mjs?v=146`. Non sono state prodotte fotografie/screenshot prima-dopo né controlli manuali di rendering browser/telefono in questa sessione: per completare il QA occorre aprire il gioco e confrontare i cinque siti previsti sul percorso.
 
 ### 2026-10-20 — Claude (account `ilconsulentelogistico-hue`) — BF02 fascia di sosta tra corsia e marciapiede
 - **Cosa si vede:** lungo le strade carrabili compare una fascia di sosta continua con stalli a linee bianche (sosta libera) lunghi 7,2 m. Sulle strade larghe (primarie, trunk, secondarie, terziarie) la fascia sta tutta sull'asfalto accanto al bordo; sulle residenziali entra nel bordo chiaro del marciapiede come un **golfo di sosta**, con il cordolo che ne segue il contorno e raccordi inclinati alle estremità. Le auto, gli scooter e i food truck in sosta stanno dentro gli stalli: non più a cavallo della corsia né sul marciapiede.
 - **Dove non c'è posto** (strade di servizio, vicoli, piazze fatte di tratti cortissimi, accanto a incroci e strisce, davanti a negozi e banca) la fascia non viene disegnata e non ci sono veicoli in sosta.
 - **Livelli:** la fascia è dipinta nelle tessere statiche subito dopo l'asfalto e prima di edifici e tetti, quindi non copre mai un tetto; viene ridipinta anche nel riquadro di "tetto svelato". Nessun asset PNG nuovo: solo forme e linee nel canvas.
-- **Prova visiva (Chrome headless, 1280×720, zoom a piedi):** A/B prima/dopo su Via Roma (partenza: la Panda iniziale prima stava 1,36 m dentro la corsia, ora è nello stallo con lo scooter accanto), Piazza Santo Stefano, Corso Europa e una residenziale (Via Papa Giovanni XXIII). Confronto affiancato allegato alla PR.
+- **Prova visiva (Chrome headless, 1280×720, zoom a piedi):** A/B prima/dopo su Via Roma (partenza: la Borgo iniziale prima stava 1,36 m dentro la corsia, ora è nello stallo con lo scooter accanto), Piazza Santo Stefano, Corso Europa e una residenziale (Via Papa Giovanni XXIII). Confronto affiancato allegato alla PR.
 - **Limiti:** la sagoma disegnata delle auto (≈4,5–5 m) resta più larga della sagoma di collisione (3,4 m), quindi sulle residenziali un'auto in sosta e una che passa possono sfiorarsi graficamente senza toccarsi; non provato su telefono reale.
 ### 2026-10-20 — Friggitore al banco del suo furgone (BF04)
 
@@ -607,7 +607,7 @@ Il lavavetri resta sul lato guida e il tergivetro si vede sul parabrezza. Non co
 **Interfaccia:** nella scheda PAUSA, sotto i comandi, un blocco audio con **SUONI: ON/OFF** (generale) e due cornici scure con nome, **−**, percentuale e **＋**: **EFFETTI / AMBIENTE** e **RADIO / MUSICA**. Stessi colori, bordi e altezza minima (38 px) dei pulsanti della pausa sul telefono; su PC le due cornici hanno lo stesso stile (gli altri pulsanti della pausa su PC restano quelli del browser, come prima).
 
 **Verifiche:** foto Chrome headless del menu pausa su PC 1280×720 e telefono 844×390 in orizzontale, clic e tocchi veri su tutti i pulsanti, nessuna sovrapposizione tra pulsanti, nessun elemento fuori dalla scheda, ogni pulsante riceve davvero il tocco (non coperto da volante o pedali). Non provato su un telefono reale.
-### 2026-10-20 — Apertura da PC: solo la plancia di gioco (BF11)
+### 2026-10-20 — Tricyclertura da PC: solo la plancia di gioco (BF11)
 
 **Interfaccia:** su PC la pagina si apre direttamente sulla plancia, a tutta finestra e senza cornice né scorrimento. Sopra la mappa restano solo:
 - in alto a sinistra un piccolo pulsante Ⅱ rotondo, accanto all'etichetta della via;
@@ -656,8 +656,8 @@ Titolo, barra di stato, comandi, confronto strade e crediti sono nel menu PAUSA,
 
 
 
-### 2026-10-20 — Q16 Ape Car (Claude)
-- Nuovo `assets/vehicles/ape-classica-16-rgba.png` (224×256, 4×4 da 56×64): Ape Car vista dall'alto in 8 tinte (azzurra, verde, rossa, bianca, grigia, gialla, blu, crema) pulite e vissute; derivato dalle due Ape approvate di `ape-food-16` con ricolorazione della sola carrozzeria. Presentazione: `assets/vehicles/sources/ape-classica-16-sheet.png`. Tinte = interpretazioni, non codici di fabbrica.
+### 2026-10-20 — Q16 Triciclo Car (Claude)
+- Nuovo `assets/vehicles/triciclo-classica-16-rgba.png` (224×256, 4×4 da 56×64): Triciclo Car vista dall'alto in 8 tinte (azzurra, verde, rossa, bianca, grigia, gialla, blu, crema) pulite e vissute; derivato dalle due Triciclo approvate di `triciclo-food-16` con ricolorazione della sola carrozzeria. Presentazione: `assets/vehicles/sources/triciclo-classica-16-sheet.png`. Tinte = interpretazioni, non codici di fabbrica.
 
 ### 2026-10-20 — Q17 banco degli ambulanti
 - Nessuna nuova arte. Il pannello acquisti, lo stesso dei negozi Q06, ora si apre anche al banco dei furgoncini, con l'intestazione «AMBULANTE · MELITO». Sulla plancia PC compare la scritta «E · COMPRA · NOME DEL BANCO». Foto: banco «Zeppole e panzerotti» in Via Roma.
@@ -689,7 +689,7 @@ Titolo, barra di stato, comandi, confronto strade e crediti sono nel menu PAUSA,
 - **Autobus urbano corto:** arancio, verde-bianco, blu-bianco, rosso, bianco-azzurro, giallo, grigio-verde, arancio vissuto.
 - Livree inventate, senza scritte, numeri di linea o marchi. Pixel art provvisoria: da far approvare a Simone.
 ### 2026-10-20 — Q21 passeggeri (PROVVISORIO, da approvare)
-- **Auto, Ape e furgoni:** teste e spalle degli occupanti stilizzate, sotto parabrezza e lunotto, con un leggero riflesso del vetro. Il guidatore si vede solo sui mezzi in marcia e sull'auto del giocatore; le auto parcheggiate restano vuote.
+- **Auto, Triciclo e furgoni:** teste e spalle degli occupanti stilizzate, sotto parabrezza e lunotto, con un leggero riflesso del vetro. Il guidatore si vede solo sui mezzi in marcia e sull'auto del giocatore; le auto parcheggiate restano vuote.
 - **Scooter:** passeggero dietro il guidatore, con casco chiaro, giacca diversa e contorno scuro, per leggere due figure distinte. Gli sprite dei mezzi sono invariati.
 - **Cartelli e meta:** «PASSAGGIO?», fumetto del passeggero su due righe (mancia e via), anello giallo tratteggiato sulla meta.
 
@@ -707,7 +707,7 @@ Titolo, barra di stato, comandi, confronto strade e crediti sono nel menu PAUSA,
 - **Dove guardare:** `?servizio=1&ora=10:00` accelera le routine; le foto di prova sono fuori dal repo.
 ### 2026-10-20 — Q25 interni dei negozi (Claude, PROVVISORIO · da approvare)
 - Tre interni in pixel art procedurale con la stessa palette, gli stessi muri e le stesse ombre della banca: **bar** (bancone in legno con macchina del caffè e tazzine, mensole di bottiglie, vetrina dei dolci, tre tavolini con sedie, pavimento in graniglia), **panificio/pasticceria** (banco vetrina con pane e cassa, scaffali del pane a parete, cesti, piastrelle chiare), **minimarket** (scaffali con prodotti generici senza marche, frigoriferi a vetro, frutta, cassa, linoleum). Commesso con lo sprite dei pedoni. Fuori: punto luminoso caldo sul portone, senza scritta sopra l'insegna.
-- **Da far vedere a Simone:** Bar Alexander su Corso Europa (628,1291) e Panificio Pagliuca: avvicinarsi al punto luminoso sul portone, E · ENTRA, poi andare al bancone (PARLA).
+- **Da far vedere a Simone:** Bar di quartiere 02 su Corso Europa (628,1291) e Panificio 01: avvicinarsi al punto luminoso sul portone, E · ENTRA, poi andare al bancone (PARLA).
 
 
 ### 2026-10-20 — Q28 «SLOT DEL VESUVIO» (provvisoria, da approvare)
@@ -722,7 +722,7 @@ Schermata della slot in pixel art disegnata via codice. Griglia logica 192×128,
 - Dove guardarli: Via delle Palme (550, 1198) e (528, 1276); Corso Europa (1026, 1882).
 
 ### 2026-10-20 — Q27 arredi dei bar e cabinati (Claude / `ilconsulentelogistico-hue`) — grafica provvisoria
-- Bar grande 80×60: bancone, vetrina dolci, 4 sgabelli rossi, 2 tavolini con sedie, cabinato slot (tre rulli) e cabinato video poker (carte su panno verde) contro la parete destra, tavolo da biliardo con sponde in legno, sei buche, biglie e stecca. Bar piccolo 64×50: bancone, sgabelli, due tavolini, un cabinato, niente biliardo. Punto luminoso davanti a ogni gioco. Pixel art procedurale con palette e ombre della banca; arredi e giochi inventati.
+- Bar grande 80×60: bancone, vetrina dolci, 4 sgabelli rossi, 2 tavolini con sedie, cabinato slot (tre rulli) e cabinato video poker (carte su panno verde) contro la parete destra, tavolo da biliardo con sponde in legno, sei buche, biglie e stecca. Bar piccolo 64×50: bancone, sgabelli, due tavolini, un cabinato, niente biliardo. Alba luminoso davanti a ogni gioco. Pixel art procedurale con palette e ombre della banca; arredi e giochi inventati.
 - **Non verificato a schermo** (nessuna foto in questa sessione): da far vedere e approvare a Simone.
 
 ### 2026-10-20 — Q30 biliardo «BILIARDO DEL RIONE» (grafica PROVVISORIA, da approvare)
@@ -743,14 +743,14 @@ Schermata della slot in pixel art disegnata via codice. Griglia logica 192×128,
 - **Controlli:** file/commit letti da GitHub; nuovo test Node per PNG e collegamenti aggiunto, **non eseguito** in questa sessione. Ancora da verificare rendering reale su Chrome/Android, alpha apparente su sfondi chiari e scuri, movimenti e pivot.
 
 ### 2026-10-20 — Asset rosso del serbatoio (Via Madrid)
-Nuova torre a scacchi rossi/crema, PNG RGBA `assets/buildings/serbatoio-melito-scacchi-rossi.png`. Rimosso il vecchio Canvas della torre; si visualizza soltanto il PNG con crop `350,62,555,1128`, inclinato 2.5D e ancorato nel punto OSM del fusto. Gli effetti di ombra/fade/luce restano. Il disegno è un'interpretazione grafica, non una ricostruzione fotografica verificata. Collaudo Android/desktop da svolgere.
+Nuova torre a scacchi rossi/crema, PNG RGBA `assets/buildings/serbatoio-melito-scacchi-rossi.png`. Rimosso il vecchio Canvas della torre; si visualizza soltanto il PNG con crop `350,62,555,1128`, inclinato 2.5D e ancorato nel alba OSM del fusto. Gli effetti di ombra/fade/luce restano. Il disegno è un'interpretazione grafica, non una ricostruzione fotografica verificata. Collaudo Android/desktop da svolgere.
 
 ### 2026-10-20 — Serbatoio: deformazione del PNG rimossa
 Secondo screenshot e correzione dell'utente, **mantenere la torre molto grande e dettagliata**: è un'eccezione monumentale intenzionale. La versione precedente piegava visibilmente il fusto verso sinistra a causa di `c.transform(... shear ...)` e lo schiacciava verticalmente per via della diversa scala X/Y. Renderer aggiornato con PNG diritto e **fattore uniforme isotropo**, stessa massa/area visiva precedente; testa allineata a base, dissolvenza e luci riallineate. L'immagine originale non è stata rigenerata. Resta il collaudo sul telefono.
 
-### 2026-10-21 — Lotto 1: Fiat Grande Punto e Lancia Ypsilon III nel traffico (grafica PROVVISORIA, da approvare)
-- Atlante di CODEX-GH `assets/vehicles/grande-punto-ypsilon3-16-rgba.png`: 16 auto viste dall'alto, muso in su, contorno scuro, due toni di carrozzeria, vetri, fari, specchi, ruote; stesso reticolo 4×4 da 40×60 degli atlanti Punto/Ypsilon, Seicento/500, Uno/Smart. Righe 1–2 Grande Punto (white, red, blue, silver, graphite, black, lightblue, beige), righe 3–4 Ypsilon III (white, red, silver, graphite, black, blue, beige, purple). Tinte interpretate, non codici vernice di fabbrica.
-- Nel gioco: ~16 auto su 66 id del traffico, anche nei parcheggi e in garage/officina. Misure disegnate come Punto 188 e Ypsilon 2003. Dove vederle: Via Roma (PAUSA › NOVITÀ › `lotto1-auto`).
+### 2026-10-21 — Lotto 1: costruttore di fantasia Aurora e costruttore di fantasia Luna III nel traffico (grafica PROVVISORIA, da approvare)
+- Atlante di CODEX-GH `assets/vehicles/aurora-selce-16-rgba.png`: 16 auto viste dall'alto, muso in su, contorno scuro, due toni di carrozzeria, vetri, fari, specchi, ruote; stesso reticolo 4×4 da 40×60 degli atlanti Alba/Luna, Nido/500, Uno/Mira. Righe 1–2 Aurora (white, red, blue, silver, graphite, black, lightblue, beige), righe 3–4 Luna III (white, red, silver, graphite, black, blue, beige, purple). Tinte interpretate, non codici vernice di fabbrica.
+- Nel gioco: ~16 auto su 66 id del traffico, anche nei parcheggi e in garage/officina. Misure disegnate come Alba 188 e Luna 2003. Dove vederle: Via Roma (PAUSA › NOVITÀ › `lotto1-auto`).
 - Verificato con una prova Chrome headless di 20 s (screenshot in PR); **non provato su Android vero**. Giudizio di Simone da raccogliere.
 
 ### 2026-10-21 — Lotto 2 grafica: quattro nuovi pedoni (CODEX-GH + Claude) — grafica PROVVISORIA, da approvare
@@ -761,7 +761,7 @@ Secondo screenshot e correzione dell'utente, **mantenere la torre molto grande e
 ### 2026-10-21 — Lotto 3 grafica: banchi del mercato visti dall'alto (CODEX-GH + Claude) — grafica PROVVISORIA, da approvare
 - I 14 tipi di banco del mercato del rione 219 hanno ora uno sprite visto dall'alto (`assets/market/mercato-banchi-14-teli-4-rgba.png`, celle 64×48 a 8 px per unità, cioè 2× il dettaglio dei segnaposto a PX=4, stessa misura nel mondo): cassette di frutta con bilancia, vasche del pesce con ghiaccio, vetrina dei salumi, pile di vestiti, scarpe su scatole, pentole, flaconi, palloni e automobiline, vasi, borse, intimo, vassoio di bigiotteria, porchetta con panini, vaschette di olive. Orlo di legno e ombra corta a terra sul lato dei clienti; venditori, ombrelloni e clienti come prima. Merci e colori sono interpretazioni del CSV, non venditori reali.
 - I 4 teli T1–T4 del foglio non sono usati nel gioco (nessun piano di telo da sostituire); restano nell'atlante.
-- Dove guardarli: mercato del rione 219, centro (1168, 948), `?mercato=1&ora=10:30`; PAUSA › NOVITÀ › `lotto3-banchi`. Anteprima 4× con l'Ape ortofrutta alla stessa scala: `assets/market/sources/mercato-banchi-anteprima-4x.png`.
+- Dove guardarli: mercato del rione 219, centro (1168, 948), `?mercato=1&ora=10:30`; PAUSA › NOVITÀ › `lotto3-banchi`. Anteprima 4× con l'Triciclo ortofrutta alla stessa scala: `assets/market/sources/mercato-banchi-anteprima-4x.png`.
 - Verificato in Chrome headless (una prova breve, PC) con screenshot del mercato; **non verificato su Android**; da approvare da Simone. Da giudicare in gioco la profondità del piano rispetto al venditore.
 
 ### 2026-10-21 — Lotto 4 grafica: sfondo della schermata di caricamento (CODEX-GH + Claude) — grafica PROVVISORIA, da approvare
@@ -770,28 +770,28 @@ Secondo screenshot e correzione dell'utente, **mantenere la torre molto grande e
 - Dove guardarla: basta ricaricare la pagina (PC e telefono); `NOVITA_DA_APPROVARE.md` › `lotto4-caricamento`. Screenshot della prova in Chrome headless (PC 1280×720 e telefono 844×390) nella PR; **non verificato su Android**; da approvare da Simone.
 
 
-### 2026-10-21 — Lotto 5 grafica: Fiat Tipo 2016 e Fiat 500L 2012 nel traffico (CODEX-GH + Claude) — grafica PROVVISORIA, da approvare
-- Atlante di CODEX-GH `assets/vehicles/tipo-500l-16-rgba.png`: 16 auto viste dall'alto, muso in su, contorno scuro, due toni di carrozzeria, vetri, fari, specchi, ruote; stesso reticolo 4×4 da 40×60 degli altri atlanti auto. Righe 1–2 Tipo hatchback (white, silver, graphite, sand, bronze, red, blue, black: Bianco Gelato, Grigio Maestro, Grigio Colosseo, Perla Sabbia, Bronzo Magnetico, Rosso Amore, Blu Mediterraneo, Nero Cinema per approssimazione), righe 3–4 500L (white, red, silver, graphite, black, blue, yellow, green). Tinte interpretate, non codici vernice.
-- Nel gioco: 16 auto su 82 id del traffico, anche nei parcheggi e in garage/officina. La Tipo è disegnata un po' più lunga della Punto 188 (`[5.5,9.2]`), la 500L un po' più larga e corta (`[5.55,9]`): misure prudenti, meno delle proposte di CODEX-GH, per restare nella corsia. Dove vederle: Via Roma (PAUSA › NOVITÀ › `lotto5-auto`).
-- Verificato con una prova Chrome headless di ~20 s (screenshot in PR, le due auto accanto a una Punto); **non provato su Android vero**. Giudizio di Simone da raccogliere.
+### 2026-10-21 — Lotto 5 grafica: costruttore di fantasia Tipo 2016 e Faro 2012 nel traffico (CODEX-GH + Claude) — grafica PROVVISORIA, da approvare
+- Atlante di CODEX-GH `assets/vehicles/corallo-faro-16-rgba.png`: 16 auto viste dall'alto, muso in su, contorno scuro, due toni di carrozzeria, vetri, fari, specchi, ruote; stesso reticolo 4×4 da 40×60 degli altri atlanti auto. Righe 1–2 Corallo (white, silver, graphite, sand, bronze, red, blue, black: Bianco Gelato, Grigio Maestro, Grigio Colosseo, Perla Sabbia, Bronzo Magnetico, Rosso Amore, Blu Mediterraneo, Nero Cinema per approssimazione), righe 3–4 FARO (white, red, silver, graphite, black, blue, yellow, green). Tinte interpretate, non codici vernice.
+- Nel gioco: 16 auto su 82 id del traffico, anche nei parcheggi e in garage/officina. La Tipo è disegnata un po' più lunga della Alba 188 (`[5.5,9.2]`), la FARO un po' più larga e corta (`[5.55,9]`): misure prudenti, meno delle proposte di CODEX-GH, per restare nella corsia. Dove vederle: Via Roma (PAUSA › NOVITÀ › `lotto5-auto`).
+- Verificato con una prova Chrome headless di ~20 s (screenshot in PR, le due auto accanto a una Alba); **non provato su Android vero**. Giudizio di Simone da raccogliere.
 
 
-### 2026-10-21 — Lotto 6 grafica: Renault Clio IV 2012 e Volkswagen Golf VII 2012 nel traffico (CODEX-GH + Claude) — grafica PROVVISORIA, da approvare
-- Atlante di CODEX-GH `assets/vehicles/clio4-golf7-16-rgba.png`: 16 auto viste dall'alto, muso in su, contorno scuro, due toni di carrozzeria, vetri con riflesso, fari, specchi, ruote; stesso reticolo 4×4 da 40×60 degli altri atlanti auto. Righe 1–2 Clio IV (white, red, blue, silver, graphite, black, yellow, brown: tinte della cartella stampa Renault 2012, per approssimazione), righe 3–4 Golf VII (white, red, silver, grey, black, nightblue, pacificblue, sunsetred: dal comunicato Volkswagen). Tinte interpretate, non codici vernice.
-- Nel gioco: 16 auto su 98 id del traffico, anche nei parcheggi e in garage/officina. La Clio è disegnata poco più lunga e un filo più stretta della Punto 188 (`[5.4,8.9]`), la Golf è la compatta più grande (`[5.6,9.2]`, come la Tipo in lunghezza): sono le misure prudenti proposte da CODEX-GH, tenute così per restare nella corsia. Dove vederle: Via Roma (PAUSA › NOVITÀ › `lotto6-auto`).
-- Verificato con una prova Chrome headless di ~20 s (screenshot in PR, Clio e Golf accanto a una Punto 188 nella stessa corsia); **non provato su Android vero**. Giudizio di Simone da raccogliere.
+### 2026-10-21 — Lotto 6 grafica: Autosalone 01 Quarzo 2012 e costruttore di fantasia Onda 2012 nel traffico (CODEX-GH + Claude) — grafica PROVVISORIA, da approvare
+- Atlante di CODEX-GH `assets/vehicles/quarzo-onda-16-rgba.png`: 16 auto viste dall'alto, muso in su, contorno scuro, due toni di carrozzeria, vetri con riflesso, fari, specchi, ruote; stesso reticolo 4×4 da 40×60 degli altri atlanti auto. Righe 1–2 Quarzo (white, red, blue, silver, graphite, black, yellow, brown: tinte della cartella stampa Autosalone 01 2012, per approssimazione), righe 3–4 Onda (white, red, silver, grey, black, nightblue, pacificblue, sunsetred: dal comunicato costruttore di fantasia). Tinte interpretate, non codici vernice.
+- Nel gioco: 16 auto su 98 id del traffico, anche nei parcheggi e in garage/officina. La Quarzo è disegnata poco più lunga e un filo più stretta della Alba 188 (`[5.4,8.9]`), la Onda è la compatta più grande (`[5.6,9.2]`, come la Tipo in lunghezza): sono le misure prudenti proposte da CODEX-GH, tenute così per restare nella corsia. Dove vederle: Via Roma (PAUSA › NOVITÀ › `lotto6-auto`).
+- Verificato con una prova Chrome headless di ~20 s (screenshot in PR, Quarzo e Onda accanto a una Alba 188 nella stessa corsia); **non provato su Android vero**. Giudizio di Simone da raccogliere.
 
 
-### 2026-10-21 — Lotti 7 e 8 grafica: Opel Corsa E 2014, Peugeot 208 2012, Nissan Qashqai J11 2013 e Dacia Duster 2010 nel traffico (CODEX-GH + Claude) — grafica PROVVISORIA, da approvare
-- Due atlanti di CODEX-GH, collegati in un lotto unico: `assets/vehicles/corsa-e-208-16-rgba.png` (righe 1–2 Corsa E: white, red, blue, silver, graphite, black, yellow, orange, dalla brochure Opel 2015 per approssimazione; righe 3–4 Peugeot 208: white, red, silver, sharkgrey, black, virtualblue, darkblue, orangepower, dalla palette Peugeot 2015) e `assets/vehicles/qashqai-duster-16-rgba.png` (righe 1–2 Qashqai J11: white, red, silver, graphite, black, blue, bronze, burgundy; righe 3–4 Duster: white, beige, darkgreen, silver, graphite, black, blue, brown). Stesso stile e reticolo 4×4 da 40×60 degli altri atlanti auto: viste dall'alto, muso in su, contorno scuro, due toni di carrozzeria, vetri con riflesso, fari, specchi, ruote; i crossover con barre sul tetto. Tinte interpretate, non codici vernice (il verde scuro della Duster è una scelta artistica).
-- Nel gioco: 32 auto su 130 id del traffico, anche nei parcheggi e in garage/officina. Corsa `[5.5,8.9]` e 208 `[5.4,8.8]` sono utilitarie della taglia della Punto 188; Qashqai `[5.8,9.4]` e Duster `[5.7,9.2]` sono un po' più grandi di tutte le compatte (Golf compresa) ma più stretti del furgone ambulante, così restano nella corsia: misure prudenti proposte da CODEX-GH, tenute così. Dove vederle: Via Roma (PAUSA › NOVITÀ › `lotto7-auto` e `lotto8-auto`).
-- Verificato con una prova Chrome headless di ~20 s (screenshot in PR, le quattro auto accanto a una Punto 188 nella stessa corsia); **non provato su Android vero**. Giudizio di Simone da raccogliere.
+### 2026-10-21 — Lotti 7 e 8 grafica: costruttore di fantasia Iris 2014, Sabbia 2012, costruttore di fantasia Altura 2013 e costruttore di fantasia Sentiero 2010 nel traffico (CODEX-GH + Claude) — grafica PROVVISORIA, da approvare
+- Due atlanti di CODEX-GH, collegati in un lotto unico: `assets/vehicles/iris-sabbia-16-rgba.png` (righe 1–2 Iris: white, red, blue, silver, graphite, black, yellow, orange, dalla brochure costruttore di fantasia 2015 per approssimazione; righe 3–4 Sabbia: white, red, silver, sharkgrey, black, virtualblue, darkblue, orangepower, dalla palette costruttore di fantasia 2015) e `assets/vehicles/altura-sentiero-16-rgba.png` (righe 1–2 Altura: white, red, silver, graphite, black, blue, bronze, burgundy; righe 3–4 Sentiero: white, beige, darkgreen, silver, graphite, black, blue, brown). Stesso stile e reticolo 4×4 da 40×60 degli altri atlanti auto: viste dall'alto, muso in su, contorno scuro, due toni di carrozzeria, vetri con riflesso, fari, specchi, ruote; i crossover con barre sul tetto. Tinte interpretate, non codici vernice (il verde scuro della Sentiero è una scelta artistica).
+- Nel gioco: 32 auto su 130 id del traffico, anche nei parcheggi e in garage/officina. Iris `[5.5,8.9]` e 208 `[5.4,8.8]` sono utilitarie della taglia della Alba 188; Altura `[5.8,9.4]` e Sentiero `[5.7,9.2]` sono un po' più grandi di tutte le compatte (Onda compresa) ma più stretti del furgone ambulante, così restano nella corsia: misure prudenti proposte da CODEX-GH, tenute così. Dove vederle: Via Roma (PAUSA › NOVITÀ › `lotto7-auto` e `lotto8-auto`).
+- Verificato con una prova Chrome headless di ~20 s (screenshot in PR, le quattro auto accanto a una Alba 188 nella stessa corsia); **non provato su Android vero**. Giudizio di Simone da raccogliere.
 
 
-### 2026-10-21 — Lotto 9 grafica: Fiat Doblò II 2010 e Fiat Fiorino III 2008, furgoncini da lavoro nel traffico (CODEX-GH + Claude) — grafica PROVVISORIA, da approvare
-- Atlante di CODEX-GH `assets/vehicles/doblo-fiorino-16-rgba.png`, 208×368 con celle 52×92 (le celle grandi dell'atlante di servizio Q18, non le 40×60 delle auto): righe 1–2 Doblò II (white, white-stripe, grey, blue, red, yellow, darkgreen, white-edilizia), righe 3–4 Fiorino III (stesse livree, l'ultima white-frutta). Viste dall'alto, muso in su, contorno scuro, due toni di carrozzeria, vetri con riflesso, fari, specchi, ruote; il Doblò con tetto piatto nervato e porte scorrevoli accennate, il Fiorino più corto con cabina arrotondata e vano squadrato; le due livree con scritta generica leggibile (`EDILIZIA`, `FRUTTA`), nessuna ditta vera.
-- Nel gioco: 16 furgoncini su 146 id del traffico, anche nei parcheggi e in garage/officina. Si disegna solo il rettangolo opaco della cella (`body`), così la misura `MODEL_DRAW_SIZE` è il corpo visibile: Doblò `[5.9,9.6]`, Fiorino `[5.5,8.9]` (proposte di CODEX-GH), tra la Punto 188 e il corriere Q18 e più stretti del corriere: restano nella corsia. Dove vederli: Via Roma (PAUSA › NOVITÀ › `lotto9-furgoncini`).
-- Verificato con una prova Chrome headless breve (screenshot in PR: Doblò EDILIZIA, Fiorino FRUTTA, un corriere e una Punto 188 nella stessa corsia); **non provato su Android vero**. Giudizio di Simone da raccogliere.
+### 2026-10-21 — Lotto 9 grafica: costruttore di fantasia Cargo II 2010 e costruttore di fantasia Bottega III 2008, furgoncini da lavoro nel traffico (CODEX-GH + Claude) — grafica PROVVISORIA, da approvare
+- Atlante di CODEX-GH `assets/vehicles/cargo-bottega-16-rgba.png`, 208×368 con celle 52×92 (le celle grandi dell'atlante di servizio Q18, non le 40×60 delle auto): righe 1–2 Cargo II (white, white-stripe, grey, blue, red, yellow, darkgreen, white-edilizia), righe 3–4 Bottega III (stesse livree, l'ultima white-frutta). Viste dall'alto, muso in su, contorno scuro, due toni di carrozzeria, vetri con riflesso, fari, specchi, ruote; il Cargo con tetto piatto nervato e porte scorrevoli accennate, il Bottega più corto con cabina arrotondata e vano squadrato; le due livree con scritta generica leggibile (`EDILIZIA`, `FRUTTA`), nessuna ditta vera.
+- Nel gioco: 16 furgoncini su 146 id del traffico, anche nei parcheggi e in garage/officina. Si disegna solo il rettangolo opaco della cella (`body`), così la misura `MODEL_DRAW_SIZE` è il corpo visibile: Cargo `[5.9,9.6]`, Bottega `[5.5,8.9]` (proposte di CODEX-GH), tra la Alba 188 e il corriere Q18 e più stretti del corriere: restano nella corsia. Dove vederli: Via Roma (PAUSA › NOVITÀ › `lotto9-furgoncini`).
+- Verificato con una prova Chrome headless breve (screenshot in PR: Cargo EDILIZIA, Bottega FRUTTA, un corriere e una Alba 188 nella stessa corsia); **non provato su Android vero**. Giudizio di Simone da raccogliere.
 
 
 ### 2026-10-21 — Lotti 10–12 grafica: 12 pedoni nuovi (CODEX-GH + Claude) — grafica PROVVISORIA, da approvare
@@ -855,3 +855,30 @@ Secondo screenshot e correzione dell'utente, **mantenere la torre molto grande e
 
 ### 2026-11-24 — Artwork ufficiale Grand Asse Mediano: Melito — APPROVATO
 - Copertina illustrata approvata dall'utente, logo con skyline interamente nero e fungo nero, fungo rosso/bianco separato nello sfondo; segnaletica blu Aversa–Melito. WebP 1440×758 (circa 260 KiB), barra finta rimossa con crop; sfondo contain e barra rosa reale separata nell'HTML. I sette asset storici restano conservati. Verifica browser/telefono ancora da fare.
+
+### 2026-11-24 — Verbooze: palazzi verticali e revisione delle posizioni
+- Integrate in `CzekUns/verbooze/grandassemediano` le correzioni già preparate: spigoli verticali, 599 trasformazioni complete (321 spostamenti, 278 riduzioni uniformi con eventuale spostamento); nessun taglio. Scala minima 55%; cambiamenti da valutare in gioco.
+- Corpi/volumi nell'asfalto 675→76; impronte nell'asfalto 182→47; sulla linea centrale 39→16. Nessuna modifica della cartografia sorgente; collisioni e rendering condividono le sagome corrette.
+- Caricamento ufficiale con avanzamento reale conservato; pagina versione 222. [Confronti](./qa/building-positions/README.md) e [rapporto completo](./survey/building-position-review.json).
+- 687/687 test nella copia Verbooze; navigazione landing→GAM e screenshot aggiornati desktop/mobile emulato senza pageerror/HTTP >=400. Android reale e deploy non verificati; 76 residui ancora aperti.
+
+### 2026-11-24 — Via Roma: otto palazzi dalla proposta approvata
+- Applicata la direzione estetica approvata a otto ID: colori sobri, sei terrazzi e due tetti in tegole, finestre e balconi allineati, portoni residenziali e tetti meno affollati. Nessun nuovo dato fotografico.
+- Il pilota è separato in `building-style-pilot.mjs`; preserva camera dall'alto, geometrie e altezze. Il resto della città e gli asset speciali conservano lo stile precedente.
+- [Confronti autentici prima/dopo, notte e ID](./qa/via-roma-style/README.md). Nuova voce PAUSA → NOVITÀ → `palazzi-via-roma` con VAI A VEDERE.
+- 696/696 test; browser desktop e telefono emulato, zero pageerror/HTTP >=400. Il controllo visivo ha portato a correggere il clip delle facciate prima della consegna. Android fisico non verificato.
+- Pagina versione 224; tranche da aggiungere alla PR #1 Verbooze, non dichiarata pubblicata sul sito. Valutare la resa effettiva prima di estendere agli altri quartieri.
+
+### 2026-11-25 — Campione volumetrico Via Roma: modifica reale della sagoma
+- Dopo il riscontro dell'utente, ridisegnato un solo corpo: 733704038 passa da 18 segmenti frastagliati a quattro lati continui, area quasi uguale e stessa altezza/palette.
+- Aggiunti balconi sporgenti con soletta, spessore e ombra. Collisione aggiornata sul nuovo corpo; altri edifici e mappa OSM sorgente conservati. Non è una ricostruzione fotografica.
+- [Prima/dopo autentici, notte e limiti](./qa/building-shape-sample/README.md); nel gioco PAUSA → NOVITÀ → `palazzo-campione` → VAI A VEDERE.
+- 700/700 test; prove desktop e telefono emulato a camera identica, zero errori JS/HTTP. Android fisico e deploy pubblico non verificati. Pagina versione 225; campione da valutare prima di estendere.
+
+## 2026-11-25 — Flotta di fantasia per la distribuzione commerciale
+
+Sostituiti davvero i PNG delle auto, dei furgoni commerciali, dei tricicli e delle quattro famiglie di moto con disegni nuovi di fantasia generati in questa sessione. Sedici sagome di auto, due varianti familiari Borgo, due carrozzerie cargo/ristoro e quattro due ruote; colori assegnati agli ID esistenti rinominati. I due mezzi di servizio generici restano nei due atlanti di sorgente procedurale, con diritti sui contributi da documentare. Nessun SVG aggiunto o usato come sostituto dei raster.
+
+Master `assets/vehicles/sources/fictional-cars-master.png` e `fictional-utility-master.png`; crop, scala proporzionale con nearest-neighbour, alpha binaria e palette in `scripts/pack-fictional-fleet.py`. Corrette le celle del master che avevano spaziature diseguali prima della validazione finale; nessun frammento di veicolo adiacente incluso. Formati degli atlanti e ingombri fisici conservati; rettangoli di ritaglio dei furgoni aggiornati alle sagome effettive. Budget per i nuovi atlanti RGBA portato a 40 KB/cad.; intera flotta raster runtime circa 318 KB. Non è un cambio di soli colori.
+
+Ritirati vecchi master, generatori dei modelli commerciali, immagini di caricamento alternative e screenshot storici dalla distribuzione corrente. Artwork ufficiale GAM e landing preservati byte per byte. Nuove prove autentiche in `qa/commerciale/` (desktop e telefono emulato); non è una verifica su Android fisico né una valutazione legale della distintività.

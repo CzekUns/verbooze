@@ -9,7 +9,7 @@
  * Niente soldi, crediti o premi: si gioca solo per i punti della partita, nessun salvataggio, nessuna rete.
  * Fisica 2D leggera a passi fissi: attrito, sponde, urti fra biglie, birilli che cadono (anche a catena).
  * Aggancio per il tavolo della Q27: openGoriziana({onExit}). Grafica provvisoria, da approvare. */
-import {makeRng} from './minigame-slot.mjs?v=001';
+import {makeRng} from './minigame-slot.mjs?v=1001';
 
 export const GOR_RULES=Object.freeze({target:30,shotsEach:5,whitePin:2,redPin:4,redAlone:10,pallino:3,foulMin:2,
  maxSpeed:250,minPower:.15,aiDelay:.9});
@@ -104,7 +104,7 @@ export function scoreShot(shot){
   const reason=shot.first===null?'NON TOCCA LA BIGLIA AVVERSARIA':shot.first==='pallino'?'TOCCA PRIMA IL PALLINO':'TOCCA PRIMA I BIRILLI';
   return {foul:true,reason,points:Math.max(R.foulMin,raw),to:1-shot.shooter,pins:pins.length,red:reds>0,pallino:!!shot.pallinoBy};
  }
- return {foul:false,reason:raw?'TIRO VALIDO':'TIRO VALIDO · NESSUN PUNTO',points:raw,to:shot.shooter,pins:pins.length,red:reds>0,pallino:!!shot.pallinoBy};
+ return {foul:false,reason:raw?'TIRO VALIDO':'TIRO VALIDO · NESSUN ALBA',points:raw,to:shot.shooter,pins:pins.length,red:reds>0,pallino:!!shot.pallinoBy};
 }
 // Biglia ferma sul castello o sopra un'altra: torna al suo posto (o il primo posto libero lì accanto).
 function placeFree(game,b){

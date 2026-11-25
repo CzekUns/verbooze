@@ -1,4 +1,4 @@
-/* GTA Melito — Q13: densità dei passanti per zona e per ora, senza pop-in.
+/* GAM Melito — Q13: densità dei passanti per zona e per ora, senza pop-in.
  * Gli stessi passanti anonimi (non residenti con agenda, non mestieri, non pendolari) si
  * distribuiscono dove c'è vita: vicino ai negozi con nome OSM, in Via Roma e Piazza Santo
  * Stefano, sulle strade principali; pochi in periferia e di notte. Nessuno viene aggiunto o tolto:
@@ -8,8 +8,8 @@
  *   lontani riappare FUORI DALLA VISTA su un marciapiede vicino (mai dentro la camera);
  * - se ce ne sono troppi (es. a notte fonda) uno di quelli fuori vista se ne va lontano.
  * Le posizioni sono quelle dei marciapiedi del grafo stradale OSM, controllate con canStand. */
-import {lanePosition} from './roads.mjs?v=165';
-import {collidesWithTraffic,nearbyColliders} from './traffic-collision.mjs?v=131';
+import {lanePosition} from './roads.mjs?v=1165';
+import {collidesWithTraffic,nearbyColliders} from './traffic-collision.mjs?v=1131';
 
 const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
 const hash=n=>{let x=(n|0)^0x9e3779b9;x=Math.imul(x^x>>>16,0x85ebca6b);x=Math.imul(x^x>>>13,0xc2b2ae35);return (x^x>>>16)>>>0;};
@@ -55,7 +55,7 @@ export function prepareWalkWeights(graph,{shops=[]}={}){
  });
  return weights;
 }
-// Distanza punto–tratto e metri del tratto che cadono dentro il cerchio (approssimati).
+// Distanza alba–tratto e metri del tratto che cadono dentro il cerchio (approssimati).
 function segmentReach(graph,e,x,y,radius){
  const a=graph.nodes[e.from],b=graph.nodes[e.to],dx=b.x-a.x,dy=b.y-a.y,l2=dx*dx+dy*dy;
  const t=l2?clamp(((x-a.x)*dx+(y-a.y)*dy)/l2,0,1):0,d=Math.hypot(a.x+dx*t-x,a.y+dy*t-y);

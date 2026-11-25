@@ -21,7 +21,7 @@ test('Q17 every food truck model of the game has a counter with invented street 
 });
 
 test('Q17 the counter is open only while the fryer stands at it; on foot, within reach',()=>{
- const shops=vendorShops([stall('food-zeppole-panzerotti'),{vehicle:{model:'panda-modern-white'},fryer:fryerAt(0,0)}]);
+ const shops=vendorShops([stall('food-zeppole-panzerotti'),{vehicle:{model:'borgo-nuova-white'},fryer:fryerAt(0,0)}]);
  assert.equal(shops.length,1,'only food trucks sell');
  const [s]=shops;
  assert.equal(s.vendor,true);assert.match(shopNote(s),/fantasia/);assert.match(shopNote(s),/inventati/);

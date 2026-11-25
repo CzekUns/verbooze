@@ -8,11 +8,13 @@ import {CAMERA_SCALE_GAIN} from './world-scale.mjs';
 const html=await readFile(new URL('./index.html',import.meta.url),'utf8');
 const ids=[...new Set([...html.matchAll(/id="([^"]+)"/g)].map(m=>m[1]))];
 const events=new Map();
+const initiallyHidden=new Set([...html.matchAll(/<[^>]*\bid="([^"]+)"[^>]*>/g)]
+ .filter(match=>/\shidden(?=\s|=|>)/.test(match[0])).map(match=>match[1]));
 const ctx=new Proxy({},{get(o,k){return k in o?o[k]:(..._)=>{}},set(o,k,v){o[k]=v;return true;}});
 function element(id=''){
  const listeners=new Map();
  return {
-  id,hidden:id==='dialog'||id==='fullmap'||id==='waypoint'||id==='mission-panel',textContent:'',style:{setProperty(k,v){this[k]=v;}},clientWidth:630,clientHeight:470,
+  id,hidden:initiallyHidden.has(id),textContent:'',style:{setProperty(k,v){this[k]=v;}},clientWidth:630,clientHeight:470,
   width:168,height:142,dataset:{},classList:{add(){},remove(){},toggle(){}},
   addEventListener(type,callback){listeners.set(type,callback);},
   fire(type,args={}){listeners.get(type)?.({preventDefault(){},pointerId:1,...args});},
@@ -61,7 +63,7 @@ test('browser entry boots and first NPC mission is interactable on Via Roma',asy
  windowHandlers.get('keydown')({key:'f',repeat:false,preventDefault(){}});
  assert.match(els.get('mission-destination').textContent,/Piazza Santo Stefano/);
  assert.equal(els.get('dialog').hidden,false);
- assert.ok(storage.has('gta-melito-campaign-v3'));
+ assert.ok(storage.has('gam-melito-campaign-v3'));
  els.get('dialog-close').fire('click');
  assert.equal(els.get('dialog').hidden,true);
  els.get('map-toggle').fire('click');

@@ -189,7 +189,7 @@ test('lotto 3: file dell\'atlante, sorgenti, caricamento in game.mjs, versioni c
  assert.equal(MARKET_ATLAS_PATH,'./assets/market/mercato-banchi-14-teli-4-rgba.png');
  const game=await readFile(new URL('./game.mjs',import.meta.url),'utf8'),page=await readFile(new URL('./index.html',import.meta.url),'utf8');
  assert.match(game,/loadMarketArt\(\);/,'game.mjs precarica l\'atlante del mercato');
- assert.match(game,/import \{[^}]*loadMarketArt[^}]*\} from '\.\/market\.mjs\?v=0(0[5-9]|[1-9]\d)'/,'market.mjs?v= aggiornato');
+ assert.match(game,/import \{[^}]*loadMarketArt[^}]*\} from '\.\/market\.mjs\?v=\d+'/,'market.mjs?v= aggiornato');
  assert.ok(Number((game.match(/novita\.mjs\?v=(\d+)/)||[])[1])>=4,'novita.mjs?v= aggiornato');
  assert.ok(Number((page.match(/game\.mjs\?v=(\d+)/)||[])[1])>=202,'game.mjs?v= aggiornato');
  const entry=NOVITA.find(e=>e.id==='lotto3-banchi');

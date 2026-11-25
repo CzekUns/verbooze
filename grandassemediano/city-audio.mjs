@@ -10,8 +10,8 @@
  * a variatore sale continuo. Uno strato di rumore (rombo, aria, rotolamento) cresce con marcia e
  * velocità. Due volumi separati e salvati: EFFETTI/AMBIENTE (tutto questo modulo) e RADIO/MUSICA
  * (applicato da game.mjs allo stream di car-radio.mjs); SUONI OFF zittisce entrambi. */
-import {handlingProfile,gearAt} from './vehicle-handling.mjs?v=010';
-export const AUDIO_STORAGE_KEY='gta-melito-audio-v1';
+import {handlingProfile,gearAt} from './vehicle-handling.mjs?v=1010';
+export const AUDIO_STORAGE_KEY='gam-melito-audio-v1';
 export const RADIO_DEFAULT_VOLUME=.52;
 export const TRAFFIC_VOICES=4;
 export const HEAR_RANGE=60;
@@ -23,7 +23,7 @@ const smooth=x=>{const t=clamp(x,0,1);return t*t*(3-2*t);};
 const VOICES=Object.freeze({
  auto:{idle:34,red:118,cut:[820,1500],noise:.06,noiseCut:[220,1800]},
  furgone:{idle:30,red:96,cut:[700,1200],noise:.065,noiseCut:[200,1500]},
- ape:{idle:52,red:150,cut:[1500,2600],noise:.05,noiseCut:[300,1700]},   // ronzio del monocilindrico
+ triciclo:{idle:52,red:150,cut:[1500,2600],noise:.05,noiseCut:[300,1700]},   // ronzio del monocilindrico
  moto:{idle:58,red:230,cut:[2200,3400],noise:.075,noiseCut:[400,2600]}, // più aria sul casco
  scooter:{idle:70,red:200,cut:[2400,3000],noise:.045,noiseCut:[380,2200]}
 });

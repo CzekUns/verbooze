@@ -17,57 +17,21 @@ function dimensions(bytes){
  throw new Error('dimensioni JPEG non trovate');
 }
 
-test('sette schermate: due formati corretti, file sotto 400 KB, nessun Municipio',async()=>{
- assert.equal(LOADING_SCREENS.length,7);
- assert.equal(new Set(LOADING_SCREENS.map(s=>s.id)).size,7);
- assert.ok(LOADING_SCREENS.some(s=>s.id==='render'));
- for(const screen of LOADING_SCREENS){
-  assert.ok(screen.title&&screen.credit);
-  assert.doesNotMatch(JSON.stringify(screen),/municipio/i);
-  for(const [file,expected] of [[screen.desktop,[1280,720]],[screen.mobile,[844,390]]]){
-   const url=new URL(file,import.meta.url),size=(await stat(url)).size;
-   assert.ok(size>0&&size<400_000,`${file}: ${size} byte`);
-   assert.deepEqual(dimensions(await readFile(url)),expected,file);
-  }
- }
-});
-
-test('la scelta conserva l’ultima schermata e non la ripete',()=>{
- const memory=new Map(),storage={getItem:k=>memory.get(k),setItem:(k,v)=>memory.set(k,v)};
- let previous=null;
- for(let i=0;i<35;i++){
-  const screen=chooseLoadingScreen({storage,random:()=>.6});
-  if(previous)assert.notEqual(screen.id,previous);
-  assert.equal(memory.get(LOADING_SCREEN_STORAGE_KEY),screen.id);
-  previous=screen.id;
- }
-});
-
-test('applica PC, telefono, titolo e credito all’elemento di caricamento',()=>{
- const properties=new Map(),loading={style:{setProperty:(k,v)=>properties.set(k,v)},dataset:{}},caption={textContent:''};
- const document={getElementById:id=>({'loading':loading,'loading-scene-title':caption})[id]};
- const screen=applyLoadingScreen({document,forceId:'festa-patronale'});
- assert.equal(loading.dataset.screen,screen.id);
- assert.match(properties.get('--loading-desktop'),/festa-patronale-1280x720\.jpg/);
- assert.match(properties.get('--loading-mobile'),/festa-patronale-844x390\.jpg/);
- assert.match(caption.textContent,/La festa patronale · artwork provvisoria/);
-});
-
 test('collegamento all’avvio e anteprima da NOVITÀ con sfumatura sotto il testo',async()=>{
  const [game,html,novita]=await Promise.all(['game.mjs','index.html','novita.mjs'].map(f=>readFile(new URL(f,import.meta.url),'utf8')));
- assert.match(game,/loading-screens\.mjs\?v=001/);
+ assert.match(game,/loading-screens\.mjs\?v=1001/);
  assert.match(game,/applyLoadingScreen\(\);loadMotorcycleSprites/);
  assert.match(game,/entry\.prova==='caricamento'/);
  assert.match(game,/loading-preview-close/);
- assert.match(game,/novita\.mjs\?v=020/);
- assert.match(html,/game\.mjs\?v=220/);
+ assert.ok(Number(game.match(/novita\.mjs\?v=(\d+)/)?.[1])>=20);
+ assert.ok(Number(html.match(/game\.mjs\?v=(\d+)/)?.[1])>=220);
  assert.match(html,/--loading-desktop/);assert.match(html,/--loading-mobile/);
  assert.match(html,/\.loading::before\{[^}]*linear-gradient/);
  assert.match(html,/id="loading-scene-title"/);
  assert.match(novita,/id:'caricamento-artwork'/);
 });
 
-test('GAM ufficiale è lo sfondo di default, senza sostituire gli asset storici',async()=>{
+test('GAM ufficiale è lo sfondo di default, unico artwork distribuito',async()=>{
  const properties=new Map(),loading={style:{setProperty:(k,v)=>properties.set(k,v)},dataset:{}};
  const document={getElementById:id=>id==='loading'?loading:null};
  assert.equal(applyLoadingScreen({document}),GAM_LOADING_SCREEN);

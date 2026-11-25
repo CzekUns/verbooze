@@ -5,7 +5,7 @@
  * sempre lo stesso risultato e il saldo viene salvato PRIMA dell'animazione, quindi ricaricare la
  * pagina a metà giro non duplica né annulla una vincita.
  * Aggancio per il cabinato della Q27: openSlotMachine({onExit}). Grafica provvisoria, da approvare. */
-export const SLOT_SAVE_KEY='gta-melito-slot-v1';
+export const SLOT_SAVE_KEY='gam-melito-slot-v1';
 export const SLOT_RULES=Object.freeze({startCredits:100,restartCredits:50,bets:Object.freeze([1,2,5]),spinSeconds:1.25,reelStops:Object.freeze([.55,.9,1.25])});
 // Simboli napoletani di fantasia; il cornetto rosso è il simbolo più ricco.
 export const SLOT_SYMBOLS=Object.freeze(['limone','caffe','pizza','baba','sfogliatella','pulcinella','vesuvio','cornetto']);

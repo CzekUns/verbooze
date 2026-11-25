@@ -1,6 +1,6 @@
 /* Q06: economia locale di base.
  * I punti vendita sono le attività con nome di OpenStreetMap già mostrate in strada
- * (storefronts.mjs): il nome è reale, prodotti e prezzi sono INVENTATI per il gioco.
+ * (storefronts.mjs): il nome è di fantasia, prodotti e prezzi sono INVENTATI per il gioco.
  * Si paga con i soldi della campagna (missioni, mance della Q05); acquisti salvati
  * insieme alla campagna. Effetti: "carica" (corsa più veloce per un po'),
  * "rispetto" (servizio) e "ricordo" (oggetto da collezione). */
@@ -65,7 +65,7 @@ export const BOOST_FACTOR=1.15;
 export function offersFor(kind){return (BY_KIND[kind]||[]).map(id=>({id,...OFFERS[id]}));}
 export function shopNote(shop=null){
  return shop?.vendor?'Ambulante di fantasia · prodotti e prezzi inventati per il gioco':
-  'Nome reale da OpenStreetMap · prodotti e prezzi inventati per il gioco';
+  'Attività di fantasia · posizione da OpenStreetMap · prodotti e prezzi inventati';
 }
 // Il punto vendita più vicino, solo a piedi e solo se vende qualcosa.
 export function nearestShop(shops,player,radius=SHOP_RADIUS){

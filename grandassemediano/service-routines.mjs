@@ -1,4 +1,4 @@
-/* GTA Melito — Q20: i giri di lavoro dei quattro veicoli di servizio Q18–Q19.
+/* GAM Melito — Q20: i giri di lavoro dei quattro veicoli di servizio Q18–Q19.
  * Tutto SIMULATO e dichiarato: nessun corriere, gestore dei rifiuti, soccorso stradale, linea o orario
  * reale di Melito.
  * - corriere: entra in uno stallo libero (BF02) vicino a un portone (Q03) o a un negozio, l'autista
@@ -12,7 +12,7 @@
  * Un mezzo al lavoro è fermo per roads.mjs (serviceHold) e si muove solo qui, sempre un poco alla volta.
  * Ogni fase ha un tempo massimo: se qualcosa va storto (urto, posto occupato, strada che non porta)
  * il lavoro si chiude, lo si scrive nel registro e il mezzo riprende il traffico. */
-import {vs} from './world-scale.mjs?v=001';
+import {vs} from './world-scale.mjs?v=1001';
 export const SERVICE_RULES=Object.freeze({
  courier:Object.freeze({firstDelay:[8,40],cooldown:[45,90],retry:12,doorRadius:30,bayRadius:24,ahead:[6,32],
   walkSpeed:1.5,deliver:[4,7],pullIn:2.6,pullOut:2.4,laneWait:25,maxJob:75}),

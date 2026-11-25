@@ -1,4 +1,4 @@
-/* GTA Melito: consistent 2.5D extrusion for EVERY OSM or placeholder footprint.
+/* GAM Melito: consistent 2.5D extrusion for EVERY OSM or placeholder footprint.
  * All dimensions are arcade projections, never surveyed real heights.
  * The footprint stays unchanged for OSM identity and collision geometry. */
 const clamp=(v,lo,hi)=>Math.max(lo,Math.min(hi,v));
@@ -16,9 +16,10 @@ export function buildingVolume(building){
  const inferredFloors=Number.isFinite(floors)&&floors>0?floors:Math.max(1,Math.round(Math.max(height,mapped,7)/3.4));
  const stories=clamp(Math.round(inferredFloors),1,9);
  const vertical=clamp(6+Math.max(height,mapped,stories*3)*.67,9,27);
- // Roof is lifted northwest by this vector; walls end on the original ground footprint.
+ // Roof is lifted straight up; vertical edges stay upright on screen.
+ // Walls end on the original ground footprint.
  // The street mask retains full lane priority over projected roofs.
- const dx=clamp(vertical*.22,2,6),dy=clamp(vertical*.66,6,18);
+ const dx=0,dy=clamp(vertical*.66,6,18);
  return {stories,vertical,dx,dy,areaSign:Math.sign(signedFootprintArea(building.p))||1,
   visual:true,measured:!!art.surveyFeatures?.storiesMeasured};
 }

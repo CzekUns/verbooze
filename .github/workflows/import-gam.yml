@@ -19,7 +19,7 @@ jobs:
           git init "$RUNNER_TEMP/gam-source"
           git -C "$RUNNER_TEMP/gam-source" fetch --depth=1 https://github.com/CzekUns/Effettokarmagra.git d040b56047c04ae6c8614da809067c57ac9d4591
           git -C "$RUNNER_TEMP/gam-source" checkout --detach FETCH_HEAD
-          cp -a "$RUNNER_TEMP/gam-source/games/gta-melito" grandassemediano
+          cp -a "$RUNNER_TEMP/gam-source/games/gam-melito" grandassemediano
           test -s grandassemediano/index.html
           test -s grandassemediano/data/melito-map.json
           test -s grandassemediano/assets/ui/gam-loading.webp
@@ -28,7 +28,7 @@ jobs:
           from pathlib import Path
           p=Path('index.html')
           s=p.read_text()
-          old='https://czekuns.github.io/Effettokarmagra/games/gta-melito/'
+          old='https://czekuns.github.io/Effettokarmagra/games/gam-melito/'
           assert old in s
           p.write_text(s.replace(old,'./grandassemediano/'))
           p=Path('grandassemediano/WORK_LOG.md')

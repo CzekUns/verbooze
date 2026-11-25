@@ -1,6 +1,6 @@
-import {VEHICLE_SCALE,PERSON_SCALE,vs,ps} from './world-scale.mjs?v=001';
-import {visualRoadWidth} from './road-widths.mjs?v=044';
-import {SIDEWALK_DRIVE} from './sidewalk.mjs?v=099';
+import {VEHICLE_SCALE,PERSON_SCALE,vs,ps} from './world-scale.mjs?v=1001';
+import {visualRoadWidth} from './road-widths.mjs?v=1044';
+import {SIDEWALK_DRIVE} from './sidewalk.mjs?v=1099';
 
 export const DRIVE_ROAD_TYPES=new Set(['motorway','trunk','primary','secondary','tertiary','unclassified','residential','living_street','service','track']);
 

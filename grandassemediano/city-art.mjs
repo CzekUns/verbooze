@@ -1,18 +1,19 @@
+import {drawPilotFacade,drawPilotRoof,pilotFacadeWindows} from './building-style-pilot.mjs?v=1002';
 /* WORK HANDOFF: art direction / photo evidence / acceptance criteria live
  * in ./HANDOFF_WORK_REALISMO.md (see also ./AGENTS.md).
  * Do not claim hypothetical materials or pixel geometry as photo-verified.
  */
-import {visualRoadWidth} from './road-widths.mjs?v=044';
-import {SIDEWALK_OUTER,SIDEWALK_SHADOW,SIDEWALK_KERB} from './sidewalk.mjs?v=099';
-import {buildingVolume,exposedFacade,facadePoints,shiftColor} from './building-volume.mjs?v=088';
-import {material} from './arcade-materials.mjs?v=095';
-import {drawPedestrianSprite} from './pedestrian-sprites.mjs?v=002';
-import {PERSON_SCALE} from './world-scale.mjs?v=001';
-import {drawFryerSprite} from './friggitore-sprites.mjs?v=002';
-import {drawProfessionSprite} from './profession-sprites.mjs?v=003';
-import {drawExtraPedestrianSprite,EXTRA_PEDESTRIAN_NPC_START_KIND,drawSheetPedestrianSprite,PEDESTRIAN_SHEET_START_KIND} from './extra-pedestrian-sprites.mjs?v=007';
-import {drawRuinPool} from './municipio-landmarks.mjs?v=003';
-/* GTA Melito 0.4 — top-down pixel-inspired art, © OpenStreetMap contributors
+import {visualRoadWidth} from './road-widths.mjs?v=1044';
+import {SIDEWALK_OUTER,SIDEWALK_SHADOW,SIDEWALK_KERB} from './sidewalk.mjs?v=1099';
+import {buildingVolume,exposedFacade,facadePoints,shiftColor} from './building-volume.mjs?v=1089';
+import {material} from './arcade-materials.mjs?v=1095';
+import {drawPedestrianSprite} from './pedestrian-sprites.mjs?v=1002';
+import {PERSON_SCALE} from './world-scale.mjs?v=1001';
+import {drawFryerSprite} from './friggitore-sprites.mjs?v=1002';
+import {drawProfessionSprite} from './profession-sprites.mjs?v=1003';
+import {drawExtraPedestrianSprite,EXTRA_PEDESTRIAN_NPC_START_KIND,drawSheetPedestrianSprite,PEDESTRIAN_SHEET_START_KIND} from './extra-pedestrian-sprites.mjs?v=1007';
+import {drawRuinPool} from './municipio-landmarks.mjs?v=1003';
+/* GAM Melito 0.4 — top-down pixel-inspired art, © OpenStreetMap contributors
  * Layout/footprints come from OSM. Colours, rooftop details, props and human sprites
  * are original artistic interpretations: they do not claim photographic fidelity.
  */
@@ -28,7 +29,7 @@ export function loadChurchWebp(onReady=()=>{}){
  const img=new Image();
  churchWebp=img;
  img.onload=()=>{if(img.naturalWidth>0)onReady();};
- img.onerror=()=>console.warn('GTA Melito: optional Santa Maria delle Grazie WebP unavailable, using Canvas');
+ img.onerror=()=>console.warn('GAM Melito: optional Santa Maria delle Grazie WebP unavailable, using Canvas');
  img.src=new URL(CHURCH_WEBP_PATH,import.meta.url).href;
 }
 export function churchWebpReady(){
@@ -40,7 +41,7 @@ const asphalt={motorway:'#292f31',trunk:'#303638',primary:'#333a3b',secondary:'#
  tertiary:'#3c4341',residential:'#3d4442',unclassified:'#414846',service:'#4a4a43',
  living_street:'#514e45',footway:'#b5a68d',pedestrian:'#c2b193',path:'#a79679',
  steps:'#a6957e',track:'#747565'};
-// Warm, high-contrast rooftops and cool shadow faces evoke GTA2's readable
+// Warm, high-contrast rooftops and cool shadow faces evoke stile arcade storico's readable
 // arcade blocks while retaining an original Campanian palette.
 const oldtown=['#c65e3f','#ce7047','#bb6344','#d17a4a','#b85b3c','#c66a43'];
 const flat=['#a6a093','#a69a87','#b2a18b','#99978a','#b5a58e','#8d9189'];
@@ -62,7 +63,7 @@ function roofType(b,box,nearPOI){
  if(name.includes('chiesa')||/church|chapel|religious|place_of_worship/.test(type+' '+u))return 'church';
  if(name.includes('municipio')||b.id===733703600||nearPOI?.k==='townhall')return 'civic';
  if(/school|kindergarten|college/.test(type+' '+u)||nearPOI?.k==='school')return 'school';
- if(/retail|commercial|supermarket|shop/.test(type+' '+u)||/(lidl|eurospin|decò|^md$|todis)/i.test(name)||nearPOI?.k==='supermarket')return 'market';
+ if(/retail|commercial|supermarket|shop/.test(type+' '+u)||/(supermercato)/i.test(name)||nearPOI?.k==='supermarket')return 'market';
  if(/industrial|warehouse|storage|hangar|factory/.test(type+' '+u)||box.area>2300)return 'industrial';
  // The centre around Piazza Santo Stefano contains a dense historic fabric.
  // Roof profiles there are a stylised hypothesis, never a measured facade.
@@ -423,6 +424,7 @@ function drawRaisedWalls(c,b,v,zoom){
   c.beginPath();c.moveTo(f.x4,f.y4);c.lineTo(f.x3,f.y3);c.stroke();
   c.lineWidth=.55;c.strokeStyle=shiftColor(wall,-27);
   c.beginPath();c.moveTo(f.x2,f.y2);c.lineTo(f.x3,f.y3);c.stroke();
+  if(a.stylePilot){drawPilotFacade(c,a,v,f,edgeX,edgeY,len,zoom);continue;}
   if(zoom>=1.5&&len>10&&south&&a.type!=='industrial'){
    const ux=edgeX/len,uy=edgeY/len,span=Math.min(8,len*.55),cx=(f.x3+f.x4)/2,cy=(f.y3+f.y4)/2;
    // Shopfront canopy on the ground storey: striped fabric, dark valance,
@@ -556,6 +558,14 @@ export function facadeWindowPanes(b){
   const columns=Math.max(1,Math.min(18,Math.floor(len/(doors?7.5:4.8))));
   const depth=Math.hypot(v.dx,v.dy),ex=edgeX/len,ey=edgeY/len,sx=v.dx/depth,sy=v.dy/depth;
   const ox=p[j-2]-v.dx,oy=p[j-1]-v.dy,at=(u,w)=>[ox+ex*u+sx*w,oy+ey*u+sy*w];
+  if(a.stylePilot){
+   for(const w of pilotFacadeWindows(a,v,len,j).windows){
+    if(w.door)continue;
+    const u=w.x-w.w/2,q=w.y-w.h/2;
+    panes.push({seed:w.seed,quad:[...at(u,q),...at(u+w.w,q),...at(u+w.w,q+w.h),...at(u,q+w.h)]});
+   }
+   continue;
+  }
   for(let floor=0;floor<floors;floor++)for(let col=1;col<=columns;col++){
    const wx=len*col/(columns+1),wy=depth*(floor+.48)/floors,seed=h(a.seed+floor*97+col*131+j*17);
    const w=doors?2.4:seed%4===0?1.8:1.45,hh=floors>=5?1.35:1.85,u0=wx-w*.5,w0=wy-hh*.55;
@@ -602,7 +612,8 @@ export function drawCityBuildings(c,buildings,zoom){
   c.translate(-v.dx,-v.dy);
   drawRaisedWalls(c,b,v,zoom);
   const tone=a.roofTint||historicalRoofTone(a);
-  if(a.glass)glassRoof(c,b,a);
+  if(a.stylePilot)drawPilotRoof(c,b,a);
+  else if(a.glass)glassRoof(c,b,a);
   else if(!specialized(c,b,a)){
    if(a.roof&&a.area>55)slopedRoof(c,b,a,tone);
    else flatRoof(c,b,a,a.roofTint||
@@ -612,7 +623,7 @@ export function drawCityBuildings(c,buildings,zoom){
   // including tiny annexes, historic churches and one-floor workshops.
   // Only ordinary buildings reach this branch; Santa Maria has been
   // fully rendered in its exclusive sprite branch and cannot reach here.
-  poly(c,b.p);c.strokeStyle='#643c29';c.lineWidth=.65;c.stroke();
+  poly(c,b.p);c.strokeStyle=a.stylePilot?'#72766b':'#643c29';c.lineWidth=.65;c.stroke();
   c.save();c.translate(-.55,-.55);poly(c,b.p);
   c.strokeStyle='#f1d9ac88';c.lineWidth=.48;c.stroke();c.restore();
   if(zoom>=1.45&&b.id===733703600){

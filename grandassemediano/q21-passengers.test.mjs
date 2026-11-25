@@ -9,13 +9,13 @@ import {drawMotorcycle} from './motorcycles.mjs';
 const walker=(seed,x=0,y=0)=>({body:'walk',seed,x,y,edge:0,t:.5,side:1});
 const hitcher=start=>{for(let s=start;;s++){const a=walker(s);if(canHitchhike(a))return a;}};
 
-test('Q21 seats: capacity follows the vehicle (car 4, scooter 1, Ape 1, van 2, stalls none)',()=>{
- assert.equal(seatCapacity({model:'punto-188-red'}),4);
- assert.equal(seatCapacity({vehicleType:'motorcycle',model:'moto-scooter-sh-red'}),1);
- assert.equal(seatCapacity({model:'ape-classica-verde'}),1);
+test('Q21 seats: capacity follows the vehicle (car 4, scooter 1, Triciclo 1, van 2, stalls none)',()=>{
+ assert.equal(seatCapacity({model:'alba-red'}),4);
+ assert.equal(seatCapacity({vehicleType:'motorcycle',model:'moto-scooter-urbano-red'}),1);
+ assert.equal(seatCapacity({model:'triciclo-classica-verde'}),1);
  assert.equal(seatCapacity({model:'furgone-fritti'}),2);
  assert.equal(seatCapacity({model:'food-panini',vendorStand:true}),0);
- const v={model:'panda-modern-white'};assert.deepEqual(ensureSeats(v),[null,null,null,null]);
+ const v={model:'borgo-nuova-white'};assert.deepEqual(ensureSeats(v),[null,null,null,null]);
 });
 
 test('Q21 boarding: one person one seat, never twice, never beyond capacity, not on a vehicle ridden by an NPC',()=>{
@@ -24,14 +24,14 @@ test('Q21 boarding: one person one seat, never twice, never beyond capacity, not
  assert.equal(boardPassenger(bike,a),0);
  assert.equal(a.aboard.vehicle,bike);assert.equal(a.indoors,true,'not drawn nor collidable while on board');
  assert.equal(boardPassenger(bike,b),-1,'scooter full');
- const car={model:'panda-modern-white'};
+ const car={model:'borgo-nuova-white'};
  assert.equal(boardPassenger(car,a),-1,'already on another vehicle: no duplicate');
  assert.equal(freeSeat(bike),-1);
  assert.equal(alightPassenger(bike,0),a);assert.equal(a.aboard,null);assert.equal(a.indoors,false);
  assert.equal(occupantsOf(bike).length,0);
  assert.equal(boardPassenger(car,a),0);assert.equal(boardPassenger(car,b),1);
  assert.equal(occupantsOf(car).length,2);
- assert.equal(boardPassenger({model:'moto-scooter-sh-red',vehicleType:'motorcycle',npcRider:{}},walker(3)),-1);
+ assert.equal(boardPassenger({model:'moto-scooter-urbano-red',vehicleType:'motorcycle',npcRider:{}},walker(3)),-1);
 });
 
 test('Q21 who asks for a lift: only free anonymous passers-by, about one in five',()=>{
@@ -44,14 +44,14 @@ test('Q21 who asks for a lift: only free anonymous passers-by, about one in five
 });
 
 test('Q21 lift candidate: vehicle stopped, a free seat, the person right by the side',()=>{
- const car={x:0,y:0,a:0,model:'panda-modern-white'};
+ const car={x:0,y:0,a:0,model:'borgo-nuova-white'};
  const h={...hitcher(40),x:0,y:5};
  assert.equal(liftCandidate([h],car,{speed:0}),h);
  assert.equal(liftCandidate([h],car,{speed:PASSENGER_RULES.stopSpeed+1}),null,'moving');
  assert.equal(liftCandidate([{...h,y:12}],car,{speed:0}),null,'too far');
  assert.equal(liftCandidate([h],car,{speed:0,skip:a=>a===h}),null,'busy with a city event');
  assert.equal(hitchhikersNear([{...h,y:12}],car)[0].distance>0,true,'still shown as asking from the pavement');
- const full={x:0,y:0,a:0,vehicleType:'motorcycle',model:'moto-scooter-sh-red'};boardPassenger(full,walker(77));
+ const full={x:0,y:0,a:0,vehicleType:'motorcycle',model:'moto-scooter-urbano-red'};boardPassenger(full,walker(77));
  assert.equal(liftCandidate([h],full,{speed:0}),null,'no free seat');
 });
 
@@ -59,7 +59,7 @@ const graph=buildRoadGraph([{id:1,n:'Via Roma',t:'residential',w:8,p:[0,0,400,0,
 const place=(id,t,side=1)=>lanePosition(graph,id,t,'walk',side);
 
 test('Q21 getting out: on the nearest pavement, with the right edge, t and side (no jump afterwards)',()=>{
- const car={x:150,y:0,a:0,model:'panda-modern-white'};
+ const car={x:150,y:0,a:0,model:'borgo-nuova-white'};
  const spot=alightSpot(graph,car,{place});
  assert.ok(spot,'found');
  const back=lanePosition(graph,spot.edge,spot.t,'walk',spot.side);
@@ -83,16 +83,16 @@ test('Q21 destination: a real pavement 160–620 m away, stable for the same pas
 test('Q21 traffic occupants: the same people on the same seats for a vehicle, renewed only with a new identity',()=>{
  let cars=0,carried=0,max=0;
  for(let s=1;s<=400;s++){
-  const v={body:'car',seed:s,model:'punto-188-red'},o=trafficOccupants(v);
+  const v={body:'car',seed:s,model:'alba-red'},o=trafficOccupants(v);
   cars++;if(o.length)carried++;max=Math.max(max,o.length);
   assert.equal(trafficOccupants(v),o,'stable');
   assert.ok(new Set(o.map(p=>p.seat)).size===o.length,'one person per seat');
  }
  assert.ok(carried/cars>.3&&carried/cars<.55,'share '+carried/cars);
  assert.ok(max<=3);
- const v={body:'car',seed:9,model:'punto-188-red'},o=trafficOccupants(v);v.seed=10;
+ const v={body:'car',seed:9,model:'alba-red'},o=trafficOccupants(v);v.seed=10;
  assert.notEqual(trafficOccupants(v),o);
- for(let s=1;s<=200;s++)assert.ok(trafficOccupants({body:'car',seed:s,vehicleType:'motorcycle',model:'moto-scooter-sh-red'}).length<=1);
+ for(let s=1;s<=200;s++)assert.ok(trafficOccupants({body:'car',seed:s,vehicleType:'motorcycle',model:'moto-scooter-urbano-red'}).length<=1);
  assert.equal(trafficOccupants({body:'car',seed:3,commuter:true}).length,0);
 });
 
@@ -102,11 +102,11 @@ function recorder(){
  ctx.globalAlpha=1;return {ctx,calls};
 }
 test('Q21 drawing: heads behind the windscreen, the pillion on the rear seat as a second figure',()=>{
- const a=recorder();drawCabinOccupants(a.ctx,0,0,0,{model:'panda-modern-white'},[{seat:0,hair:'#222',jacket:'#555'}],{driver:true});
+ const a=recorder();drawCabinOccupants(a.ctx,0,0,0,{model:'borgo-nuova-white'},[{seat:0,hair:'#222',jacket:'#555'}],{driver:true});
  assert.ok(a.calls.arc>=4,'driver and passenger heads (+glass highlights)');
  const solo=recorder(),two=recorder();
- drawMotorcycle(solo.ctx,0,0,0,'moto-scooter-sh-red',{rider:true});
- drawMotorcycle(two.ctx,0,0,0,'moto-scooter-sh-red',{rider:true,pillion:{jacket:'#406b87',helmet:'#e9e6dc'}});
+ drawMotorcycle(solo.ctx,0,0,0,'moto-scooter-urbano-red',{rider:true});
+ drawMotorcycle(two.ctx,0,0,0,'moto-scooter-urbano-red',{rider:true,pillion:{jacket:'#406b87',helmet:'#e9e6dc'}});
  assert.ok(two.calls.ellipse>=solo.calls.ellipse+5,'helmet, body, hands and legs of the passenger');
 });
 

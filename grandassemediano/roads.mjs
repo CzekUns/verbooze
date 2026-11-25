@@ -1,14 +1,14 @@
-import {visualRoadWidth,roadTrafficLaneOffset} from './road-widths.mjs?v=044';
-import {stepResidentRoutine,restoreResidentRoutine} from './resident-routines.mjs?v=012';
-import {PEDESTRIAN_KIND_COUNT} from './extra-pedestrian-sprites.mjs?v=007';
-import {makeCollisionIndex,addToCollisionIndex,moveInCollisionIndex,nearbyColliders,collidesWithTraffic,trafficMoveBlocked,trafficMoveBlocker,vehicleSeparation,vehiclesOverlap,vehicleHitsPedestrian,vehicleShape} from './traffic-collision.mjs?v=131';
-import {handlingProfile,npcCruise,npcSpeedStep} from './vehicle-handling.mjs?v=010';
-import {vs,ps} from './world-scale.mjs?v=001';
+import {visualRoadWidth,roadTrafficLaneOffset} from './road-widths.mjs?v=1044';
+import {stepResidentRoutine,restoreResidentRoutine} from './resident-routines.mjs?v=1012';
+import {PEDESTRIAN_KIND_COUNT} from './extra-pedestrian-sprites.mjs?v=1007';
+import {makeCollisionIndex,addToCollisionIndex,moveInCollisionIndex,nearbyColliders,collidesWithTraffic,trafficMoveBlocked,trafficMoveBlocker,vehicleSeparation,vehiclesOverlap,vehicleHitsPedestrian,vehicleShape} from './traffic-collision.mjs?v=1131';
+import {handlingProfile,npcCruise,npcSpeedStep} from './vehicle-handling.mjs?v=1010';
+import {vs,ps} from './world-scale.mjs?v=1001';
 // BF14: following distance between two cars on the same edge (centre to centre).
 const QUEUE=Object.freeze({stop:vs(6.3)+1,window:vs(7)});
-import {buildJunctions,chooseSignals,junctionDecision,pruneReservations,pedestrianMayCross,clockSecondsFromMinutes,crosswalkYield} from './junctions.mjs?v=003';
-import {findBorderGates,gateMouthClear,borderRing,GATE_RULES} from './border-gates.mjs?v=002';
-/* GTA Melito — real OSM road topology (no invented rectangular street grid).
+import {buildJunctions,chooseSignals,junctionDecision,pruneReservations,pedestrianMayCross,clockSecondsFromMinutes,crosswalkYield} from './junctions.mjs?v=1003';
+import {findBorderGates,gateMouthClear,borderRing,GATE_RULES} from './border-gates.mjs?v=1002';
+/* GAM Melito — real OSM road topology (no invented rectangular street grid).
  * OSM ways share survey nodes; quantized coordinates preserve intersections.
  * Simulates moving traffic through intersections with legal one-way exits. */
 export const DRIVABLE=new Set(['motorway','trunk','primary','secondary','tertiary','unclassified','residential','living_street','service','track']);
@@ -150,7 +150,7 @@ export function createAgents(graph,count,seed=10,kind='car',avoid=[],settings={}
    const t=.05+rand(seed+i*7+13+attempt*181)*.85,side=i%2?1:-1;
    const vehicleType=kind==='car'&&settings.motorcycleEvery&&i%settings.motorcycleEvery===2?'motorcycle':'car';
    const at={...position(graph,edgeIndex,t,kind,side),...(kind==='car'?{vehicleType}:{})};
-   // BF03: the model is known before the checks, so the whole body of an Ape or a van is tested.
+   // BF03: the model is known before the checks, so the whole body of an Triciclo or a van is tested.
    if(kind==='car'&&settings.model)at.model=settings.model(i,vehicleType);
    if(kind==='car'&&isBusModel(at.model)&&!BUS_ROADS.has(edge.roadType))continue;
    if(collidesWithTraffic(at,kind,occupied))continue;
@@ -475,7 +475,7 @@ export function stepAgent(graph,agent,dt,others=[],player=null,index=null,clockM
  }
  let profile=null,limit=Infinity;
  if(agent.body==='car'){
-  // BF05: crociera adatta al mezzo (Ape e furgoni più lenti) e spinta progressiva come il giocatore.
+  // BF05: crociera adatta al mezzo (Triciclo e furgoni più lenti) e spinta progressiva come il giocatore.
   profile=handlingProfile(agent);
   const cruise=npcCruise(profile,agent.speed);speed=cruise;
   // Following distance is checked only for traffic on this nearby segment.

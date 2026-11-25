@@ -88,7 +88,7 @@ test('BF02 cars park in the stalls, the scooter in the next one; free stalls and
  const g=buildRoadGraph([{id:1,n:'Via Roma',t:'residential',w:7,p:[0,0,200,0]}]);
  const bays=buildParkingBays(g),cars=[];
  const first=nearestFreeStalls(bays,100,0,cars,vehiclesOverlap)[0];
- cars.push(parkInStall({model:'panda-modern-white',type:0},first));
+ cars.push(parkInStall({model:'borgo-nuova-white',type:0},first));
  const second=nearestFreeStalls(bays,first.x,first.y,cars,vehiclesOverlap)[0];
  assert.notEqual(second,first,'a taken stall is skipped');
  assert.ok(Math.abs(Math.hypot(second.x-first.x,second.y-first.y)-BAY_RULES.stall)<1e-6||second.side!==first.side);
@@ -104,7 +104,7 @@ test('BF02 traffic drives past full parking strips and pedestrians walk past the
  // traffic first (the spawn keeps 9 m from any car), then every stall that is not on top of it
  const traffic=createAgents(g,10,7,'car',[]);
  const parked=bays.stalls.filter(s=>!traffic.some(a=>vehiclesOverlap({...s,body:'car'},a,0)))
-  .map((s,i)=>parkInStall({model:'panda-modern-white',type:0,vehicleType:i%4?'car':'motorcycle'},s));
+  .map((s,i)=>parkInStall({model:'borgo-nuova-white',type:0,vehicleType:i%4?'car':'motorcycle'},s));
  assert.equal(parked.length,bays.stalls.length,'no stall overlaps a lane');
  const walkers=createAgents(g,16,11,'walk',[...parked,...traffic]);
  assert.ok(traffic.length>=8&&walkers.length>=12);
@@ -122,7 +122,7 @@ test('BF02 traffic drives past full parking strips and pedestrians walk past the
  // the same car moved out of its bay onto the pavement is an ordinary obstacle again
  const s=bays.stalls.find(q=>q.y>1&&q.x>20&&q.x<280),line=g.edges[0].streetWidth/2+1.7;
  const walker={x:s.x-vs(4),y:line,a:0,body:'walk'},next={x:s.x-vs(3.5),y:line,a:0};// BF14: beside the smaller car
- const car=parkInStall({model:'panda-modern-white',body:'car'},s);
+ const car=parkInStall({model:'borgo-nuova-white',body:'car'},s);
  assert.equal(trafficMoveBlocked(walker,next,'walk',makeCollisionIndex([car]),walker),false,'a pedestrian walks past a car in its bay');
  car.y+=.6;
  assert.equal(trafficMoveBlocked(walker,next,'walk',makeCollisionIndex([car]),walker),true,'pushed out of the bay it blocks the pavement again');
@@ -144,7 +144,7 @@ test('BF02 game wiring: strip before parked vehicles, drawn under the roofs, reb
  assert.match(game,/import \{buildParkingBays,[^}]*\} from '\.\/parking-bays\.mjs\?v=\d+'/);
  const load=game.search(/state\.cars=\[\];state\.streetObjects=null;(?:createWorkshop\(\);)?createParkingBays\(\);/);
  assert.ok(load>0&&load<game.indexOf('state.cars=[nearCar]')&&load<game.indexOf('state.traffic=createTraffic('),'stalls exist before any vehicle');
- assert.equal((game.match(/parkInStall\(/g)||[]).length,4,'Panda, starter scooter, scooters and cars all use a stall');
+ assert.equal((game.match(/parkInStall\(/g)||[]).length,4,'Borgo, starter scooter, scooters and cars all use a stall');
  assert.ok(!/shoulder/.test(game),'no more kerb guesses on the pavement');
  assert.match(game,/vehicleOffset:bayOffset,\n  vehicleOK:v=>fitsParkingBay\(state\.parkingBays,v,vehicleShape\(v\)\)/);
  assert.match(prof,/const lateral=vehicleOffset\?vehicleOffset\(edge\.streetWidth\):edge\.streetWidth\/2\+2\.25;/);

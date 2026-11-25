@@ -5,13 +5,13 @@ import {buildRoadGraph,createAgents,stepAgents,chooseTurn,yieldsInGridlock} from
 import {vehiclesOverlap,vehicleShape} from './traffic-collision.mjs';
 import {MOTORCYCLE_IDS} from './motorcycles.mjs';
 import {CAR_TRAFFIC_SPRITE_IDS,CAR_TRAFFIC_STRIDE} from './car-sprites.mjs';
-import {TRAFFIC_APES,FOOD_STALLS,trafficApeModel} from './street-professions.mjs';
+import {TRAFFIC_APES,FOOD_STALLS,trafficTricycleModel} from './street-professions.mjs';
 
 const map=JSON.parse(await readFile(new URL('./data/melito-map.json',import.meta.url),'utf8'));
 const city=buildRoadGraph(map.roads);
 // Same model choice as game.mjs (trafficModel).
 const model=(i,type)=>type==='motorcycle'?MOTORCYCLE_IDS[(i+Math.floor(i/4)*5)%MOTORCYCLE_IDS.length]:
- trafficApeModel(i)||CAR_TRAFFIC_SPRITE_IDS[(i*CAR_TRAFFIC_STRIDE)%CAR_TRAFFIC_SPRITE_IDS.length];
+ trafficTricycleModel(i)||CAR_TRAFFIC_SPRITE_IDS[(i*CAR_TRAFFIC_STRIDE)%CAR_TRAFFIC_SPRITE_IDS.length];
 const spawn=(avoid=[],extra={})=>createAgents(city,140,189,'car',avoid,{motorcycleEvery:4,model,...extra});
 const junctionGap=graph=>{
  const near=graph.nodes.map(()=>new Set()),width=graph.nodes.map(()=>0);
@@ -36,14 +36,14 @@ test('BF03 real map: deterministic spawn, whole bodies apart, out of the junctio
  }
 });
 
-test('BF03 real map: no open-counter food truck or loaded market Ape in moving traffic',()=>{
+test('BF03 real map: no open-counter food truck or loaded market Triciclo in moving traffic',()=>{
  const counters=new Set(FOOD_STALLS.map(s=>s.model));
  const traffic=spawn();
  for(const v of traffic){
   assert.ok(!/^food-/.test(v.model)&&!counters.has(v.model),v.model);
-  if(/^ape-/.test(v.model))assert.ok(v.model==='ape-car-azzurra'||TRAFFIC_APES.includes(v.model)||/^ape-(classica|vissuta)-/.test(v.model),v.model);
+  if(/^triciclo-/.test(v.model))assert.ok(v.model==='triciclo-car-azzurra'||TRAFFIC_APES.includes(v.model)||/^triciclo-(classica|vissuta)-/.test(v.model),v.model);
  }
- assert.ok(traffic.some(v=>TRAFFIC_APES.includes(v.model)),'closed market Apes do travel');
+ assert.ok(traffic.some(v=>TRAFFIC_APES.includes(v.model)),'closed market Tricycles do travel');
 });
 
 test('BF03 real map: parked vehicles and the player are respected with the whole body',()=>{
@@ -75,7 +75,7 @@ test('BF03 real map: one minute of traffic, nobody ends up waiting at a one-way 
  const terminal=traffic.filter(v=>v.t>.999&&!city.nodes[city.edges[v.edge].to].out.some(n=>city.edges[n].car));
  assert.equal(terminal.length,0,'cars at a one-way terminal');
  assert.ok(moved.every(m=>m>20),'every vehicle really travels: min '+Math.min(...moved).toFixed(1)+' m');
- for(const v of traffic.filter(v=>v.model==='furgone-fritti'||v.model==='ape-car-azzurra'))
+ for(const v of traffic.filter(v=>v.model==='furgone-fritti'||v.model==='triciclo-car-azzurra'))
   assert.ok(moved[traffic.indexOf(v)]>20,v.model+' moves');
 });
 

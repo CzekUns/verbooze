@@ -3,10 +3,10 @@ import assert from 'node:assert/strict';
 import {readFile} from 'node:fs/promises';
 import {nearestEnterableVehicle,starterMotorcycleCandidates,CAR_ENTRY_RADIUS,MOTORCYCLE_ENTRY_RADIUS} from './vehicle-entry.mjs';
 
-const bike=(x,y)=>({x,y,a:0,vehicleType:'motorcycle',model:'moto-scooter-sh-white'});
-const car=(x,y)=>({x,y,a:0,vehicleType:'car',model:'panda-modern-white'});
+const bike=(x,y)=>({x,y,a:0,vehicleType:'motorcycle',model:'moto-scooter-urbano-white'});
+const car=(x,y)=>({x,y,a:0,vehicleType:'car',model:'borgo-nuova-white'});
 
-test('same selection can enter a nearby scooter rather than a slightly closer Panda',()=>{
+test('same selection can enter a nearby scooter rather than a slightly closer Borgo',()=>{
  const objects=[car(5,0),bike(5.5,0)];
  const picked=nearestEnterableVehicle(objects,{x:0,y:0});
  assert.equal(picked.index,1);
@@ -26,14 +26,14 @@ test('no vehicle or out-of-range vehicle keeps player on foot',()=>{
  assert.equal(nearestEnterableVehicle([car(0,0)],{x:NaN,y:0}),null);
 });
 
-test('starter bike candidates are all in actual boarding range, opposite Panda first',()=>{
- const start={x:20,y:30,a:0},panda=car(23,36);
- const options=starterMotorcycleCandidates(start,panda,7.2);
+test('starter bike candidates are all in actual boarding range, opposite Borgo first',()=>{
+ const start={x:20,y:30,a:0},borgo=car(23,36);
+ const options=starterMotorcycleCandidates(start,borgo,7.2);
  assert.ok(options.length>=8,'several safe placement alternatives');
  assert.ok(options.every(q=>Math.hypot(q.x-start.x,q.y-start.y)<MOTORCYCLE_ENTRY_RADIUS));
- assert.ok(options[0].y<start.y,'opposite of parked Panda on positive side');
+ assert.ok(options[0].y<start.y,'opposite of parked Borgo on positive side');
  const q=options[0];
- assert.equal(nearestEnterableVehicle([panda,bike(q.x,q.y)],start)?.bike,true);
+ assert.equal(nearestEnterableVehicle([borgo,bike(q.x,q.y)],start)?.bike,true);
 });
 
 test('legacy procedural motorcycle removed, and UI shares exact board selection with keyboard',async()=>{
@@ -43,7 +43,7 @@ test('legacy procedural motorcycle removed, and UI shares exact board selection 
  assert.equal(game.split('nearestEnterableVehicle(state.cars,p)').length-1,3,
    'E, touch HUD and near-bike label share the same selection');
  assert.match(game,/p\.car=target\.index/);
- // BF02: the starter scooter takes the free stall of the parking strip closest to the Panda.
+ // BF02: the starter scooter takes the free stall of the parking strip closest to the Borgo.
  assert.match(game,/const bikeStall=free\(nearCar\.x,nearCar\.y,\{radius:40\}\)/);
  assert.ok(!art.includes('if(type===5)'), 'old procedural scooter no longer appears among normal car variants');
  assert.match(game,/isMotorcycle\(vehicle\)/);

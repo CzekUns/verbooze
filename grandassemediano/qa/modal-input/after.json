@@ -1,0 +1,25 @@
+{
+  "cases": [
+    {
+      "case": "pause-e",
+      "car": -1,
+      "pause": true
+    },
+    {
+      "case": "map-e",
+      "car": -1,
+      "map": true
+    },
+    {
+      "case": "dialog-e",
+      "car": -1,
+      "dialog": true
+    },
+    {
+      "case": "bank-pause-escape",
+      "bank": true,
+      "pause": false
+    }
+  ],
+  "errors": []
+}
