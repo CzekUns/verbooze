@@ -4,7 +4,7 @@ import {readFile} from 'node:fs/promises';
 import {buildRoadGraph,createAgents,stepAgents,stepAgent,chooseTurn} from './roads.mjs';
 import {drawCityPeople} from './city-art.mjs';
 import {makeCollisionIndex,nearbyColliders,moveInCollisionIndex,vehiclesOverlap,vehicleHitsPedestrian,collidesWithTraffic,trafficMoveBlocked,PEDESTRIAN_PAD} from './traffic-collision.mjs';
-import {roadTrafficLaneOffset} from './road-widths.mjs?v=044';
+import {roadTrafficLaneOffset} from './road-widths.mjs?v=1044';
 import {vs} from './world-scale.mjs';
 
 const graph=buildRoadGraph([

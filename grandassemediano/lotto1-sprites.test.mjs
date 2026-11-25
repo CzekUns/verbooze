@@ -1,5 +1,5 @@
-/* Lotto 1 (2026-10-21, Claude + CODEX-GH): Fiat Grande Punto 2005 and Lancia Ypsilon III 2011 in the traffic.
- * Atlas drawn by code by CODEX-GH (assets/vehicles/sources/grande-punto-ypsilon3-16-genera.py); PROVISIONAL art. */
+/* Lotto 1 (2026-10-21, Claude + CODEX-GH): costruttore di fantasia Aurora 2005 and costruttore di fantasia Luna III 2011 in the traffic.
+ * Atlas drawn by code by CODEX-GH (assets/vehicles/sources/aurora-selce-16-genera.py); PROVISIONAL art. */
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
 import {readFile} from 'node:fs/promises';
@@ -9,10 +9,10 @@ import {handlingProfile} from './vehicle-handling.mjs';
 import {vehicleShape} from './traffic-collision.mjs';
 import {NOVITA,novitaAvailable} from './novita.mjs';
 
-const ATLAS='@grande-punto-ypsilon3-atlas';
-const PUNTO=['white','red','blue','silver','graphite','black','lightblue','beige'];
-const YPSILON=['white','red','silver','graphite','black','blue','beige','purple'];
-const IDS=[...PUNTO.map(c=>'grande-punto-2005-'+c),...YPSILON.map(c=>'ypsilon-2011-'+c)];
+const ATLAS='@aurora-selce-atlas';
+const ALBA=['white','red','blue','silver','graphite','black','lightblue','beige'];
+const LUNA=['white','red','silver','graphite','black','blue','beige','purple'];
+const IDS=[...ALBA.map(c=>'aurora-'+c),...LUNA.map(c=>'selce-'+c)];
 
 // Minimal reader of a non-interlaced 8-bit RGBA PNG (colour type 6), enough for the alpha channel.
 function decodeRGBA(bytes){
@@ -43,11 +43,11 @@ function decodeRGBA(bytes){
 
 test('lotto 1: the atlas is a 160x240 RGBA PNG with 16 cells, transparent corners and solid bodies',async()=>{
  const path=EXTRA_CAR_ATLASES[ATLAS];
- assert.equal(path,'./assets/vehicles/grande-punto-ypsilon3-16-rgba.png');
+ assert.equal(path,'./assets/vehicles/aurora-selce-16-rgba.png');
  const bin=await readFile(new URL(path,import.meta.url));
  const png=decodeRGBA(bin);
  assert.equal(png.w,160);assert.equal(png.h,240);
- assert.ok(bin.length<18000,'compact for mobile');
+ assert.ok(bin.length<40000,'compact for mobile');
  assert.deepEqual(CAR_ATLAS_CELL,{width:40,height:60,columns:4,rows:4});
  for(let i=0;i<16;i++){
   const ox=i%4*40,oy=Math.floor(i/4)*60;
@@ -58,19 +58,18 @@ test('lotto 1: the atlas is a 160x240 RGBA PNG with 16 cells, transparent corner
   assert.ok(opaque>900&&opaque<2000,'cell '+i+' has a car-sized body: '+opaque);
  }
  // The generator and the preview sheet travel with the atlas, the preview is not used by the game.
- for(const f of ['grande-punto-ypsilon3-16-genera.py','grande-punto-ypsilon3-16-sheet.png'])
-  assert.ok((await readFile(new URL('./assets/vehicles/sources/'+f,import.meta.url))).length>1000,f);
+ assert.ok((await readFile(new URL('./assets/vehicles/sources/fictional-cars-master.png',import.meta.url))).length>1000);
 });
 
 test('lotto 1: 16 variant ids, two models with eight colours each on the right cells',()=>{
  assert.equal(IDS.length,16);
  for(const id of IDS)assert.ok(EXTRA_CAR_VARIANTS[id],'variant '+id);
- PUNTO.forEach((color,i)=>assert.deepEqual(EXTRA_CAR_VARIANTS['grande-punto-2005-'+color],{index:i,model:'grande-punto-2005',color,atlas:ATLAS}));
- YPSILON.forEach((color,i)=>assert.deepEqual(EXTRA_CAR_VARIANTS['ypsilon-2011-'+color],{index:8+i,model:'ypsilon-2011',color,atlas:ATLAS}));
+ ALBA.forEach((color,i)=>assert.deepEqual(EXTRA_CAR_VARIANTS['aurora-'+color],{index:i,model:'aurora',color,atlas:ATLAS}));
+ LUNA.forEach((color,i)=>assert.deepEqual(EXTRA_CAR_VARIANTS['selce-'+color],{index:8+i,model:'selce',color,atlas:ATLAS}));
  assert.equal(Object.keys(EXTRA_CAR_VARIANTS).filter(id=>EXTRA_CAR_VARIANTS[id].atlas===ATLAS).length,16);
- // Same footprint as the Punto 188 and the Ypsilon 2003 they drive beside.
- assert.deepEqual(carDrawSize('grande-punto-2005-red'),carDrawSize('punto-188-red'));
- assert.deepEqual(carDrawSize('ypsilon-2011-purple'),carDrawSize('ypsilon-2003-white'));
+ // Same footprint as the Alba 188 and the Luna 2003 they drive beside.
+ assert.deepEqual(carDrawSize('aurora-red'),carDrawSize('alba-red'));
+ assert.deepEqual(carDrawSize('selce-purple'),carDrawSize('luna-white'));
 });
 
 test('lotto 1: both models are in the AI traffic and in the parked cars, with their own driving profile',()=>{
@@ -81,28 +80,28 @@ test('lotto 1: both models are in the AI traffic and in the parked cars, with th
  // The traffic picks ids with stride CAR_TRAFFIC_STRIDE (game.mjs): over a full cycle every new variant is spawned.
  const seen=new Set();for(let i=0;i<CAR_TRAFFIC_SPRITE_IDS.length;i++)seen.add(CAR_TRAFFIC_SPRITE_IDS[(i*CAR_TRAFFIC_STRIDE)%CAR_TRAFFIC_SPRITE_IDS.length]);
  for(const id of IDS)assert.ok(seen.has(id),'spawned '+id);
- const punto=handlingProfile({model:'grande-punto-2005-blue'}),ypsilon=handlingProfile({model:'ypsilon-2011-beige'});
- assert.equal(punto.model,'grande-punto-2005');assert.equal(ypsilon.model,'ypsilon-2011');
- const p188=handlingProfile({model:'punto-188-blue'}),y2003=handlingProfile({model:'ypsilon-2003-white'});
- for(const k of ['accel','top','brake','grip','steer'])assert.equal(punto[k],p188[k],'Grande Punto ~ Punto 188: '+k);
- for(const k of ['accel','top','brake','grip','steer'])assert.equal(ypsilon[k],y2003[k],'Ypsilon 2011 ~ Ypsilon 2003: '+k);
+ const alba=handlingProfile({model:'aurora-blue'}),luna=handlingProfile({model:'selce-beige'});
+ assert.equal(alba.model,'aurora');assert.equal(luna.model,'selce');
+ const p188=handlingProfile({model:'alba-blue'}),y2003=handlingProfile({model:'luna-white'});
+ for(const k of ['accel','top','brake','grip','steer'])assert.equal(alba[k],p188[k],'Aurora ~ Alba 188: '+k);
+ for(const k of ['accel','top','brake','grip','steer'])assert.equal(luna[k],y2003[k],'Luna 2011 ~ Luna 2003: '+k);
  // Collision box of the standard car (no model-specific shape).
- assert.deepEqual(vehicleShape({model:'grande-punto-2005-white'}),vehicleShape({model:'punto-188-white'}));
- assert.deepEqual(vehicleShape({model:'ypsilon-2011-red'}),vehicleShape({model:'punto-188-white'}));
+ assert.deepEqual(vehicleShape({model:'aurora-white'}),vehicleShape({model:'alba-white'}));
+ assert.deepEqual(vehicleShape({model:'selce-red'}),vehicleShape({model:'alba-white'}));
 });
 
 test('lotto 1: NOVITÀ entry, registers and cache versions',async()=>{
  const entry=NOVITA.find(e=>e.id==='lotto1-auto');
  assert.ok(entry,'novita lotto1-auto');
- assert.match(entry.cosa,/Grande Punto/);assert.match(entry.cosa,/Ypsilon/);
+ assert.match(entry.cosa,/Aurora/);assert.match(entry.cosa,/Luna/);
  const roads=[{n:'Via Roma',p:[100,100,200,100,300,100,400,100]}];
  assert.deepEqual(entry.trova({roads,traffic:[],cars:[]}),{x:300,y:100});
- assert.equal(novitaAvailable(entry,{traffic:[{model:'grande-punto-2005-red'}]}),true);
+ assert.equal(novitaAvailable(entry,{traffic:[{model:'aurora-red'}]}),true);
  const read=f=>readFile(new URL('./'+f,import.meta.url),'utf8');
  const [game,page,doc,log,visual]=await Promise.all(['game.mjs','index.html','NOVITA_DA_APPROVARE.md','WORK_LOG.md','VISUAL_PROGRESS.md'].map(read));
  assert.ok(doc.includes('`lotto1-auto`'));
- assert.match(log,/lotto 1 grafica: Grande Punto e Ypsilon III/);assert.match(log,/PROVVISORIA/);
- assert.match(visual,/Grande Punto/);
+ assert.match(log,/lotto 1 grafica: Aurora e Luna III/);assert.match(log,/PROVVISORIA/);
+ assert.match(visual,/Aurora/);
  const v=(src,mod)=>Number((src.match(new RegExp(mod.replace('.','\\.')+'\\?v=(\\d+)'))||[])[1]);
  assert.ok(v(game,'car-sprites.mjs')>=114,'car-sprites v114');
  assert.ok(v(game,'vehicle-handling.mjs')>=6,'vehicle-handling v006');

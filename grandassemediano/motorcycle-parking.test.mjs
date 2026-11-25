@@ -44,7 +44,7 @@ test('dedicated parking distribution covers center and the rest of real Melito',
  assert.deepEqual(motorcycleParkingRoadOrder(roads,center,sample,distance,rand).slice(0,50),ordered.slice(0,50));
  assert.ok(ordered.slice(0,15).some(road=>Math.hypot(sample(road,.5).x-center.x,sample(road,.5).y-center.y)<270));
  // There are enough geographically separated candidate roads to reach the cap
- // when geometry validates their curb, not just a handful near the Panda.
+ // when geometry validates their curb, not just a handful near the Borgo.
  const far=ordered.filter(road=>Math.hypot(sample(road,.5).x-center.x,sample(road,.5).y-center.y)>400);
  assert.ok(far.length>50);
 });

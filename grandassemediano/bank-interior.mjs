@@ -1,6 +1,6 @@
-import {drawCityPlayer} from './city-art.mjs?v=141';
-import {drawPedestrianSprite} from './pedestrian-sprites.mjs?v=002';
-import {WALK_SPEED,RUN_SPEED} from './driving-controls.mjs?v=100';
+import {drawCityPlayer} from './city-art.mjs?v=1141';
+import {drawPedestrianSprite} from './pedestrian-sprites.mjs?v=1002';
+import {WALK_SPEED,RUN_SPEED} from './driving-controls.mjs?v=1100';
 
 const WALKABLE=new Set(['primary','secondary','tertiary','unclassified','residential','living_street','service','pedestrian','footway','path','steps']);
 
@@ -160,7 +160,7 @@ function drawFloor(ctx){
 }
 function drawUpperBankHall(ctx,clock){
  drawFloor(ctx);
- // GTA-style cutaway masonry: shallow exterior-style walls with thickness,
+ // GAM-style cutaway masonry: shallow exterior-style walls with thickness,
  // edges and shadows; the player looks DOWN at the whole room.
  wall(ctx,0,0,100,4);
  wall(ctx,0,3,3,61);

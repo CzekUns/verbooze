@@ -1,13 +1,13 @@
-# GTA Melito — collaudo giocabilità (versione Beta PR #29)
+# GAM Melito — collaudo giocabilità (versione Beta PR #29)
 
-La **Stabile** è congelata al commit `affeffb1`; la **Beta** viene generata dal branch della PR #29. La pubblicazione GitHub Pages richiede il workflow `publish-arcade-gta-variants.yml` e la configurazione Pages su **GitHub Actions**. Prima di ogni confronto annotare data, browser, dispositivo e versione Beta.
+La **Stabile** è congelata al commit `affeffb1`; la **Beta** viene generata dal branch della PR #29. La pubblicazione GitHub Pages richiede il workflow `publish-arcade-gam-variants.yml` e la configurazione Pages su **GitHub Actions**. Prima di ogni confronto annotare data, browser, dispositivo e versione Beta.
 
 ## Come segnalare
 Per ogni prova: **OK / DIFETTO / NON PROVATO**; indicare passaggi esatti, comportamento atteso, comportamento osservato, ora di gioco, screenshot/video se possibile. Non usare la checkbox Q del TODO come certificazione di prova personale.
 
 ## Giro iniziale: 10 minuti
 1. **Avvio:** apri entrambe le schede dalla homepage; mappa Melito caricata, nessun errore, partenza in Via Roma.
-2. **Movimento a piedi:** joystick, corsa, marciapiedi, tetti trasparenti, passaggio dietro edifici e assenza di blocchi.
+2. **Movimento a piedi:** joystick, iris, marciapiedi, tetti trasparenti, passaggio dietro edifici e assenza di blocchi.
 3. **Guida:** entra/esci da auto e moto; volante touch, accelera, frena, retromarcia; traffico e collisioni non letali.
 4. **Banca e missioni:** entra/esci, HUD, timer, minimappa, dialoghi, missioni e salvataggi. Verifica che l'orologio NPC si fermi in banca/pausa senza rompere i timer missione.
 5. **Fluidità Android:** 5 minuti in landscape con traffico e NPC; registra rallentamenti, freeze e surriscaldamento.

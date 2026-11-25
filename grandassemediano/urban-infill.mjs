@@ -1,4 +1,4 @@
-/* GTA Melito urban fabric fill. Synthetic buildings are NOT geographic facts.
+/* GAM Melito urban fabric fill. Synthetic buildings are NOT geographic facts.
  * Keep real OSM footprints and centerlines untouched. These visual stand-ins
  * occupy plausible uncharted urban gaps and retain explicit synthetic provenance. Collision policy belongs to game.mjs. */
 export const INFILL_VERSION='116';

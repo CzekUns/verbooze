@@ -144,5 +144,5 @@ test('lotto 2: i quattro nuovi pedoni entrano nella rotazione (kind 7–10) senz
  assert.ok(Number((page.match(/game\.mjs\?v=(\d+)/)||[])[1])>=200,'game.mjs?v= aggiornato');
  assert.ok(Number((game.match(/city-art\.mjs\?v=(\d+)/)||[])[1])>=135);
  assert.ok(Number((game.match(/roads\.mjs\?v=(\d+)/)||[])[1])>=162);
- for(const f of [art,game,road,resident,market])assert.match(f,/extra-pedestrian-sprites\.mjs\?v=00[3-9]/,'versione cache del loader aggiornata');
+ for(const f of [art,game,road,resident,market])assert.match(f,/extra-pedestrian-sprites\.mjs\?v=\d+/,'versione cache del loader aggiornata');
 });

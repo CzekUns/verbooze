@@ -1,9 +1,9 @@
-/* GTA Melito — second approved sheet: red-hoodie hero plus three street NPCs.
+/* GAM Melito — second approved sheet: red-hoodie hero plus three street NPCs.
  * 4 identities × 4 directions × 4 walking frames, transparent 384×160 atlas.
  * No changes to collision radius, AI pathfinding or player movement.
  */
-import {VEHICLE_SCALE,PERSON_SCALE,vs,ps} from './world-scale.mjs?v=001';
-import {pedestrianDirection} from './pedestrian-sprites.mjs?v=002';
+import {VEHICLE_SCALE,PERSON_SCALE,vs,ps} from './world-scale.mjs?v=1001';
+import {pedestrianDirection} from './pedestrian-sprites.mjs?v=1002';
 export const EXTRA_PEDESTRIAN_ATLAS_PATH='./assets/people/pedoni-secondo-lotto-4x4frames-24x40-rgba.png';
 export const EXTRA_PEDESTRIAN_IDENTITIES=Object.freeze(['protagonist-red-hoodie','woman-white','man-green-tracksuit','worker-orange-vest']);
 export const EXTRA_PEDESTRIAN_CELL=Object.freeze({width:24,height:40,columns:16,rows:4});
@@ -13,7 +13,7 @@ export function loadExtraPedestrianSprites(){
  if(image||typeof Image==='undefined')return;
  const picture=new Image();
  image=picture;
- picture.onerror=()=>console.warn('GTA Melito: second pedestrian atlas unavailable; using original art');
+ picture.onerror=()=>console.warn('GAM Melito: second pedestrian atlas unavailable; using original art');
  picture.src=new URL(EXTRA_PEDESTRIAN_ATLAS_PATH,import.meta.url).href;
 }
 export function extraPedestrianSpriteReady(){
@@ -78,7 +78,7 @@ export function loadPedestrianSheets(){
   if(sheets.has(sheet.id))continue;
   const picture=new Image();
   sheets.set(sheet.id,picture);
-  picture.onerror=()=>console.warn('GTA Melito: pedestrian sheet '+sheet.id+' unavailable; using the previous sheets');
+  picture.onerror=()=>console.warn('GAM Melito: pedestrian sheet '+sheet.id+' unavailable; using the previous sheets');
   picture.src=new URL(sheet.path,import.meta.url).href;
  }
 }

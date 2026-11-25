@@ -30,7 +30,7 @@ Screenshot in Chrome headless del 20/10/2026, PC 1280×720 e telefono 844×390, 
 - Da chiedere al SUAP del Comune di Melito: giorno e orari ufficiali, numero di posteggi, sede provvisoria durante i lavori.
 
 ## Regole proposte per il gioco
-- **Quando:** il mercato c'è il giorno di mercato e la mattina, seguendo l'orologio NPC della Q02. Montaggio all'alba, pieno tra le 8 e le 13, smontaggio entro le 14, area vuota il pomeriggio. Se l'orologio non conta i giorni della settimana, serve un contatore giorni. Per le prove si usa `?mercato=1`.
+- **Quando:** il mercato c'è il giorno di mercato e la mattina, seguendo l'orologio NPC della Q02. Montaggio all'punto, pieno tra le 8 e le 13, smontaggio entro le 14, area vuota il pomeriggio. Se l'orologio non conta i giorni della settimana, serve un contatore giorni. Per le prove si usa `?mercato=1`.
 - **Strade:** nel giorno di mercato Via Dublino, Via Praga (tratto lungo l'area), Via Ginevra e Via Budapest sono chiuse al traffico NPC. Sono coinvolti:
   - BF03: niente spawn né svolte verso le vie chiuse, che non devono diventare trappole;
   - BF07: incroci e precedenze ai bordi della chiusura;
@@ -43,7 +43,7 @@ Screenshot in Chrome headless del 20/10/2026, PC 1280×720 e telefono 844×390, 
 ## Per chi crea i banchi
 - **`mercato-banchi.csv`:** una riga per tipo di banco, 14 tipi per 23 banchi indicativi. Per ognuno ci sono misure reali in metri, copertura (ombrellone, tenda, furgone-negozio), diametro, forma e colori dell'ombrellone, merce, sprite necessari, palette, animazioni NPC, suono, posizione e priorità P0/P1/P2.
 - **`mercato-requisiti.csv`:** requisiti tecnici R01–R16, ciascuno con criterio di accettazione e moduli coinvolti.
-- **Scala:** le misure sono **reali**. Nel gioco i veicoli sono disegnati più grandi del vero: una Panda reale è lunga circa 3,7 m, la sua sagoma di collisione 6,3 unità e lo sprite circa 8,5. Per coerenza con auto e persone, moltiplica le misure per circa **1,7–2,3** e prova la densità finale nell'area.
+- **Scala:** le misure sono **reali**. Nel gioco i veicoli sono disegnati più grandi del vero: una Borgo reale è lunga circa 3,7 m, la sua sagoma di collisione 6,3 unità e lo sprite circa 8,5. Per coerenza con auto e persone, moltiplica le misure per circa **1,7–2,3** e prova la densità finale nell'area.
 - **Ordine consigliato:**
   1. P0: frutta e verdura, abbigliamento, ombrellone trasparente, collisioni e posizionamento;
   2. P1: il resto;

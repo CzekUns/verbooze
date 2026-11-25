@@ -132,7 +132,7 @@ const CSS=`
 export function mountPhone(doc,{menu,env={}}){
  const phone=createPhone(),stub={phone,key:()=>false,opened(){},show(){},elements:{}};
  if(!doc||!menu||!doc.head||typeof menu.querySelector!=='function')return stub;
- try{return buildPhone(doc,menu,env,phone);}catch(e){console.error('GTA Melito smartphone',e);return stub;}
+ try{return buildPhone(doc,menu,env,phone);}catch(e){console.error('GAM Melito smartphone',e);return stub;}
 }
 function buildPhone(doc,menu,env,phone){
  const el=(tag,attrs={},html='')=>{const e=doc.createElement(tag);for(const [k,v] of Object.entries(attrs))e.setAttribute(k,v);if(html)e.innerHTML=html;return e;};

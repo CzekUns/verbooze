@@ -85,7 +85,7 @@ class Cell:
 
 
 def courier(liv):
-    """Furgone compatto da corriere (tipo Doblò/Kangoo a tetto alto): cofano, parabrezza inclinato,
+    """Furgone compatto da corriere (tipo Cargo/Kangoo a tetto alto): cofano, parabrezza inclinato,
     cabina e vano di carico più largo con tetto rialzato."""
     c = Cell()
     base, band, roof = liv['body'], liv.get('band'), liv.get('roof', liv['body'])

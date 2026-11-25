@@ -10,8 +10,8 @@
  * errore di mira) oppure TIRO LIBERO (da soli: si contano i tiri per svuotare il tavolo).
  * Fisica 2D leggera a passo fisso (1/240 s): attrito, urti elastici fra biglie uguali, sponde, buche.
  * Aggancio per i tavoli dei bar grandi della Q27: openPoolMachine({onExit}). Grafica provvisoria, da approvare. */
-import {makeRng} from './minigame-slot.mjs?v=001';
-export const POOL_SAVE_KEY='gta-melito-biliardo-v1';
+import {makeRng} from './minigame-slot.mjs?v=1001';
+export const POOL_SAVE_KEY='gam-melito-biliardo-v1';
 export const POOL_W=224,POOL_H=136;
 // Piano di gioco (panno) in pixel logici: 200×100, cioè 2:1 come un tavolo vero.
 export const TABLE=Object.freeze({x0:12,y0:24,x1:212,y1:124});

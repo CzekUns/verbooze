@@ -5,7 +5,7 @@ import {NOVITA,NOVITA_STORAGE_KEY,novitaAvailable,novitaTarget,findStandingPoint
  loadJudgements,saveJudgements,toggleJudgement,judgementSummary,renderNovita} from './novita.mjs';
 
 const REQUIRED=['semafori','frecce','lavavetri','varchi','baie','recinti','guardiole','atlante','torre','piscina',
- 'mercato','ombrelloni','posteggi','ape','ambulante','corsie','pulsante','scala','transenne','corriere','nettezza','passeggeri','lotto2-pedoni','lotto3-banchi','lotto10-12-pedoni','lotto13-14-pedoni','lotto17-20-pedoni','varianti-pedoni','vita-di-quartiere','pose-fermi','giochi-di-strada','animali-di-strada','caricamento-artwork','dialogo-volti'];
+ 'mercato','ombrelloni','posteggi','triciclo','ambulante','corsie','pulsante','scala','transenne','corriere','nettezza','passeggeri','lotto2-pedoni','lotto3-banchi','lotto10-12-pedoni','lotto13-14-pedoni','lotto17-20-pedoni','varianti-pedoni','vita-di-quartiere','pose-fermi','giochi-di-strada','animali-di-strada','caricamento-artwork','dialogo-volti'];
 // Una mappa finta con un esempio per ogni voce, vicino alla partenza.
 const world=()=>({spawn:[100,100],
  graph:{signals:[{x:900,y:900},{x:120,y:110}]},
@@ -17,7 +17,7 @@ const world=()=>({spawn:[100,100],
  buildings:[{id:1,bounds:[10,10,20,20],art:{glass:true}},{id:2,bounds:[40,40,60,60],art:{ruinPool:true}},{id:733703815,bounds:[200,200,220,240],art:{}}],
  waterTowers:[{x:310,y:290}],
  market:{stalls:[{x:1160,y:940},{x:1180,y:950}]},
- cars:[{model:'panda-modern-white',x:105,y:105},{model:'ape-vissuta-verde',x:150,y:160}],traffic:[],
+ cars:[{model:'borgo-nuova-white',x:105,y:105},{model:'triciclo-vissuta-verde',x:150,y:160}],traffic:[],
  foodVendors:[{fryer:{x:700,y:710}},{fryer:{x:140,y:120}}],
  roads:[{n:'Via Francesco Rossi',p:[0,0,50,0,100,0,150,0]}]});
 
@@ -46,7 +46,7 @@ test('BF15 VAI A VEDERE finds a real example for each entry (the closest to the 
  assert.deepEqual(at('torre'),{x:310,y:290});
  assert.deepEqual(at('mercato'),{x:1168,y:948});
  assert.deepEqual(at('ombrelloni'),{x:1160,y:940},'a stall of the market');
- assert.deepEqual(at('ape'),{x:150,y:160},'one of the 16 Ape Car variants');
+ assert.deepEqual(at('triciclo'),{x:150,y:160},'one of the 16 Triciclo Car variants');
  assert.deepEqual(at('ambulante'),{x:140,y:120});
  assert.deepEqual(at('corsie'),{x:100,y:0});
  assert.equal(at('pulsante'),null,'phone-only entry: description, no jump');
@@ -58,7 +58,7 @@ test('BF15 entries «in arrivo» stay off until their feature is really in the g
   const e=NOVITA.find(q=>q.id===id);
   assert.equal(novitaAvailable(e,s),false,id+' off');assert.equal(novitaTarget(e,s),null);
  }
- s.traffic.push({model:'furgone-corriere-giallo',x:111,y:111},{model:'camion-nettezza-urbana',x:112,y:112},{model:'panda-fire-red',x:113,y:113,passengers:[{seed:1}]});
+ s.traffic.push({model:'furgone-corriere-giallo',x:111,y:111},{model:'camion-nettezza-urbana',x:112,y:112},{model:'borgo-classica-red',x:113,y:113,passengers:[{seed:1}]});
  s.worldScale={vehicle:.75};
  assert.deepEqual(novitaTarget(NOVITA.find(q=>q.id==='corriere'),s),{x:111,y:111});
  assert.deepEqual(novitaTarget(NOVITA.find(q=>q.id==='nettezza'),s),{x:112,y:112});
@@ -85,7 +85,7 @@ test('BF15 the clock jumps to the hour of the example on the same game day',()=>
 
 test('BF15 judgements: MI PIACE / DA RIFARE toggled, kept only in this browser, copied as text',()=>{
  const mem=new Map(),storage={getItem:k=>mem.get(k)??null,setItem:(k,v)=>mem.set(k,v)};
- let j=toggleJudgement({},'torre','ok');j=toggleJudgement(j,'ape','rifare');j=toggleJudgement(j,'ape','rifare');
+ let j=toggleJudgement({},'torre','ok');j=toggleJudgement(j,'triciclo','rifare');j=toggleJudgement(j,'triciclo','rifare');
  assert.deepEqual(j,{torre:'ok'},'a second click clears it');
  j=toggleJudgement(j,'mercato','boh');assert.deepEqual(j,{torre:'ok'},'only the two judgements');
  saveJudgements(storage,{...j,lavavetri:'rifare'});

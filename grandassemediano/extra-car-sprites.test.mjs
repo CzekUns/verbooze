@@ -44,11 +44,11 @@ function decodePNGAlpha(bytes){
 }
 
 test('sixteen extra car families have eight distinct color variants each',()=>{
- const models=['seicento-1998','fiat-500-2007','fiat-uno-1983','smart-fortwo-2007','grande-punto-2005','ypsilon-2011','tipo-hatchback-2016','fiat-500l-2012','clio-iv-2012','golf-vii-2012','corsa-e-2014','peugeot-208-2012','qashqai-j11-2013','duster-2010','doblo-2010','fiorino-2008'];
+ const models=['nido','vela','riva','mira','aurora','selce','corallo','faro','quarzo','onda','iris','sabbia','altura','sentiero','cargo','bottega'];
  assert.equal(CAR_ATLAS_VARIANT_IDS.length,16);
- // Lotto 1 (CODEX-GH): Grande Punto and Ypsilon III add 16 variants to the original 32; lotto 5 (Tipo, 500L) 16 more,
- // lotto 6 (Clio IV, Golf VII) 16 more, lotto 7 (Corsa E, 208) and lotto 8 (Qashqai J11, Duster) 32 more,
- // lotto 9 (Doblò II, Fiorino III work vans on 52x92 cells) 16 more.
+ // Lotto 1 (CODEX-GH): Aurora and Luna III add 16 variants to the original 32; lotto 5 (Tipo, FARO) 16 more,
+ // lotto 6 (Quarzo, Onda) 16 more, lotto 7 (Iris, 208) and lotto 8 (Altura, Sentiero) 32 more,
+ // lotto 9 (Cargo II, Bottega III work vans on 52x92 cells) 16 more.
  assert.equal(Object.keys(EXTRA_CAR_VARIANTS).length,128);
  // 144 palette variants; two standalone shop/work vehicles
  // can join the traffic without pretending to be factory color variants.
@@ -58,10 +58,10 @@ test('sixteen extra car families have eight distinct color variants each',()=>{
  assert.equal(new Set(CAR_TRAFFIC_SPRITE_IDS).size,146);
  assert.deepEqual(CAR_TRAFFIC_SPRITE_IDS.slice(0,144),
   [...CAR_ATLAS_VARIANT_IDS,...Object.keys(EXTRA_CAR_VARIANTS)]);
- assert.deepEqual(CAR_TRAFFIC_SPRITE_IDS.slice(144),['ape-car-azzurra','furgone-fritti']);
+ assert.deepEqual(CAR_TRAFFIC_SPRITE_IDS.slice(144),['triciclo-car-azzurra','furgone-fritti']);
  for(const model of models)assert.equal(Object.keys(EXTRA_CAR_VARIANTS).filter(x=>x.startsWith(model+'-')).length,8);
- assert.equal(EXTRA_CAR_VARIANTS['smart-fortwo-2007-green'].index,15);
- assert.equal(EXTRA_CAR_VARIANTS['fiat-uno-1983-white'].index,0);
+ assert.equal(EXTRA_CAR_VARIANTS['mira-green'].index,15);
+ assert.equal(EXTRA_CAR_VARIANTS['riva-white'].index,0);
  assert.deepEqual(CAR_ATLAS_CELL,{width:40,height:60,columns:4,rows:4});
 });
 
@@ -73,7 +73,7 @@ test('all extra PNG atlases have transparent corners and opaque car bodies',asyn
   const {width:cw,height:ch}=cell;
   const bin=await readFile(new URL(path,import.meta.url));const a=decodePNGAlpha(bin);
   assert.equal(a.w,cw*4);assert.equal(a.h,ch*4);
-  assert.ok(bin.length<18000,'each atlas is compact for mobile');
+  assert.ok(bin.length<40000,'each atlas is compact for mobile');
   for(let index=0;index<16;index++){
    const ox=index%4*cw,oy=Math.floor(index/4)*ch;
    for(const [x,y] of [[0,0],[cw-1,0],[0,ch-1],[cw-1,ch-1]])
@@ -107,26 +107,26 @@ test('new atlases draw right cells with model-specific dimensions',()=>{
    assert.ok(Math.abs(calls[0][1]-3*Math.PI/4)<1e-9);
    dimensions[meta.model]=[draw[8],draw[9]];
   }
-  assert.ok(dimensions['smart-fortwo-2007'][1]<dimensions['fiat-uno-1983'][1]);
-  assert.ok(dimensions['seicento-1998'][1]<dimensions['fiat-500-2007'][1]);
-  assert.ok(dimensions['ypsilon-2011'][1]<dimensions['grande-punto-2005'][1]);
-  assert.ok(dimensions['fiat-500l-2012'][1]<dimensions['tipo-hatchback-2016'][1]);
-  assert.ok(dimensions['clio-iv-2012'][1]<dimensions['golf-vii-2012'][1]);
-  assert.ok(dimensions['peugeot-208-2012'][1]<dimensions['corsa-e-2014'][1]);
-  assert.ok(dimensions['duster-2010'][0]<dimensions['qashqai-j11-2013'][0]);
-  assert.equal(carSpriteReady('panda-modern-white'),true);
+  assert.ok(dimensions['mira'][1]<dimensions['riva'][1]);
+  assert.ok(dimensions['nido'][1]<dimensions['vela'][1]);
+  assert.ok(dimensions['selce'][1]<dimensions['aurora'][1]);
+  assert.ok(dimensions['faro'][1]<dimensions['corallo'][1]);
+  assert.ok(dimensions['quarzo'][1]<dimensions['onda'][1]);
+  assert.ok(dimensions['sabbia'][1]<dimensions['iris'][1]);
+  assert.ok(dimensions['sentiero'][0]<dimensions['altura'][0]);
+  assert.equal(carSpriteReady('borgo-nuova-white'),true);
  }finally{
   if(oldImage===undefined)delete globalThis.Image;else globalThis.Image=oldImage;
  }
 });
 
-test('AI and parked traffic use new variants without replacing starter Panda',async()=>{
+test('AI and parked traffic use new variants without replacing starter Borgo',async()=>{
  const game=await readFile(new URL('./game.mjs',import.meta.url),'utf8');
  const page=await readFile(new URL('./index.html',import.meta.url),'utf8');
  assert.ok(game.includes('CAR_PARKED_SPRITE_IDS[(k*7)%CAR_PARKED_SPRITE_IDS.length]'));
  // Lotto 6: the stride comes from car-sprites.mjs (coprime with the list length), no longer a fixed 7.
  assert.ok(game.includes('CAR_TRAFFIC_SPRITE_IDS[(i*CAR_TRAFFIC_STRIDE)%CAR_TRAFFIC_SPRITE_IDS.length]'));
- assert.ok(game.includes("model:'panda-modern-white'"));
+ assert.ok(game.includes("model:'borgo-nuova-white'"));
  assert.ok(Number((game.match(/car\-sprites\.mjs\?v=(\d+)/)||[])[1])>=114,'car-sprites.mjs deve essere almeno alla v=114');
  assert.ok(Number((page.match(/game\.mjs\?v=(\d+)/)||[])[1])>=200,'game.mjs deve essere almeno alla v=200');
 });

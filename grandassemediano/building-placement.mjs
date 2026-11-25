@@ -1,7 +1,7 @@
 /* Precomputed display/collision corrections. Source OSM and road IDs stay intact.
  * schema 1: historical small offsets. schema 2: individually audited full-shape
  * translations / uniform scaling, shared by rendering, collision and entrances. */
-import {mapFingerprint} from './urban-infill.mjs?v=116';
+import {mapFingerprint} from './urban-infill.mjs?v=1116';
 
 function validPlacement(map,placement){
  return placement&&[1,2].includes(placement.schema)&&placement.sourceCreated===map.created&&

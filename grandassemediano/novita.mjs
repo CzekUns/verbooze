@@ -1,10 +1,10 @@
-/* GTA Melito — BF15: NOVITÀ · DA APPROVARE.
+/* GAM Melito — BF15: NOVITÀ · DA APPROVARE.
  * Elenco degli elementi grafici e visivi PROVVISORI aggiunti da Claude (account GitHub
  * ilconsulentelogistico-hue): li giudica il committente, la grafica definitiva la decide lui e il
  * proprietario può rifarla nello stile originale. Ogni voce sa dove trovare un esempio vero nella
  * mappa (VAI A VEDERE: posto, ora, meteo); i giudizi MI PIACE / DA RIFARE restano solo in questo
  * browser e si copiano come testo. Tenere allineato con NOVITA_DA_APPROVARE.md. */
-import {LOTTO2_PEDESTRIAN_NPC_START_KIND,PEDESTRIAN_VARIANT_FIRST_KIND,pedestrianSheet} from './extra-pedestrian-sprites.mjs?v=007';
+import {LOTTO2_PEDESTRIAN_NPC_START_KIND,PEDESTRIAN_VARIANT_FIRST_KIND,pedestrianSheet} from './extra-pedestrian-sprites.mjs?v=1007';
 const LOTTO10_12_FIRST_KIND=pedestrianSheet('lotto10').startKind;// lotti 10–12: kind 11–22
 const LOTTO10_12_LAST_KIND=pedestrianSheet('lotto12').startKind+3;
 const LOTTO13_14_FIRST_KIND=pedestrianSheet('lotto13').startKind;// lotti 13–14: kind 23–30
@@ -13,7 +13,7 @@ const LOTTO17_20_FIRST_KIND=pedestrianSheet('lotto17').startKind;// lotti 17–2
 const LOTTO17_20_LAST_KIND=pedestrianSheet('lotto20').startKind+3;
 export const NOVITA_AUTORE='Claude · ilconsulentelogistico-hue';
 export const NOVITA_STATO='PROVVISORIO · da approvare';
-export const NOVITA_STORAGE_KEY='gta-melito-novita-giudizi-v1';
+export const NOVITA_STORAGE_KEY='gam-melito-novita-giudizi-v1';
 export const GIUDIZI=Object.freeze({ok:'MI PIACE',rifare:'DA RIFARE'});
 
 const near=(list,state,point=state?.spawn)=>{
@@ -32,12 +32,12 @@ const bayPoint=s=>{const d=(s.from+s.to)/2,nx=-s.uy,ny=s.ux;
  return {x:s.ax+s.ux*d+nx*s.offset*s.side,y:s.ay+s.uy*d+ny*s.offset*s.side};};
 const vehicles=state=>[...(state?.cars||[]),...(state?.traffic||[])];
 const SERVICE_VAN=/corriere|courier/i, REFUSE_TRUCK=/nettezza|rifiut|compatt|refuse|garbage/i;
-const LOTTO1=/^(grande-punto-2005|ypsilon-2011)-/;
-const LOTTO5=/^(tipo-hatchback-2016|fiat-500l-2012)-/;
-const LOTTO6=/^(clio-iv-2012|golf-vii-2012)-/;
-const LOTTO7=/^(corsa-e-2014|peugeot-208-2012)-/;
-const LOTTO8=/^(qashqai-j11-2013|duster-2010)-/;
-const LOTTO9=/^(doblo-2010|fiorino-2008)-/;
+const LOTTO1=/^(aurora|selce)-/;
+const LOTTO5=/^(corallo|faro)-/;
+const LOTTO6=/^(quarzo|onda)-/;
+const LOTTO7=/^(iris|sabbia)-/;
+const LOTTO8=/^(altura|sentiero)-/;
+const LOTTO9=/^(cargo|bottega)-/;
 const hasPassengers=v=>(Array.isArray(v?.passengers)&&v.passengers.length>0)||(Array.isArray(v?.occupants)&&v.occupants.length>0);
 
 /* Le voci: chi l'ha fatta, in quale PR, cosa guardare e dove (trova → punto da inquadrare).
@@ -63,7 +63,7 @@ export const NOVITA=Object.freeze([
   cosa:'Al confine del comune la strada finisce con un taglio dritto e un imbocco che sfuma nel buio; le auto NPC ci entrano e spariscono, altre ne escono.',
   trova:s=>near(s?.borderGates,s)},
  {id:'baie',nome:'Fascia di sosta con le linee bianche degli stalli',lavoro:'BF02',pr:'#41',
-  cosa:'Stalli bianchi tra corsia e marciapiede, dove parcheggiano auto, scooter, Ape e food truck. Controlla che le linee non finiscano in carreggiata.',
+  cosa:'Stalli bianchi tra corsia e marciapiede, dove parcheggiano auto, scooter, Triciclo e food truck. Controlla che le linee non finiscano in carreggiata.',
   trova:s=>near((s?.parkingBays?.strips||[]).map(bayPoint),s)},
  {id:'recinti',nome:'Mura e recinzioni dei recinti, cancelli pedonali',lavoro:'BF12',pr:'#50',
   cosa:'Muretto con ringhiera della villa comunale e cancelli pedonali (perimetro da OpenStreetMap).',
@@ -90,9 +90,9 @@ export const NOVITA=Object.freeze([
  {id:'posteggi',nome:'Posteggi gialli numerati del mercato',lavoro:'Q42',pr:'#52',
   cosa:'Fuori orario del mercato restano a terra solo gli stalli gialli numerati.',
   ora:16*60,trova:()=>({x:1168,y:948})},
- {id:'ape',nome:'Ape Car: 16 varianti d’epoca',lavoro:'Q16',pr:'#55',
-  cosa:'8 tinte pulite e le stesse 8 «vissute», ricavate ricolorando solo la carrozzeria dell’Ape approvata (tinte interpretate, non codici Piaggio). Ci sali con E.',
-  trova:s=>near(vehicles(s).filter(v=>/^ape-(classica|vissuta)-/.test(v.model||'')),s)},
+ {id:'triciclo',nome:'Triciclo Car: 16 varianti d’epoca',lavoro:'Q16',pr:'#55',
+  cosa:'8 tinte pulite e le stesse 8 «vissute», ricavate ricolorando solo la carrozzeria dell’Triciclo approvata (tinte interpretate, non codici costruttore di fantasia). Ci sali con E.',
+  trova:s=>near(vehicles(s).filter(v=>/^triciclo-(classica|vissuta)-/.test(v.model||'')),s)},
  {id:'ambulante',nome:'Banco dell’ambulante: pannello AMBULANTE · MELITO',lavoro:'Q17',pr:'#56',
   cosa:'Avvicinati al friggitore: «E · COMPRA …» apre il pannello con il menù di fantasia (1–4 €).',
   trova:s=>near((s?.foodVendors||[]).map(v=>v.fryer).filter(Boolean),s)},
@@ -120,8 +120,8 @@ export const NOVITA=Object.freeze([
  {id:'passeggeri',nome:'Passeggeri su auto e scooter',lavoro:'Q21',pr:'in arrivo',futura:true,
   cosa:'Passeggeri visibili in marcia, «E · DAI UN PASSAGGIO».',
   disponibile:s=>vehicles(s).some(hasPassengers),trova:s=>near(vehicles(s).filter(hasPassengers),s)},
- {id:'lotto1-auto',nome:'Lotto 1: Fiat Grande Punto e Lancia Ypsilon III nel traffico',lavoro:'Lotto 1 · CODEX-GH',pr:'in revisione',
-  cosa:'Due modelli nuovi tra le auto del traffico e dei parcheggi, 8 tinte ciascuno (atlante pixel art disegnato da codice da CODEX-GH; tinte interpretate, non codici vernice). Guarda la fila di auto in Via Roma: musetto arrotondato e fari a goccia per la Grande Punto, fianchi stretti e lunotto piccolo per la Ypsilon.',
+ {id:'lotto1-auto',nome:'Lotto 1: costruttore di fantasia Aurora e costruttore di fantasia Luna III nel traffico',lavoro:'Lotto 1 · CODEX-GH',pr:'in revisione',
+  cosa:'Due modelli nuovi tra le auto del traffico e dei parcheggi, 8 tinte ciascuno (atlante pixel art disegnato da codice da CODEX-GH; tinte interpretate, non codici vernice). Guarda la fila di auto in Via Roma: musetto arrotondato e fari a goccia per la Aurora, fianchi stretti e lunotto piccolo per la Luna.',
   disponibile:s=>vehicles(s).some(v=>LOTTO1.test(v?.model||''))||!s?.traffic,
   trova:s=>roadMiddle(s,'Via Roma')||near(vehicles(s).filter(v=>LOTTO1.test(v?.model||'')),s)},
  {id:'gare',nome:'Gare clandestine arcade: partenza, anelli, frecce e avversari',lavoro:'Q34',pr:'in revisione',
@@ -133,24 +133,24 @@ export const NOVITA=Object.freeze([
  {id:'lotto3-banchi',nome:'Lotto 3: banchi del mercato visti dall\'alto (14 tipi) al posto dei segnaposto',lavoro:'Lotto 3 grafica',pr:'in revisione',
   cosa:'Foglio di CODEX-GH: piano di ogni banco visto dall\'alto con la merce del suo tipo (cassette di frutta, vasche del pesce, vetrina dei salumi, pile di vestiti, scarpe, pentole, flaconi, giocattoli, vasi, borse, intimo, bigiotteria, porchetta, olive), orlo di legno e ombra verso il corridoio dei clienti. Ombrelloni, venditori e clienti come prima; durante il montaggio lo sprite appare in dissolvenza. Grafica PROVVISORIA.',
   ora:10*60+30,mercato:true,distanza:[2,8],trova:s=>near((s?.market?.stalls||[]).map(q=>({x:q.x,y:q.y})),{spawn:[1168,948]})||{x:1168,y:948}},
- {id:'lotto5-auto',nome:'Lotto 5: Fiat Tipo 2016 e Fiat 500L 2012 nel traffico',lavoro:'Lotto 5 · CODEX-GH',pr:'in revisione',
-  cosa:'Due modelli nuovi tra le auto del traffico e dei parcheggi, 8 tinte ciascuno (atlante pixel art disegnato da codice da CODEX-GH; tinte interpretate, non codici vernice). Guarda la fila di auto in Via Roma: la Tipo è più lunga e bassa, con cofano esteso e fanali posteriori orizzontali; la 500L è corta e tozza, con tetto lungo, vetri grandi e fari tondi. Grafica PROVVISORIA.',
+ {id:'lotto5-auto',nome:'Lotto 5: costruttore di fantasia Tipo 2016 e Faro 2012 nel traffico',lavoro:'Lotto 5 · CODEX-GH',pr:'in revisione',
+  cosa:'Due modelli nuovi tra le auto del traffico e dei parcheggi, 8 tinte ciascuno (atlante pixel art disegnato da codice da CODEX-GH; tinte interpretate, non codici vernice). Guarda la fila di auto in Via Roma: la Tipo è più lunga e bassa, con cofano esteso e fanali posteriori orizzontali; la FARO è corta e tozza, con tetto lungo, vetri grandi e fari tondi. Grafica PROVVISORIA.',
   disponibile:s=>vehicles(s).some(v=>LOTTO5.test(v?.model||''))||!s?.traffic,
   trova:s=>roadMiddle(s,'Via Roma')||near(vehicles(s).filter(v=>LOTTO5.test(v?.model||'')),s)},
- {id:'lotto6-auto',nome:'Lotto 6: Autosalone 01 Clio IV 2012 e Volkswagen Golf VII 2012 nel traffico',lavoro:'Lotto 6 · CODEX-GH',pr:'in revisione',
-  cosa:'Due modelli nuovi tra le auto del traffico e dei parcheggi, 8 tinte ciascuno (atlante pixel art disegnato da codice da CODEX-GH; tinte interpretate, non codici vernice). Guarda la fila di auto in Via Roma: la Clio è corta e arrotondata, con muso curvo e fari a goccia; la Golf è più lunga, larga e squadrata, con tetto piatto e fari stretti. Grafica PROVVISORIA.',
+ {id:'lotto6-auto',nome:'Lotto 6: Autosalone 01 Quarzo 2012 e costruttore di fantasia Onda 2012 nel traffico',lavoro:'Lotto 6 · CODEX-GH',pr:'in revisione',
+  cosa:'Due modelli nuovi tra le auto del traffico e dei parcheggi, 8 tinte ciascuno (atlante pixel art disegnato da codice da CODEX-GH; tinte interpretate, non codici vernice). Guarda la fila di auto in Via Roma: la Quarzo è corta e arrotondata, con muso curvo e fari a goccia; la Onda è più lunga, larga e squadrata, con tetto piatto e fari stretti. Grafica PROVVISORIA.',
   disponibile:s=>vehicles(s).some(v=>LOTTO6.test(v?.model||''))||!s?.traffic,
   trova:s=>roadMiddle(s,'Via Roma')||near(vehicles(s).filter(v=>LOTTO6.test(v?.model||'')),s)},
- {id:'lotto7-auto',nome:'Lotto 7: Opel Corsa E 2014 e Peugeot 208 2012 nel traffico',lavoro:'Lotto 7 · CODEX-GH',pr:'in revisione',
-  cosa:'Due modelli nuovi tra le auto del traffico e dei parcheggi, 8 tinte ciascuno (atlante pixel art disegnato da codice da CODEX-GH; tinte interpretate, non codici vernice). Guarda la fila di auto in Via Roma: la Corsa ha la coda alta, il tetto lungo e i fari anteriori a freccia; la 208 ha fari allungati e il tetto che si restringe e scende verso la coda. Grafica PROVVISORIA.',
+ {id:'lotto7-auto',nome:'Lotto 7: costruttore di fantasia Iris 2014 e Sabbia 2012 nel traffico',lavoro:'Lotto 7 · CODEX-GH',pr:'in revisione',
+  cosa:'Due modelli nuovi tra le auto del traffico e dei parcheggi, 8 tinte ciascuno (atlante pixel art disegnato da codice da CODEX-GH; tinte interpretate, non codici vernice). Guarda la fila di auto in Via Roma: la Iris ha la coda alta, il tetto lungo e i fari anteriori a freccia; la 208 ha fari allungati e il tetto che si restringe e scende verso la coda. Grafica PROVVISORIA.',
   disponibile:s=>vehicles(s).some(v=>LOTTO7.test(v?.model||''))||!s?.traffic,
   trova:s=>roadMiddle(s,'Via Roma')||near(vehicles(s).filter(v=>LOTTO7.test(v?.model||'')),s)},
- {id:'lotto8-auto',nome:'Lotto 8: Nissan Qashqai J11 2013 e Dacia Duster 2010 nel traffico',lavoro:'Lotto 8 · CODEX-GH',pr:'in revisione',
-  cosa:'Due crossover nuovi tra le auto del traffico e dei parcheggi, 8 tinte ciascuno (atlante pixel art disegnato da codice da CODEX-GH; tinte interpretate, non codici vernice; il verde scuro della Duster è una scelta artistica). Guarda la fila di auto in Via Roma: il Qashqai ha muso a V, spalle e lunotto rastremati; la Duster è più squadrata, con coda verticale, paraurti scuri e passaruota marcati; entrambi con barre sul tetto, un po\' più grandi delle utilitarie. Grafica PROVVISORIA.',
+ {id:'lotto8-auto',nome:'Lotto 8: costruttore di fantasia Altura 2013 e costruttore di fantasia Sentiero 2010 nel traffico',lavoro:'Lotto 8 · CODEX-GH',pr:'in revisione',
+  cosa:'Due crossover nuovi tra le auto del traffico e dei parcheggi, 8 tinte ciascuno (atlante pixel art disegnato da codice da CODEX-GH; tinte interpretate, non codici vernice; il verde scuro della Sentiero è una scelta artistica). Guarda la fila di auto in Via Roma: il Altura ha muso a V, spalle e lunotto rastremati; la Sentiero è più squadrata, con coda verticale, paraurti scuri e passaruota marcati; entrambi con barre sul tetto, un po\' più grandi delle utilitarie. Grafica PROVVISORIA.',
   disponibile:s=>vehicles(s).some(v=>LOTTO8.test(v?.model||''))||!s?.traffic,
   trova:s=>roadMiddle(s,'Via Roma')||near(vehicles(s).filter(v=>LOTTO8.test(v?.model||'')),s)},
- {id:'lotto9-furgoncini',nome:'Lotto 9: Fiat Doblò II 2010 e Fiat Fiorino III 2008, furgoncini da lavoro nel traffico',lavoro:'Lotto 9 · CODEX-GH',pr:'in revisione',
-  cosa:'Due furgoncini da lavoro tra le auto del traffico e dei parcheggi, 8 livree ciascuno: bianco, bianco con fascia, grigio, blu, rosso, giallo, verde scuro e bianco con scritta generica (EDILIZIA sul Doblò, FRUTTA sul Fiorino; nessuna ditta vera). Atlante pixel art disegnato da codice da CODEX-GH con le celle grandi del furgone corriere. Guarda la fila in Via Roma: il Doblò è lungo, con tetto piatto nervato, parabrezza ampio e porte scorrevoli; il Fiorino è più corto e stretto, cabina arrotondata e vano squadrato; entrambi più grandi delle utilitarie ma più stretti del corriere. Grafica PROVVISORIA.',
+ {id:'lotto9-furgoncini',nome:'Lotto 9: costruttore di fantasia Cargo II 2010 e costruttore di fantasia Bottega III 2008, furgoncini da lavoro nel traffico',lavoro:'Lotto 9 · CODEX-GH',pr:'in revisione',
+  cosa:'Due furgoncini da lavoro tra le auto del traffico e dei parcheggi, 8 livree ciascuno: bianco, bianco con fascia, grigio, blu, rosso, giallo, verde scuro e bianco con scritta generica (EDILIZIA sul Cargo, FRUTTA sul Bottega; nessuna ditta vera). Atlante pixel art disegnato da codice da CODEX-GH con le celle grandi del furgone corriere. Guarda la fila in Via Roma: il Cargo è lungo, con tetto piatto nervato, parabrezza ampio e porte scorrevoli; il Bottega è più corto e stretto, cabina arrotondata e vano squadrato; entrambi più grandi delle utilitarie ma più stretti del corriere. Grafica PROVVISORIA.',
   disponibile:s=>vehicles(s).some(v=>LOTTO9.test(v?.model||''))||!s?.traffic,
   trova:s=>roadMiddle(s,'Via Roma')||near(vehicles(s).filter(v=>LOTTO9.test(v?.model||'')),s)},
  {id:'lotto10-12-pedoni',nome:'Lotti 10–12: 12 pedoni nuovi (anziani, giovani, adulti con borse, zaini, telefono, bastone)',lavoro:'Lotti 10–12 · CODEX-GH',pr:'in revisione',
@@ -179,7 +179,7 @@ export const NOVITA=Object.freeze([
   cosa:'Piccoli stormi di piccioni grigi e bianchi nelle piazze, presso le chiese, il mercato e la villa; se il giocatore o un’auto arriva vicino, volano via e poi si posano. Gatti tigrati, neri e bianchi/rossi vicino ai muretti e alle auto parcheggiate; si allontanano con calma. Non bloccano e non feriscono nessuno. Grafica PROVVISORIA, da approvare da Simone.',
   ora:11*60,trova:s=>near((s?.animals?.flocks||[]).map(f=>f.center),s)||near(s?.animals?.cats,s)||roadMiddle(s,'Via Roma')},
  {id:'caricamento-artwork',nome:'Schermate di caricamento: sei artwork di Melito e il render del gioco',lavoro:'Caricamento · CODEX-GH',pr:'in revisione',
-  cosa:'Sette sfondi a rotazione: Via Roma nel gioco, mercato, campetto, villa comunale, pizzeria di Via Roma, mercato all’alba e festa patronale. L’ultima schermata vista non ricompare subito. PROVA mostra l’anteprima successiva senza lasciare il gioco; la fascia scura mantiene leggibili titolo, testo e barra. Artwork PROVVISORIE, da approvare da Simone.',
+  cosa:'Sette sfondi a rotazione: Via Roma nel gioco, mercato, campetto, villa comunale, pizzeria di Via Roma, mercato all’punto e festa patronale. L’ultima schermata vista non ricompare subito. PROVA mostra l’anteprima successiva senza lasciare il gioco; la fascia scura mantiene leggibili titolo, testo e barra. Artwork PROVVISORIE, da approvare da Simone.',
   prova:'caricamento',trova:null},
  {id:'dialogo-volti',nome:'Lotto 15: dialoghi con volto — barra di testo in basso e riquadro del personaggio (6 volti artwork)',lavoro:'Lotto 15 · CODEX-GH',pr:'in revisione',
   cosa:'Prototipo per i dialoghi delle missioni (decisione di Simone del 21/10): una barra scura nella parte bassa dello schermo con il nome in maiuscolo e il testo che scorre a macchina da scrivere, e accanto il riquadro con il volto di chi parla (illustrazioni cel-shaded di CODEX-GH: nonna severa, meccanico, ragazza con le cuffie, vigile urbano, barista anziano, ragazzo quindicenne; personaggi inventati). PROVA apre un dialogo di esempio di 6 battute: un tocco sulla barra, INVIO/SPAZIO o AVANTI completano la riga o passano alla battuta dopo; mentre è aperto i comandi di movimento sono fermi ma il paese va avanti. Non ancora agganciato alle missioni. Grafica PROVVISORIA.',
@@ -230,7 +230,7 @@ export function judgementSummary(judgements,{date=new Date()}={}){
  const pick=v=>NOVITA.filter(e=>judgements[e.id]===v),open=NOVITA.filter(e=>!judgements[e.id]&&!e.futura);
  const line=e=>'- '+e.nome+' ('+e.lavoro+(e.pr&&e.pr!=='—'?', PR '+e.pr:'')+')';
  const day=date.toISOString?date.toISOString().slice(0,10):'';
- return ['GTA Melito — giudizi NOVITÀ grafiche provvisorie ('+day+')','',
+ return ['GAM Melito — giudizi NOVITÀ grafiche provvisorie ('+day+')','',
   'MI PIACE ('+pick('ok').length+'):',...pick('ok').map(line),'',
   'DA RIFARE ('+pick('rifare').length+'):',...pick('rifare').map(line),'',
   'NON ANCORA GIUDICATE ('+open.length+'):',...open.map(line)].join('\n');

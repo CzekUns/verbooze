@@ -5,7 +5,7 @@
  * "cambio", senza mai far saltare la velocità). Nessun pulsante marce.
  * I numeri sono una resa ARCADE del carattere dei modelli (unità del gioco, l'HUD le mostra
  * ×3,6 come km/h), non dati tecnici dei veicoli reali. Usata sia dal veicolo guidato sia dagli
- * NPC (roads.mjs), così un'Ape è lenta per tutti. */
+ * NPC (roads.mjs), così un'Triciclo è lenta per tutti. */
 const clamp=(v,lo,hi)=>Math.max(lo,Math.min(hi,v));
 const smooth=x=>{const t=clamp(x,0,1);return t*t*(3-2*t);};
 const freeze=o=>Object.freeze(o);
@@ -22,9 +22,9 @@ export const MOTORCYCLE_HANDLING=freeze({kind:'moto',...DRIVE_DEFAULTS,launch:.5
 export const SCOOTER_HANDLING=freeze({...MOTORCYCLE_HANDLING,kind:'scooter',launch:.55,launchSpeed:3,gears:[],accel:11,brake:46,top:27,corner:9,steer:3.15,steerFall:.05,steerMin:1.3,steerLow:4,grip:8.6,handbrakeGrip:2.2,maxSlip:.6,scrub:.7});
 // Moto: la più pronta in ripresa, frena forte, ad alta velocità sterza meno.
 export const MOTO_HANDLING=freeze({...MOTORCYCLE_HANDLING,kind:'moto',accel:17.5,brake:56,top:37,corner:13,steer:2.75,steerFall:.045,steerMin:.95,steerLow:5.5,grip:8,handbrakeGrip:1.6,maxSlip:.72,scrub:.6});
-// Ape a tre ruote e furgoncini commerciali: lenti in partenza e in punta, frenano meno.
+// Triciclo a tre ruote e furgoncini commerciali: lenti in partenza e in punta, frenano meno.
 // Q16: un triciclo corto gira molto più stretto di un'auto, anche a passo d'uomo (steer/steerLow).
-export const APE_HANDLING=freeze({...CAR_HANDLING,kind:'ape',launch:.38,launchSpeed:3,gears:[.3,.6],accel:6,brake:34,top:17,reverse:6,reverseAccel:5,corner:7,steer:2.9,steerLow:4.5,grip:5.8,maxSlip:.6});
+export const TRICYCLE_HANDLING=freeze({...CAR_HANDLING,kind:'triciclo',launch:.38,launchSpeed:3,gears:[.3,.6],accel:6,brake:34,top:17,reverse:6,reverseAccel:5,corner:7,steer:2.9,steerLow:4.5,grip:5.8,maxSlip:.6});
 export const VAN_HANDLING=freeze({...CAR_HANDLING,kind:'furgone',launch:.4,gears:[.24,.46,.7],accel:8,brake:38,top:26,reverse:8,reverseAccel:6,corner:8,steer:2.05,steerMin:1,grip:6.4,maxSlip:.7});
 // Q18: refuse truck — heavy and slow, brakes long, steers wide (NPCs follow the lanes, the player feels the size).
 export const TRUCK_HANDLING=freeze({...CAR_HANDLING,kind:'camion',launch:.34,launchSpeed:3,gears:[.18,.36,.56,.78],accel:5.5,brake:30,top:21,reverse:6,reverseAccel:4.5,corner:6,steer:1.65,steerMin:.8,steerLow:6,grip:5.6,maxSlip:.5});
@@ -32,42 +32,42 @@ export const TRUCK_HANDLING=freeze({...CAR_HANDLING,kind:'camion',launch:.34,lau
 export const TOW_HANDLING=freeze({...CAR_HANDLING,kind:'carro-attrezzi',launch:.36,launchSpeed:3,gears:[.2,.4,.6,.8],accel:7,brake:34,top:24,reverse:7,reverseAccel:5,corner:7,steer:1.85,steerMin:.9,steerLow:5.5,grip:6,maxSlip:.55});
 export const BUS_HANDLING=freeze({...CAR_HANDLING,kind:'autobus',launch:.32,launchSpeed:3,gears:[.2,.42,.66],accel:4.8,brake:28,top:19,reverse:5,reverseAccel:4,corner:5.5,steer:1.45,steerMin:.7,steerLow:6.5,grip:5.4,maxSlip:.45});
 const CAR_MODELS={
- 'punto-188':{accel:14,top:41,brake:50},
- 'ypsilon-2003':{accel:13.2,top:40,grip:7.4},
- // Lotto 1: Grande Punto drives like the Punto 188, Ypsilon III like the Ypsilon 2003.
- 'grande-punto-2005':{accel:14,top:41,brake:50},
- 'ypsilon-2011':{accel:13.2,top:40,grip:7.4},
- // Lotto 5: Tipo, a compact saloon-sized hatchback, slightly faster and steadier than the Punto 188;
- // 500L, tall and heavy mini-MPV, slower and softer in the corners.
- 'tipo-hatchback-2016':{accel:14.4,top:43,brake:52,grip:7.6},
- 'fiat-500l-2012':{accel:12,top:38,brake:46,steer:2.25,grip:6.8},
- // Lotto 6: Clio IV drives like the Grande Punto (same class, a hair lighter); Golf VII a bit faster and steadier.
- 'clio-iv-2012':{accel:14.2,top:41,brake:50},
- 'golf-vii-2012':{accel:14.8,top:44,brake:53,grip:7.8},
- // Lotto 7: Corsa E and Peugeot 208 drive like the Clio IV (same supermini class).
- 'corsa-e-2014':{accel:14.2,top:41,brake:50},
- 'peugeot-208-2012':{accel:14.2,top:41,brake:50},
- // Lotto 8: Qashqai J11 and Duster, taller and heavier crossovers: slower off the line, top 40, a slightly
+ 'alba':{accel:14,top:41,brake:50},
+ 'luna':{accel:13.2,top:40,grip:7.4},
+ // Lotto 1: Aurora drives like the Alba 188, Luna III like the Luna 2003.
+ 'aurora':{accel:14,top:41,brake:50},
+ 'selce':{accel:13.2,top:40,grip:7.4},
+ // Lotto 5: Tipo, a compact saloon-sized hatchback, slightly faster and steadier than the Alba 188;
+ // FARO, tall and heavy mini-MPV, slower and softer in the corners.
+ 'corallo':{accel:14.4,top:43,brake:52,grip:7.6},
+ 'faro':{accel:12,top:38,brake:46,steer:2.25,grip:6.8},
+ // Lotto 6: Quarzo drives like the Aurora (same class, a hair lighter); Onda a bit faster and steadier.
+ 'quarzo':{accel:14.2,top:41,brake:50},
+ 'onda':{accel:14.8,top:44,brake:53,grip:7.8},
+ // Lotto 7: Iris and Sabbia drive like the Quarzo (same supermini class).
+ 'iris':{accel:14.2,top:41,brake:50},
+ 'sabbia':{accel:14.2,top:41,brake:50},
+ // Lotto 8: Altura and Sentiero, taller and heavier crossovers: slower off the line, top 40, a slightly
  // slower steering and the standard grip 7.0 (they lean a bit in the corners).
- 'qashqai-j11-2013':{accel:12.6,top:40,brake:48,steer:2.3,grip:7},
- 'duster-2010':{accel:12.2,top:40,brake:47,steer:2.3,grip:7},
- // Lotto 9: Doblò II and Fiorino III, light work vans: slower than the hatchbacks, top 38, softer steering and grip
+ 'altura':{accel:12.6,top:40,brake:48,steer:2.3,grip:7},
+ 'sentiero':{accel:12.2,top:40,brake:47,steer:2.3,grip:7},
+ // Lotto 9: Cargo II and Bottega III, light work vans: slower than the hatchbacks, top 38, softer steering and grip
  // (loaded cargo bay), but still «auto» for the traffic and the parking strips, not VAN_HANDLING of the market vans.
- 'doblo-2010':{accel:11.5,top:38,brake:46,steer:2.3,grip:6.6},
- 'fiorino-2008':{accel:11.5,top:38,brake:46,steer:2.3,grip:6.6},
- 'seicento-1998':{accel:10.4,top:35,steer:2.6,brake:44},
- 'fiat-500-2007':{accel:11.5,top:37,steer:2.55},
- 'fiat-uno-1983':{accel:9.6,top:36,brake:40,grip:6.2,launch:.38},
- 'smart-fortwo-2007':{accel:10.8,top:34,steer:2.7,grip:6.6,gears:[.24,.46,.7]},
- 'panda-fire':{accel:10,top:35,brake:42,grip:6.3,launch:.38},
- 'panda-modern':{}
+ 'cargo':{accel:11.5,top:38,brake:46,steer:2.3,grip:6.6},
+ 'bottega':{accel:11.5,top:38,brake:46,steer:2.3,grip:6.6},
+ 'nido':{accel:10.4,top:35,steer:2.6,brake:44},
+ 'vela':{accel:11.5,top:37,steer:2.55},
+ 'riva':{accel:9.6,top:36,brake:40,grip:6.2,launch:.38},
+ 'mira':{accel:10.8,top:34,steer:2.7,grip:6.6,gears:[.24,.46,.7]},
+ 'borgo-classica':{accel:10,top:35,brake:42,grip:6.3,launch:.38},
+ 'borgo-nuova':{}
 };
 const carProfiles=new Map(Object.entries(CAR_MODELS).map(([k,v])=>[k,freeze({...CAR_HANDLING,...v,model:k})]));
 export function handlingProfile(vehicle){
  const model=String(vehicle?.model||'');
  if(vehicle?.vehicleType==='motorcycle')return model.startsWith('moto-scooter')?SCOOTER_HANDLING:model.startsWith('moto-moto')?MOTO_HANDLING:MOTORCYCLE_HANDLING;
- // Ape (traffico e mercato) e furgoni ambulanti / del fritto.
- if(model.startsWith('ape-'))return APE_HANDLING;
+ // Triciclo (traffico e mercato) e furgoni ambulanti / del fritto.
+ if(model.startsWith('triciclo-'))return TRICYCLE_HANDLING;
  if(model.startsWith('nettezza-'))return TRUCK_HANDLING;
  if(model.startsWith('attrezzi-'))return TOW_HANDLING;
  if(model.startsWith('autobus-'))return BUS_HANDLING;
@@ -122,7 +122,7 @@ export function stepVehicle(speed,angle,axis,handbrake,dt,serviceBrake=false,pro
  }
  return {speed,angle};
 }
-/* NPC: velocità di crociera adattata al mezzo (un'Ape non va come una Punto) e passo di
+/* NPC: velocità di crociera adattata al mezzo (un'Triciclo non va come una Alba) e passo di
  * velocità verso l'obiettivo con la stessa spinta del giocatore: dopo uno stop ripartono piano. */
 export const NPC_CRUISE_SHARE=.36;
 export function npcCruise(profile,cruise){return Math.min(Number(cruise)||0,(profile||CAR_HANDLING).top*NPC_CRUISE_SHARE);}

@@ -1,9 +1,9 @@
-# HANDOFF PER CHATGPT WORK — GTA MELITO: REALISMO GRAFICO PIXEL ART
-**Aggiornato il 17 ottobre 2026.** Repository: `CzekUns/Effettokarmagra`, branch `main`. Ambito esclusivo: `games/gta-melito/`.
+# HANDOFF PER CHATGPT WORK — GAM MELITO: REALISMO GRAFICO PIXEL ART
+**Aggiornato il 17 ottobre 2026.** Repository: `CzekUns/Effettokarmagra`, branch `main`. Ambito esclusivo: `games/gam-melito/`.
 
 ## 1. Obiettivo dell'utente
 
-Il gioco deve apparire **come Melito di Napoli**, non come una città generica: riconoscibili la fitta edificazione, il centro intorno a Piazza Santo Stefano, le strade, il Municipio, i quartieri residenziali/commerciali, i tetti e le proporzioni. L'estetica deve restare **pixel art originale dall'alto, 2.5D, ispirata alla leggibilità degli arcade GTA 1/2**; non serve fotorealismo 3D né copiare artwork Rockstar.
+Il gioco deve apparire **come Melito di Napoli**, non come una città generica: riconoscibili la fitta edificazione, il centro intorno a Piazza Santo Stefano, le strade, il Municipio, i quartieri residenziali/commerciali, i tetti e le proporzioni. L'estetica deve restare **pixel art originale dall'alto, 2.5D, ispirata alla leggibilità degli arcade GAM 1/2**; non serve fotorealismo 3D né copiare artwork riferimento esterno rimosso.
 
 La priorità è **l'impatto visivo REALE sul gioco**: confrontare luoghi identificati e scene di gioco, migliorare concretamente geometrie di dettaglio, tetti, facciate, materiali, ombre, elementi urbani e caratteristiche locali. Il committente è sensibile ai falsi completamenti: non dire “edifici verificati” se sono solo generati proceduralmente; documentare che cosa è osservato, cosa è approssimato e perché.
 
@@ -11,24 +11,24 @@ La priorità è **l'impatto visivo REALE sul gioco**: confrontare luoghi identif
 
 ## 2. Stato verificato della versione 0.7.0
 
-Sito: https://czekuns.github.io/Effettokarmagra/games/gta-melito/?v=070
+Sito: https://czekuns.github.io/Effettokarmagra/games/gam-melito/?v=070
 
-- Stato successivo alla tranche GTA2 del 17-10-2026 registrato in `VISUAL_PROGRESS.md`: 505 placeholder sintetici; renderer `v080`; la palette e le ombre sono stilizzazioni, non rilievi.
+- Stato successivo alla tranche stile arcade storico del 17-10-2026 registrato in `VISUAL_PROGRESS.md`: 505 placeholder sintetici; renderer `v080`; la palette e le ombre sono stilizzazioni, non rilievi.
 - **2.056 edifici mappati OSM**, con ID e poligoni in `data/melito-map.json`; rete stradale e confine comunale reali ma il database è incompleto. L'area cartografica misura ~2.146 × 2.925 unità di gioco.
 - **505 edifici aggiuntivi sintetici**, generati deterministicamente in `urban-infill.mjs`. Hanno ID negativi e sono placeholder per dare densità: **non sono immobili rilevati**. Le collisioni attualmente li considerano, quindi controllare accessi, strade e missioni.
 - **2.419 edifici disegnati volumetricamente**, grazie a `building-volume.mjs` e `city-art.mjs`. Ogni impronta riceve estrusione, pareti laterali, separazioni fra piani, tetto e ombra; l'altezza minima è stilizzata. La geometria OSM non viene alterata.
 - Quasi tutti i materiali e i piani sono *ipotetici*: `survey/town-visuals.json` contiene i 2.056 profili grafici del paese, generati da `survey/town-generator.mjs`. **Solo un edificio ha associazione fotografica registrata**: Chiesa di Santa Maria delle Grazie, way OSM **733703815**, in `survey/piazza-santo-stefano.json`. I restanti 2.055 non sono verificati fotograficamente.
-- Punto notevole Municipio, building way **733703600**. Altra chiesa OSM: `Chiesa Maria SS. di Piedigrotta`. La missione e la mappa includono Piazza Santo Stefano, Via Roma, Piazza Immacolata, Corso Europa e altri POI.
-- Zoom automatico già richiesto e implementato in `camera-zoom.mjs`: a piedi iniziale 5×, corsa ~4,65×, auto ferma ~3,35×, auto veloce ~1,87×, transizione fluida. Non sostituire con telecamera fissa.
+- Alba notevole Municipio, building way **733703600**. Altra chiesa OSM: `Chiesa Maria SS. di Piedigrotta`. La missione e la mappa includono Piazza Santo Stefano, Via Roma, Piazza Immacolata, Corso Europa e altri POI.
+- Zoom automatico già richiesto e implementato in `camera-zoom.mjs`: a piedi iniziale 5×, iris ~4,65×, auto ferma ~3,35×, auto veloce ~1,87×, transizione fluida. Non sostituire con telecamera fissa.
 - Carreggiate ampliate stilisticamente in `road-widths.mjs`; pulsante **CONFRONTA CON PRIMA** per A/B (vedi `game.mjs`, `index.html`).
 - Terreno corretto da verde generico a base prevalentemente urbana; arredo artificiale (alberi radi, panchine, lampioni, cassonetti e scooter). **Né prati né piazzali sono ancora realmente georeferenziati**.
-- CI ultima versione nota: **53 test** passati; GitHub Pages deploy completato. Test: `node --test games/gta-melito/*.test.mjs games/gta-melito/survey/*.test.mjs`. Non usare il numero 53 come prova che le nuove modifiche siano corrette: rieseguire.
+- CI ultima versione nota: **53 test** passati; GitHub Pages deploy completato. Test: `node --test games/gam-melito/*.test.mjs games/gam-melito/survey/*.test.mjs`. Non usare il numero 53 come prova che le nuove modifiche siano corrette: rieseguire.
 
 **Limitazione fondamentale:** “100% edificio modellato” significa solo una *prima rappresentazione artistica*, non una scansione fotografica di Melito. Non spacciare i 467 placeholder per dati ufficiali.
 
 ## 3. File e architettura da capire prima di modificare
 
-| Percorso (relativo a `games/gta-melito/`) | Funzione |
+| Percorso (relativo a `games/gam-melito/`) | Funzione |
 | --- | --- |
 | `index.html` | Shell dell'arcade, controlli touch/PC, HUD, overlay missioni, barra confronto strade. |
 | `game.mjs` | Bootstrap, fetch mappa + survey, stato, scena Canvas, render order, zoom, collisioni, camera, AI e missioni. |
@@ -37,7 +37,7 @@ Sito: https://czekuns.github.io/Effettokarmagra/games/gta-melito/?v=070
 | `urban-infill.mjs` | Placeholder nei vuoti urbani. Deterministico ma NON verifica la presenza reale. |
 | `visuals.mjs`, `storefronts.mjs` | Arredo, attraversamenti, insegne, props legati a POI OSM. |
 | `roads.mjs`, `road-widths.mjs` | Grafo e larghezze visive, traffico. Non rompere carreggiate/collisioni. |
-| `camera-zoom.mjs` | Zoom adattivo a piedi/in auto/in corsa. |
+| `camera-zoom.mjs` | Zoom adattivo a piedi/in auto/in iris. |
 | `campaign.mjs`, `landmark-art.mjs` | Missioni e punti notevoli / segnaletica: mantenere giocabili. |
 | `data/melito-map.json` | Snapshot OSM: geometrie, strade, edifici, POI, proiezione. Non sostituire con dati inventati. |
 | `survey/building-register.json` | Registro di 2.056 edifici per ID OSM, coordinate e settori. |
@@ -46,7 +46,7 @@ Sito: https://czekuns.github.io/Effettokarmagra/games/gta-melito/?v=070
 | `survey/visual-profiles.mjs` | Applica override per edificio; override più documentato deve prevalere sul modello generico. |
 | `survey/index.html`, `survey/viewer.mjs` | Visualizzatore con collegamenti a OSM/Google Maps/Street View per ciascun edificio. |
 | `*.test.mjs`, `survey/*.test.mjs` | Test Node nativi. |
-| `../../.github/workflows/gta-melito-checks.yml` | Validazione CI Node 22. |
+| `../../.github/workflows/gam-melito-checks.yml` | Validazione CI Node 22. |
 | `VISUAL_PROGRESS.md` | Registro di avanzamento tra le sessioni Work: aggiornarlo dopo ogni tranche. |
 
 **Importante:** la pagina è servita staticamente da GitHub Pages; i moduli ES sono caricati con query string versionate (es. `game.mjs?v=070`, `city-art.mjs?v=070`). Se aggiorni moduli, **aumenta le versioni di cache** su HTML/import coerentemente: altrimenti sul telefono la vecchia grafica può sembrare identica alla nuova. Documenta commit e deployment.
@@ -64,7 +64,7 @@ Sito: https://czekuns.github.io/Effettokarmagra/games/gta-melito/?v=070
 
 Per ciascun luogo/edificio importante:
 1. Ricava **identità e posizione** dalla mappa OSM e dal registro; usa il link per singolo way del visualizzatore.
-2. Cerca fotografie lecite e identificabili del punto: siti istituzionali, patrimonio culturale, fotografie pubbliche con condizioni di riutilizzo chiare. Google Maps/Street View può servire a **osservare** se consentito, non a fare scraping, estrarre cartografia, copiare fotografie o incorporare immagini.
+2. Cerca fotografie lecite e identificabili del alba: siti istituzionali, patrimonio culturale, fotografie pubbliche con condizioni di riutilizzo chiare. Google Maps/Street View può servire a **osservare** se consentito, non a fare scraping, estrarre cartografia, copiare fotografie o incorporare immagini.
 3. Prima di associare una foto a un ID, verifica edificio esatto (inquadratura, forma, ingressi e/o riferimento certo). Una foto “di Via Roma” da sola NON certifica il colore di un determinato palazzo.
 4. Annotare `sourceUrl`, `dateAccessed`, caratteristica osservata, `confidence` e way OSM quando effettivamente verificato. Conservare nota “non verificato” quando non è possibile confermare. Le palette artistiche restano legittime purché non spacciate per fotorealistiche.
 5. Traduci il dettaglio in **asset pixel art originale** o regola grafica: non riutilizzare screenshot/foto di terzi senza una licenza adeguata. Mantieni distinti i layer di cartografia, placeholder e arte.
@@ -96,8 +96,8 @@ Minimi di ogni tranche:
 - [ ] Screenshot **prima/dopo** alla **stessa inquadratura** e indicazione della zona; verificare sia a piedi che in auto.
 - [ ] Niente tetti piatti nel senso di “solo sagome a terra”: ogni edificio conserva profondità e pareti leggibili; i tetti *fisicamente piatti* restano consentiti quando appropriati.
 - [ ] Nessuna alterazione accidentale di poligoni/ID OSM, strade, punti missione e geometrie del player; placeholder dichiarati e coerenti con l'area.
-- [ ] Test `node --test games/gta-melito/*.test.mjs games/gta-melito/survey/*.test.mjs` tutti verdi; verifiche visive indipendenti dai test.
-- [ ] Test manuale su browser/telefono: camminata, corsa, accelerazione e frenata, ingresso/uscita auto, zoom adattivo, confronto larghezze, minimappa, missione iniziale e dialogo.
+- [ ] Test `node --test games/gam-melito/*.test.mjs games/gam-melito/survey/*.test.mjs` tutti verdi; verifiche visive indipendenti dai test.
+- [ ] Test manuale su browser/telefono: camminata, iris, accelerazione e frenata, ingresso/uscita auto, zoom adattivo, confronto larghezze, minimappa, missione iniziale e dialogo.
 - [ ] Performance ragionevole: niente freeze all'avvio o durante il movimento; Canvas mobile utilizzabile.
 - [ ] Commit GitHub + deploy Pages verificato, versione/caching allineati. Aggiornati `VISUAL_PROGRESS.md` e, se necessario, questo handoff.
 - [ ] Dichiarazione chiara: edifici realmente fotografati/riconosciuti vs profili solo grafici.
@@ -112,8 +112,8 @@ Quando una singola facciata non è documentabile, continua a migliorare l'esteti
 
 ## 9. Nota pratica sulla navigazione
 
-- Gioco: https://czekuns.github.io/Effettokarmagra/games/gta-melito/
-- Censimento cliccabile, con Maps/Street View: https://czekuns.github.io/Effettokarmagra/games/gta-melito/survey/
+- Gioco: https://czekuns.github.io/Effettokarmagra/games/gam-melito/
+- Censimento cliccabile, con Maps/Street View: https://czekuns.github.io/Effettokarmagra/games/gam-melito/survey/
 - Coordinate grafiche centro piazza (sistema locale della mappa): **(1096, 1150)**, raggio primo anello **190**. Il player nasce vicino a Via Roma.
 - La mappa viene dal file statico `data/melito-map.json`; non serve ricaricare Overpass per ogni iterazione artistica.
 - Per correggere un singolo edificio, controlla l'ordine di merge in `game.mjs`: **settore preliminare → modelli di tutta la città → override Piazza Santo Stefano**. L'override fotografico non deve essere sovrascritto da una palette casuale.
@@ -121,11 +121,11 @@ Quando una singola facciata non è documentabile, continua a migliorare l'esteti
 
 **Priorità assoluta: l'utente deve aprire il gioco e riconoscere Melito in pixel art.**
 
-## Riferimento esterno: GTAopen / open.mp
+## Riferimento esterno: progetto esterno storico / open.mp
 
-Il progetto [PatrickGTR/gta-open](https://github.com/PatrickGTR/gta-open) è una modalità multiplayer per open.mp ambientata a Los Santos e usa l'ambiente 3D già fornito da GTA San Andreas. Il suo sistema case registra ingressi, proprietari e ID degli interni; gli arredi sono oggetti selezionabili tramite model ID, mentre il mapping aggiunge oggetti in luoghi specifici. Questo è un riferimento per interazioni, interni e posizionamento di oggetti nel mondo 3D, **non** per generare o disegnare le facciate della città.
+Il progetto [PatrickGTR/gam-open](https://github.com/PatrickGTR/gam-open) è una modalità multiplayer per open.mp ambientata a Los Santos e usa l'ambiente 3D già fornito da GAM San Andreas. Il suo sistema case registra ingressi, proprietari e ID degli interni; gli arredi sono oggetti selezionabili tramite model ID, mentre il mapping aggiunge oggetti in luoghi specifici. Questo è un riferimento per interazioni, interni e posizionamento di oggetti nel mondo 3D, **non** per generare o disegnare le facciate della città.
 
-Per GTA Melito si può trasferire il principio di separare identità dell'edificio, dati d'interazione e oggetti posizionati. La resa esterna deve invece continuare a partire dalle impronte e dai tag OSM, usando override per way ID solo quando supportati da fonti verificabili. Non importare asset/modelli di GTA San Andreas né interpretare gli interni di GTAopen come rilievi degli edifici di Melito.
+Per GAM Melito si può trasferire il principio di separare identità dell'edificio, dati d'interazione e oggetti posizionati. La resa esterna deve invece continuare a partire dalle impronte e dai tag OSM, usando override per way ID solo quando supportati da fonti verificabili. Non importare asset/modelli di GAM San Andreas né interpretare gli interni di progetto esterno storico come rilievi degli edifici di Melito.
 
 
 ## Interfaccia touch aggiornata — 17 ottobre 2026
@@ -150,7 +150,7 @@ Il renderer ora scala il canvas con nearest-neighbor a risoluzione ridotta. `gam
 - L'identità e la posizione della banca provengono dai POI OSM. La stanza è un interno di gioco stilizzato, non un rilievo dell'edificio. Al momento la mappa OSM contiene il Banca civica 01 come banca; altri indirizzi potranno essere aggiunti in seguito.
 - Merge su `main`: PR #24, commit `c3314469e86151082714ecbc7e1d6f230a694ea5`. Registro visuale aggiornato con commit `6d2266ff60723e0edd6faaa8699a68a8915b328b`.
 - Test locali al merge: **139/139 passati**, inclusi resolver del POI Banca civica 01, mock di disegno Canvas e smoke test browser. CI e deploy Pages risultavano riusciti.
-- URL pubblicato verificato al caricamento: https://czekuns.github.io/Effettokarmagra/games/gta-melito/?v=129. La pagina e gli script si caricavano senza errori JavaScript del gioco. **Non è stata verificata manualmente l'interazione col cerchio in un browser né su telefono**: farlo prima di dichiarare completato il QA touch.
+- URL pubblicato verificato al caricamento: https://czekuns.github.io/Effettokarmagra/games/gam-melito/?v=129. La pagina e gli script si caricavano senza errori JavaScript del gioco. **Non è stata verificata manualmente l'interazione col cerchio in un browser né su telefono**: farlo prima di dichiarare completato il QA touch.
 
 ### Ripresa consigliata
 1. Aprire il link pubblicato e provare sul posto l'avvicinamento a piedi, la comparsa di **ENTRA IN BANCA**, entrata, movimento interno e ritorno alle coordinate salvate; ripetere su telefono.

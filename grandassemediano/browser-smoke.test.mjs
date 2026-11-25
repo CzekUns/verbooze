@@ -63,7 +63,7 @@ test('browser entry boots and first NPC mission is interactable on Via Roma',asy
  windowHandlers.get('keydown')({key:'f',repeat:false,preventDefault(){}});
  assert.match(els.get('mission-destination').textContent,/Piazza Santo Stefano/);
  assert.equal(els.get('dialog').hidden,false);
- assert.ok(storage.has('gta-melito-campaign-v3'));
+ assert.ok(storage.has('gam-melito-campaign-v3'));
  els.get('dialog-close').fire('click');
  assert.equal(els.get('dialog').hidden,true);
  els.get('map-toggle').fire('click');

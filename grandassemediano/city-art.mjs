@@ -1,19 +1,19 @@
-import {drawPilotFacade,drawPilotRoof,pilotFacadeWindows} from './building-style-pilot.mjs?v=002';
+import {drawPilotFacade,drawPilotRoof,pilotFacadeWindows} from './building-style-pilot.mjs?v=1002';
 /* WORK HANDOFF: art direction / photo evidence / acceptance criteria live
  * in ./HANDOFF_WORK_REALISMO.md (see also ./AGENTS.md).
  * Do not claim hypothetical materials or pixel geometry as photo-verified.
  */
-import {visualRoadWidth} from './road-widths.mjs?v=044';
-import {SIDEWALK_OUTER,SIDEWALK_SHADOW,SIDEWALK_KERB} from './sidewalk.mjs?v=099';
-import {buildingVolume,exposedFacade,facadePoints,shiftColor} from './building-volume.mjs?v=089';
-import {material} from './arcade-materials.mjs?v=095';
-import {drawPedestrianSprite} from './pedestrian-sprites.mjs?v=002';
-import {PERSON_SCALE} from './world-scale.mjs?v=001';
-import {drawFryerSprite} from './friggitore-sprites.mjs?v=002';
-import {drawProfessionSprite} from './profession-sprites.mjs?v=003';
-import {drawExtraPedestrianSprite,EXTRA_PEDESTRIAN_NPC_START_KIND,drawSheetPedestrianSprite,PEDESTRIAN_SHEET_START_KIND} from './extra-pedestrian-sprites.mjs?v=007';
-import {drawRuinPool} from './municipio-landmarks.mjs?v=003';
-/* GTA Melito 0.4 — top-down pixel-inspired art, © OpenStreetMap contributors
+import {visualRoadWidth} from './road-widths.mjs?v=1044';
+import {SIDEWALK_OUTER,SIDEWALK_SHADOW,SIDEWALK_KERB} from './sidewalk.mjs?v=1099';
+import {buildingVolume,exposedFacade,facadePoints,shiftColor} from './building-volume.mjs?v=1089';
+import {material} from './arcade-materials.mjs?v=1095';
+import {drawPedestrianSprite} from './pedestrian-sprites.mjs?v=1002';
+import {PERSON_SCALE} from './world-scale.mjs?v=1001';
+import {drawFryerSprite} from './friggitore-sprites.mjs?v=1002';
+import {drawProfessionSprite} from './profession-sprites.mjs?v=1003';
+import {drawExtraPedestrianSprite,EXTRA_PEDESTRIAN_NPC_START_KIND,drawSheetPedestrianSprite,PEDESTRIAN_SHEET_START_KIND} from './extra-pedestrian-sprites.mjs?v=1007';
+import {drawRuinPool} from './municipio-landmarks.mjs?v=1003';
+/* GAM Melito 0.4 — top-down pixel-inspired art, © OpenStreetMap contributors
  * Layout/footprints come from OSM. Colours, rooftop details, props and human sprites
  * are original artistic interpretations: they do not claim photographic fidelity.
  */
@@ -29,7 +29,7 @@ export function loadChurchWebp(onReady=()=>{}){
  const img=new Image();
  churchWebp=img;
  img.onload=()=>{if(img.naturalWidth>0)onReady();};
- img.onerror=()=>console.warn('GTA Melito: optional Santa Maria delle Grazie WebP unavailable, using Canvas');
+ img.onerror=()=>console.warn('GAM Melito: optional Santa Maria delle Grazie WebP unavailable, using Canvas');
  img.src=new URL(CHURCH_WEBP_PATH,import.meta.url).href;
 }
 export function churchWebpReady(){
@@ -41,7 +41,7 @@ const asphalt={motorway:'#292f31',trunk:'#303638',primary:'#333a3b',secondary:'#
  tertiary:'#3c4341',residential:'#3d4442',unclassified:'#414846',service:'#4a4a43',
  living_street:'#514e45',footway:'#b5a68d',pedestrian:'#c2b193',path:'#a79679',
  steps:'#a6957e',track:'#747565'};
-// Warm, high-contrast rooftops and cool shadow faces evoke GTA2's readable
+// Warm, high-contrast rooftops and cool shadow faces evoke stile arcade storico's readable
 // arcade blocks while retaining an original Campanian palette.
 const oldtown=['#c65e3f','#ce7047','#bb6344','#d17a4a','#b85b3c','#c66a43'];
 const flat=['#a6a093','#a69a87','#b2a18b','#99978a','#b5a58e','#8d9189'];

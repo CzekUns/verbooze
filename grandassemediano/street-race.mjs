@@ -1,4 +1,4 @@
-/* GTA Melito — Q34: gare clandestine come EVENTO ARCADE DI FINZIONE.
+/* GAM Melito — Q34: gare clandestine come EVENTO ARCADE DI FINZIONE.
  * È solo un videogioco: le strade di Melito sono lo scenario del gioco, non un luogo adatto a gare.
  * Nella realtà le gare in strada sono pericolose e vietate; il gioco non le incoraggia e lo dice
  * al giocatore prima di ogni partenza (RACE_DISCLAIMER).
@@ -67,7 +67,7 @@ export function routeGeometry(graph,edgeIds){
  const cum=[0];for(let i=1;i<pts.length;i++)cum.push(cum[i-1]+dist(pts[i-1],pts[i]));
  return {points:pts,cum,length:cum[cum.length-1]};
 }
-/* Punto e direzione a distanza s lungo il percorso. */
+/* Alba e direzione a distanza s lungo il percorso. */
 export function pointAt(route,s){
  const {points:p,cum}=route;if(p.length<2)return {x:p[0]?.x||0,y:p[0]?.y||0,a:0,i:0};
  s=Math.max(0,Math.min(route.length,s));

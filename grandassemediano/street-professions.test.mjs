@@ -1,7 +1,7 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
 import {readFile} from 'node:fs/promises';
-import {FOOD_STALLS,TRAFFIC_APES,trafficApeModel,placeStreetFoodVendors,createStreetProfessionActors,SERVICE_SIDES,FRYER_GAP,serviceSide,fryerServicePose} from './street-professions.mjs';
+import {FOOD_STALLS,TRAFFIC_APES,trafficTricycleModel,placeStreetFoodVendors,createStreetProfessionActors,SERVICE_SIDES,FRYER_GAP,serviceSide,fryerServicePose} from './street-professions.mjs';
 import {vehicleHitsPedestrian,vehicleShape} from './traffic-collision.mjs';
 import {buildRoadGraph,stepAgents} from './roads.mjs';
 import {PROFESSION_TYPES,PROFESSION_ATLAS_PATH} from './profession-sprites.mjs';
@@ -22,12 +22,12 @@ function littleTown(){
  }
  return {nodes,edges,walkStarts};
 }
-test('Ape variants are compact street vehicles and never open-awning food trucks',()=>{
+test('Triciclo variants are compact street vehicles and never open-awning food trucks',()=>{
  assert.equal(TRAFFIC_APES.length,4);
- assert.equal(trafficApeModel(0),null);
- assert.equal(trafficApeModel(3),TRAFFIC_APES[0]);
- assert.equal(trafficApeModel(14),TRAFFIC_APES[1]);
- assert.ok(TRAFFIC_APES.every(id=>MARKET_VARIANTS[id]?.model==='ape-mercato'));
+ assert.equal(trafficTricycleModel(0),null);
+ assert.equal(trafficTricycleModel(3),TRAFFIC_APES[0]);
+ assert.equal(trafficTricycleModel(14),TRAFFIC_APES[1]);
+ assert.ok(TRAFFIC_APES.every(id=>MARKET_VARIANTS[id]?.model==='triciclo-mercato'));
  assert.ok(FOOD_STALLS.every(p=>MARKET_VARIANTS[p.model]?.model==='furgone-ambulante'));
 });
 test('five named areas can host staffed, deterministic stalls without overlapping',()=>{

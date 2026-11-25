@@ -1,4 +1,4 @@
-import {vs,ps} from './world-scale.mjs?v=001';
+import {vs,ps} from './world-scale.mjs?v=1001';
 // Small world-space bins avoid scanning every NPC for each steering decision.
 export function makeCollisionIndex(items,cell=16){
  const bins=new Map(),index={bins,cell};
@@ -34,8 +34,8 @@ export function nearbyColliders(index,x,y,radius=8){
 // BF14: every box is VEHICLE_SCALE of the measured one, like the drawn sprites (world-scale.mjs).
 const box=(halfLength,halfWidth)=>Object.freeze({halfLength:vs(halfLength),halfWidth:vs(halfWidth)});
 const MODEL_SHAPES=Object.freeze([
- ['ape-car',box(2.3,.95)],
- ['ape-',box(2.5,1.3)],
+ ['triciclo-car',box(2.3,.95)],
+ ['triciclo-',box(2.5,1.3)],
  ['food-',box(3.35,1.45)],
  // Q18: courier van (fits a 7,2 m stall) and refuse truck. Both at most 1,9 wide per side: a vehicle in
  // its lane must still pass the cars in the BF02 bays (lane offset + 1,7 + 0,25 gap) and two still cross

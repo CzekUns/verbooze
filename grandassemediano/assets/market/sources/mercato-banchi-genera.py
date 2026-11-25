@@ -9,7 +9,7 @@ HI = 2  # 2 pixel dell'atlante per 1 pixel della cache attuale (PX=4).
 AW, AH = CW * HI, CH * HI
 ATLAS = HERE / 'mercato-banchi-14-teli-4-rgba.png'
 SHEET = HERE / 'sheet.png'
-APE = HERE / 'riferimento-ape-food.png'
+TRICICLO = HERE / 'riferimento-triciclo-food.png'
 BG = (242, 238, 223)
 OUT = (34, 33, 31, 255)
 WOOD = (121, 85, 56, 255)
@@ -206,7 +206,7 @@ def render(index):
 
 
 def detail_hi(image, index):
-    """Dettagli a un pixel sulla base ingrandita: merce e luce simili all'Ape."""
+    """Dettagli a un pixel sulla base ingrandita: merce e luce simili all'Triciclo."""
     d = ImageDraw.Draw(image)
     # Granulosità moderata del telo e venatura dell'orlo, senza sporcare il contorno.
     px = image.load()
@@ -389,18 +389,18 @@ def main():
         high = render(i).resize((AW, AH), Image.Resampling.NEAREST)
         atlas.alpha_composite(detail_hi(high, i), ((i % COLS) * AW, (i // COLS) * AH))
     atlas.save(ATLAS, optimize=True)
-    ape = Image.open(APE).convert('RGBA')
-    if ape.size != (224, 256):
-        raise SystemExit(f'Reference Ape inattesa: {ape.size}')
-    # Cella 2: Ape ortofrutta dall'alto, con cassette e piano di vendita.
-    sample = ape.crop((112, 0, 168, 64))
+    triciclo = Image.open(TRICICLO).convert('RGBA')
+    if triciclo.size != (224, 256):
+        raise SystemExit(f'Reference Triciclo inattesa: {triciclo.size}')
+    # Cella 2: Triciclo ortofrutta dall'alto, con cassette e piano di vendita.
+    sample = triciclo.crop((112, 0, 168, 64))
     zoom, top, gap = 4, 24, 32
     left_w, left_h = atlas.width * zoom, atlas.height * zoom
     sheet = Image.new('RGB', (left_w + gap + 56 * zoom, left_h + top), BG)
     d = ImageDraw.Draw(sheet)
     d.text((4, 4), '14 BANCHI + 4 TELI — VISTA DALL ALTO', fill=OUT[:3],
            font=ImageFont.load_default())
-    d.text((left_w + gap + 4, 4), 'APE ORTOFRUTTA, STESSA SCALA 4x',
+    d.text((left_w + gap + 4, 4), 'TRICICLO ORTOFRUTTA, STESSA SCALA 4x',
            fill=OUT[:3], font=ImageFont.load_default())
     sheet.paste(on_bg(atlas).resize((left_w, left_h), Image.Resampling.NEAREST),
                 (0, top))
@@ -408,7 +408,7 @@ def main():
                                     Image.Resampling.NEAREST),
                 (left_w + gap, top + 8))
     sheet.save(SHEET, optimize=True)
-    print('Creati atlas 384x144 RGBA e sheet 1792x600 RGB con Ape alla scala 4x')
+    print('Creati atlas 384x144 RGBA e sheet 1792x600 RGB con Triciclo alla scala 4x')
 
 
 if __name__ == '__main__':

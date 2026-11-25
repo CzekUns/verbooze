@@ -1,14 +1,14 @@
-/* GTA Melito — compact transparent motorcycles, distinct riding physics,
+/* GAM Melito — compact transparent motorcycles, distinct riding physics,
  * and a seated human drawn on top of the vehicle instead of a car silhouette.
  * 4 models × 4 paints, one 160×272 PNG (40×68 each cell).
  */
 export const MOTORCYCLE_ATLAS_PATH='./assets/vehicles/moto-16-40x68-256.png';
-export const MOTORCYCLE_MODELS=Object.freeze(['scooter-sh','scooter-retro','moto-naked','moto-sport']);
+export const MOTORCYCLE_MODELS=Object.freeze(['scooter-urbano','scooter-retro','moto-naked','moto-sport']);
 export const MOTORCYCLE_COLORS=Object.freeze(['white','red','black','blue']);
 export const MOTORCYCLE_IDS=Object.freeze(MOTORCYCLE_MODELS.flatMap(m=>MOTORCYCLE_COLORS.map(c=>`moto-${m}-${c}`)));
 export const MOTORCYCLE_CELL=Object.freeze({width:40,height:68,columns:4,rows:4});
-import {stepVehicle,MOTORCYCLE_HANDLING} from './vehicle-handling.mjs?v=010';
-import {VEHICLE_SCALE,PERSON_SCALE,vs,ps} from './world-scale.mjs?v=001';
+import {stepVehicle,MOTORCYCLE_HANDLING} from './vehicle-handling.mjs?v=1010';
+import {VEHICLE_SCALE,PERSON_SCALE,vs,ps} from './world-scale.mjs?v=1001';
 export const isMotorcycle=v=>v?.vehicleType==='motorcycle';
 const clamp=(v,min,max)=>Math.max(min,Math.min(max,v));
 let atlas=null;
@@ -16,7 +16,7 @@ export function loadMotorcycleSprites(){
  if(atlas||typeof Image==='undefined')return;
  const img=new Image();
  atlas=img;
- img.onerror=()=>console.warn('GTA Melito: motorcycle atlas unavailable, using canvas fallback');
+ img.onerror=()=>console.warn('GAM Melito: motorcycle atlas unavailable, using canvas fallback');
  img.src=new URL(MOTORCYCLE_ATLAS_PATH,import.meta.url).href;
 }
 export function motorcycleSpriteReady(){return !!(atlas?.complete&&atlas.naturalWidth===160&&atlas.naturalHeight===272);}

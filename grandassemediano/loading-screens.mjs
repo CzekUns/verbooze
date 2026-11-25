@@ -1,17 +1,8 @@
 /* Schermate di caricamento di Melito. Artwork PROVVISORIE, da approvare da Simone.
  * La selezione avviene una volta all'avvio, prima del fetch della mappa. */
-export const LOADING_SCREEN_STORAGE_KEY='gta-melito-loading-screen-last-v1';
-export const LOADING_SCREENS=Object.freeze([
- {id:'render',title:'Via Roma nel gioco',desktop:'./assets/ui/loading-1280x720.png',mobile:'./assets/ui/loading-844x390.png',credit:'render del gioco provvisorio'},
- {id:'mercato',title:'Il mercato di Via Roma',desktop:'./assets/ui/loading-art-mercato-1280x720.jpg',mobile:'./assets/ui/loading-art-mercato-844x390.jpg',credit:'artwork provvisoria'},
- {id:'campetto-sera',title:'Il campetto di sera',desktop:'./assets/ui/loading-art-campetto-sera-1280x720.jpg',mobile:'./assets/ui/loading-art-campetto-sera-844x390.jpg',credit:'artwork provvisoria'},
- {id:'villa-comunale',title:'La villa comunale',desktop:'./assets/ui/loading-art-villa-comunale-1280x720.jpg',mobile:'./assets/ui/loading-art-villa-comunale-844x390.jpg',credit:'artwork provvisoria'},
- {id:'via-roma-pizzeria',title:'Via Roma di sera',desktop:'./assets/ui/loading-art-via-roma-pizzeria-1280x720.jpg',mobile:'./assets/ui/loading-art-via-roma-pizzeria-844x390.jpg',credit:'artwork provvisoria'},
- {id:'mercato-alba',title:'Il mercato all’alba',desktop:'./assets/ui/loading-art-mercato-alba-1280x720.jpg',mobile:'./assets/ui/loading-art-mercato-alba-844x390.jpg',credit:'artwork provvisoria'},
- {id:'festa-patronale',title:'La festa patronale',desktop:'./assets/ui/loading-art-festa-patronale-1280x720.jpg',mobile:'./assets/ui/loading-art-festa-patronale-844x390.jpg',credit:'artwork provvisoria'}
-].map(Object.freeze));
-
+export const LOADING_SCREEN_STORAGE_KEY='gam-melito-loading-screen-last-v1';
 export const GAM_LOADING_SCREEN=Object.freeze({id:'gam',title:'Grand Asse Mediano: Melito',desktop:'./assets/ui/gam-loading.webp',mobile:'./assets/ui/gam-loading.webp',credit:'artwork ufficiale approvata'});
+export const LOADING_SCREENS=Object.freeze([GAM_LOADING_SCREEN]);
 export const LOADING_PHASES=9;
 
 // Progress counts completed startup operations, not elapsed time or estimated network bytes.

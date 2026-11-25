@@ -1,8 +1,8 @@
 <!doctype html>
 <html lang="it"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
-<link rel="icon" href="data:,"><meta name="theme-color" content="#172521"><meta name="description" content="GTA Melito 0.7: esplora la Melito reale in un arcade dall’alto con palazzi storici, tetti originali, personaggi pixel art e negozi geolocalizzati.">
-<title>GTA Melito · Uns Arcade</title>
+<link rel="icon" href="data:,"><meta name="theme-color" content="#172521"><meta name="description" content="GAM — Grand Asse Mediano: Melito 0.7: esplora la Melito reale in un arcade dall’alto con palazzi storici, tetti originali, personaggi pixel art e negozi geolocalizzati.">
+<title>GAM — Grand Asse Mediano: Melito · Verbooze</title>
 <style>
 :root{color-scheme:dark;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;background:#101916;color:#f6ebce}
 *{box-sizing:border-box}html,body{margin:0;min-height:100%;overflow-x:hidden}button,a{font:inherit;-webkit-tap-highlight-color:transparent}
@@ -21,7 +21,7 @@ button{cursor:pointer}a{color:#eec97d}button:focus-visible,a:focus-visible{outli
 #street{display:block;color:#f6efce;margin-top:5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .loading{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;text-align:center;
  /* Il render del gioco è il fallback; loading-screens.mjs sceglie il file della sessione. */
- background:#111419 url('./assets/ui/loading-1280x720.png') center/cover no-repeat;background-image:var(--loading-desktop,url('./assets/ui/loading-1280x720.png'));image-rendering:pixelated;padding:24px 24px 5vh;gap:12px;z-index:9}
+ background:#111419 url('./assets/ui/gam-loading.webp') center/cover no-repeat;background-image:var(--loading-desktop,url('./assets/ui/gam-loading.webp'));image-rendering:pixelated;padding:24px 24px 5vh;gap:12px;z-index:9}
 .loading[hidden]{display:none}
 .loading[data-screen]:not([data-screen="render"]){image-rendering:auto}
 .loading::before{content:"";position:absolute;inset:0;background:linear-gradient(to bottom,transparent 48%,#0b111950 68%,#090e17e8 100%);pointer-events:none}
@@ -42,7 +42,7 @@ button{cursor:pointer}a{color:#eec97d}button:focus-visible,a:focus-visible{outli
 .loading[data-screen="gam"] #retry,.loading[data-screen="gam"] #loading-preview-close{margin-bottom:8px}
 @media(prefers-reduced-motion:reduce){.loading-bar::before{transition:none}}
 @media(max-width:680px),(max-height:480px){
- .loading{background-image:url('./assets/ui/loading-844x390.png');background-image:var(--loading-mobile,url('./assets/ui/loading-844x390.png'));gap:4px;padding:8px 10px 3vh}
+ .loading{background-image:url('./assets/ui/gam-loading.webp');background-image:var(--loading-mobile,url('./assets/ui/gam-loading.webp'));gap:4px;padding:8px 10px 3vh}
  .loading .loading-scene-title{font-size:10px;letter-spacing:.03em}
  .loading h2{font-size:18px}.loading p{font-size:11px;line-height:1.2;max-width:min(550px,86vw)}
  .loading-bar{height:8px;width:min(320px,60%)}}
@@ -444,7 +444,7 @@ body{background:radial-gradient(ellipse at 50% -18%,#304337 0,#17231e 48%,#10171
  <div id="football-banner" class="football-banner" hidden aria-live="polite"></div>
  <div id="football-touch" class="football-touch" hidden><button id="football-pass" type="button">PASSA</button><button id="football-shoot" type="button">TIRO</button></div>
  <div class="pc-prompt" id="pc-prompt" hidden aria-live="polite"></div>
- <p class="map-attribution"><a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noreferrer">© OpenStreetMap</a> · ISTAT · menu PAUSA: Esc / P</p>
+ <p class="map-attribution"><a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noreferrer">© OpenStreetMap contributors</a> · ISTAT · menu PAUSA: Esc / P</p>
  <div class="touch-stick" id="touch-stick" role="application" aria-label="Levetta analogica: muovi il personaggio a piedi"><div class="stick-knob" id="stick-knob"></div></div>
  <div class="steering-wheel" id="steering-wheel" role="application" tabindex="0" aria-label="Sterzo: trascina il volante in senso orario o antiorario per girare">
   <div class="steering-face" id="steering-face" aria-hidden="true">
@@ -466,7 +466,7 @@ body{background:radial-gradient(ellipse at 50% -18%,#304337 0,#17231e 48%,#10171
  <div class="rider-hud" id="rider-hud" hidden aria-live="off"></div>
  <div class="drive-banner" id="drive-banner" hidden aria-live="polite"></div>
  <button id="mission-panel-toggle" type="button" aria-controls="mission-panel" aria-expanded="false">🎯 MISSIONI</button>
- <aside class="missions" id="mission-panel" hidden aria-label="Missioni di GTA Melito">
+ <aside class="missions" id="mission-panel" hidden aria-label="Missioni di GAM — Grand Asse Mediano: Melito">
   <div class="m-head"><span class="m-label">STORIA · <span id="mission-progress">1/4</span></span><span>💶 <span id="mission-money">€ 0</span> · ★ <span id="mission-respect">0</span></span></div>
   <h2 id="mission-name">LA PRIMA MISSIONE</h2><p id="mission-desc">Nuove missioni per le strade di Melito</p>
   <div class="m-destination" id="mission-destination">CARICO GLI OBIETTIVI…</div>
@@ -515,7 +515,7 @@ body{background:radial-gradient(ellipse at 50% -18%,#304337 0,#17231e 48%,#10171
  <p class="pause-info">Stato · zoom · mappa · missioni · controlli secondari</p>
  <!-- BF11: on PC the page shows only the game board; everything that used to sit around it lives here, in sections. -->
  <section class="pause-section pause-status" aria-labelledby="pause-h-status"><h3 id="pause-h-status">STATO · INFO</h3>
- <header class="header"><div><h1>GTA: MELITO <span aria-hidden="true">★</span></h1><small>UNS ARCADE / MELITO DI NAPOLI / VERSIONE 0.7.0</small></div><a class="back" href="../index.html">← VERBOOZE</a></header>
+ <header class="header"><div><h1>GAM — GRAND ASSE MEDIANO <span aria-hidden="true">★</span></h1><small>VERBOOZE / MELITO DI NAPOLI / VERSIONE 0.7.0</small></div><a class="back" href="../index.html">← VERBOOZE</a></header>
  <div class="hud"><span>ORA NPC: <b id="npc-clock" aria-live="off">07:30 · MATTINA</b></span><span id="place">CARICAMENTO MAPPA…</span><span>MEZZO: <b id="vehicle">A PIEDI</b></span><span>CAMERA: <b id="camera-mode">PIEDI · 5.0×</b></span><span>STRADE: <b id="road-count">—</b></span><span>OSM: <b id="building-count">—</b></span><span>EDIFICI PLACEHOLDER: <b id="inferred-count">—</b></span><span>INCROCI: <b id="junction-count">—</b></span></div>
  </section>
  <section class="pause-section pause-commands" aria-labelledby="pause-h-commands"><h3 id="pause-h-commands">COMANDI</h3>
@@ -545,10 +545,10 @@ body{background:radial-gradient(ellipse at 50% -18%,#304337 0,#17231e 48%,#10171
  </section>
  <section class="pause-section pause-credits" aria-labelledby="pause-h-credits"><h3 id="pause-h-credits">CREDITI E LICENZE</h3>
  <p class="instructions"><a href="./survey/index.html" target="_blank" rel="noopener noreferrer">🗺 TUTTA MELITO · 2.056 EDIFICI MODELLATI →</a> · 2.056 sagome OSM censite · 2.056 edifici con profilo grafico individuale e palazzi segnaposto aggiuntivi (NON rilievi OSM). Piazza Santo Stefano dettagliata: una facciata verificata fotograficamente, le altre ancora stimate.</p>
- <footer class="credits"><span>© OpenStreetMap contributors — ODbL · Confini: ISTAT 2026 — CC BY · MIT: ispirazione motore <a href="https://github.com/harmanhanjra/punjab-stories" target="_blank" rel="noreferrer">Punjab Stories</a></span><span><a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noreferrer">Crediti cartografia</a> · <a href="./README.md">Informazioni sul progetto</a></span></footer>
+ <footer class="credits"><span>© OpenStreetMap contributors — ODbL · Confini: ISTAT 2026 — CC BY · MIT: ispirazione motore <a href="https://github.com/harmanhanjra/punjab-stories" target="_blank" rel="noreferrer">Punjab Stories</a></span><span><a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noreferrer">Crediti cartografia</a> · <a href="./ATTRIBUZIONI.md">Licenze e dati</a> · <a href="./README.md">Informazioni sul progetto</a></span></footer>
  </section>
  </div></div>
- <div class="rotate-screen" id="rotate-screen" hidden><div class="rotate-card"><span class="rotate-icon" aria-hidden="true">▰</span><h2>RUOTA LO SCHERMO</h2><p>GTA Melito si gioca in orizzontale. Ruota il telefono per continuare.</p></div></div>
+ <div class="rotate-screen" id="rotate-screen" hidden><div class="rotate-card"><span class="rotate-icon" aria-hidden="true">▰</span><h2>RUOTA LO SCHERMO</h2><p>GAM — Grand Asse Mediano: Melito si gioca in orizzontale. Ruota il telefono per continuare.</p></div></div>
 </div>
 <div class="controls" aria-label="Comandi"><div class="touch-actions" aria-label="Azioni"><button class="control-action" id="action">ENTRA IN VEICOLO</button><button id="sprint" aria-label="Corri a piedi">CORRI</button><div class="pedals" aria-label="Pedali di guida"><button id="brake" aria-label="Tieni premuto per frenare">FRENO</button><button id="accelerator" aria-label="Tieni premuto per accelerare">ACCELERA</button><button id="reverse" aria-label="Tieni premuto per andare in retromarcia">RETRO</button></div></div><div class="dpad" aria-hidden="true"></div><div class="buttons"><button id="map-toggle" class="mini" aria-label="Apri la mappa completa">MAPPA</button><button class="mini" id="zoom-auto" aria-label="Ripristina zoom automatico">AUTO</button><button class="mini" id="zoom-in" aria-label="Regola zoom avanti">＋</button><button class="mini" id="zoom-out" aria-label="Zoom indietro">－</button><button class="mini" id="reset" aria-label="Torna al punto di partenza">⌂</button></div></div>
-</main><script type="module" src="./game.mjs?v=225&amp;gam=1"></script></body></html>
+</main><script type="module" src="./game.mjs?v=1226&amp;gam=1"></script></body></html>

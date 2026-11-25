@@ -29,16 +29,16 @@ test('Q35 two fictional garages: shutter on the pavement, never on the carriagew
 });
 
 test('Q35 E · METTI IN GARAGE then PRENDI: one place at a time, never duplicated',()=>{
- const save=freshGarageSave(),car={x:0,y:0,a:0,model:'punto-188-red',type:2,vehicleType:'car'};
+ const save=freshGarageSave(),car={x:0,y:0,a:0,model:'alba-red',type:2,vehicleType:'car'};
  assert.equal(depositVehicle(save,{model:'moto-scooter-01',vehicleType:'motorcycle'},'abete').ok,false,'no motorcycles');
  assert.equal(canStoreVehicle({model:'furgone-fritti'}),false,'vendor vans stay with their stall');
  const a=depositVehicle(save,car,'abete');
- assert.equal(a.ok,true);assert.equal(save.vehicles.length,1);assert.equal(a.entry.stored,true);assert.equal(a.entry.model,'punto-188-red');
+ assert.equal(a.ok,true);assert.equal(save.vehicles.length,1);assert.equal(a.entry.stored,true);assert.equal(a.entry.model,'alba-red');
  assert.equal(takeVehicle(save,a.entry.id,'cervi').ok,false,'only from its own garage');
  const t=takeVehicle(save,a.entry.id,'abete');assert.equal(t.ok,true);
  assert.equal(takeVehicle(save,a.entry.id,'abete').reason,'gia-fuori','cannot be taken twice');
  const street=vehicleFromEntry(t.entry,{x:5,y:6,a:1});
- assert.equal(street.ownedId,a.entry.id);assert.equal(street.model,'punto-188-red');
+ assert.equal(street.ownedId,a.entry.id);assert.equal(street.model,'alba-red');
  const again=depositVehicle(save,street,'cervi');
  assert.equal(again.ok,true);assert.equal(again.already,true,'back to its own slot');
  assert.equal(save.vehicles.length,1,'no double');assert.equal(save.vehicles[0].garage,'cervi');
@@ -46,8 +46,8 @@ test('Q35 E · METTI IN GARAGE then PRENDI: one place at a time, never duplicate
 
 test('Q35 at most 6 slots: the seventh car is refused, a registered car still comes back',()=>{
  const save=freshGarageSave();
- for(let i=0;i<GARAGE_SLOTS;i++)assert.equal(depositVehicle(save,{model:i%2?'fiat-500-2007-red':'ypsilon-2003-navy',vehicleType:'car'},'abete').ok,true);
- const full=depositVehicle(save,{model:'seicento-1998-yellow',vehicleType:'car'},'abete');
+ for(let i=0;i<GARAGE_SLOTS;i++)assert.equal(depositVehicle(save,{model:i%2?'vela-red':'luna-navy',vehicleType:'car'},'abete').ok,true);
+ const full=depositVehicle(save,{model:'nido-yellow',vehicleType:'car'},'abete');
  assert.equal(full.ok,false);assert.equal(full.reason,'pieno');assert.match(garageMessage(full),/PIENO/);
  const out=takeVehicle(save,save.vehicles[2].id,'abete').entry;
  assert.equal(depositVehicle(save,vehicleFromEntry(out,{x:0,y:0,a:0}),'abete').ok,true,'its slot is kept while it is out');
@@ -56,16 +56,16 @@ test('Q35 at most 6 slots: the seventh car is refused, a registered car still co
 
 test('Q35 the owned vehicles survive a reload; one left in the street returns to its garage',()=>{
  const st=storage(),p=freshProgress();
- depositVehicle(p.garage,{model:'punto-188-blue',vehicleType:'car'},'abete');
- depositVehicle(p.garage,{model:'smart-fortwo-2007-yellow',vehicleType:'car'},'cervi');
+ depositVehicle(p.garage,{model:'alba-blue',vehicleType:'car'},'abete');
+ depositVehicle(p.garage,{model:'mira-yellow',vehicleType:'car'},'cervi');
  takeVehicle(p.garage,p.garage.vehicles[1].id,'cervi');
  p.money=500;assert.equal(saveProgress(st,p),true);
  const back=readProgress(st);
  assert.equal(back.money,500);assert.equal(back.garage.vehicles.length,2);
- assert.deepEqual(back.garage.vehicles.map(v=>[v.model,v.garage,v.stored]),[['punto-188-blue','abete',true],['smart-fortwo-2007-yellow','cervi',true]]);
- const next=depositVehicle(back.garage,{model:'fiat-uno-1983-green',vehicleType:'car'},'abete').entry;
+ assert.deepEqual(back.garage.vehicles.map(v=>[v.model,v.garage,v.stored]),[['alba-blue','abete',true],['mira-yellow','cervi',true]]);
+ const next=depositVehicle(back.garage,{model:'riva-green',vehicleType:'car'},'abete').entry;
  assert.equal(new Set(back.garage.vehicles.map(v=>v.id)).size,3,'ids stay unique after reload: '+next.id);
- const junk=sanitizeGarageSave({vehicles:[{id:'v1',model:'x'},{id:'v2',model:'punto-188-red'},{id:'v2',model:'punto-188-red'}]});
+ const junk=sanitizeGarageSave({vehicles:[{id:'v1',model:'x'},{id:'v2',model:'alba-red'},{id:'v2',model:'alba-red'}]});
  assert.equal(junk.vehicles.length,1,'unknown models and copies are dropped');
 });
 

@@ -9,8 +9,8 @@ Nel codice vivo di `market.mjs`, `PX=4` genera i segnaposto a **4 pixel per unit
 `MARKET_RULES.scale = 1.9 * PERSON_SCALE = 1.52` (al momento della lettura). I 4/3/2 m del CSV diventano rispettivamente 6,08/4,56/3,04 unità di gioco. Le larghezze colorate sono **48/36/24 pixel sorgente**, che disegnati a 8 px/unità diventano **6/4,5/3 unità**; la differenza di 0,08/0,06/0,04 unità è arrotondamento pixel. Il margine della cella lascia spazio alla rotazione e all'ombra.
 
 - `mercato-banchi-14-teli-4-rgba.png`: **384×144 px RGBA**, griglia **6×3**, 18 celle uniformi **64×48 px**.
-- `sheet.png`: anteprima con i 18 sprite e la cella Ape ortofrutta della reference, entrambi ingranditi **4×** con pixel netti. Serve per il confronto visivo, non va nel gioco.
-- `riferimento-ape-food.png`: copia locale invariata di `assets/vehicles/ape-food-16-rgba.png`, necessaria per rigenerare il confronto.
+- `sheet.png`: anteprima con i 18 sprite e la cella Triciclo ortofrutta della reference, entrambi ingranditi **4×** con pixel netti. Serve per il confronto visivo, non va nel gioco.
+- `riferimento-triciclo-food.png`: copia locale invariata di `assets/vehicles/triciclo-food-16-rgba.png`, necessaria per rigenerare il confronto.
 - `genera.py` e `verifica.py`: eseguire `python3 genera.py && python3 verifica.py`.
 
 ## Mappa cella → tipo
@@ -56,4 +56,4 @@ Il piano attivo coincide quasi con `stall.w`; orlo e ombra sporgono di pochi pix
 
 ## Verifica
 
-`verifica.py` controlla **18/18 celle**, formato e dimensioni, larghezze coerenti col fattore 2×, margini e angoli trasparenti, alpha binario, soggetto connesso, nessun alone chiaro, varianti distinte e Ape alla stessa scala di anteprima 4×. Il foglio è stato ispezionato visivamente. Dopo l'integrazione occorre ancora provare scala a livello strada, direzione dei banchi, montaggio e ombrelloni. Il repository non è stato modificato né pubblicato.
+`verifica.py` controlla **18/18 celle**, formato e dimensioni, larghezze coerenti col fattore 2×, margini e angoli trasparenti, alpha binario, soggetto connesso, nessun alone chiaro, varianti distinte e Triciclo alla stessa scala di anteprima 4×. Il foglio è stato ispezionato visivamente. Dopo l'integrazione occorre ancora provare scala a livello strada, direzione dei banchi, montaggio e ombrelloni. Il repository non è stato modificato né pubblicato.

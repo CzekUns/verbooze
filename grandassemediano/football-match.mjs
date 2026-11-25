@@ -1,4 +1,4 @@
-/* GTA Melito — Q33 (rifatta il 21/10/2026 su richiesta del committente): la partita di calcetto si gioca
+/* GAM Melito — Q33 (rifatta il 21/10/2026 su richiesta del committente): la partita di calcetto si gioca
  * NELL'OVERWORLD, dentro il campo grande di Via delle Palme (football-pitches.mjs, `partita:true`),
  * senza nessuna scena a parte. Si entra a piedi nel campo, dentro le linee compare «E · GIOCA»; premendo,
  * nove calciatori NPC (4 compagni ROSSI, 5 avversari BLU, portieri compresi) ARRIVANO A PIEDI da fuori
@@ -9,10 +9,10 @@
  * ROSSI attaccano verso +u) e v (di traverso). Dopo il fischio finale i calciatori se ne vanno a piedi.
  * Si abbandona restando fuori dalla recinzione per più di 5 secondi (niente risultato).
  * Nella campagna si salva SOLO il bilancio V/P/S, una volta per partita (id). Grafica provvisoria. */
-import {createMatch,startMatch,stepMatch,kickoffSpot,matchMinute,matchClockLabel,scaleRules,FOOTBALL_TEAMS} from './minigame-football.mjs?v=003';
-import {PEOPLE_ATLAS_PATH,PEOPLE_ATLAS_CELL,pedestrianDirection} from './pedestrian-sprites.mjs?v=002';
-import {insidePitch} from './football-pitches.mjs?v=002';
-import {ps} from './world-scale.mjs?v=001';
+import {createMatch,startMatch,stepMatch,kickoffSpot,matchMinute,matchClockLabel,scaleRules,FOOTBALL_TEAMS} from './minigame-football.mjs?v=1003';
+import {PEOPLE_ATLAS_PATH,PEOPLE_ATLAS_CELL,pedestrianDirection} from './pedestrian-sprites.mjs?v=1002';
+import {insidePitch} from './football-pitches.mjs?v=1002';
+import {ps} from './world-scale.mjs?v=1001';
 
 export const FIELD_RULES=Object.freeze({
  players:9,                 // 4 compagni + 5 avversari (il protagonista è il quinto dei ROSSI)
@@ -34,7 +34,7 @@ const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
 const rand=n=>{const x=Math.sin(n*12.9898)*43758.5453;return x-Math.floor(x);};
 
 /* Regole della partita alla scala del campo: il campo da 40×20 "metri" della libreria diventa il
- * campo vero (linee w×h), con le velocità dei piedi del gioco (camminata 8,5, corsa 13). */
+ * campo vero (linee w×h), con le velocità dei piedi del gioco (camminata 8,5, iris 13). */
 export function rulesForPitch(pitch,{run=13}={}){
  const long=pitch.w>=pitch.h,length=long?pitch.w:pitch.h,width=long?pitch.h:pitch.w,k=length/40;
  const goal=pitch.goal||{width:pitch.porta||3,depth:pitch.profondita||1.2};

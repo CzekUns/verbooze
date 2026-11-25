@@ -1,18 +1,18 @@
-# GTA Melito — STANDARD APPROVATO DI DESIGN DEI VEICOLI
+# GAM Melito — STANDARD APPROVATO DI DESIGN DEI VEICOLI
 
 **Approvato dall'utente il 17 ottobre 2026.** Questo documento è la procedura predefinita per ogni nuova automobile del gioco. Non reinventare il processo a ogni richiesta.
 
 ## Regola fissa per gli spritesheet (19 ottobre 2026)
 
-**Formato normale: foglio da 16 sprite in griglia 4×4, 8 varianti del primo modello (righe 1–2) e 8 del secondo (righe 3–4).** È lo standard produttivo permanente per i nuovi lotti; le vecchie Panda PNG individuali restano eccezioni. Le otto varianti possono rappresentare colori, generazioni del modello specificate, usura o tipo di carico/allestimento commerciale. Dopo ImageGen si fanno veri crop, allineamento e atlas PNG trasparente a 16 celle, con controllo alpha dei bordi.
+**Formato normale: foglio da 16 sprite in griglia 4×4, 8 varianti del primo modello (righe 1–2) e 8 del secondo (righe 3–4).** È lo standard produttivo permanente per i nuovi lotti; le vecchie Borgo PNG individuali restano eccezioni. Le otto varianti possono rappresentare colori, generazioni del modello specificate, usura o tipo di carico/allestimento commerciale. Dopo ImageGen si fanno veri crop, allineamento e atlas PNG trasparente a 16 celle, con controllo alpha dei bordi.
 
-**Esempio già pronto:** [Ape Car + street food 16 celle](./assets/vehicles/ape-food-16-rgba.png), [master 1244×1265 px](./assets/vehicles/sources/ape-food-16-master.png). Questa tavola ha **celle 56×64 px, 4×4 = 224×256 px**, con otto Ape (azzurra pulita e verde bottiglia arrugginita, ciascuna vuota / con ferro / ortofrutta / pesce) e otto banchi street food (zeppole/panzerotti, pere/musso, panini, hot dog, cornetti, pizza a portafoglio, pizzette fritte, assortito). I furgoni con tendalino aperto sono sprite da **sosta**; servono versioni con sportelli chiusi per usarli in movimento. L'interpretazione grafica pere/musso è ancora provvisoria.
+**Esempio già pronto:** [Triciclo Car + street food 16 celle](./assets/vehicles/triciclo-food-16-rgba.png), [master 1244×1265 px](./assets/vehicles/sources/triciclo-food-16-master.png). Questa tavola ha **celle 56×64 px, 4×4 = 224×256 px**, con otto Triciclo (azzurra pulita e verde bottiglia arrugginita, ciascuna vuota / con ferro / ortofrutta / pesce) e otto banchi street food (zeppole/panzerotti, pere/musso, panini, hot dog, cornetti, pizza a portafoglio, pizzette fritte, assortito). I furgoni con tendalino aperto sono sprite da **sosta**; servono versioni con sportelli chiusi per usarli in movimento. L'interpretazione grafica pere/musso è ancora provvisoria.
 
 ## Stile approvato
 
-Riferimenti visivi iniziali già approvati: **Panda moderna bianca** e **Panda Fire anni '90 rossa**, presenti nel gioco. L'utente ha confermato che risultano bene su strada; fare le auto successive con **la medesima tecnica**, mantenendo coerenza di scala e livello di dettaglio.
+Riferimenti visivi iniziali già approvati: **Borgo moderna bianca** e **Borgo Fire anni '90 rossa**, presenti nel gioco. L'utente ha confermato che risultano bene su strada; fare le auto successive con **la medesima tecnica**, mantenendo coerenza di scala e livello di dettaglio.
 
-1. **Modello automobilistico vero come riferimento:** silhouette e proporzioni riconoscibili per la generazione/anno preciso, senza allungare artificialmente cofano o coda. Non confondere modelli e generazioni (es. Punto 188 ≠ Grande Punto, Ypsilon 2003 ≠ 2011).
+1. **Modello automobilistico vero come riferimento:** silhouette e proporzioni riconoscibili per la generazione/anno preciso, senza allungare artificialmente cofano o coda. Non confondere modelli e generazioni (es. Alba 188 ≠ Aurora, Luna 2003 ≠ 2011).
 2. **Una sola vista esattamente dall'alto (top-down)**: il cofano punta verso l'alto del file (−Y), non isometrica, non laterale, non prospettiva 3/4. Dall'alto devono leggersi tetto, parabrezza, lunotto, specchi, finestrini, fari e fanali.
 3. **Sheet 4×4 con due modelli (8 varianti ciascuno)**: esattamente stessa sagoma, inquadratura, dimensioni e orientamento nelle otto celle di ciascun modello; sfondo **bianco neutro** solo sullo sheet di presentazione. Non inserire titoli, loghi, scritte, ombre pesanti o altri elementi dentro il ritaglio di un'auto.
 4. **Colori di carrozzeria realmente disponibili** per quella generazione e mercato/anno/allestimento, non un arcobaleno arbitrario. Verificare con brochure/listini/schede ufficiali attendibili ove disponibili. Se un colore non è verificato, etichettarlo come interpretazione e NON come originale di fabbrica. Colori e disponibilità variano per anno/versione. Presentare nomi dei colori e riferimenti quando identificabili.
@@ -24,37 +24,37 @@ Riferimenti visivi iniziali già approvati: **Panda moderna bianca** e **Panda F
 
 ## Basi già presenti — NON da rifare
 
-- `assets/vehicles/panda-modern-white.png`: Panda moderna, bianco, sprite approvato.
-- `assets/vehicles/panda-fire-red.png`: Panda Fire prima serie, rosso, sprite approvato.
+- `assets/vehicles/borgo-nuova-white.png`: Borgo moderna, bianco, sprite approvato.
+- `assets/vehicles/borgo-classica-red.png`: Borgo Fire prima serie, rosso, sprite approvato.
 - `car-sprites.mjs`: precaricamento, fallback al renderer Canvas, asse frontale e scala.
-- Le altre varianti PNG Panda sono state preparate nella conversazione originaria; NON affermare che siano nel repository prima di caricarle.
+- Le altre varianti PNG Borgo sono state preparate nella conversazione originaria; NON affermare che siano nel repository prima di caricarle.
 
 ## Ordine di espansione consigliato
 
 ### Lotto 1 — utilitarie italiane che danno subito identità alla città
-- **Fiat Punto 188** (1999–2010; decidere versione 3 o 5 porte).
-- **Fiat Grande Punto / Punto Evo** (2005–2018; forme differenti, distinguere).
-- **Lancia Ypsilon seconda serie** (2003–2011).
-- **Fiat Seicento** (1998–2010) o, in alternativa, **Fiat Uno** per il parco più vecchio.
+- **costruttore di fantasia Alba 188** (1999–2010; decidere versione 3 o 5 porte).
+- **costruttore di fantasia Aurora / Alba Evo** (2005–2018; forme differenti, distinguere).
+- **costruttore di fantasia Luna seconda serie** (2003–2011).
+- **costruttore di fantasia Nido** (1998–2010) o, in alternativa, **Riva** per il parco più vecchio.
 
 ### Lotto 2 — auto italiane cittadine e contemporanee
-- **Fiat 500** (2007–2024, distinguere dalla 500e se serve).
-- **Lancia Ypsilon terza serie** (2011–2024).
-- **Fiat Tipo hatchback** (2016–2025) — **FATTO, lotto 5 del 21/10/2026** (CODEX-GH + Claude): `assets/vehicles/tipo-500l-16-rgba.png` celle 0–7, modello `tipo-hatchback-2016`; PROVVISORIO, da approvare da Simone.
-- **Fiat 500L** (2012–2022) — **FATTO, lotto 5 del 21/10/2026**: stesso atlante, celle 8–15, modello `fiat-500l-2012`; PROVVISORIO, da approvare da Simone.
+- **Vela** (2007–2024, distinguere dalla 500e se serve).
+- **costruttore di fantasia Luna terza serie** (2011–2024).
+- **costruttore di fantasia Corallo** (2016–2025) — **FATTO, lotto 5 del 21/10/2026** (CODEX-GH + Claude): `assets/vehicles/corallo-faro-16-rgba.png` celle 0–7, modello `corallo`; PROVVISORIO, da approvare da Simone.
+- **Faro** (2012–2022) — **FATTO, lotto 5 del 21/10/2026**: stesso atlante, celle 8–15, modello `faro`; PROVVISORIO, da approvare da Simone.
 
 ### Lotto 3 — varietà internazionale plausibile
-- **Autosalone 01 Clio IV** (2012–2019) — **FATTO, lotto 6 del 21/10/2026** (CODEX-GH + Claude): `assets/vehicles/clio4-golf7-16-rgba.png` celle 0–7, modello `clio-iv-2012`; PROVVISORIO, da approvare da Simone.
-- **Volkswagen Golf VII** (2012–2019) — **FATTO, lotto 6 del 21/10/2026**: stesso atlante, celle 8–15, modello `golf-vii-2012`; PROVVISORIO, da approvare da Simone.
-- **Opel Corsa E** (2014–2019) — **FATTO, lotto 7 del 21/10/2026** (CODEX-GH + Claude): `assets/vehicles/corsa-e-208-16-rgba.png` celle 0–7, modello `corsa-e-2014`; PROVVISORIO, da approvare da Simone.
-- **Peugeot 208** prima serie (2012–2019) — **FATTO, lotto 7 del 21/10/2026**: stesso atlante, celle 8–15, modello `peugeot-208-2012`; PROVVISORIO, da approvare da Simone.
+- **Autosalone 01 Quarzo** (2012–2019) — **FATTO, lotto 6 del 21/10/2026** (CODEX-GH + Claude): `assets/vehicles/quarzo-onda-16-rgba.png` celle 0–7, modello `quarzo`; PROVVISORIO, da approvare da Simone.
+- **costruttore di fantasia Onda** (2012–2019) — **FATTO, lotto 6 del 21/10/2026**: stesso atlante, celle 8–15, modello `onda`; PROVVISORIO, da approvare da Simone.
+- **costruttore di fantasia Iris** (2014–2019) — **FATTO, lotto 7 del 21/10/2026** (CODEX-GH + Claude): `assets/vehicles/iris-sabbia-16-rgba.png` celle 0–7, modello `iris`; PROVVISORIO, da approvare da Simone.
+- **Sabbia** prima serie (2012–2019) — **FATTO, lotto 7 del 21/10/2026**: stesso atlante, celle 8–15, modello `sabbia`; PROVVISORIO, da approvare da Simone.
 - **Ford Fiesta**; scegli la generazione specifica prima di disegnare.
-- **Nissan Qashqai J11** (2013–2021) — **FATTO, lotto 8 del 21/10/2026** (CODEX-GH + Claude): `assets/vehicles/qashqai-duster-16-rgba.png` celle 0–7, modello `qashqai-j11-2013`; PROVVISORIO, da approvare da Simone.
-- **Dacia Duster** prima serie (2010–2017) — **FATTO, lotto 8 del 21/10/2026**: stesso atlante, celle 8–15, modello `duster-2010`; PROVVISORIO, da approvare da Simone.
+- **costruttore di fantasia Altura** (2013–2021) — **FATTO, lotto 8 del 21/10/2026** (CODEX-GH + Claude): `assets/vehicles/altura-sentiero-16-rgba.png` celle 0–7, modello `altura`; PROVVISORIO, da approvare da Simone.
+- **costruttore di fantasia Sentiero** prima serie (2010–2017) — **FATTO, lotto 8 del 21/10/2026**: stesso atlante, celle 8–15, modello `sentiero`; PROVVISORIO, da approvare da Simone.
 - **Jeep Renegade** per crossover/SUV.
-- **Fiat Doblò II** (2010–2022) — **FATTO, lotto 9 del 21/10/2026** (CODEX-GH + Claude): `assets/vehicles/doblo-fiorino-16-rgba.png` (208×368, celle **52×92** come l'atlante di servizio Q18; in `EXTRA_MODELS` con `cell` e `body`) celle 0–7, modello `doblo-2010`, livree generiche (l'ultima con scritta `EDILIZIA`); PROVVISORIO, da approvare da Simone.
-- **Fiat Fiorino III** (2008–2021) — **FATTO, lotto 9 del 21/10/2026**: stesso atlante, celle 8–15, modello `fiorino-2008` (l'ultima livrea con scritta `FRUTTA`); PROVVISORIO, da approvare da Simone.
-- **Fiat Qubo**, **Fiat Ducato** per consegne e lavoro.
+- **costruttore di fantasia Cargo II** (2010–2022) — **FATTO, lotto 9 del 21/10/2026** (CODEX-GH + Claude): `assets/vehicles/cargo-bottega-16-rgba.png` (208×368, celle **52×92** come l'atlante di servizio Q18; in `EXTRA_MODELS` con `cell` e `body`) celle 0–7, modello `cargo`, livree generiche (l'ultima con scritta `EDILIZIA`); PROVVISORIO, da approvare da Simone.
+- **costruttore di fantasia Bottega III** (2008–2021) — **FATTO, lotto 9 del 21/10/2026**: stesso atlante, celle 8–15, modello `bottega` (l'ultima livrea con scritta `FRUTTA`); PROVVISORIO, da approvare da Simone.
+- **costruttore di fantasia Qubo**, **costruttore di fantasia Ducato** per consegne e lavoro.
 - Eventuali scooter/moto in seguito (asset e collisioni dedicate).
 
 Le liste rappresentano **ipotesi di varietà stradale plausibile**, non statistiche sulla reale diffusione a Melito. I colori e l'anno vanno verificati modello per modello.
@@ -65,12 +65,12 @@ Per ogni modello consegna: sheet bianco con sole viste top-down e colori, PNG si
 
 ## Bug da non ripetere — trasparenza dell'atlante
 
-Il primo atlante Punto/Ypsilon caricato aveva un rettangolo scuro opaco sullo sfondo. **La sola presenza di un chunk PNG `tRNS` non prova la trasparenza corretta**: bisogna verificare realmente che ciascuno dei 16 angoli di ogni cella dell'atlante abbia **alpha=0** e che un pixel al centro dell'auto abbia alpha>0. Provare il rendering su asfalto e su fondo chiaro. **Risolto il 17 ottobre 2026:** il nuovo atlante `punto-ypsilon-16colors-rgba.png` ha 16 sprite compatti da 40×60 pixel su 4×4 celle, trasparenza reale con `tRNS` (alpha 0 negli angoli di ogni cella) e colori distinti per modello. Il caricamento usa direttamente il PNG, senza alcuna maschera di riparazione in JavaScript. Il vecchio atlante resta solo come archivio per evitare regressioni; `vehicle-alpha.mjs` è rimosso. Le 16 verniciature sono variazioni grafiche indicative, non documentate come codici di fabbrica.
+Il primo atlante Alba/Luna caricato aveva un rettangolo scuro opaco sullo sfondo. **La sola presenza di un chunk PNG `tRNS` non prova la trasparenza corretta**: bisogna verificare realmente che ciascuno dei 16 angoli di ogni cella dell'atlante abbia **alpha=0** e che un pixel al centro dell'auto abbia alpha>0. Provare il rendering su asfalto e su fondo chiaro. **Risolto il 17 ottobre 2026:** il nuovo atlante `alba-luna-16colors-rgba.png` ha 16 sprite compatti da 40×60 pixel su 4×4 celle, trasparenza reale con `tRNS` (alpha 0 negli angoli di ogni cella) e colori distinti per modello. Il caricamento usa direttamente il PNG, senza alcuna maschera di riparazione in JavaScript. Il vecchio atlante resta solo come archivio per evitare regressioni; `vehicle-alpha.mjs` è rimosso. Le 16 verniciature sono variazioni grafiche indicative, non documentate come codici di fabbrica.
 
 
 ## Nuovi modelli — 18 ottobre 2026
 
-- `seicento-500-16colors-rgba.png`: Fiat Seicento 1998 e Fiat 500 2007, otto colori ciascuna.
-- `uno-smart-16colors-rgba.png`: Fiat Uno 1983 e Smart Fortwo 2007, otto colori ciascuna.
+- `nido-vela-16colors-rgba.png`: costruttore di fantasia Nido 1998 e Vela 2007, otto colori ciascuna.
+- `riva-mira-16colors-rgba.png`: Riva 1983 e Mira 2007, otto colori ciascuna.
 
-Sprite individuali di 40×60 pixel ritagliati da due tavole 4×4: in gioco vengono conservati come due atlanti compressi 160×240, con sfondo **realmente trasparente** e alfa corretto, per ridurre richieste HTTP. 32 nuove varianti sommate alle 16 Punto/Ypsilon già integrate (48 totali più le due Panda). Colori come interpretazione, non tutti verificati nei cataloghi fabbrica. Dimensioni visive per modello differenziate senza cambiare le collisioni. La Smart è una rappresentazione approssimativa, candidata a una successiva rifinitura sulla Fortwo reale.
+Sprite individuali di 40×60 pixel ritagliati da due tavole 4×4: in gioco vengono conservati come due atlanti compressi 160×240, con sfondo **realmente trasparente** e alfa corretto, per ridurre richieste HTTP. 32 nuove varianti sommate alle 16 Alba/Luna già integrate (48 totali più le due Borgo). Colori come interpretazione, non tutti verificati nei cataloghi fabbrica. Dimensioni visive per modello differenziate senza cambiare le collisioni. La Mira è una rappresentazione approssimativa, candidata a una successiva rifinitura sulla Fortwo reale.

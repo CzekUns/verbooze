@@ -1,6 +1,6 @@
-# GTA Melito — censimento individuale degli edifici
+# GAM Melito — censimento individuale degli edifici
 
-## Punto di partenza e ordine
+## Alba di partenza e ordine
 
 Si parte **dal margine nord-occidentale del comune**, allineando una griglia metrica di **350 m × 500 m** all'origine nord-occidentale della proiezione ISTAT/OSM. La prima particella edificata del percorso è **way OSM 733646047**, nelle vicinanze di Via Colonne di Giugliano; si prosegue verso est attraverso i fabbricati fra Via Appia, Via Etna e Via Vesuvio.
 

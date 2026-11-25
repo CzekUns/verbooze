@@ -1,4 +1,4 @@
-/* GTA Melito: consistent 2.5D extrusion for EVERY OSM or placeholder footprint.
+/* GAM Melito: consistent 2.5D extrusion for EVERY OSM or placeholder footprint.
  * All dimensions are arcade projections, never surveyed real heights.
  * The footprint stays unchanged for OSM identity and collision geometry. */
 const clamp=(v,lo,hi)=>Math.max(lo,Math.min(hi,v));

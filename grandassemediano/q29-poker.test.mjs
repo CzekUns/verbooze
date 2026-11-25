@@ -89,7 +89,7 @@ test('Q29 virtual only and separate: no money, no purchase, no betting service, 
  const src=await readFile(new URL('./minigame-poker.mjs',import.meta.url),'utf8');
  assert.match(src,/SOLO CREDITI VIRTUALI DI GIOCO/);
  assert.doesNotMatch(src,/fetch\(|XMLHttpRequest|WebSocket|sendBeacon|€|progress\.money|paypal|stripe/i);
- assert.notEqual(POKER_SAVE_KEY,'gta-melito-slot-v1');
+ assert.notEqual(POKER_SAVE_KEY,'gam-melito-slot-v1');
 });
 
 test('Q29 pixel art: cards, suits and the whole screen draw without errors; taps find the right card',()=>{

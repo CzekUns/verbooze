@@ -1,16 +1,16 @@
-/* GTA Melito — street fryer in a white coat and white cook's cap.
+/* GAM Melito — street fryer in a white coat and white cook's cap.
  * The 96×160 indexed PNG contains 4 directions × 4 walk frames, 24×40 each.
  * Same origin and visual world scale as the existing city pedestrian sheets.
  */
-import {VEHICLE_SCALE,PERSON_SCALE,vs,ps} from './world-scale.mjs?v=001';
-import {pedestrianDirection} from './pedestrian-sprites.mjs?v=002';
+import {VEHICLE_SCALE,PERSON_SCALE,vs,ps} from './world-scale.mjs?v=1001';
+import {pedestrianDirection} from './pedestrian-sprites.mjs?v=1002';
 export const FRYER_ATLAS_PATH='./assets/people/friggitore-bianco-4dir-4frames-24x40.png';
 export const FRYER_CELL=Object.freeze({width:24,height:40,directions:4,frames:4});
 let atlas=null;
 export function loadFryerSprite(){
  if(atlas||typeof Image==='undefined')return;
  atlas=new Image();
- atlas.onerror=()=>console.warn('GTA Melito: friggitore sprite unavailable');
+ atlas.onerror=()=>console.warn('GAM Melito: friggitore sprite unavailable');
  atlas.src=new URL(FRYER_ATLAS_PATH,import.meta.url).href;
 }
 export function fryerSpriteReady(){

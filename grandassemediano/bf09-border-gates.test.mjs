@@ -81,8 +81,8 @@ test('BF09 a car reaching a gate drives into the dark and fades, then another ca
 
 test('BF09 nobody comes in while the first metres of the lane are taken; it waits unseen',()=>{
  const blockers=graph.gates.filter(g=>g.entry!==null).map((g,i)=>{const e=graph.edges[g.entry],a=graph.nodes[e.from],b=graph.nodes[e.to],t=4/e.len;
-  return {x:a.x+(b.x-a.x)*t,y:a.y+(b.y-a.y)*t,a:e.angle,body:'car',speed:0,model:'panda-modern-white'};});
- const v=createGateVehicle(graph,4242,{vehicleType:'car',model:'punto-188-red'});
+  return {x:a.x+(b.x-a.x)*t,y:a.y+(b.y-a.y)*t,a:e.angle,body:'car',speed:0,model:'borgo-nuova-white'};});
+ const v=createGateVehicle(graph,4242,{vehicleType:'car',model:'alba-red'});
  for(let i=0;i<60;i++)stepAgents(graph,[v],dt,null,{view:everywhere,parked:blockers});
  assert.equal(v.gateLimbo,true,'still waiting beyond the border');
  assert.equal(v.gateFade,0);
@@ -94,7 +94,7 @@ test('BF09 nobody comes in while the first metres of the lane are taken; it wait
 
 test('BF09 balanceTraffic: more vehicles come in from the gates, extra ones leave out of sight or at a gate',()=>{
  const traffic=createAgents(graph,3,91,'car',[]);let n=0;
- const make=()=>createGateVehicle(graph,5000+(n++)*17,{vehicleType:n%4===2?'motorcycle':'car',model:'punto-188-red'});
+ const make=()=>createGateVehicle(graph,5000+(n++)*17,{vehicleType:n%4===2?'motorcycle':'car',model:'alba-red'});
  const firstSeen=new Map();
  for(let i=0;i<400;i++){
   stepAgents(graph,traffic,dt,null,{view:everywhere});

@@ -2,12 +2,12 @@
  * OSM roads define the real geometry; vendor locations and job identities
  * are artistic placements, NOT surveyed shops, licensed stalls or traffic lights.
  * No new map features, traffic signal claims or synthetic street geometry. */
-import {MARKET_VARIANTS} from './car-sprites.mjs?v=118';
-import {vehicleHitsPedestrian} from './traffic-collision.mjs?v=131';
-import {washerSpots} from './window-washers.mjs?v=004';
-import {vs,ps} from './world-scale.mjs?v=001';
+import {MARKET_VARIANTS} from './car-sprites.mjs?v=1118';
+import {vehicleHitsPedestrian} from './traffic-collision.mjs?v=1131';
+import {washerSpots} from './window-washers.mjs?v=1004';
+import {vs,ps} from './world-scale.mjs?v=1001';
 export const TRAFFIC_APES=Object.freeze([
- 'ape-azzurra-vuota','ape-azzurra-ferro','ape-verde-vuota','ape-verde-ferro'
+ 'triciclo-azzurra-vuota','triciclo-azzurra-ferro','triciclo-verde-vuota','triciclo-verde-ferro'
 ]);
 export const FOOD_STALLS=Object.freeze([
  {name:'Piazza Santo Stefano',x:1096,y:1150,road:/Piazza Santo Stefano|Via Roma/i,model:'food-zeppole-panzerotti'},
@@ -16,7 +16,7 @@ export const FOOD_STALLS=Object.freeze([
  {name:'Largo Cinque Via',x:680,y:1620,road:/Largo Cinque Via|Corso Europa/i,model:'food-pizza-portafoglio'},
  {name:'Via Roma',x:1680,y:2000,road:/Via Roma/i,model:'food-cornetti'}
 ]);
-export function trafficApeModel(index){
+export function trafficTricycleModel(index){
  return index%11===3?TRAFFIC_APES[Math.floor(index/11)%TRAFFIC_APES.length]:null;
 }
 const distance=(a,b)=>Math.hypot(a.x-b.x,a.y-b.y);

@@ -6,68 +6,68 @@ import {createLicensedAudio} from './licensed-audio.mjs';
 import {handlingProfile,gearAt} from './vehicle-handling.mjs';
 
 const memory=(init={})=>{const m=new Map(Object.entries(init));return {getItem:k=>m.get(k)??null,setItem:(k,v)=>m.set(k,v)};};
-const punto={vehicleType:'car',model:'punto-188-red',throttle:1};
+const alba={vehicleType:'car',model:'alba-red',throttle:1};
 const shiftsOf=model=>{const p=handlingProfile(model);return p.gears.map(g=>g*p.top);};
 
 test('BF10 car engine follows the gears: pitch rises with the revs, drops at every shift, voice dips for a moment',()=>{
- const shifts=shiftsOf(punto);
- assert.equal(shifts.length,4,'five implicit gears on the Punto');
+ const shifts=shiftsOf(alba);
+ assert.equal(shifts.length,4,'five implicit gears on the Alba');
  // inside each gear the pitch climbs with speed
- let prev=engineSound({...punto,speed:.2});
- for(let s=.4;s<shifts[0]-.05;s+=.2){const now=engineSound({...punto,speed:s});assert.ok(now.freq>prev.freq,'first gear climbs at '+s.toFixed(1));prev=now;}
+ let prev=engineSound({...alba,speed:.2});
+ for(let s=.4;s<shifts[0]-.05;s+=.2){const now=engineSound({...alba,speed:s});assert.ok(now.freq>prev.freq,'first gear climbs at '+s.toFixed(1));prev=now;}
  for(const [i,at] of shifts.entries()){
-  const before=engineSound({...punto,speed:at-.05}),after=engineSound({...punto,speed:at+.05});
+  const before=engineSound({...alba,speed:at-.05}),after=engineSound({...alba,speed:at+.05});
   assert.equal(before.gear,i+1);assert.equal(after.gear,i+2,'gear '+(i+2)+' engaged');
   assert.ok(after.freq<before.freq*.9,'pitch drops at the shift '+(i+1)+'→'+(i+2)+': '+before.freq.toFixed(0)+' → '+after.freq.toFixed(0)+' Hz');
   assert.ok(after.shift<.9&&before.shift===1,'short dip of the engine voice right after the shift (BF05 shiftDip)');
-  assert.ok(engineSound({...punto,speed:at+2.5}).shift>.99,'and back to full voice within the gear');
+  assert.ok(engineSound({...alba,speed:at+2.5}).shift>.99,'and back to full voice within the gear');
  }
  // the drop is smaller in the long gears (closer ratios), as on a real gearbox
- const drop=at=>engineSound({...punto,speed:at-.05}).freq/engineSound({...punto,speed:at+.05}).freq;
+ const drop=at=>engineSound({...alba,speed:at-.05}).freq/engineSound({...alba,speed:at+.05}).freq;
  assert.ok(drop(shifts[3])<drop(shifts[0]));
  // the same gear and revs as the BF05 drive model
- const s=20,g=gearAt(handlingProfile(punto),s);
- assert.deepEqual([engineSound({...punto,speed:s}).gear,+engineSound({...punto,speed:s}).rpm.toFixed(6)],[g.gear,+g.rpm.toFixed(6)]);
+ const s=20,g=gearAt(handlingProfile(alba),s);
+ assert.deepEqual([engineSound({...alba,speed:s}).gear,+engineSound({...alba,speed:s}).rpm.toFixed(6)],[g.gear,+g.rpm.toFixed(6)]);
 });
 
 test('BF10 more driving noise in the high gears and at speed; grittier on the throttle, softer when lifting off',()=>{
- const shifts=shiftsOf(punto),noise=speed=>engineSound({...punto,speed}).noise;
+ const shifts=shiftsOf(alba),noise=speed=>engineSound({...alba,speed}).noise;
  assert.equal(noise(0).gain,0,'standing still: no rolling noise');
  const perGear=[2,...shifts.map(x=>x+2)].map(noise);
  for(let i=1;i<perGear.length;i++)assert.ok(perGear[i].gain>perGear[i-1].gain&&perGear[i].cutoff>perGear[i-1].cutoff,'gear '+(i+1)+' louder and brighter');
  assert.ok(noise(39).gain>noise(10).gain*5,'top gear roar well above town speed: '+noise(39).gain.toFixed(3)+' vs '+noise(10).gain.toFixed(3));
- const gas=engineSound({...punto,speed:25,throttle:1}),lift=engineSound({...punto,speed:25,throttle:0});
+ const gas=engineSound({...alba,speed:25,throttle:1}),lift=engineSound({...alba,speed:25,throttle:0});
  assert.ok(gas.noise.gain>lift.noise.gain&&gas.cutoff>lift.cutoff,'throttle opens the sound, lift-off softens it');
  // levels stay moderate: the whole driving layer is a background, below the engine voice
- const mix=audioMix({player:{x:0,y:0,inVehicle:true,...punto,speed:39}});
+ const mix=audioMix({player:{x:0,y:0,inVehicle:true,...alba,speed:39}});
  assert.ok(mix.drive.gain>0&&mix.drive.gain<.1&&mix.drive.gain<mix.engine.gain/2,'noise '+mix.drive.gain.toFixed(3)+' under engine '+mix.engine.gain.toFixed(3));
  assert.equal(audioMix({player:{x:0,y:0,inVehicle:false}}).drive.gain,0,'on foot: no driving noise');
- assert.equal(audioMix({interior:true,player:{x:0,y:0,inVehicle:true,...punto,speed:20}}).drive.gain,0,'inside the bank: silent');
+ assert.equal(audioMix({interior:true,player:{x:0,y:0,inVehicle:true,...alba,speed:20}}).drive.gain,0,'inside the bank: silent');
 });
 
 test('BF10 scooter variator: one continuous rise that settles, no shift drops; reverse is its own steady whine',()=>{
- const scooter={vehicleType:'motorcycle',model:'moto-scooter-sh-red',throttle:1};
+ const scooter={vehicleType:'motorcycle',model:'moto-scooter-urbano-red',throttle:1};
  let prev=engineSound({...scooter,speed:0,throttle:0});
  assert.equal(prev.kind,'scooter');
  const steps=[];
  for(let s=.5;s<=27;s+=.5){const now=engineSound({...scooter,speed:s});assert.ok(now.freq>=prev.freq,'never drops at '+s);assert.equal(now.shift,1);steps.push(now.freq-prev.freq);prev=now;}
  const early=steps.slice(0,10).reduce((a,b)=>a+b,0),late=steps.slice(-10).reduce((a,b)=>a+b,0);
  assert.ok(early>late*3,'quick rise from the start, then nearly flat: '+early.toFixed(0)+' vs '+late.toFixed(0)+' Hz');
- const back=engineSound({...punto,speed:-6,throttle:0});
- assert.equal(back.gear,0,'reverse');assert.ok(back.freq>engineSound({...punto,speed:0,throttle:0}).freq);
+ const back=engineSound({...alba,speed:-6,throttle:0});
+ assert.equal(back.gear,0,'reverse');assert.ok(back.freq>engineSound({...alba,speed:0,throttle:0}).freq);
 });
 
-test('BF10 each family sounds different: Ape buzzes, vans are deep, motorbikes are high and windy',()=>{
+test('BF10 each family sounds different: Triciclo buzzes, vans are deep, motorbikes are high and windy',()=>{
  const at=(o,speed)=>engineSound({throttle:1,...o,speed});
- const ape=at({vehicleType:'car',model:'ape-car-azzurra'},10),car=at(punto,10),van=at({vehicleType:'car',model:'furgone-fritti'},10),moto=at({vehicleType:'motorcycle',model:'moto-moto-naked-black'},10);
- assert.deepEqual([ape.kind,car.kind,van.kind,moto.kind],['ape','auto','furgone','moto']);
- assert.ok(ape.cutoff>car.cutoff*1.4,'the Ape single-cylinder buzz is brighter');
+ const triciclo=at({vehicleType:'car',model:'triciclo-car-azzurra'},10),car=at(alba,10),van=at({vehicleType:'car',model:'furgone-fritti'},10),moto=at({vehicleType:'motorcycle',model:'moto-moto-naked-black'},10);
+ assert.deepEqual([triciclo.kind,car.kind,van.kind,moto.kind],['triciclo','auto','furgone','moto']);
+ assert.ok(triciclo.cutoff>car.cutoff*1.4,'the Triciclo single-cylinder buzz is brighter');
  assert.ok(van.freq<car.freq&&van.cutoff<car.cutoff,'vans are deeper');
- assert.ok(moto.freq>car.freq&&moto.cutoff>ape.cutoff,'motorbikes rev higher');
- assert.equal(shiftsOf({vehicleType:'car',model:'ape-car-azzurra'}).length,2,'the Ape has three short gears');
+ assert.ok(moto.freq>car.freq&&moto.cutoff>triciclo.cutoff,'motorbikes rev higher');
+ assert.equal(shiftsOf({vehicleType:'car',model:'triciclo-car-azzurra'}).length,2,'the Triciclo has three short gears');
  // traffic voices use the model too, and the real speed passed by the game (agent.v)
- const mix=audioMix({player:{x:0,y:0},traffic:[{x:5,y:0,vehicleType:'car',model:'ape-verde-pesce',speed:6},{x:9,y:0,vehicleType:'car',model:'furgone-fritti',speed:6}]});
- assert.deepEqual(mix.voices.map(v=>v.kind),['ape','furgone']);
+ const mix=audioMix({player:{x:0,y:0},traffic:[{x:5,y:0,vehicleType:'car',model:'triciclo-verde-pesce',speed:6},{x:9,y:0,vehicleType:'car',model:'furgone-fritti',speed:6}]});
+ assert.deepEqual(mix.voices.map(v=>v.kind),['triciclo','furgone']);
 });
 
 test('BF10 saved settings: old single volume becomes EFFETTI, radio starts at 52%; both persist, separately',()=>{
@@ -93,7 +93,7 @@ test('BF10 SUONI OFF silences effects AND radio; the radio stream keeps its own 
  audio.changeRadioVolume(.2);assert.equal(audio.radioLevel,.72);
  audio.toggleMuted();
  assert.equal(audio.radioLevel,0);assert.equal(levels.at(-1),0,'radio muted too');
- assert.equal(audio.update({player:{x:0,y:0,inVehicle:true,...punto,speed:10}}).master,0,'effects muted');
+ assert.equal(audio.update({player:{x:0,y:0,inVehicle:true,...alba,speed:10}}).master,0,'effects muted');
  audio.toggleMuted();assert.equal(levels.at(-1),.72,'radio back at its level');
  const radio=createLicensedAudio();
  return radio.enterVehicle().then(available=>{

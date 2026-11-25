@@ -1,4 +1,4 @@
-/* GTA Melito 0.3 — landmark marker art and mission guidance.
+/* GAM Melito 0.3 — landmark marker art and mission guidance.
  * Locations are OSM-derived; all art is an original illustrative overlay. */
 const T=Math.PI*2;
 const COLORS={meeting:'#ffb462',square:'#c8a3e0',townhall:'#89c1dd',post:'#eebf65',avenue:'#7ec7ae'};

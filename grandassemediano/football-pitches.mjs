@@ -1,4 +1,4 @@
-/* GTA Melito — Q32: campetti da calcetto e il campo grande di Via delle Palme, accesso e mappa.
+/* GAM Melito — Q32: campetti da calcetto e il campo grande di Via delle Palme, accesso e mappa.
  * Q33 (21/10/2026, richiesta del committente): la partita si gioca DENTRO il campo, nell'overworld
  * (football-match.mjs). Il campo da gioco è quello grande di Via delle Palme (`partita:true`), nello
  * spazio del campo a 11 visto sulla foto aerea; i due campetti piccoli restano scenografia.

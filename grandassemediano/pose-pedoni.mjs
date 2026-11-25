@@ -1,7 +1,7 @@
 /* Pose ferme derivate dai fogli pedoni: 4 colonne di personaggi × 4 righe.
  * 0 seduto, 1–2 in piedi con piccolo gesto, 3 appoggiato. Solo grafica. */
-import {ps} from './world-scale.mjs?v=001';
-import {PEDESTRIAN_SHEETS,PEDESTRIAN_KIND_COUNT,pedestrianSheetForKind} from './extra-pedestrian-sprites.mjs?v=007';
+import {ps} from './world-scale.mjs?v=1001';
+import {PEDESTRIAN_SHEETS,PEDESTRIAN_KIND_COUNT,pedestrianSheetForKind} from './extra-pedestrian-sprites.mjs?v=1007';
 
 export const IDLE_POSE_CELL=Object.freeze({width:24,height:40,columns:4,rows:4});
 export const IDLE_POSE_SHEETS=Object.freeze(['madre','secondo-lotto',...PEDESTRIAN_SHEETS.map(s=>s.id)]);
@@ -18,7 +18,7 @@ export function loadIdlePoseSheets(){
  for(const id of IDLE_POSE_SHEETS){
   if(images.has(id))continue;
   const img=new Image();images.set(id,img);
-  img.onerror=()=>console.warn('GTA Melito: pose pedoni mancanti: '+id);
+  img.onerror=()=>console.warn('GAM Melito: pose pedoni mancanti: '+id);
   img.src=new URL(`./assets/people/pose-${id}.png`,import.meta.url).href;
  }
 }

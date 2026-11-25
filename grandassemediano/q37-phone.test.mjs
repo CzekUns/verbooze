@@ -64,7 +64,7 @@ test('Q37 settings: the two BF10 volumes and «Sviluppatore» with every old pau
 });
 
 test('Q37 game wiring: phone mounted on the pause menu, keys to the phone first, inputs reset on open',()=>{
- assert.match(game,/import \{mountPhone\} from '\.\/smartphone\.mjs\?v=001';/);
+ assert.match(game,/import \{mountPhone\} from '\.\/smartphone\.mjs\?v=1001';/);
  assert.match(game,/phoneUi=mountPhone\(document,\{menu:pause,/);
  assert.match(game,/window\.addEventListener\('keydown',e=>\{\n  \/\/ Q37[^\n]*\n  if\(!\$\('pause-menu'\)\.hidden&&phoneUi\?\.key\(e\)\)return;/);
  assert.match(game,/Object\.keys\(pressed\)\.forEach\(k=>pressed\[k\]=false\);stick\.x=0;stick\.y=0;resetDrivingControls\(\);pause\.hidden=false;phoneUi\?\.opened\(\);/,'no pedal held through the phone');

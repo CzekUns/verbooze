@@ -43,7 +43,7 @@ function markSpot(vehicle,from){
  const m=Math.max(Math.abs(u),Math.abs(v))||1;
  return {u:clamp(u/m*.78,-.78,.78),v:clamp(v/m*.82,-.82,.82)};
 }
-/* Aggiunge il danno di un urto. `speed` = velocità dell'urto (unità di gioco), `from` = punto
+/* Aggiunge il danno di un urto. `speed` = velocità dell'urto (unità di gioco), `from` = alba
  * dell'altro corpo (o del muro), `factor` per chi colpisce o per i muri, `clock` per il cooldown.
  * Restituisce i punti aggiunti (0 se sotto soglia, in cooldown o su due ruote). */
 export function addDamage(vehicle,speed,from=null,{factor=1,clock=null,seed=0}={}){

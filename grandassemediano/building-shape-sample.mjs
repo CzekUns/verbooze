@@ -1,14 +1,14 @@
 /* One redesigned building mass: artistic game geometry, not surveyed OSM.
  * The source map stays untouched; drawing and collision share the new body. */
-export const SHAPE_SAMPLE_ID=733704038;
+export const SHTRICYCLE_SAMPLE_ID=733704038;
 const expected=Object.freeze([1133.3,1273.3,1128.1,1277,1130.8,1281.3,1129.3,1282.7,1131.9,1286.7,1129.9,1288,1124.4,1287.9,1124.4,1298,1123.8,1298.7,1111.2,1301.1,1111.7,1294.8,1120.5,1293,1120.5,1287.7,1113.6,1287.2,1116.7,1279.3,1124.8,1280.3,1125,1276.1,1131.2,1269.9,1133.3,1273.3]);
-export const SHAPE_SAMPLE_PATH=Object.freeze([1110.5,1285.4,1129.4,1274.2,1135.5,1284.6,1116.6,1295.8,1110.5,1285.4]);
+export const SHTRICYCLE_SAMPLE_PATH=Object.freeze([1110.5,1285.4,1129.4,1274.2,1135.5,1284.6,1116.6,1295.8,1110.5,1285.4]);
 export const SAMPLE_BALCONY_DEPTH=.9;
 export function applyBuildingShapeSample(buildings){
  return buildings.map(b=>{
-  if(b.id!==SHAPE_SAMPLE_ID||b.n||b.p.length!==expected.length||!b.p.every((v,i)=>Math.abs(v-expected[i])<.01))return b;
+  if(b.id!==SHTRICYCLE_SAMPLE_ID||b.n||b.p.length!==expected.length||!b.p.every((v,i)=>Math.abs(v-expected[i])<.01))return b;
   const {art,bounds,...source}=b;
-  return {...source,p:[...SHAPE_SAMPLE_PATH],shapePilot:{id:'via-roma-massa-regolare',originalPlacedFootprint:b.p.slice(),source:'artistic-game-geometry'}};
+  return {...source,p:[...SHTRICYCLE_SAMPLE_PATH],shapePilot:{id:'via-roma-massa-regolare',originalPlacedFootprint:b.p.slice(),source:'artistic-game-geometry'}};
  });
 }
 // Projecting slabs instead of the flat balcony marks used by other buildings.

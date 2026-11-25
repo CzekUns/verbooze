@@ -57,7 +57,7 @@ test('si guardano e cambiano direzione; si scostano dal giocatore senza entrare 
 
 test('collegamento nel gioco: nessuna collisione, disegno con lo stesso renderer, NOVITÀ e versioni',async()=>{
  const [game,html,novita,work,visual,approve]=await Promise.all(['game.mjs','index.html','novita.mjs','WORK_LOG.md','VISUAL_PROGRESS.md','NOVITA_DA_APPROVARE.md'].map(f=>readFile(new URL(f,import.meta.url),'utf8')));
- assert.match(game,/npc-idle\.mjs\?v=003/);
+ assert.match(game,/npc-idle\.mjs\?v=1003/);
  assert.match(game,/createNeighbourhoodIdle\(\)/);
  assert.match(game,/stepIdlePeople\(state\.idle,elapsed/);
  assert.match(game,/drawIdlePeople\(c,state\.idle/);

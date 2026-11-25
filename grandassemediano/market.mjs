@@ -1,4 +1,4 @@
-/* GTA Melito — Q42: mercato settimanale del rione 219.
+/* GAM Melito — Q42: mercato settimanale del rione 219.
  * Il LUOGO è reale (data/market-area.json, fonti in MERCATO_MELITO.md); il giorno (venerdì) e gli
  * orari NON sono verificati; banchi, merci, prezzi, venditori e clienti sono di fantasia.
  * I banchi hanno un segnaposto disegnato qui in pixel art semplice; dal lotto 3 (CODEX-GH, 21/10/2026)
@@ -8,11 +8,11 @@
  * Venditori e clienti usano gli sprite esistenti dei pedoni e vivono in market.people, fuori da
  * state.people: li muove solo questo modulo (griglia di 1 m dentro l'area, percorsi lungo i
  * marciapiedi delle quattro vie all'esterno). Compaiono e spariscono solo fuori vista. */
-import {VEHICLE_SCALE,PERSON_SCALE,vs,ps} from './world-scale.mjs?v=001';
-import {easeRoofReveal} from './roof-reveal.mjs?v=122';
-import {NPC_DAY_MINUTES,npcDay,npcWeekday} from './npc-agenda.mjs?v=002';
-import {addToCollisionIndex,moveInCollisionIndex} from './traffic-collision.mjs?v=131';
-import {PEDESTRIAN_KIND_COUNT} from './extra-pedestrian-sprites.mjs?v=007';
+import {VEHICLE_SCALE,PERSON_SCALE,vs,ps} from './world-scale.mjs?v=1001';
+import {easeRoofReveal} from './roof-reveal.mjs?v=1122';
+import {NPC_DAY_MINUTES,npcDay,npcWeekday} from './npc-agenda.mjs?v=1002';
+import {addToCollisionIndex,moveInCollisionIndex} from './traffic-collision.mjs?v=1131';
+import {PEDESTRIAN_KIND_COUNT} from './extra-pedestrian-sprites.mjs?v=1007';
 
 // Stessi dati di data/market-area.json (il test lo verifica): il gioco non legge quel file a runtime.
 export const MARKET_AREA=Object.freeze({
@@ -57,7 +57,7 @@ export const MARKET_TYPES=Object.freeze([
  {id:'B13',priority:'P1',name:'porchetta e panini (street food)',count:1,w:4,d:2.5,cover:'furgone-negozio',umbrella:null,goods:'porchetta',palette:['#8a6a45','#a3392f','#efe3c4'],calls:['Panino con la porchetta!']},
  {id:'B14',priority:'P2',name:'olive, sottaceti e legumi',count:1,w:3,d:2,cover:'ombrellone',umbrella:{d:3,shape:'quadrato',colors:['#d8b84a','#6b7a3a'],stripes:true},goods:'olive',palette:['#6b7a3a','#d8b84a','#b33a2a'],calls:['Olive di Gaeta!']}
 ]);
-/* Punto di aggancio per l'arte definitiva: MARKET_ART[id] = {draw(c,stall,build,clock)} sostituisce il
+/* Alba di aggancio per l'arte definitiva: MARKET_ART[id] = {draw(c,stall,build,clock)} sostituisce il
  * banco segnaposto di quel tipo (per esempio disegnando uno sprite). Vuota = tutti PLACEHOLDER. */
 export const MARKET_ART={};
 /* Lotto 3 (CODEX-GH, 2026-10-21): atlante dei 14 banchi visti dall'alto + 4 teli, RGBA 384×144,
@@ -97,8 +97,8 @@ export function loadMarketArt(){
  if(marketAtlasRequested||typeof Image==='undefined')return;
  marketAtlasRequested=true;
  const img=new Image();
- img.onload=()=>{if(!registerMarketArt(img))console.warn('GTA Melito: atlante del mercato con misure inattese; restano i banchi segnaposto');};
- img.onerror=()=>console.warn('GTA Melito: atlante del mercato non disponibile; restano i banchi segnaposto');
+ img.onload=()=>{if(!registerMarketArt(img))console.warn('GAM Melito: atlante del mercato con misure inattese; restano i banchi segnaposto');};
+ img.onerror=()=>console.warn('GAM Melito: atlante del mercato non disponibile; restano i banchi segnaposto');
  img.src=new URL(MARKET_ATLAS_PATH,import.meta.url).href;
 }
 /* File di banchi (coordinate di gioco). face = direzione verso i clienti. Le file attorno alla

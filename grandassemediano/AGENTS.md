@@ -1,6 +1,6 @@
-# Istruzioni per ChatGPT Work / agenti — GTA Melito
+# Istruzioni per ChatGPT Work / agenti — GAM Melito
 
-Ambito: solo `games/gta-melito/`. Questo è il gioco GTA Melito di Uns Arcade, **non Ninomon** né gli altri giochi della repository.
+Ambito: solo `games/gam-melito/`. Questo è il gioco GAM Melito di Verbooze, **non Ninomon** né gli altri giochi della repository.
 
 ## Coordinamento multi-agente — sviluppo TODO delegato
 
@@ -55,13 +55,13 @@ In auto e moto, sul lato sinistro della visuale deve comparire **il volante fisi
 
 ## Modus operandi veicoli — confermato e permanente
 
-Per ogni nuovo veicolo segui rigorosamente [VEHICLE_ART_GUIDE.md](./VEHICLE_ART_GUIDE.md): automobili reali come riferimento, **solo vista dall'alto**, un sheet per modello con colori d'epoca verificabili, ritagli PNG individuali **trasparenti**, scala corretta e introduzione effettiva nel gioco. Lo standard è approvato sulla Panda moderna e Panda Fire già integrate: non tornare ad auto SVG generiche e non generare viste prospettiche per gli sprite definitivi.
+Per ogni nuovo veicolo segui rigorosamente [VEHICLE_ART_GUIDE.md](./VEHICLE_ART_GUIDE.md): automobili reali come riferimento, **solo vista dall'alto**, un sheet per modello con colori d'epoca verificabili, ritagli PNG individuali **trasparenti**, scala corretta e introduzione effettiva nel gioco. Lo standard è approvato sulla Borgo moderna e Borgo Fire già integrate: non tornare ad auto SVG generiche e non generare viste prospettiche per gli sprite definitivi.
 
 ## Regole permanenti
 
 1. **Fedeltà locale, grafica originale**: Melito è densamente edificata; strade, palazzi, marciapiedi, insegne documentate e punti notevoli devono somigliarle nell'insieme. Stile coerente di pixel art 2.5D; non trasformare il gioco in una città generica o in una mappa piatta. Tutti gli edifici devono mantenere volume leggibile, incluso l'infill.
 2. **Separare fatti e ipotesi**: i 2.056 poligoni OSM sono sagome cartografiche; gli edifici sintetici (attualmente 467, deterministici) sono **placeholder inventati**. NON chiamarli edifici verificati, NON attribuire colori, facciate, livelli o negozi a un singolo ID OSM senza riscontro identificabile. Non dichiarare completato un censimento fotografico inesistente.
-3. **Mappe e copyright**: preserva i tracciati e gli ID OSM, attribuzione ODbL/ISTAT. Consulta immagini/Street View solo come riferimento quando le condizioni d'uso lo consentono; **non scaricare, fare scraping, incorporare o ridistribuire fotografie Google Maps/Street View**. Preferisci immagini comunali, beni culturali o fotografie con licenza adeguata, con riferimento esplicito. Non copiare risorse artistiche di GTA/Rockstar.
+3. **Mappe e copyright**: preserva i tracciati e gli ID OSM, attribuzione ODbL/ISTAT. Consulta immagini/Street View solo come riferimento quando le condizioni d'uso lo consentono; **non scaricare, fare scraping, incorporare o ridistribuire fotografie Google Maps/Street View**. Preferisci immagini comunali, beni culturali o fotografie con licenza adeguata, con riferimento esplicito. Non copiare risorse artistiche di GAM/riferimento esterno rimosso.
 4. **Niente regressioni**: non rompere camminata, veicoli, missioni, salvataggio, collisioni, traffico, zoom adattivo, minimappa, controllo touch, performance su telefono e GitHub Pages. Lo zoom attuale parte da 5× a piedi e si allarga progressivamente in auto: conservarlo. Il confronto “CONFRONTA CON PRIMA” per le strade deve restare funzionante.
 5. **Consegnare modifiche**: fare codice/asset/commit reali in GitHub, verificare con Node 22 e screenshot in browser (desktop + mobile); test verdi NON dimostrano da soli una buona resa grafica. Inserire confronti prima/dopo e descrizione onesta del progresso.
 6. **Portata**: non toccare altre cartelle di giochi senza necessità; evitare refactoring non connessi all'obiettivo estetico.
@@ -69,7 +69,7 @@ Per ogni nuovo veicolo segui rigorosamente [VEHICLE_ART_GUIDE.md](./VEHICLE_ART_
 
 ## Prima attività operativa per Work
 
-Apri `https://czekuns.github.io/Effettokarmagra/games/gta-melito/?v=070`, osserva e documenta l'aspetto attuale. Studia gli edifici realmente identificabili di Piazza Santo Stefano e il percorso verso Via Roma e Municipio tramite fonti fotografiche lecite. **Implementa** subito una prima tranche visibile con materiali, tetti, facciate, arredo e fondo stradale più fedeli; confronta screenshot a medesima camera/posizione; poi estendi l'approccio ad altri quartieri. Esegui `node --test games/gta-melito/*.test.mjs games/gta-melito/survey/*.test.mjs` e verifica deploy. Aggiorna `VISUAL_PROGRESS.md` con cosa è stato effettivamente fatto, cosa è solo simulato e cosa rimane da verificare.
+Apri `https://czekuns.github.io/Effettokarmagra/games/gam-melito/?v=070`, osserva e documenta l'aspetto attuale. Studia gli edifici realmente identificabili di Piazza Santo Stefano e il percorso verso Via Roma e Municipio tramite fonti fotografiche lecite. **Implementa** subito una prima tranche visibile con materiali, tetti, facciate, arredo e fondo stradale più fedeli; confronta screenshot a medesima camera/posizione; poi estendi l'approccio ad altri quartieri. Esegui `node --test games/gam-melito/*.test.mjs games/gam-melito/survey/*.test.mjs` e verifica deploy. Aggiorna `VISUAL_PROGRESS.md` con cosa è stato effettivamente fatto, cosa è solo simulato e cosa rimane da verificare.
 
 Se il lavoro è lungo, procedere per parti **implementate** senza chiedere ulteriori conferme e senza dichiarare eseguite verifiche non compiute.
 
@@ -79,3 +79,10 @@ Decisione di Simone (21/10/2026): le battute delle missioni vanno in una **barra
 
 - **Aprire un dialogo:** `import {openDialogue} from './dialogue.mjs?v=…'` e `openDialogue([{speaker:'nonna',name:'Nonna Assunta',text:'…'},{speaker:'ragazzo',text:'…'}],{onClose})`. `speaker` è un id di `PORTRAITS` (se manca o è sconosciuto il riquadro resta vuoto), `name` è il nome da mostrare (se manca si usa quello del ritratto). Un tocco sulla barra, INVIO, SPAZIO o AVANTI completano la riga che sta scrivendo oppure passano alla battuta dopo; dopo l'ultima la barra si chiude; ESC chiude subito. `isDialogueOpen()`, `closeDialogue()`, `advanceDialogue()`, `dialogueState()` per il gioco e i test. Mentre è aperta `game.mjs` azzera i comandi di movimento ma **non ferma** il mondo né l'orologio NPC.
 - **Aggiungere un volto:** PNG **256×256** in `assets/portraits/` (mezzo busto, viso di tre quarti, sfondo piatto uniforme, contorni neri marcati, nessuna persona reale, nessun testo o marchio: prompt di riferimento in `assets/portraits/sources/lotto15-NOTE.md`) e una riga in `PORTRAITS` di `dialogue.mjs` (`id:{file,name,ruolo,lotto}`); `dialogue.test.mjs` controlla che ogni volto esista e misuri 256×256. Registrare il volto in `NOVITA_DA_APPROVARE.md` finché Simone non lo approva.
+
+## Bonifica commerciale 2026-11-25 (vincolante)
+- Identità: Verbooze / GAM — Grand Asse Mediano / Melito. Niente marchi o riproduzioni di veicoli commerciali. Le precedenti istruzioni su modelli reali sono superate.
+- Nuova flotta raster: master `assets/vehicles/sources/fictional-*-master.png`; packing riproducibile `scripts/pack-fictional-fleet.py`. Non rigenerare i vecchi modelli dalla cronologia.
+- Nessuna radio reale, streaming o sovramappa fotografica. Non reintrodurre servizi senza diritti e condizioni documentati.
+- Nomi delle attività generici anche in cache/import; conservare geometrie OSM, strade e attribuzioni. Non sovrascrivere salvataggi durante le migrazioni.
+- Consultare `AUDIT_COMMERCIALE.md` prima del lancio: bonifica tecnica e autorizzazione commerciale non coincidono.

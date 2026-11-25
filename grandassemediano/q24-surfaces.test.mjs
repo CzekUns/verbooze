@@ -39,15 +39,15 @@ test('Q24 each vehicle reacts its own way: the scooter is the most sensitive, he
  const pothole={kind:'pothole',x:0,y:0,a:0,r:1,seed:1};
  const surfaces={items:[pothole],cells:new Map([['0,0',[pothole]],['-1,0',[pothole]],['0,-1',[pothole]],['-1,-1',[pothole]]])};
  const hitAt=(vehicle,speed)=>roadSurfaceEffect(surfaces,{...vehicle,x:-1.95,y:-.6,a:0},{speed,dt:.05,memory:new Map(),now:0});
- const car=hitAt({model:'panda-modern-white'},14),scooter=hitAt({vehicleType:'motorcycle',model:'moto-scooter-sh-red'},14),
-  ape=hitAt({model:'ape-classica-azzurra'},14),bus=hitAt({model:'servizio-autobus'},14);
- assert.equal(feelKind({vehicleType:'motorcycle',model:'moto-scooter-sh-red'}),'scooter');
+ const car=hitAt({model:'borgo-nuova-white'},14),scooter=hitAt({vehicleType:'motorcycle',model:'moto-scooter-urbano-red'},14),
+  triciclo=hitAt({model:'triciclo-classica-azzurra'},14),bus=hitAt({model:'servizio-autobus'},14);
+ assert.equal(feelKind({vehicleType:'motorcycle',model:'moto-scooter-urbano-red'}),'scooter');
  assert.ok(car.hits.length===1&&scooter.hits.length===1,'the wheel over the pothole is a hit');
- assert.ok(scooter.speedFactor<ape.speedFactor&&ape.speedFactor<car.speedFactor&&car.speedFactor<=bus.speedFactor);
+ assert.ok(scooter.speedFactor<triciclo.speedFactor&&triciclo.speedFactor<car.speedFactor&&car.speedFactor<=bus.speedFactor);
  assert.ok(scooter.bump>car.bump);
- for(const r of [car,scooter,ape,bus])assert.ok(r.speedFactor>=.75,'never a block');
+ for(const r of [car,scooter,triciclo,bus])assert.ok(r.speedFactor>=.75,'never a block');
  // same pothole again right away: no double hit (cooldown)
- const memory=new Map(),v={model:'panda-modern-white',x:-1.95,y:-.6,a:0};
+ const memory=new Map(),v={model:'borgo-nuova-white',x:-1.95,y:-.6,a:0};
  roadSurfaceEffect(surfaces,v,{speed:14,dt:.05,memory,now:0});
  assert.equal(roadSurfaceEffect(surfaces,v,{speed:14,dt:.05,memory,now:.2}).hits.length,0);
  // wet pothole = puddle: a bit of grip lost
@@ -58,16 +58,16 @@ test('Q24 speed bumps invite to slow down: gentle when slow, a real jolt when fa
  const g=buildRoadGraph([{id:1,n:'Piazza Prova',t:'residential',w:8,p:[0,0,200,0]}]);
  const bump={kind:'bump',x:0,y:0,a:0,halfLength:.8,halfWidth:3.5};
  const surfaces={items:[bump],cells:new Map([['0,0',[bump]],['-1,0',[bump]],['0,-1',[bump]],['-1,-1',[bump]]])};
- const over=speed=>roadSurfaceEffect(surfaces,{model:'panda-modern-white',x:-1.9,y:0,a:0},{speed,dt:.05,memory:new Map(),now:0});
+ const over=speed=>roadSurfaceEffect(surfaces,{model:'borgo-nuova-white',x:-1.9,y:0,a:0},{speed,dt:.05,memory:new Map(),now:0});
  const slow=over(4),fast=over(22);
  assert.ok(slow.speedFactor>.995&&slow.bump<.2,'at walking pace almost nothing');
  assert.ok(fast.speedFactor<.93&&fast.bump>.6,'too fast: speed lost and a big jolt');
  const placedSquare=placeRoadSurfaces(g,{});
  const cobble=placedSquare.items.find(q=>q.kind==='cobble');
  assert.ok(cobble,'a street called Piazza is paved with cobbles');
- const onCobble=roadSurfaceEffect(placedSquare,{model:'panda-modern-white',x:cobble.x,y:cobble.y,a:0},{speed:14,dt:.05});
+ const onCobble=roadSurfaceEffect(placedSquare,{model:'borgo-nuova-white',x:cobble.x,y:cobble.y,a:0},{speed:14,dt:.05});
  assert.equal(onCobble.on,'cobble');assert.ok(onCobble.speedFactor<1&&onCobble.gripLoss>0);
- const kerb=kerbEffect({vehicleType:'motorcycle',model:'moto-scooter-sh-red'},10),kerbCar=kerbEffect({model:'panda-modern-white'},10);
+ const kerb=kerbEffect({vehicleType:'motorcycle',model:'moto-scooter-urbano-red'},10),kerbCar=kerbEffect({model:'borgo-nuova-white'},10);
  assert.ok(kerb.bump>kerbCar.bump&&kerb.speedFactor<kerbCar.speedFactor);
 });
 

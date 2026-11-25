@@ -1,9 +1,9 @@
-/* Camera automatico in GTA Melito.
+/* Camera automatico in GAM Melito.
  * Zoom is a Canvas scale: higher = closer, lower = more visible surroundings.
  * On foot start at the maximum. In vehicles the visible field expands with
  * speed to improve orientation and avoid driving into offscreen junctions. */
 // BF14: closer camera for the smaller vehicles and people (world-scale.mjs CAMERA_SCALE_GAIN).
-import {CAMERA_SCALE_GAIN} from './world-scale.mjs?v=001';
+import {CAMERA_SCALE_GAIN} from './world-scale.mjs?v=1001';
 export const CAMERA_ZOOM_MAX=6.6*CAMERA_SCALE_GAIN;
 export const CAMERA_ZOOM_MIN=1.815*CAMERA_SCALE_GAIN;
 export const CAMERA_DEFAULT_FOOT=6.6*CAMERA_SCALE_GAIN;
@@ -36,5 +36,5 @@ export function advanceCameraZoom(current,target,dt){
  return current+(target-current)*(1-Math.exp(-2.8*safeDt));
 }
 export function describeCameraZoom({inVehicle=false,speed=0,running=false,moving=false}={}){
- return inVehicle?(Math.abs(speed)>3?'AUTO · IN CORSA':'AUTO · FERMA'):running&&moving?'A PIEDI · CORSA':'A PIEDI';
+ return inVehicle?(Math.abs(speed)>3?'AUTO · IN IRIS':'AUTO · FERMA'):running&&moving?'A PIEDI · IRIS':'A PIEDI';
 }

@@ -50,12 +50,12 @@ test('Q19 two new models, eight invented liveries each, not mixed into the car l
 
 test('Q19 bodies: tow truck between van and refuse truck, bus the longest; all keep the lane width rules',()=>{
  const tow=vehicleShape({model:'attrezzi-giallo'}),bus=vehicleShape({model:'autobus-arancio'});
- const van=vehicleShape({model:'corriere-bianco'}),truck=vehicleShape({model:'nettezza-verde'}),car=vehicleShape({model:'panda-modern-white'});
+ const van=vehicleShape({model:'corriere-bianco'}),truck=vehicleShape({model:'nettezza-verde'}),car=vehicleShape({model:'borgo-nuova-white'});
  assert.ok(tow.halfLength>van.halfLength&&tow.halfLength<truck.halfLength);
  assert.ok(bus.halfLength>truck.halfLength&&bus.halfLength*2>12*VEHICLE_SCALE,'the bus body is really long');
  for(const s of [tow,bus]){assert.ok(s.halfWidth<=1.7+.25-.05,'lane edge clear of the bay gap');assert.ok(s.halfWidth*2<4.6,'two still cross on a 4,6 m gap');}
- assert.equal(vehiclesOverlap({x:0,y:0,a:0,model:'autobus-rosso'},{x:9*VEHICLE_SCALE,y:0,a:0,model:'panda-modern-white'}),true,'a car 9 m (scaled) from the bus centre still touches it');
- assert.equal(vehiclesOverlap({x:0,y:0,a:0,model:'panda-modern-white'},{x:9*VEHICLE_SCALE,y:0,a:0,model:'panda-modern-white'}),false);
+ assert.equal(vehiclesOverlap({x:0,y:0,a:0,model:'autobus-rosso'},{x:9*VEHICLE_SCALE,y:0,a:0,model:'borgo-nuova-white'}),true,'a car 9 m (scaled) from the bus centre still touches it');
+ assert.equal(vehiclesOverlap({x:0,y:0,a:0,model:'borgo-nuova-white'},{x:9*VEHICLE_SCALE,y:0,a:0,model:'borgo-nuova-white'}),false);
 });
 
 test('Q19 handling: tow truck quicker than the refuse truck, bus the slowest and widest turning',()=>{
@@ -107,7 +107,7 @@ test('Q19 game wiring: tow trucks and buses in traffic, tow trucks in the stalls
  assert.match(game,/i%29===12\?TOW_TRUCK_IDS\[/);assert.match(game,/i%23===3\?BUS_IDS\[/);
  assert.match(game,/serviceFits\(TOW_TRUCK_IDS\[/,'a tow truck parks only where its body fits');
  assert.doesNotMatch(game,/serviceFits\(BUS_IDS/,'the bus never parks in a bay');
- assert.match(game,/const ownBody=v=>!isMotorcycle\(v\)&&\/\^\(ape-\|corriere-\|nettezza-\|attrezzi-\|autobus-\)\/\.test/);
+ assert.match(game,/const ownBody=v=>!isMotorcycle\(v\)&&\/\^\(triciclo-\|corriere-\|nettezza-\|attrezzi-\|autobus-\)\/\.test/);
  assert.match(sprites,/'@service2-atlas':SERVICE2_ATLAS_PATH/);
  assert.match(sprites,/'attrezzi':\[7\.43,17\.71\],'autobus':\[7\.43,17\.71\]/);
  assert.match(roads,/mainOnly:isBusModel\(agent\.model\)/);

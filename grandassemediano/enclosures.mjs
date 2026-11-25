@@ -1,4 +1,4 @@
-/* GTA Melito — BF12: recinti con mura, cancelli e guardiole.
+/* GAM Melito — BF12: recinti con mura, cancelli e guardiole.
  * Sources: data/enclosures.json (OSM perimeters and gates where they exist, otherwise the city block
  * around a seed point, marked `stimato`). The walls are NEW scenery: they follow the OSM line where
  * there is one, but never stand on the (arcade-wide) street and its pavement; they are placed just
@@ -7,7 +7,7 @@
  * Gates: pedestrians always pass. Vehicle gates of PRIVATE compounds have a barrier that is down at
  * night (22–6) for the player; it rises for NPC vehicles (residents with a remote) and stays up
  * while one is close. A guard (placeholder: vigile sprite) stands at the booth of the main gate. */
-import {drawProfessionSprite} from './profession-sprites.mjs?v=003';
+import {drawProfessionSprite} from './profession-sprites.mjs?v=1003';
 
 export const ENCLOSURE_RULES=Object.freeze({
  margin:1,           // beyond the painted pavement (SIDEWALK_OUTER) before the wall starts

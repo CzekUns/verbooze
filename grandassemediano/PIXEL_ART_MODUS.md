@@ -1,6 +1,8 @@
-# PIXEL ART MODUS — GTA Melito
+> Aggiornamento commerciale 2026-11-25: usare esclusivamente i nuovi veicoli di fantasia e i relativi master. Le istruzioni storiche sui modelli reali sono superate. Mantenerne formati raster, trasparenza, prospettiva e ingombri; non ripristinare asset dalla cronologia.
+
+# PIXEL ART MODUS — GAM Melito
 **Manuale operativo permanente per ChatGPT, Work, collaboratori e future chat.**
-**Ambito:** `games/gta-melito/` (Uns Arcade). **Revisione iniziale:** 19 ottobre 2026.
+**Ambito:** `games/gam-melito/` (Verbooze). **Revisione iniziale:** 19 ottobre 2026.
 
 ## 0. Principio e ordine di lavoro
 
@@ -29,11 +31,11 @@ Questi sono **file realmente presenti in questa repository**. I link relativi so
 | **Fogli extra pedoni (CODEX-GH, PROVVISORI)** | [Lotto 2](./assets/people/pedoni-lotto2-4x4frames-24x40-rgba.png) · [Lotto 10](./assets/people/pedoni-lotto10-4x4frames-24x40-rgba.png) · [Lotto 11](./assets/people/pedoni-lotto11-4x4frames-24x40-rgba.png) · [Lotto 12](./assets/people/pedoni-lotto12-4x4frames-24x40-rgba.png) · [Lotto 13](./assets/people/pedoni-lotto13-4x4frames-24x40-rgba.png) · [Lotto 14](./assets/people/pedoni-lotto14-4x4frames-24x40-rgba.png) · [Lotto 17](./assets/people/pedoni-lotto17-4x4frames-24x40-rgba.png) · [Lotto 18](./assets/people/pedoni-lotto18-4x4frames-24x40-rgba.png) · [Lotto 19](./assets/people/pedoni-lotto19-4x4frames-24x40-rgba.png) · [Lotto 20](./assets/people/pedoni-lotto20-4x4frames-24x40-rgba.png) — stesso formato della prima tavola, frame adattati a zone (ragazzini dei lotti 13 e 20 più bassi; sedia a rotelle del lotto 19 con ruote animate); generatori e NOTE in `assets/people/sources/pedoni-lottoN-*` | tabella `PEDESTRIAN_SHEETS` in [extra-pedestrian-sprites.mjs](./extra-pedestrian-sprites.mjs) (kind 7–46), ramo unico in [city-art.mjs](./city-art.mjs) |
 | **Personaggio professionale** | [Friggitore in camice bianco: 4 direzioni](./assets/people/friggitore-bianco-4dir-4frames-24x40.png) | [friggitore-sprites.mjs](./friggitore-sprites.mjs) |
 | **Quattro mestieri — bozza NON approvata come stile** | [Vecchia tavola da correggere](./assets/people/npc-mestieri-4chars-4dir-4frames-24x40.png) | Deve essere rifatta confrontandola con la **prima tavola pedoni**, prima di essere integrata. |
-| **Auto approvata** | [Fiat Panda moderna bianca — PNG](./assets/vehicles/panda-modern-white.png) e [Panda Fire rossa — PNG](./assets/vehicles/panda-fire-red.png) | [car-sprites.mjs](./car-sprites.mjs), [VEHICLE_ART_GUIDE.md](./VEHICLE_ART_GUIDE.md) |
-| **Atlante auto** | [Punto / Ypsilon — colori, PNG con alpha](./assets/vehicles/punto-ypsilon-16colors-rgba.png) | [car-sprites.mjs](./car-sprites.mjs) |
+| **Auto approvata** | [costruttore di fantasia Borgo moderna bianca — PNG](./assets/vehicles/borgo-nuova-white.png) e [Borgo Fire rossa — PNG](./assets/vehicles/borgo-classica-red.png) | [car-sprites.mjs](./car-sprites.mjs), [VEHICLE_ART_GUIDE.md](./VEHICLE_ART_GUIDE.md) |
+| **Atlante auto** | [Alba / Luna — colori, PNG con alpha](./assets/vehicles/alba-luna-16colors-rgba.png) | [car-sprites.mjs](./car-sprites.mjs) |
 | **Moto e scooter** | [16 varianti — atlante PNG](./assets/vehicles/moto-16-40x68-256.png) | [motorcycles.mjs](./motorcycles.mjs) |
-| **Mezzi speciali** | [Ape Car](./assets/vehicles/ape-car-top.png) e [furgone dei fritti](./assets/vehicles/furgone-fritti-top.png) | [car-sprites.mjs](./car-sprites.mjs) |
-| **Foglio da 16 veicoli** | [Ape e furgoni ambulanti, PNG 4×4](./assets/vehicles/ape-food-16-rgba.png) · [sorgente master](./assets/vehicles/sources/ape-food-16-master.png) | [car-sprites.mjs](./car-sprites.mjs) · [test](./market-vehicles.test.mjs) |
+| **Mezzi speciali** | [Triciclo Car](./assets/vehicles/triciclo-car-top.png) e [furgone dei fritti](./assets/vehicles/furgone-fritti-top.png) | [car-sprites.mjs](./car-sprites.mjs) |
+| **Foglio da 16 veicoli** | [Triciclo e furgoni ambulanti, PNG 4×4](./assets/vehicles/triciclo-food-16-rgba.png) · [sorgente master](./assets/vehicles/sources/triciclo-food-16-master.png) | [car-sprites.mjs](./car-sprites.mjs) · [test](./market-vehicles.test.mjs) |
 
 **ATTENZIONE — CHIESA:** il WebP linkato documenta la versione **attualmente presente nel progetto**, ma il suo *retro appare troncato*. Non copiarne il taglio come esempio corretto: usare la tavola ImageGen originale completa quando disponibile, recuperare l'estensione posteriore e ricontrollare il posizionamento nel gioco. **La tavola originale ImageGen non è attualmente archiviata nella repository**: non inventare un link GitHub al master; va prima trasferito lì con una verifica del contenuto.
 
@@ -94,7 +96,7 @@ Se un'immagine è troppo stretta si **espande il crop**, non si ridisegna obblig
 
 **[REFERENCE UFFICIALE E VINCOLANTE — PRIMO SPRITESHEET DEI PERSONAGGI](./assets/people/pedoni-4x4frames-24x40-rgba.png)**
 
-URL diretto: https://github.com/CzekUns/Effettokarmagra/blob/main/games/gta-melito/assets/people/pedoni-4x4frames-24x40-rgba.png
+URL diretto: https://github.com/CzekUns/Effettokarmagra/blob/main/games/gam-melito/assets/people/pedoni-4x4frames-24x40-rgba.png
 
 Il primo sheet è la **fonte di verità artistica** per silhouette, proporzioni anatomiche, dimensioni testa/torace/braccia/gambe, postura vista dall'alto 2.5D, palette, ombreggiatura, livello di dettaglio e animazioni. **Non basta leggere le istruzioni: occorre aprire visivamente il PNG originale e confrontare i nuovi sprite affiancati alla stessa scala**, anche prima di preparare un prompt ImageGen. Nel prompt e nel handoff citare espressamente il file di riferimento; ove possibile passarne anche l'immagine come input.
 
@@ -143,13 +145,13 @@ Ritagli singoli: [friggitore](./assets/people/npc-friggitore-4dir-4frames.png), 
 
 `assets/people/calcetto-4squadre-4dir-4frames-24x40.png` deriva dai frame della prima tavola dei pedoni e ne mantiene direzioni, trasparenza, pivot e scala. Le quattro identità sono rosso, blu, portiere giallo e portiere verde; il generatore è `assets/people/sources/calcetto-genera.py`. È grafica provvisoria da approvare da Simone.
 
-## 4. VEICOLI — automobili, moto, Ape, furgoni
+## 4. VEICOLI — automobili, moto, Triciclo, furgoni
 
 ### Standard predefinito sheet veicoli: 16 sprite, 8 per modello
 
-**Ogni nuovo foglio di veicoli deve normalmente contenere 16 varianti su griglia 4×4: 8 di un modello (prime 2 righe) + 8 di un secondo modello (ultime 2 righe).** Il riferimento è la struttura degli atlanti auto Punto/Ypsilon, Seicento/500, Uno/Smart. Le Panda singole già presenti sono eccezioni storiche, non un precedente per nuovi lotti da due modelli.
+**Ogni nuovo foglio di veicoli deve normalmente contenere 16 varianti su griglia 4×4: 8 di un modello (prime 2 righe) + 8 di un secondo modello (ultime 2 righe).** Il riferimento è la struttura degli atlanti auto Alba/Luna, Nido/500, Uno/Mira. Le Borgo singole già presenti sono eccezioni storiche, non un precedente per nuovi lotti da due modelli.
 
-**Una variante non è necessariamente un colore:** si possono differenziare gli otto sprite anche per usura, merci trasportate, accessori o allestimento commerciale. Es.: questo [foglio Ape Car + furgoni ambulanti](./assets/vehicles/ape-food-16-rgba.png) contiene 8 Ape (due colori azzurro / verde bottiglia arrugginito × quattro carichi: vuoto, ferro, ortofrutta e pesce) e 8 furgoni ambulanti (zeppole e panzerotti, 'o pere e 'o musso, panini, hot dog, cornetti, pizza a portafoglio, pizzette fritte, misto). La variante pere/musso è **illustrativa ancora da rifinire** rispetto alla fotografia di riferimento.
+**Una variante non è necessariamente un colore:** si possono differenziare gli otto sprite anche per usura, merci trasportate, accessori o allestimento commerciale. Es.: questo [foglio Triciclo Car + furgoni ambulanti](./assets/vehicles/triciclo-food-16-rgba.png) contiene 8 Triciclo (due colori azzurro / verde bottiglia arrugginito × quattro carichi: vuoto, ferro, ortofrutta e pesce) e 8 furgoni ambulanti (zeppole e panzerotti, 'o pere e 'o musso, panini, hot dog, cornetti, pizza a portafoglio, pizzette fritte, misto). La variante pere/musso è **illustrativa ancora da rifinire** rispetto alla fotografia di riferimento.
 
 **Procedura obbligatoria:** conservare il master completo; ritagliare davvero tutti e 16 i soggetti; non amputare retrovisori, ruote, cassoni o tende laterali; centrare nella rispettiva cella con margine e pivot costanti; creare un unico PNG compatto con alpha **effettivo in ciascuna cella**. Annotare in codice l'ordine delle 16 celle, dimensioni, scala e cache. Con tendalini aperti, preferire la comparsa **da parcheggiati**; in marcia dovranno avere una posa chiusa oppure restare esclusi dal traffico. Effettuare prove Node e screenshot alla scala della mappa, oltre all'ispezione dei PNG.
 
@@ -157,14 +159,14 @@ Ritagli singoli: [friggitore](./assets/people/npc-friggitore-4dir-4frames.png), 
 
 **Fonte di dettaglio vincolante:** [VEHICLE_ART_GUIDE.md](./VEHICLE_ART_GUIDE.md). Questo documento non la sostituisce.
 
-1. Modello riconoscibile, **generazione corretta**, dimensioni coerenti con la strada: auto vere come riferimento artistico lecito. Non allungare Panda/Punto/Ypsilon o ingrandire uno scooter fino alla scala di un furgone.
+1. Modello riconoscibile, **generazione corretta**, dimensioni coerenti con la strada: auto vere come riferimento artistico lecito. Non allungare Borgo/Alba/Luna o ingrandire uno scooter fino alla scala di un furgone.
 2. **Veicoli: una vista ESATTAMENTE top-down** per ciascuna variante. Fronte verso **−Y del PNG**: il gioco può ruotarlo con `angle+Math.PI/2`. No isometrie.
 3. Un foglio 4×4 per **due modelli**, otto varianti per ciascuno; per tutte le otto varianti dello stesso modello usare pivot, scala, orientamento e proporzioni coerenti. Dove possibile, colori di produzione verificati per anno/allestimento; altrimenti dichiarare “varianti illustrative”.
-4. Sprite singoli realmente trasparenti; poi atlante ottimizzato. Dimensioni già viste in repo (sono **esempi, non obblighi universali**): Panda `88×132`; utilitarie `40×60`/cella; moto `40×68`/cella (16 modelli/vernici in `160×272`).
+4. Sprite singoli realmente trasparenti; poi atlante ottimizzato. Dimensioni già viste in repo (sono **esempi, non obblighi universali**): Borgo `88×132`; utilitarie `40×60`/cella; moto `40×68`/cella (16 modelli/vernici in `160×272`).
 5. Auto: tettuccio, parabrezza, lunotto, fari e specchietti con silhouette pulita. Moto: **due ruote**, manubrio, sella, cupolino e, se necessario, cavalletto; i piccoli mezzi non devono sembrare vecchie auto Canvas.
-6. Se una moto è **parcheggiata**, mostrare sella **vuota** e renderla effettivamente guidabile. Se è **in corsa**, disegnare un guidatore sopra con proporzioni e orientamento corretti; mai una moto nuova sopra la “vecchia moto” procedurale.
+6. Se una moto è **parcheggiata**, mostrare sella **vuota** e renderla effettivamente guidabile. Se è **in iris**, disegnare un guidatore sopra con proporzioni e orientamento corretti; mai una moto nuova sopra la “vecchia moto” procedurale.
 7. Il rendering visivo non deve cambiare di nascosto collisioni, sterzo o accelerazione; usare i moduli dedicati. NPC e protagonista possono entrare/salire/scendere soltanto se la logica di gioco gestisce realmente quello stato. Controllare E/pulsante touch e l'indicazione del mezzo più vicino.
-8. **Riferimenti codice:** `car-sprites.mjs`, `motorcycles.mjs`, `vehicle-entry.mjs`, `game.mjs` e, per l'Ape/furgone, `assets/vehicles/`. Usare asset già approvati come benchmark.
+8. **Riferimenti codice:** `car-sprites.mjs`, `motorcycles.mjs`, `vehicle-entry.mjs`, `game.mjs` e, per l'Triciclo/furgone, `assets/vehicles/`. Usare asset già approvati come benchmark.
 
 ## 5. Validazione di crop, alpha, pivot e integrazione
 

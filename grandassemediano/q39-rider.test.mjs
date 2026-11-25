@@ -6,9 +6,9 @@ import {riderVehicleCheck,riderPickups,riderDestinations,riderOffers,acceptOffer
  PICKUP_RADIUS,offerPay,offerTimeLimit} from './rider.mjs';
 import {freshProgress,readProgress,saveProgress} from './campaign.mjs';
 
-const scooter={vehicleType:'motorcycle',model:'moto-scooter-sh-red',x:0,y:0};
+const scooter={vehicleType:'motorcycle',model:'moto-scooter-urbano-red',x:0,y:0};
 const sport={vehicleType:'motorcycle',model:'moto-moto-sport-blue',x:0,y:0};
-const car={vehicleType:'car',model:'panda-moderna-rossa',x:0,y:0};
+const car={vehicleType:'car',model:'borgo-nuovaa-rossa',x:0,y:0};
 const offer={key:'k',pickup:{id:'poi-1',name:'Bar Prova',x:0,y:0},dest:{id:'d',address:'Via Roma',x:300,y:0},meters:300,pay:offerPay(300),limit:100,client:'Anna R.'};
 const memory=()=>{const m=new Map();return {getItem:k=>m.get(k)??null,setItem:(k,v)=>m.set(k,String(v))};};
 function delivered(seconds,progress=freshProgress()){
@@ -112,7 +112,7 @@ test('Q41: persistenza nella campagna, migrazione vecchi salvataggi e nessun dop
  assert.equal(completeDelivery(back,{...job}).duplicate,true,'dopo il reload la consegna resta unica');
  const again=acceptOffer(back.rider,null,offer,scooter);assert.equal(again.job.id,2,'numeri d’ordine sempre nuovi');
  // Salvataggio Q01–Q24 senza dati rider: si migra con un profilo vuoto, missioni e soldi intatti.
- const old=memory();old.setItem('gta-melito-campaign-v3',JSON.stringify({version:3,mission:3,stage:1,money:500,respect:30,shop:{bought:{caffe:2},spent:2}}));
+ const old=memory();old.setItem('gam-melito-campaign-v3',JSON.stringify({version:3,mission:3,stage:1,money:500,respect:30,shop:{bought:{caffe:2},spent:2}}));
  const migrated=readProgress(old);
  assert.equal(migrated.money,500);assert.equal(migrated.mission,3);assert.deepEqual(migrated.rider,freshRiderSave());
  // Storico manomesso: doppioni rimossi, contatori coerenti.

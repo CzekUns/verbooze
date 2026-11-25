@@ -11,7 +11,7 @@ const POI_LABEL={fuel:'distributore',post_office:'ufficio postale',townhall:'mun
  school:'scuola',place_of_worship:'chiesa',police:'polizia',carabinieri:'carabinieri',supermarket:'supermercato',
  restaurant:'ristorante',cafe:'bar',bar:'bar',fast_food:'friggitoria',hospital:'ospedale',clinic:'ambulatorio'};
 
-// Punto di riferimento di una via: il vertice centrale del suo tratto più lungo con quel nome.
+// Alba di riferimento di una via: il vertice centrale del suo tratto più lungo con quel nome.
 function roadAnchor(list){
  let best=null,bestLen=-1;
  for(const r of list){
@@ -75,7 +75,7 @@ function project(px,py,ax,ay,bx,by){
  const x=ax+dx*t,y=ay+dy*t;return {t,x,y,d:Math.hypot(px-x,py-y)};
 }
 
-// Tratto percorribile più vicino a un punto (in auto solo tratti carrabili).
+// Tratto percorribile più vicino a un alba (in auto solo tratti carrabili).
 export function nearestEdge(graph,x,y,mode='car',max=60){
  let best=null;
  for(let id=0;id<graph.edges.length;id++){

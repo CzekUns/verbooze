@@ -1,11 +1,11 @@
 /* Q36 — officina di tuning dei veicoli posseduti (Q35): vernice, prestazioni, neon sottoscocca.
  * Vernice: solo i colori già disegnati dello STESSO modello (atlanti di car-sprites), nessun
- * tinting finto; le Panda hanno un solo colore e non si riverniciano (fallback dichiarato).
+ * tinting finto; le Borgo hanno un solo colore e non si riverniciano (fallback dichiarato).
  * Prestazioni: +5/+10/+15% di accelerazione e velocità massima, sempre calcolati sul profilo BASE
  * del modello (vehicle-handling BF05): mai moltiplicazioni cumulative, tetto al 15%.
  * Neon: bagliore colorato sotto la scocca, tenue di giorno e ben visibile di notte.
  * Si paga in euro di gioco del salvataggio (economia Q06); tutto resta nel posto del garage. */
-import {CAR_ATLAS_VARIANTS,EXTRA_CAR_VARIANTS,APE_CAR_VARIANTS} from './car-sprites.mjs?v=118';
+import {CAR_ATLAS_VARIANTS,EXTRA_CAR_VARIANTS,TRICYCLE_CAR_VARIANTS} from './car-sprites.mjs?v=1118';
 
 export const PERF_LEVELS=Object.freeze([0,5,10,15]);
 export const PERF_CAP=15;
@@ -15,7 +15,7 @@ export const PAINT_PRICE=150;
 export const NEON_PRICE=250;
 export const NEON_COLORS=Object.freeze({rosa:'255,70,200',azzurro:'70,200,255',verde:'90,255,130',viola:'170,100,255',arancio:'255,160,50'});
 
-const TABLES=[CAR_ATLAS_VARIANTS,EXTRA_CAR_VARIANTS,APE_CAR_VARIANTS];
+const TABLES=[CAR_ATLAS_VARIANTS,EXTRA_CAR_VARIANTS,TRICYCLE_CAR_VARIANTS];
 const variantOf=model=>{for(const t of TABLES)if(t[model])return {table:t,v:t[model]};return null;};
 // Colori disponibili per lo stesso modello (id sprite), quello attuale compreso.
 export function paintOptions(model){

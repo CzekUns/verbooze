@@ -1,15 +1,15 @@
-/* GTA Melito — BF02: fascia di sosta tra corsia e marciapiede.
+/* GAM Melito — BF02: fascia di sosta tra corsia e marciapiede.
  * Le baie sono ricavate nel sistema di coordinate del gioco dalle larghezze visive delle strade
  * (road-widths.mjs) sopra il grafo OSM: nessuna sagoma, ID, POI o distanza della cartografia
  * cambia. Uno stallo esiste solo dove c'è spazio reale: fuori dalla sagoma spazzata delle corsie,
  * prima della linea dei pedoni, lontano da incroci e strisce, edifici, negozi e banca.
  * Dove lo spazio non c'è (strade di servizio, vicoli) non c'è sosta. */
-import {roadTrafficLaneOffset} from './road-widths.mjs?v=044';
-import {vs,ps} from './world-scale.mjs?v=001';
+import {roadTrafficLaneOffset} from './road-widths.mjs?v=1044';
+import {vs,ps} from './world-scale.mjs?v=1001';
 
 export const BAY_RULES=Object.freeze({
  halfWidth:vs(1.7),halfLength:vs(3.15), // sagoma di collisione dell'auto (traffic-collision.mjs), BF14 in scala
- // BF14: mezza larghezza dell'auto COME DISEGNATA (Panda 5,5 in scala). Corsie e stalli si tengono
+ // BF14: mezza larghezza dell'auto COME DISEGNATA (Borgo 5,5 in scala). Corsie e stalli si tengono
  // distanti con le sagome disegnate, così né le auto in sosta né le linee bianche coprono il traffico.
  drawnHalf:vs(2.75),
  laneGap:.25,         // tra l'auto in marcia disegnata e quella in sosta disegnata

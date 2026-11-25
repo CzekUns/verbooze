@@ -1,13 +1,13 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
 import {readFile} from 'node:fs/promises';
-import {stepVehicle,handlingProfile,driveForce,gearAt,npcCruise,npcSpeedStep,APE_HANDLING,VAN_HANDLING,CAR_HANDLING,NPC_CRUISE_SHARE} from './vehicle-handling.mjs';
+import {stepVehicle,handlingProfile,driveForce,gearAt,npcCruise,npcSpeedStep,TRICYCLE_HANDLING,VAN_HANDLING,CAR_HANDLING,NPC_CRUISE_SHARE} from './vehicle-handling.mjs';
 import {buildRoadGraph,stepAgents} from './roads.mjs';
 
 const dt=1/60;
-const MODELS={panda:{model:'panda-modern-white'},pandaFire:{model:'panda-fire-red'},punto:{model:'punto-188-red'},ypsilon:{model:'ypsilon-2003-blue'},
- uno:{model:'fiat-uno-1983-white'},smart:{model:'smart-fortwo-2007-red'},seicento:{model:'seicento-1998-blue'},cinquecento:{model:'fiat-500-2007-white'},
- ape:{model:'ape-car-azzurra'},furgone:{model:'furgone-fritti'},scooter:{vehicleType:'motorcycle',model:'moto-scooter-sh-red'},moto:{vehicleType:'motorcycle',model:'moto-moto-sport-blue'}};
+const MODELS={borgo:{model:'borgo-nuova-white'},pandaFire:{model:'borgo-classica-red'},alba:{model:'alba-red'},luna:{model:'luna-blue'},
+ uno:{model:'riva-white'},mira:{model:'mira-red'},nido:{model:'nido-blue'},cinquecento:{model:'vela-white'},
+ triciclo:{model:'triciclo-car-azzurra'},furgone:{model:'furgone-fritti'},scooter:{vehicleType:'motorcycle',model:'moto-scooter-urbano-red'},moto:{vehicleType:'motorcycle',model:'moto-moto-sport-blue'}};
 const P=Object.fromEntries(Object.entries(MODELS).map(([k,v])=>[k,handlingProfile(v)]));
 function run(p,seconds,{y=-1,wet=0,from=0}={}){
  let s=from,a=0;const trace=[s];
@@ -30,19 +30,19 @@ test('BF05 soft start, smooth automatic progression and top speed respected for 
  }
 });
 
-test('BF05 models differ: pick-up order, Ape and vans clearly slower',()=>{
- const order=['moto','punto','ypsilon','panda','cinquecento','smart','seicento','pandaFire','uno'].map(k=>timeTo(P[k],20));
+test('BF05 models differ: pick-up order, Triciclo and vans clearly slower',()=>{
+ const order=['moto','alba','luna','borgo','cinquecento','mira','nido','pandaFire','uno'].map(k=>timeTo(P[k],20));
  for(let i=1;i<order.length;i++)assert.ok(order[i]>=order[i-1]-.02,'livelier models reach 20 first: '+order.map(t=>t.toFixed(2)).join(' '));
- assert.ok(timeTo(P.punto,20)<timeTo(P.uno,20)-.5,'a Punto is clearly livelier than an old Uno');
- for(const car of ['panda','pandaFire','uno','smart','seicento'])
-  for(const slow of ['ape','furgone'])assert.ok(at(run(P[slow],5),5)<at(run(P[car],5),5)-5,slow+' slower than '+car+' after 5 s');
- assert.ok(P.ape.top<P.furgone.top&&P.furgone.top<P.scooter.top,'Ape < van < scooter at the top end');
- assert.equal(handlingProfile({model:'ape-verde-pesce'}),APE_HANDLING,'market Ape too');
+ assert.ok(timeTo(P.punto,20)<timeTo(P.uno,20)-.5,'a Alba is clearly livelier than an old Uno');
+ for(const car of ['borgo','pandaFire','uno','mira','nido'])
+  for(const slow of ['triciclo','furgone'])assert.ok(at(run(P[slow],5),5)<at(run(P[car],5),5)-5,slow+' slower than '+car+' after 5 s');
+ assert.ok(P.triciclo.top<P.furgone.top&&P.furgone.top<P.scooter.top,'Triciclo < van < scooter at the top end');
+ assert.equal(handlingProfile({model:'triciclo-verde-pesce'}),TRICYCLE_HANDLING,'market Triciclo too');
  assert.equal(handlingProfile({model:'food-panini'}),VAN_HANDLING,'street-food van too');
 });
 
 test('BF05 implicit gears: shifts soften the push for a moment, never the speed',()=>{
- const p=P.panda;
+ const p=P.borgo;
  let last=gearAt(p,0).gear;
  for(let v=0;v<=p.top;v+=.25){const g=gearAt(p,v);assert.ok(g.gear>=last&&g.rpm>=0&&g.rpm<=1);last=g.gear;}
  assert.equal(gearAt(p,p.top).gear,(p.gears.length+1),'top gear at top speed');
@@ -59,33 +59,33 @@ test('BF05 brakes per model, longer in the wet; reverse and RETRO stay predictab
   assert.ok(dry>2&&dry<7,name+': braking distance from 20 '+dry.toFixed(1));
   assert.ok(wet>dry*1.1&&wet<dry*1.35,name+': a bit longer in the wet');
  }
- assert.ok(stop(P.moto)<stop(P.panda)&&stop(P.panda)<stop(P.furgone),'bike < car < van');
+ assert.ok(stop(P.moto)<stop(P.borgo)&&stop(P.borgo)<stop(P.furgone),'bike < car < van');
  // RETRO mentre si va avanti: prima frena, poi arretra senza saltare da avanti a indietro.
- const tr=run(P.panda,3,{y:1,from:8});
- for(let i=1;i<tr.length;i++)assert.ok(tr[i]<=tr[i-1]+1e-9&&tr[i-1]-tr[i]<=P.panda.brake*.5*dt+1e-6);
- assert.ok(tr.at(-1)<0&&tr.at(-1)>=-P.panda.reverse);
+ const tr=run(P.borgo,3,{y:1,from:8});
+ for(let i=1;i<tr.length;i++)assert.ok(tr[i]<=tr[i-1]+1e-9&&tr[i-1]-tr[i]<=P.borgo.brake*.5*dt+1e-6);
+ assert.ok(tr.at(-1)<0&&tr.at(-1)>=-P.borgo.reverse);
  // Gas mentre si arretra: si ferma e poi riparte in avanti.
- const back=run(P.panda,3,{from:-6});assert.ok(back[1]>back[0]&&back.at(-1)>0);
+ const back=run(P.borgo,3,{from:-6});assert.ok(back[1]>back[0]&&back.at(-1)>0);
  // Bagnato: in partenza la trazione è un po' minore, poi uguale.
- assert.ok(at(run(P.panda,1,{wet:1}),.5)<at(run(P.panda,1),.5));
+ assert.ok(at(run(P.borgo,1,{wet:1}),.5)<at(run(P.borgo,1),.5));
 });
 
 test('BF05 NPC cars follow their own model: cruise capped for slow vehicles, progressive restart after a stop',()=>{
- assert.equal(npcCruise(APE_HANDLING,12),APE_HANDLING.top*NPC_CRUISE_SHARE,'an Ape never cruises like a car');
+ assert.equal(npcCruise(TRICYCLE_HANDLING,12),TRICYCLE_HANDLING.top*NPC_CRUISE_SHARE,'an Triciclo never cruises like a car');
  assert.equal(npcCruise(CAR_HANDLING,12),12,'ordinary cars keep their cruise');
  let v=0;const seen=[];for(let i=0;i<120;i++){v=npcSpeedStep(CAR_HANDLING,v,12,.05);seen.push(v);}
  assert.ok(seen[4]<2.5,'after a stop an NPC restarts slowly: '+seen[4].toFixed(2));
  assert.ok(seen.at(-1)>11.5,'and reaches its cruise');
  const graph=buildRoadGraph([{id:1,t:'primary',w:13,p:[0,0,600,0]}]);
  const e=graph.trafficStarts[0];
- const npc={edge:e,t:.1,x:60,y:3.5,a:0,speed:12,seed:5,side:1,wait:0,body:'car',model:'panda-modern-white'};
+ const npc={edge:e,t:.1,x:60,y:3.5,a:0,speed:12,seed:5,side:1,wait:0,body:'car',model:'borgo-nuova-white'};
  const xs=[];for(let i=0;i<60;i++){stepAgents(graph,[npc],.05);xs.push(npc.x);}
  const step=xs.map((x,i)=>i?x-xs[i-1]:0);
  assert.ok(step[2]<.2,'first metres at walking pace');
  assert.ok(step.at(-1)>step[2]*2,'then it picks up speed');
- const ape={...npc,model:'ape-car-azzurra',x:60,t:.1,v:0};
- for(let i=0;i<400;i++)stepAgents(graph,[ape],.05);
- assert.ok(ape.v<=APE_HANDLING.top*NPC_CRUISE_SHARE+1e-9,'the traffic Ape stays slow');
+ const triciclo={...npc,model:'triciclo-car-azzurra',x:60,t:.1,v:0};
+ for(let i=0;i<400;i++)stepAgents(graph,[triciclo],.05);
+ assert.ok(triciclo.v<=TRICYCLE_HANDLING.top*NPC_CRUISE_SHARE+1e-9,'the traffic Triciclo stays slow');
 });
 
 test('BF05 wiring: roads.mjs uses the same profiles for NPCs; cache versions bumped',async()=>{

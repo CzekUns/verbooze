@@ -1,12 +1,12 @@
-/* GTA Melito 0.3 · fictional campaign grounded in REAL OSM landmarks.
+/* GAM Melito 0.3 · fictional campaign grounded in REAL OSM landmarks.
  * Locations come from the OSM map snapshot, names are not fabricated.
  * All characters, dialogues and jobs are fictional and unaffiliated with real businesses. */
-import {freshShopSave,sanitizeShopSave} from './local-shops.mjs?v=003';
-import {freshGarageSave,sanitizeGarageSave} from './garages.mjs?v=001';
-import {freshRiderSave,sanitizeRiderSave} from './rider.mjs?v=001';
+import {freshShopSave,sanitizeShopSave} from './local-shops.mjs?v=1003';
+import {freshGarageSave,sanitizeGarageSave} from './garages.mjs?v=1001';
+import {freshRiderSave,sanitizeRiderSave} from './rider.mjs?v=1001';
 // Q33: the calcetto record (wins / draws / losses only) lives in the same save, reset with it.
-import {freshFootballSave,sanitizeFootballSave} from './minigame-football.mjs?v=003';
-export const SAVE_KEY='gta-melito-campaign-v3';
+import {freshFootballSave,sanitizeFootballSave} from './minigame-football.mjs?v=1003';
+export const SAVE_KEY='gam-melito-campaign-v3';
 export const STORY=[
  {id:'primo-contatto',title:'01 · Il primo contatto',reward:75,time:0,
   intro:'Leggi il messaggio dal pannello Missioni su Via Roma per iniziare una piccola commissione.',
@@ -25,7 +25,7 @@ export const STORY=[
   intro:'Una staffetta di messaggi fittizi tra le zone commerciali della città.',
   steps:[
    {at:'piazza-immacolata',verb:'RITIRA',mode:'foot',speaker:'CONTATTO',text:'La staffetta parte da qui. Prima fermata: Sportello postale 01.'},
-   {at:'poste-1',verb:'REGISTRA',mode:'either',speaker:'RADIO',text:'Punto raggiunto. Ora attraversa il quartiere fino a Corso Europa.'},
+   {at:'poste-1',verb:'REGISTRA',mode:'either',speaker:'RADIO',text:'Alba raggiunto. Ora attraversa il quartiere fino a Corso Europa.'},
    {at:'corso-europa',verb:'INCONTRA',mode:'foot',speaker:'NICO',text:'Ci sei quasi. Chiudi il giro verso il secondo ufficio postale.'},
    {at:'poste-2',verb:'CONSEGNA',mode:'foot',speaker:'CONTATTO',text:'Staffetta completata. Melito è più grande di quanto sembri.'}
   ]},
@@ -91,7 +91,7 @@ export function resolveLandmarks(map,spawn){
     if(closest)anchor={x:closest.x,y:closest.y};
    }
   }
-  if(!anchor)throw Error('Punto geografico OSM mancante: '+def.match);
+  if(!anchor)throw Error('Alba geografico OSM mancante: '+def.match);
   const roadside=closestStreet(map.roads,anchor);
   if(!roadside)throw Error('Nessuna strada accessibile presso '+def.name);
   location={...def,x:roadside.x,y:roadside.y,anchorX:anchor.x,anchorY:anchor.y,roadName:roadside.roadName,fromPlace:Math.round(Math.sqrt(roadside.dd))};

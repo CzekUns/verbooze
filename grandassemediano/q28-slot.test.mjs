@@ -58,7 +58,7 @@ test('Q28 virtual only: no money, purchase or betting service anywhere in the mo
  const src=await readFile(new URL('./minigame-slot.mjs',import.meta.url),'utf8');
  assert.match(src,/SOLO CREDITI VIRTUALI DI GIOCO/);
  assert.doesNotMatch(src,/fetch\(|XMLHttpRequest|WebSocket|sendBeacon|€|progress\.money|paypal|stripe/i);
- assert.doesNotMatch(src,/localStorage\.setItem\('gta-melito-campaign/);
+ assert.doesNotMatch(src,/localStorage\.setItem\('gam-melito-campaign/);
 });
 
 test('Q28 pixel art: every symbol and the whole screen draw on a canvas without errors',()=>{

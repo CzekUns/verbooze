@@ -12,7 +12,7 @@
 <path d="M196 -20L185 350M-20 165L540 205" stroke="#cfbd84" stroke-width="1.5" stroke-dasharray="9 17" fill="none"/>
 <g transform="translate(195 180) rotate(18)"><rect x="-41" y="-22" width="82" height="44" rx="8" fill="#1b2523"/><rect x="-36" y="-17" width="72" height="34" rx="6" fill="#d65b4c"/><rect x="-10" y="-15" width="27" height="30" fill="#476674"/><path d="M-34 -14V14M34 -14V14" stroke="#ffe8ae" stroke-width="3"/></g>
 <rect x="18" y="22" width="360" height="50" fill="#17231fd9"/>
-<text x="28" y="57" font-family="monospace" font-size="38" font-weight="900" fill="#ffd477">GTA: MELITO</text>
+<text x="28" y="57" font-family="monospace" font-size="38" font-weight="900" fill="#ffd477">GAM: MELITO</text>
 <rect x="21" y="274" width="290" height="36" fill="#18231dd9"/>
-<text x="32" y="297" font-family="monospace" font-size="17" font-weight="bold" fill="#fff0bd">UNS ARCADE · TOP DOWN</text>
+<text x="32" y="297" font-family="monospace" font-size="17" font-weight="bold" fill="#fff0bd">VERBOOZE · TOP DOWN</text>
 </svg>

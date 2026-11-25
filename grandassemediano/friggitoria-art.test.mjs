@@ -4,8 +4,8 @@ import {readFile} from 'node:fs/promises';
 import {CAR_SPRITES,STREET_VENDOR_VEHICLES,CAR_TRAFFIC_SPRITE_IDS,drawCarSprite,carSpriteReady,loadCarSprites} from './car-sprites.mjs';
 import {FRYER_ATLAS_PATH,FRYER_CELL,drawFryerSprite,fryerSpriteReady,loadFryerSprite} from './friggitore-sprites.mjs';
 
-test('Ape and fritti van are 88×132 pixel transparent palette PNGs loaded from the game',async()=>{
- assert.deepEqual(STREET_VENDOR_VEHICLES,['ape-car-azzurra','furgone-fritti']);
+test('Triciclo and fritti van are 88×132 pixel transparent palette PNGs loaded from the game',async()=>{
+ assert.deepEqual(STREET_VENDOR_VEHICLES,['triciclo-car-azzurra','furgone-fritti']);
  for(const key of STREET_VENDOR_VEHICLES){
   assert.ok(CAR_TRAFFIC_SPRITE_IDS.includes(key));
   const file=await readFile(new URL(CAR_SPRITES[key],import.meta.url));
@@ -23,11 +23,11 @@ test('top-facing PNGs render at appropriate scale and orientation for street tra
  class Img{complete=true;naturalWidth=88;naturalHeight=132;set src(x){this._src=x;}}
  try{
   globalThis.Image=Img;loadCarSprites();
-  assert.equal(carSpriteReady('ape-car-azzurra'),true);
+  assert.equal(carSpriteReady('triciclo-car-azzurra'),true);
   assert.equal(carSpriteReady('furgone-fritti'),true);
   const ops=[],ctx={save(){},restore(){},translate(){},rotate(a){ops.push(['rotate',a]);},
    drawImage(...args){ops.push(['img',...args]);},strokeRect(){}};
-  assert.ok(drawCarSprite(ctx,0,0,0,'ape-car-azzurra'));
+  assert.ok(drawCarSprite(ctx,0,0,0,'triciclo-car-azzurra'));
   assert.equal(ops[0][1],Math.PI/2);
   assert.deepEqual(ops[1].slice(2),[-2.05,-3.125,4.1,6.25]);
   ops.length=0;
@@ -60,17 +60,17 @@ test('white-coated cook atlas supplies four walking directions and four actual f
  }finally{if(original===undefined)delete globalThis.Image;else globalThis.Image=original;}
 });
 
-test('city runtime integrates food-truck crews, professions and traffic Ape',async()=>{
+test('city runtime integrates food-truck crews, professions and traffic Triciclo',async()=>{
  const [game,art,html]=await Promise.all([
   readFile(new URL('./game.mjs',import.meta.url),'utf8'),
   readFile(new URL('./city-art.mjs',import.meta.url),'utf8'),
   readFile(new URL('./index.html',import.meta.url),'utf8')]);
- assert.match(game,/k===2\?'ape-car-azzurra':k===5\?'furgone-fritti'/);
+ assert.match(game,/k===2\?'triciclo-car-azzurra':k===5\?'furgone-fritti'/);
  assert.match(game,/loadFryerSprite\(\)/);
  assert.match(game,/loadProfessionSprites\(\)/);
  assert.match(game,/placeStreetFoodVendors\(state.graph,state.cars/);
  assert.match(game,/createStreetProfessionActors\(state.graph,state.foodVendors/);
- assert.match(game,/trafficApeModel\(i\)/);
+ assert.match(game,/trafficTricycleModel\(i\)/);
  assert.match(art,/drawProfessionSprite\(c,x,y,angle,p.profession/);
  assert.match(art,/drawFryerSprite\(c,x,y,angle,clock,moving,p.speed,p.seed\)/);
  assert.ok(Number((game.match(/car\-sprites\.mjs\?v=(\d+)/)||[])[1])>=108,'car-sprites.mjs almeno v=108');

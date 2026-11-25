@@ -34,7 +34,7 @@ test('swept vehicle pose strikes actors between the two simulation positions',()
  const person={x:7,y:0,body:'walk'};
  assert.equal(sweptVehicleContact(car,person,{x:0,y:0,a:0},{x:14,y:0,a:0}),true);
  assert.equal(sweptVehicleContact(car,{x:7,y:14,body:'walk'},{x:0,y:0,a:0},{x:14,y:0,a:0}),false);
- const parked={x:7,y:0,a:0,model:'panda-fire-red',speed:0};
+ const parked={x:7,y:0,a:0,model:'borgo-classica-red',speed:0};
  assert.equal(sweptVehicleContact(car,parked,{x:0,y:0,a:0},{x:14,y:0,a:0}),true);
  const hit=applyNonlethalImpact({...car,speed:28},parked,28);
  assert.ok(hit&&parked.impactTime>0,'parked cars can be pushed, too');
@@ -93,7 +93,7 @@ test('game hooks the knockback into driven car, NPC traffic and player on foot',
  assert.match(game,/sweptVehicleContact\(source,target,from,to\)/);
  assert.match(game,/stepAgents\(state\.graph,state\.people/);
  assert.match(game,/stepAgents\(state\.graph,state\.traffic/);
- assert.ok(Number((game.match(/impact-physics\.mjs\?v=(\d+)/)||[])[1])>=1,'impact-physics.mjs deve essere almeno alla v=001');
+ assert.ok(Number((game.match(/impact-physics\.mjs\?v=(\d+)/)||[])[1])>=1,'impact-physics.mjs deve essere almeno alla v=1');
 });
 
 test('never teleport a knocked NPC back home if the destination is on camera',()=>{

@@ -1,4 +1,4 @@
-/* GTA Melito — BF09 (20/10/2026): varchi di confine.
+/* GAM Melito — BF09 (20/10/2026): varchi di confine.
  * osm.mjs taglia le strade OSM sul confine ISTAT (clipPolyline): l'ultimo nodo di una strada
  * carrabile che finisce sul confine è un VARCO verso un altro comune. Un'auto NPC che arriva a
  * un varco in uscita prosegue nel buio oltre il taglio e sparisce (sparizione controllata);
@@ -7,8 +7,8 @@
  * sensi ammessi e coordinate WGS84. Il comune confinante NON è nei dati: il campo resta vuoto.
  * Grafica: le strade sono tagliate dritte lungo il confine e al varco un imbocco a trapezio
  * sfuma l'asfalto nell'area nera (niente più estremità arrotondate). */
-import {SIDEWALK_OUTER,SIDEWALK_SHADOW,SIDEWALK_KERB} from './sidewalk.mjs?v=099';
-import {roadTrafficLaneOffset} from './road-widths.mjs?v=044';
+import {SIDEWALK_OUTER,SIDEWALK_SHADOW,SIDEWALK_KERB} from './sidewalk.mjs?v=1099';
+import {roadTrafficLaneOffset} from './road-widths.mjs?v=1044';
 
 export const GATE_RULES=Object.freeze({
  tolerance:1.5,  // m: distanza massima dal confine dell'ultimo nodo (i tagli OSM sono a 0–0,05 m)

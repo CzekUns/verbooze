@@ -1,8 +1,8 @@
-import {sampleBalconySlabs,drawSampleBalconies} from './building-shape-sample.mjs?v=001';
+import {sampleBalconySlabs,drawSampleBalconies} from './building-shape-sample.mjs?v=1001';
 /* Approved aesthetic direction, first eight ordinary Via Roma buildings only.
  * Palette and facades are fictional styling, not photographic observations.
  * Footprints, height, collisions and the high top-down camera stay unchanged. */
-import {pointInFootprint} from './road-clearance.mjs?v=100';
+import {pointInFootprint} from './road-clearance.mjs?v=1100';
 
 const profiles={
  cream:{family:'palazzina',wall:'#d9cfb7',roof:'#aaa99d',shutter:'#405c50',balcony:'separate',pitched:false},

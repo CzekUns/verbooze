@@ -193,7 +193,7 @@ test('Q30 results only: saved once per finished game, no money, no betting, no n
  const src=await readFile(new URL('./minigame-pool.mjs',import.meta.url),'utf8');
  assert.match(src,/NIENTE DENARO E NIENTE SCOMMESSE/);
  assert.doesNotMatch(src,/fetch\(|XMLHttpRequest|WebSocket|sendBeacon|€|progress\.money|paypal|stripe|credits/i);
- assert.ok(!['gta-melito-slot-v1','gta-melito-poker-v1'].includes(POOL_SAVE_KEY));
+ assert.ok(!['gam-melito-slot-v1','gam-melito-poker-v1'].includes(POOL_SAVE_KEY));
 });
 
 test('Q30 pixel art: table, balls, cue, aim guide and the whole screen draw without errors',()=>{

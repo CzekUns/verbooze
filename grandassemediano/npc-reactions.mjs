@@ -1,6 +1,6 @@
-/* GTA Melito — Q13: reazioni dei passanti e del traffico.
+/* GAM Melito — Q13: reazioni dei passanti e del traffico.
  * - Scansarsi: un pedone sulla traiettoria di un mezzo in arrivo (traffico o giocatore, anche sul
- *   marciapiede) reagisce a gradi: si gira a guardarlo, affretta il passo, salta di lato su un punto
+ *   marciapiede) reagisce a gradi: si gira a guardarlo, affretta il passo, salta di lato su un alba
  *   calpestabile; poi torna al suo percorso con il recupero esistente. Cooldown per pedone.
  * - Varco: al cordolo di un incrocio e prima di attraversare a metà isolato il pedone aspetta che
  *   nessun mezzo in movimento arrivi entro il tempo che gli serve per passare.
@@ -8,8 +8,8 @@
  * - Vetrine: chi passa davanti a un negozio si ferma qualche secondo a guardare.
  * - Clacson NPC solo se a bloccare è il giocatore o un pedone in carreggiata; cooldown e limite.
  * Ogni posizione nuova passa da ctx.canStand: niente pedoni dentro muri o edifici. */
-import {lanePosition,DRIVABLE} from './roads.mjs?v=165';
-import {vehicleShape,vehicleHitsPedestrian} from './traffic-collision.mjs?v=131';
+import {lanePosition,DRIVABLE} from './roads.mjs?v=1165';
+import {vehicleShape,vehicleHitsPedestrian} from './traffic-collision.mjs?v=1131';
 
 const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
 const rand=n=>{const x=Math.sin(n*12.9898)*43758.5453;return x-Math.floor(x);};

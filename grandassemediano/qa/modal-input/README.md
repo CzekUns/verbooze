@@ -1,6 +1,6 @@
 # Comandi dietro le schermate — 24 novembre 2026
 
-Quattro difetti riprodotti con Chromium e tasti reali nella copia di Verbooze; stessa prova prima/dopo. L'harness posiziona il protagonista vicino alla Panda iniziale o all'ingresso Banca civica 01 per rendere i casi ripetibili.
+Quattro difetti riprodotti con Chromium e tasti reali nella copia di Verbooze; stessa prova prima/dopo. L'harness posiziona il protagonista vicino alla Borgo iniziale o all'ingresso Banca civica 01 per rendere i casi ripetibili.
 
 | Prova | Prima | Dopo |
 | --- | --- | --- |

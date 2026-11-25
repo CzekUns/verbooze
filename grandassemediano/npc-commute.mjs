@@ -7,13 +7,13 @@
  * Se lo scooter manca (rubato o portato via) se ne accorge, aspetta un po' e va a piedi su un
  * percorso di marciapiedi; al giro dopo riprende lo scooter se è tornato vicino a casa.
  * Nessun teletrasporto: ogni spostamento è continuo, anche nelle curve. */
-import {lanePosition} from './roads.mjs?v=165';
-import {trafficMoveBlocked,nearbyColliders,vehicleHitsPedestrian} from './traffic-collision.mjs?v=131';
-import {makeResidentAgenda,residentDepartureWindow} from './npc-agenda.mjs?v=002';
+import {lanePosition} from './roads.mjs?v=1165';
+import {trafficMoveBlocked,nearbyColliders,vehicleHitsPedestrian} from './traffic-collision.mjs?v=1131';
+import {makeResidentAgenda,residentDepartureWindow} from './npc-agenda.mjs?v=1002';
 const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
 export const COMMUTE_RULES=Object.freeze({walkSpeed:1.05,rideSpeed:9.5,rideAccel:5,parkSpeed:2.4,
  stay:[22,40],waitForBike:45,bikeNear:6,bikeHome:12,mountReach:.35});
-// Le vie OSM spesso si toccano senza condividere lo stesso punto: per i percorsi i nodi entro 6 m
+// Le vie OSM spesso si toccano senza condividere lo stesso alba: per i percorsi i nodi entro 6 m
 // contano come lo stesso incrocio (lo scooter e il pedone attraversano quel piccolo stacco in linea retta).
 export const SNAP_METRES=6;
 const snaps=new WeakMap();
@@ -96,7 +96,7 @@ function walkerBlocked(npc,next,index,ownBike){
  }
  return false;
 }
-// Passo a piedi in linea retta verso un punto: a passo d'uomo, solo su punti camminabili, fermo se un mezzo è davanti.
+// Passo a piedi in linea retta verso un alba: a passo d'uomo, solo su punti camminabili, fermo se un mezzo è davanti.
 function walkTowards(npc,target,dt,world){
  const dx=target.x-npc.x,dy=target.y-npc.y,d=Math.hypot(dx,dy),step=COMMUTE_RULES.walkSpeed*dt;
  if(d<=1e-6){npc.braking=true;return true;}

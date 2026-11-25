@@ -50,14 +50,14 @@ test('Q18 two new models, eight plain liveries each, not mixed into the car list
 });
 
 test('Q18 bodies: van fits a stall, truck longer; both pass a car parked in its bay and cross on a service street',()=>{
- const van=vehicleShape({model:'corriere-azzurro'}),truck=vehicleShape({model:'nettezza-bianco-verde'}),car=vehicleShape({model:'panda-modern-white'});
+ const van=vehicleShape({model:'corriere-azzurro'}),truck=vehicleShape({model:'nettezza-bianco-verde'}),car=vehicleShape({model:'borgo-nuova-white'});
  assert.ok(van.halfLength>car.halfLength&&van.halfLength*2<=BAY_RULES.stall,'a van fits one 7,2 m stall');
  assert.ok(truck.halfLength>van.halfLength&&truck.halfWidth>=car.halfWidth);
  for(const s of [van,truck])assert.ok(s.halfWidth<=(1.7+.25-.05)*VEHICLE_SCALE+1e-9,'its lane edge stays clear of the bay gap');
  assert.ok(truck.halfWidth*2<4.6,'two trucks still cross on a 4,6 m lane gap');
  // nose to tail in one lane: the truck body is really longer than a car's
- assert.equal(vehiclesOverlap({x:0,y:0,a:0,model:'nettezza-verde'},{x:8*VEHICLE_SCALE,y:0,a:0,model:'panda-modern-white'}),true);
- assert.equal(vehiclesOverlap({x:0,y:0,a:0,model:'panda-modern-white'},{x:8*VEHICLE_SCALE,y:0,a:0,model:'panda-modern-white'}),false);
+ assert.equal(vehiclesOverlap({x:0,y:0,a:0,model:'nettezza-verde'},{x:8*VEHICLE_SCALE,y:0,a:0,model:'borgo-nuova-white'}),true);
+ assert.equal(vehiclesOverlap({x:0,y:0,a:0,model:'borgo-nuova-white'},{x:8*VEHICLE_SCALE,y:0,a:0,model:'borgo-nuova-white'}),false);
 });
 
 test('Q18 handling: the van drives like a van, the refuse truck is slow, brakes long and turns wide',()=>{
@@ -84,7 +84,7 @@ test('Q18 game wiring: vans and trucks in traffic and in the stalls (truck only 
  assert.match(game,/i%31===20\?REFUSE_TRUCK_IDS\[/,'refuse trucks in NPC traffic');
  assert.match(game,/serviceFits\(REFUSE_TRUCK_IDS\[/,'a truck parks only where its body fits');
  assert.match(game,/fitsParkingBay\(state\.parkingBays,v,vehicleShape\(v\)\)&&!carBlocked\(v\.x,v\.y,v\.a,-1,v\)&&!state\.cars\.some\(o=>vehiclesOverlap\(v,o\)\)/);
- assert.match(game,/const ownBody=v=>!isMotorcycle\(v\)&&\/\^\(ape-\|corriere-\|nettezza-[^)]*\)\/\.test/,'van and truck keep their own body (Q19 may add more models)');
+ assert.match(game,/const ownBody=v=>!isMotorcycle\(v\)&&\/\^\(triciclo-\|corriere-\|nettezza-[^)]*\)\/\.test/,'van and truck keep their own body (Q19 may add more models)');
  assert.match(sprites,/'@service-atlas':SERVICE_ATLAS_PATH/);
  assert.match(sprites,/'corriere':\[7\.43,13\.14\],'nettezza':\[7\.43,13\.14\]/);
  assert.ok(Number((html.match(/game\.mjs\?v=(\d+)/)||[])[1])>=171);

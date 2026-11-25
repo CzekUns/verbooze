@@ -61,7 +61,7 @@ test('passaggi ogni 1–3 s, pausa vicino al giocatore, partita aperta sospende 
 
 test('codice collegato, nessun blocco del giocatore, NOVITÀ e registri',async()=>{
  const [game,html,novita,work,visual,approve]=await Promise.all(['game.mjs','index.html','novita.mjs','WORK_LOG.md','VISUAL_PROGRESS.md','NOVITA_DA_APPROVARE.md'].map(f=>readFile(new URL(f,import.meta.url),'utf8')));
- assert.match(game,/npc-giochi\.mjs\?v=002/);assert.match(game,/createNeighbourhoodGames\(\)/);
+ assert.match(game,/npc-giochi\.mjs\?v=1002/);assert.match(game,/createNeighbourhoodGames\(\)/);
  assert.match(game,/stepStreetGames\(state\.streetGames,elapsed/);assert.match(game,/drawStreetGames\(c,state\.streetGames/);
  assert.doesNotMatch(game,/makeCollisionIndex\([^\n]*streetGames/);
  assert.ok(Number(game.match(/novita\.mjs\?v=(\d+)/)?.[1])>=20);assert.ok(Number(html.match(/game\.mjs\?v=(\d+)/)?.[1])>=220);

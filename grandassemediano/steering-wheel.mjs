@@ -1,4 +1,4 @@
-/* GTA Melito — actual steering wheel. Pointer rotates the rim; it cannot
+/* GAM Melito — actual steering wheel. Pointer rotates the rim; it cannot
  * accelerate the vehicle. Angle is in radians, positive clockwise on screen. */
 export const WHEEL_MAX_ANGLE=Math.PI*0.84; // ±151.2 degrees of lock
 const clamp=(n,lo,hi)=>Math.max(lo,Math.min(hi,n));

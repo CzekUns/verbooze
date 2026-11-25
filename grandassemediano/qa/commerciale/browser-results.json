@@ -1,0 +1,64 @@
+{
+  "date": "2026-11-25T07:34:50.411Z",
+  "instrumented": true,
+  "results": [
+    {
+      "mode": "desktop",
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "checks": [
+        "loading + progress 100%",
+        "fullscreen enter/exit from visible button",
+        "walking via keyboard",
+        "NPC present + traffic advancing",
+        "car enter/drive/exit",
+        "motorcycle enter/drive/exit",
+        "walking collision against building",
+        "bank enter/exit",
+        "bar interior + counter purchase + exit",
+        "first message mission advances",
+        "mission + purchases saved",
+        "slot-panel open/play/exit",
+        "poker-panel open/play/exit",
+        "goriziana-panel open/exit",
+        "pool-panel open/exit",
+        "reload retains progress",
+        "no console errors, missing assets or external network requests"
+      ],
+      "errors": [],
+      "externalRequests": []
+    },
+    {
+      "mode": "mobile",
+      "viewport": {
+        "width": 844,
+        "height": 390
+      },
+      "checks": [
+        "loading + progress 100%",
+        "fullscreen enter/exit from visible button",
+        "walking via keyboard",
+        "NPC present + traffic advancing",
+        "car enter/drive/exit with pointer pedal",
+        "motorcycle enter/drive/exit with pointer pedal",
+        "walking collision against building",
+        "bank enter/exit",
+        "bar interior + counter purchase + exit",
+        "first message mission advances",
+        "mission + purchases saved",
+        "slot-panel open/play/exit",
+        "poker-panel open/play/exit",
+        "goriziana-panel open/exit",
+        "pool-panel open/exit",
+        "reload retains progress",
+        "mobile phone menu",
+        "mobile joystick pointer gesture",
+        "no console errors, missing assets or external network requests"
+      ],
+      "errors": [],
+      "externalRequests": []
+    }
+  ]
+}

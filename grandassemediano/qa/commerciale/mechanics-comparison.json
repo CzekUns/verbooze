@@ -1,0 +1,1375 @@
+{
+  "date": "2026-11-25T07:35:12.418Z",
+  "baseline": "83f47ee (before fictional fleet rename)",
+  "checkedVariants": 228,
+  "results": [
+    {
+      "model": "borgo-nuova-white",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "borgo-classica-red",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "triciclo-car-azzurra",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "furgone-fritti",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "alba-white",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "alba-red",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "alba-blue",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "alba-silver",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "alba-graphite",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "alba-black",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "alba-mint",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "alba-champagne",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "luna-white",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "luna-black",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "luna-silver",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "luna-graphite",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "luna-navy",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "luna-lightblue",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "luna-burgundy",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "luna-champagne",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "nido-white",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "nido-red",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "nido-blue",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "nido-silver",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "nido-black",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "nido-yellow",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "nido-green",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "nido-champagne",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "vela-white",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "vela-black",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "vela-red",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "vela-lightblue",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "vela-blue",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "vela-silver",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "vela-cream",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "vela-graphite",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "riva-white",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "riva-red",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "riva-blue",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "riva-silver",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "riva-graphite",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "riva-black",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "riva-green",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "riva-champagne",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "mira-white",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "mira-black",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "mira-red",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "mira-lightblue",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "mira-blue",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "mira-silver",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "mira-yellow",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "mira-green",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "aurora-white",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "aurora-red",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "aurora-blue",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "aurora-silver",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "aurora-graphite",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "aurora-black",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "aurora-lightblue",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "aurora-beige",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "selce-white",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "selce-red",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "selce-silver",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "selce-graphite",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "selce-black",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "selce-blue",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "selce-beige",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "selce-purple",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "corallo-white",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "corallo-silver",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "corallo-graphite",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "corallo-sand",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "corallo-bronze",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "corallo-red",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "corallo-blue",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "corallo-black",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "faro-white",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "faro-red",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "faro-silver",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "faro-graphite",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "faro-black",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "faro-blue",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "faro-yellow",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "faro-green",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "quarzo-white",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "quarzo-red",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "quarzo-blue",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "quarzo-silver",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "quarzo-graphite",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "quarzo-black",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "quarzo-yellow",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "quarzo-brown",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "onda-white",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "onda-red",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "onda-silver",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "onda-grey",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "onda-black",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "onda-nightblue",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "onda-pacificblue",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "onda-sunsetred",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "iris-white",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "iris-red",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "iris-blue",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "iris-silver",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "iris-graphite",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "iris-black",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "iris-yellow",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "iris-orange",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "sabbia-white",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "sabbia-red",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "sabbia-silver",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "sabbia-sharkgrey",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "sabbia-black",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "sabbia-virtualblue",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "sabbia-darkblue",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "sabbia-orangepower",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "altura-white",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "altura-red",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "altura-silver",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "altura-graphite",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "altura-black",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "altura-blue",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "altura-bronze",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "altura-burgundy",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "sentiero-white",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "sentiero-beige",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "sentiero-darkgreen",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "sentiero-silver",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "sentiero-graphite",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "sentiero-black",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "sentiero-blue",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "sentiero-brown",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "cargo-white",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "cargo-white-stripe",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "cargo-grey",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "cargo-blue",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "cargo-red",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "cargo-yellow",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "cargo-darkgreen",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "cargo-white-edilizia",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "bottega-white",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "bottega-white-stripe",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "bottega-grey",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "bottega-blue",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "bottega-red",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "bottega-yellow",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "bottega-darkgreen",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "bottega-white-frutta",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "triciclo-azzurra-vuota",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "triciclo-azzurra-ferro",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "triciclo-azzurra-ortofrutta",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "triciclo-azzurra-pesce",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "triciclo-verde-vuota",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "triciclo-verde-ferro",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "triciclo-verde-ortofrutta",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "triciclo-verde-pesce",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "food-zeppole-panzerotti",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "food-pere-e-musso",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "food-panini",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "food-hot-dog",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "food-cornetti",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "food-pizza-portafoglio",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "food-pizzette-fritte",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "food-misto",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "triciclo-classica-azzurra",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "triciclo-classica-verde",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "triciclo-classica-rossa",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "triciclo-classica-bianca",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "triciclo-classica-grigia",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "triciclo-classica-gialla",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "triciclo-classica-blu",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "triciclo-classica-crema",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "triciclo-vissuta-azzurra",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "triciclo-vissuta-verde",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "triciclo-vissuta-rossa",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "triciclo-vissuta-bianca",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "triciclo-vissuta-grigia",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "triciclo-vissuta-gialla",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "triciclo-vissuta-blu",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "triciclo-vissuta-crema",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "corriere-bianco",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "corriere-bianco-fascia-blu",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "corriere-bianco-fascia-verde",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "corriere-argento",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "corriere-grigio-scuro",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "corriere-blu-notte",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "corriere-azzurro",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "corriere-bianco-vissuto",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "nettezza-verde",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "nettezza-bianco-verde",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "nettezza-bianco-blu",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "nettezza-arancio",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "nettezza-grigio",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "nettezza-verde-scuro",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "nettezza-bianco-arancio",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "nettezza-verde-vissuto",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "attrezzi-giallo",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "attrezzi-arancio",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "attrezzi-bianco-rosso",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "attrezzi-rosso",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "attrezzi-blu",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "attrezzi-bianco",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "attrezzi-grigio-arancio",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "attrezzi-giallo-vissuto",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "autobus-arancio",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "autobus-verde-bianco",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "autobus-blu-bianco",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "autobus-rosso",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "autobus-bianco-azzurro",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "autobus-giallo",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "autobus-grigio-verde",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "autobus-arancio-vissuto",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": true
+    },
+    {
+      "model": "moto-scooter-urbano-white",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": "separate motorcycle renderer"
+    },
+    {
+      "model": "moto-scooter-urbano-red",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": "separate motorcycle renderer"
+    },
+    {
+      "model": "moto-scooter-urbano-black",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": "separate motorcycle renderer"
+    },
+    {
+      "model": "moto-scooter-urbano-blue",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": "separate motorcycle renderer"
+    },
+    {
+      "model": "moto-scooter-retro-white",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": "separate motorcycle renderer"
+    },
+    {
+      "model": "moto-scooter-retro-red",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": "separate motorcycle renderer"
+    },
+    {
+      "model": "moto-scooter-retro-black",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": "separate motorcycle renderer"
+    },
+    {
+      "model": "moto-scooter-retro-blue",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": "separate motorcycle renderer"
+    },
+    {
+      "model": "moto-moto-naked-white",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": "separate motorcycle renderer"
+    },
+    {
+      "model": "moto-moto-naked-red",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": "separate motorcycle renderer"
+    },
+    {
+      "model": "moto-moto-naked-black",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": "separate motorcycle renderer"
+    },
+    {
+      "model": "moto-moto-naked-blue",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": "separate motorcycle renderer"
+    },
+    {
+      "model": "moto-moto-sport-white",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": "separate motorcycle renderer"
+    },
+    {
+      "model": "moto-moto-sport-red",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": "separate motorcycle renderer"
+    },
+    {
+      "model": "moto-moto-sport-black",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": "separate motorcycle renderer"
+    },
+    {
+      "model": "moto-moto-sport-blue",
+      "handlingUnchanged": true,
+      "collisionUnchanged": true,
+      "worldSizeUnchanged": "separate motorcycle renderer"
+    }
+  ]
+}
