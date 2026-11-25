@@ -1,0 +1,25 @@
+name: GAM regression checks
+on:
+  push:
+    paths:
+      - 'grandassemediano/**'
+      - '.github/workflows/gam-checks.yml'
+  pull_request:
+    paths:
+      - 'grandassemediano/**'
+      - '.github/workflows/gam-checks.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  regression:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Check browser entry syntax
+        run: node --check grandassemediano/game.mjs
+      - name: Run regression suite
+        run: node --test grandassemediano/*.test.mjs grandassemediano/survey/*.test.mjs
