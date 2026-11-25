@@ -1,4 +1,5 @@
 path,bytes,sha256,group,provenance,rights_status
+../assets/gam-hero.webp,265512,3d049646001592c6ee9c6494d225e1ff9e7593b57dea4b33eeee134fe3d8512a,landing,Artwork Verbooze/GAM approvato; invariato,BLOCCANTE: archiviare originale e attestazione dei diritti
 assets/animals/gatti-12x8.png,509,c19cc00b1b2c5c6e4b47f56b6bfc4c5d0ae57abd5116aea306477e0474d11323,animals,Importato: provenienza e concessione commerciale da documentare,BLOCCANTE: catena dei diritti non completa
 assets/animals/piccioni-8x8.png,333,ccebf21860f91e7699fe36dfce34b97914f619ffa035141ca4a2364380fff8d3,animals,Importato: provenienza e concessione commerciale da documentare,BLOCCANTE: catena dei diritti non completa
 assets/animals/sources/animali-genera.py,4274,85552aaceecddf8cc7650e90fc0f3ad6a45ae3d2f28fcb159f21d2e4b31d90bc,animals,Sorgente/note del collaboratore importati dalla cronologia,BLOCCANTE: confermare titolarità e concessioni dei contributi
@@ -148,4 +149,4 @@ assets/vehicles/sources/servizio2-16-sheet.png,25531,29a25c7b669bb18d3ee01340e81
 assets/vehicles/triciclo-car-top.png,2069,57e1dae7b716765a87260fcc522caac8e87e198349c5436329d769768afafed2,vehicles,"ImageGen in questa sessione, 2026-11-25; master nuovi e packing riproducibile",GENERATO: conservare record e verificare diritti terzi/trade dress
 assets/vehicles/triciclo-classica-16-rgba.png,31732,e5039e185cfe67a6e5927d8b5e34d32a1a497fce20d0839900a28c0613c865e2,vehicles,"ImageGen in questa sessione, 2026-11-25; master nuovi e packing riproducibile",GENERATO: conservare record e verificare diritti terzi/trade dress
 assets/vehicles/triciclo-food-16-rgba.png,3849,ff76cf5aa863ab0da974828bb39506014880388392e8d3490e6cd7ed3f8f79b6,vehicles,"ImageGen in questa sessione, 2026-11-25; master nuovi e packing riproducibile",GENERATO: conservare record e verificare diritti terzi/trade dress
-../assets/gam-hero.webp,265512,3d049646001592c6ee9c6494d225e1ff9e7593b57dea4b33eeee134fe3d8512a,landing,Artwork Verbooze/GAM approvato; invariato,BLOCCANTE: archiviare originale e attestazione dei diritti
+cover.svg,1717,d39d49a6a6c21cdf064266a575aa8d749db55606a7c9358a96ce62d21569457e,cover,Importato: origine e concessione da documentare,BLOCCANTE: catena dei diritti non completa

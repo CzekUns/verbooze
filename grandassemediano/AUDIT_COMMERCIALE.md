@@ -46,7 +46,7 @@ Verifiche su fonti primarie il 25 novembre 2026; le condizioni vanno ricontrolla
 
 ## Inventario e revisione visiva
 
-[asset-rights-inventory.csv](./asset-rights-inventory.csv) registra ogni file di asset e sorgente con percorso, dimensione, SHA-256, gruppo, provenienza dichiarata e stato dei diritti. È un inventario verificabile, non un'attribuzione automatica di proprietà. Include anche l'artwork della landing. Gli elementi storici senza concessione completa sono esplicitamente marcati **BLOCCANTE**.
+[asset-rights-inventory.csv](./asset-rights-inventory.csv) registra ogni file di asset e sorgente con percorso, dimensione, SHA-256, gruppo, provenienza dichiarata e stato dei diritti. È un inventario verificabile, non un'attribuzione automatica di proprietà. Include anche l'artwork della landing e la copertina SVG preesistente (non usata per sostituire veicoli). Aggiornamento riproducibile: `python3 grandassemediano/scripts/inventory-rights.py`; i nuovi file partono come bloccanti, mai automaticamente autorizzati. Gli elementi storici senza concessione completa sono esplicitamente marcati **BLOCCANTE**.
 
 Ispezionati i master nuovi e le tavole degli atlanti; riviste per contatto le altre immagini (persone, animali, banchi, ritratti, monumenti e caricamento). Questa revisione a miniature non equivale a controllare ogni pixel di ogni frame o a una ricerca di similarità/marchi. Nessuna registrazione audio o font incorporato trovato nell'albero corrente degli asset. Vecchi PNG/JPG di caricamento e immagini di QA sono stati rimossi dall'albero corrente per non redistribuire versioni obsolete; la cronologia pubblica git continua a conservarli e **non è stata riscritta**.
 

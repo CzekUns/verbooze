@@ -1397,3 +1397,5 @@ laude (account `ilconsulentelogistico-hue`) — Q02 collaudata e chiusa
 - Consultare `AUDIT_COMMERCIALE.md`: titolarità di asset/contributi, origine esatta di alcuni rilievi e valutazione di segni distintivi restano bloccanti. Questa bonifica non certifica conformità legale. Nessuna modifica a Effettokarmagra o alla visibilità Verbooze.
 
 Confronto indipendente pre/post: 228 varianti con profili di guida, dimensioni di collisione e ingombri di disegno invariati; rapporto `qa/commerciale/mechanics-comparison.json`.
+
+Completato l’inventario anche per la copertina SVG preesistente fuori dalla cartella assets; verificati 151 file con hash e dimensioni. Aggiunto il comando riproducibile `scripts/inventory-rights.py`, che non attribuisce licenze ai nuovi file.
